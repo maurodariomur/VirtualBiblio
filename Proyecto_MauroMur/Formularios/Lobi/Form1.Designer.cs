@@ -310,7 +310,7 @@
             Lfecha.AutoSize = true;
             Lfecha.BackColor = Color.Transparent;
             Lfecha.Font = new Font("Bookman Old Style", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            Lfecha.ForeColor = Color.DimGray;
+            Lfecha.ForeColor = Color.BlueViolet;
             Lfecha.Location = new Point(154, 335);
             Lfecha.Name = "Lfecha";
             Lfecha.Size = new Size(86, 28);
@@ -326,7 +326,7 @@
             Lhora.BackColor = Color.Transparent;
             Lhora.FlatStyle = FlatStyle.Flat;
             Lhora.Font = new Font("Stencil", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            Lhora.ForeColor = Color.DimGray;
+            Lhora.ForeColor = Color.BlueViolet;
             Lhora.Location = new Point(311, 301);
             Lhora.Name = "Lhora";
             Lhora.Size = new Size(129, 38);
