@@ -40,6 +40,7 @@
             btnminimizar = new PictureBox();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
+            iconEye = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btncerrar).BeginInit();
@@ -82,6 +83,7 @@
             TUsuario.Size = new Size(421, 20);
             TUsuario.TabIndex = 1;
             TUsuario.Text = "Usuario";
+            TUsuario.TextChanged += TUsuario_TextChanged;
             TUsuario.Enter += TUsuario_Enter;
             TUsuario.Leave += TUsuario_Leave;
             // 
@@ -93,10 +95,12 @@
             TContraseña.ForeColor = SystemColors.ControlText;
             TContraseña.Location = new Point(294, 158);
             TContraseña.Name = "TContraseña";
-            TContraseña.Size = new Size(421, 20);
+            TContraseña.Size = new Size(405, 20);
             TContraseña.TabIndex = 2;
             TContraseña.Text = "Contraseña";
+            TContraseña.TextChanged += TContraseña_TextChanged;
             TContraseña.Enter += TContraseña_Enter;
+            TContraseña.KeyPress += TContraseña_KeyPress;
             TContraseña.Leave += TContraseña_Leave;
             // 
             // LTitlelogin
@@ -124,6 +128,7 @@
             BLogin.TabIndex = 3;
             BLogin.Text = "Iniciar Sesion";
             BLogin.UseVisualStyleBackColor = false;
+            BLogin.Click += BLogin_Click;
             BLogin.KeyPress += BLogin_KeyPress;
             // 
             // LSesion
@@ -182,12 +187,30 @@
             pictureBox2.TabIndex = 9;
             pictureBox2.TabStop = false;
             // 
+            // iconEye
+            // 
+            iconEye.BackColor = Color.Transparent;
+            iconEye.FlatAppearance.BorderSize = 0;
+            iconEye.FlatStyle = FlatStyle.Flat;
+            iconEye.ForeColor = SystemColors.ControlDark;
+            iconEye.IconChar = FontAwesome.Sharp.IconChar.EyeSlash;
+            iconEye.IconColor = Color.DarkGray;
+            iconEye.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconEye.IconSize = 23;
+            iconEye.Location = new Point(705, 158);
+            iconEye.Name = "iconEye";
+            iconEye.Size = new Size(24, 23);
+            iconEye.TabIndex = 10;
+            iconEye.UseVisualStyleBackColor = false;
+            iconEye.Click += iconEye_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(249, 249, 249);
             ClientSize = new Size(780, 330);
+            Controls.Add(iconEye);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(btnminimizar);
@@ -228,5 +251,6 @@
         private PictureBox btnminimizar;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private FontAwesome.Sharp.IconButton iconEye;
     }
 }

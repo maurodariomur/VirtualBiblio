@@ -1,5 +1,7 @@
 using Proyecto_MauroMur.Peticiones;
+using Proyecto_MauroMur.Modelos;
 using System.Runtime.InteropServices;//biblioteca que permite arrastar el formulario
+using Proyecto_MauroMur.Formularios.Lobi;
 
 namespace Proyecto_MauroMur
 {
@@ -93,6 +95,60 @@ namespace Proyecto_MauroMur
         }
 
         private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TUsuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BLogin_Click(object sender, EventArgs e)
+        {
+            string usuario = TUsuario.Text;
+            string contraseña = TContraseña.Text;
+
+            try
+            {
+                PeticionUsuarios peticionUsuarios = new PeticionUsuarios();
+                List<User> usuarios = peticionUsuarios.obtenerUsuarios();
+
+                User usuarioEncontrado = usuarios.FirstOrDefault(u => u.Usuario == usuario && u.Pass == contraseña);
+
+
+                if (usuarioEncontrado != null)
+                {
+                    MessageBox.Show("Inicio de sesión exitoso");
+                    FLobi lobi = new FLobi();
+                    lobi.Show(); // Mostrar el formulario FLobi
+                    this.Hide(); // Ocultar el formulario de inicio de sesión actual
+
+                }
+                else
+                {
+                    MessageBox.Show("Credenciales inválidas. Por favor, intenta nuevamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de la excepción: muestra un mensaje de error o realiza otra acción apropiada
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void iconEye_Click(object sender, EventArgs e)
+        {
+            TContraseña.UseSystemPasswordChar = !TContraseña.UseSystemPasswordChar;
+        }
+
+        private void TContraseña_TextChanged(object sender, EventArgs e)
+        {
+            // Mostrar el botón IconEye solo si hay texto en el campo de contraseña
+            iconEye.Visible = !string.IsNullOrEmpty(TContraseña.Text);
+        }
+
+        private void TContraseña_KeyPress(object sender, KeyPressEventArgs e)
         {
 
         }
