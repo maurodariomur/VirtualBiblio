@@ -97,22 +97,24 @@ namespace Proyecto_MauroMur.Formularios.Lobi
             OpenChildForm(new SeccionesAdmin.CUsuarios());
         }
 
-        private void iconProductos_Click(object sender, EventArgs e)
+        private void iconEstadistica_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new SeccionesAdmin.CProductos());
+            OpenChildForm(new SeccionesAdmin.CEstadistica());
         }
 
-        private void iconConsultas_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color3);
-            OpenChildForm(new SeccionesAdmin.CConsultas());
-        }
-
-        private void iconVentas_Click(object sender, EventArgs e)
+        private void iconExit_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
-            OpenChildForm(new SeccionesAdmin.CVentas());
+            DialogResult salida = MessageBox.Show("Estas seguro que desea salir","Salir",MessageBoxButtons.OKCancel,MessageBoxIcon.Information,MessageBoxDefaultButton.Button2);
+            if (salida == DialogResult.OK) 
+            {
+                Login login = new();
+                login.Show();
+                this.Hide();
+            }
+           
+
         }
 
         private void btnInicio_Click(object sender, EventArgs e)
@@ -121,7 +123,7 @@ namespace Proyecto_MauroMur.Formularios.Lobi
             {
                 currentChildForm.Close();
                 Reset();
-            }            
+            }
         }
 
         private void Reset()

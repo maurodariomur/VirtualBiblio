@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin
 {
-    partial class CProductos
+    partial class CEstadistica
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             SuspendLayout();
             // 
-            // CProductos
+            // CEstadistica
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Name = "CProductos";
-            Text = "Productos";
+            Name = "CEstadistica";
+            Text = "Estadisticas";
             ResumeLayout(false);
         }
 

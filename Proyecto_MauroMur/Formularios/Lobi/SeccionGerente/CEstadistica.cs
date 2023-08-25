@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin
 {
-    public partial class CConsultas : Form
+    public partial class CEstadistica : Form
     {
-        public CConsultas()
+        public CEstadistica()
         {
             InitializeComponent();
         }

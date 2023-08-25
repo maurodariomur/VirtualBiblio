@@ -32,7 +32,5 @@ C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0
 C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Properties.Resources.resources
 C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\bin\Debug\net7.0-windows\FontAwesome.Sharp.dll
 C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.FLobi.resources
-C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CConsultas.resources
-C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CProductos.resources
 C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CUsuarios.resources
-C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CVentas.resources
+C:\Users\mauro\source\repos\Proyecto_MauroMur\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CEstadistica.resources

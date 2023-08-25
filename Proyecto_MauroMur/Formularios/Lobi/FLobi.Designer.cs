@@ -31,9 +31,8 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FLobi));
             panelMenu = new Panel();
-            iconVentas = new FontAwesome.Sharp.IconButton();
-            iconConsultas = new FontAwesome.Sharp.IconButton();
-            iconProductos = new FontAwesome.Sharp.IconButton();
+            iconExit = new FontAwesome.Sharp.IconButton();
+            iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconUsuarios = new FontAwesome.Sharp.IconButton();
             panelLogo = new Panel();
             btnInicio = new PictureBox();
@@ -61,9 +60,8 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(0, 23, 25);
-            panelMenu.Controls.Add(iconVentas);
-            panelMenu.Controls.Add(iconConsultas);
-            panelMenu.Controls.Add(iconProductos);
+            panelMenu.Controls.Add(iconExit);
+            panelMenu.Controls.Add(iconEstadistica);
             panelMenu.Controls.Add(iconUsuarios);
             panelMenu.Controls.Add(panelLogo);
             panelMenu.Dock = DockStyle.Left;
@@ -73,77 +71,53 @@
             panelMenu.TabIndex = 0;
             panelMenu.Paint += panelMenu_Paint;
             // 
-            // iconVentas
+            // iconExit
             // 
-            iconVentas.BackColor = Color.FromArgb(0, 23, 25);
-            iconVentas.Dock = DockStyle.Top;
-            iconVentas.FlatAppearance.BorderSize = 0;
-            iconVentas.FlatStyle = FlatStyle.Flat;
-            iconVentas.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            iconVentas.ForeColor = Color.Gainsboro;
-            iconVentas.IconChar = FontAwesome.Sharp.IconChar.HandHoldingUsd;
-            iconVentas.IconColor = Color.Gainsboro;
-            iconVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconVentas.IconSize = 32;
-            iconVentas.ImageAlign = ContentAlignment.MiddleLeft;
-            iconVentas.Location = new Point(0, 320);
-            iconVentas.Name = "iconVentas";
-            iconVentas.Padding = new Padding(10, 0, 20, 0);
-            iconVentas.Size = new Size(220, 60);
-            iconVentas.TabIndex = 4;
-            iconVentas.Text = "Ventas";
-            iconVentas.TextAlign = ContentAlignment.MiddleLeft;
-            iconVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconVentas.UseVisualStyleBackColor = false;
-            iconVentas.Click += iconVentas_Click;
+            iconExit.BackColor = Color.FromArgb(0, 23, 25);
+            iconExit.Dock = DockStyle.Top;
+            iconExit.FlatAppearance.BorderSize = 0;
+            iconExit.FlatStyle = FlatStyle.Flat;
+            iconExit.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconExit.ForeColor = Color.Gainsboro;
+            iconExit.IconChar = FontAwesome.Sharp.IconChar.RightToBracket;
+            iconExit.IconColor = Color.Gainsboro;
+            iconExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconExit.IconSize = 32;
+            iconExit.ImageAlign = ContentAlignment.MiddleLeft;
+            iconExit.Location = new Point(0, 260);
+            iconExit.Name = "iconExit";
+            iconExit.Padding = new Padding(10, 0, 20, 0);
+            iconExit.Size = new Size(220, 60);
+            iconExit.TabIndex = 4;
+            iconExit.Text = "Salir";
+            iconExit.TextAlign = ContentAlignment.MiddleLeft;
+            iconExit.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconExit.UseVisualStyleBackColor = false;
+            iconExit.Click += iconExit_Click;
             // 
-            // iconConsultas
+            // iconEstadistica
             // 
-            iconConsultas.BackColor = Color.FromArgb(0, 23, 25);
-            iconConsultas.Dock = DockStyle.Top;
-            iconConsultas.FlatAppearance.BorderSize = 0;
-            iconConsultas.FlatStyle = FlatStyle.Flat;
-            iconConsultas.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            iconConsultas.ForeColor = Color.Gainsboro;
-            iconConsultas.IconChar = FontAwesome.Sharp.IconChar.EnvelopeOpenText;
-            iconConsultas.IconColor = Color.Gainsboro;
-            iconConsultas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconConsultas.IconSize = 32;
-            iconConsultas.ImageAlign = ContentAlignment.MiddleLeft;
-            iconConsultas.Location = new Point(0, 260);
-            iconConsultas.Name = "iconConsultas";
-            iconConsultas.Padding = new Padding(10, 0, 20, 0);
-            iconConsultas.Size = new Size(220, 60);
-            iconConsultas.TabIndex = 3;
-            iconConsultas.Text = "Consultas";
-            iconConsultas.TextAlign = ContentAlignment.MiddleLeft;
-            iconConsultas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconConsultas.UseVisualStyleBackColor = false;
-            iconConsultas.Click += iconConsultas_Click;
-            // 
-            // iconProductos
-            // 
-            iconProductos.BackColor = Color.FromArgb(0, 23, 25);
-            iconProductos.Dock = DockStyle.Top;
-            iconProductos.FlatAppearance.BorderSize = 0;
-            iconProductos.FlatStyle = FlatStyle.Flat;
-            iconProductos.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            iconProductos.ForeColor = Color.Gainsboro;
-            iconProductos.IconChar = FontAwesome.Sharp.IconChar.CartArrowDown;
-            iconProductos.IconColor = Color.Gainsboro;
-            iconProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconProductos.IconSize = 32;
-            iconProductos.ImageAlign = ContentAlignment.MiddleLeft;
-            iconProductos.Location = new Point(0, 200);
-            iconProductos.Name = "iconProductos";
-            iconProductos.Padding = new Padding(10, 0, 20, 0);
-            iconProductos.Size = new Size(220, 60);
-            iconProductos.TabIndex = 2;
-            iconProductos.Text = "Productos";
-            iconProductos.TextAlign = ContentAlignment.MiddleLeft;
-            iconProductos.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconProductos.UseVisualStyleBackColor = false;
-            iconProductos.Click += iconProductos_Click;
+            iconEstadistica.BackColor = Color.FromArgb(0, 23, 25);
+            iconEstadistica.Dock = DockStyle.Top;
+            iconEstadistica.FlatAppearance.BorderSize = 0;
+            iconEstadistica.FlatStyle = FlatStyle.Flat;
+            iconEstadistica.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconEstadistica.ForeColor = Color.Gainsboro;
+            iconEstadistica.IconChar = FontAwesome.Sharp.IconChar.SquarePollVertical;
+            iconEstadistica.IconColor = Color.Gainsboro;
+            iconEstadistica.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconEstadistica.IconSize = 32;
+            iconEstadistica.ImageAlign = ContentAlignment.MiddleLeft;
+            iconEstadistica.Location = new Point(0, 200);
+            iconEstadistica.Name = "iconEstadistica";
+            iconEstadistica.Padding = new Padding(10, 0, 20, 0);
+            iconEstadistica.Size = new Size(220, 60);
+            iconEstadistica.TabIndex = 2;
+            iconEstadistica.Text = "Estadisticas";
+            iconEstadistica.TextAlign = ContentAlignment.MiddleLeft;
+            iconEstadistica.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconEstadistica.UseVisualStyleBackColor = false;
+            iconEstadistica.Click += iconEstadistica_Click;
             // 
             // iconUsuarios
             // 
@@ -151,7 +125,7 @@
             iconUsuarios.Dock = DockStyle.Top;
             iconUsuarios.FlatAppearance.BorderSize = 0;
             iconUsuarios.FlatStyle = FlatStyle.Flat;
-            iconUsuarios.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconUsuarios.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             iconUsuarios.ForeColor = Color.Gainsboro;
             iconUsuarios.IconChar = FontAwesome.Sharp.IconChar.User;
             iconUsuarios.IconColor = Color.Gainsboro;
@@ -269,11 +243,11 @@
             // 
             lbTitleCurrentForm.AutoSize = true;
             lbTitleCurrentForm.BackColor = Color.Transparent;
-            lbTitleCurrentForm.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lbTitleCurrentForm.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             lbTitleCurrentForm.ForeColor = Color.Gainsboro;
             lbTitleCurrentForm.Location = new Point(53, 35);
             lbTitleCurrentForm.Name = "lbTitleCurrentForm";
-            lbTitleCurrentForm.Size = new Size(51, 21);
+            lbTitleCurrentForm.Size = new Size(46, 20);
             lbTitleCurrentForm.TabIndex = 1;
             lbTitleCurrentForm.Text = "Inicio";
             // 
@@ -309,11 +283,11 @@
             Lfecha.Anchor = AnchorStyles.None;
             Lfecha.AutoSize = true;
             Lfecha.BackColor = Color.Transparent;
-            Lfecha.Font = new Font("Bookman Old Style", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            Lfecha.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
             Lfecha.ForeColor = Color.BlueViolet;
             Lfecha.Location = new Point(154, 335);
             Lfecha.Name = "Lfecha";
-            Lfecha.Size = new Size(86, 28);
+            Lfecha.Size = new Size(85, 29);
             Lfecha.TabIndex = 4;
             Lfecha.Text = "label1";
             Lfecha.TextAlign = ContentAlignment.MiddleCenter;
@@ -325,11 +299,11 @@
             Lhora.AutoSize = true;
             Lhora.BackColor = Color.Transparent;
             Lhora.FlatStyle = FlatStyle.Flat;
-            Lhora.Font = new Font("Stencil", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            Lhora.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
             Lhora.ForeColor = Color.BlueViolet;
             Lhora.Location = new Point(311, 301);
             Lhora.Name = "Lhora";
-            Lhora.Size = new Size(129, 38);
+            Lhora.Size = new Size(100, 37);
             Lhora.TabIndex = 3;
             Lhora.Text = "label1";
             Lhora.TextAlign = ContentAlignment.MiddleCenter;
@@ -380,9 +354,8 @@
         private Panel panelMenu;
         private Panel panelLogo;
         private NotifyIcon notifyIcon1;
-        private FontAwesome.Sharp.IconButton iconVentas;
-        private FontAwesome.Sharp.IconButton iconConsultas;
-        private FontAwesome.Sharp.IconButton iconProductos;
+        private FontAwesome.Sharp.IconButton iconExit;
+        private FontAwesome.Sharp.IconButton iconEstadistica;
         private FontAwesome.Sharp.IconButton iconUsuarios;
         private PictureBox btnInicio;
         private Panel panelTitleBar;

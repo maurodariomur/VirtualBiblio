@@ -127,6 +127,7 @@ namespace Proyecto_MauroMur
                 }
                 else
                 {
+                    lblError.Visible = true;
                     MessageBox.Show("Credenciales inválidas. Por favor, intenta nuevamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -149,6 +150,11 @@ namespace Proyecto_MauroMur
         }
 
         private void TContraseña_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void lblError_Click(object sender, EventArgs e)
         {
 
         }

@@ -41,6 +41,7 @@
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             iconEye = new FontAwesome.Sharp.IconButton();
+            lblError = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btncerrar).BeginInit();
@@ -76,11 +77,11 @@
             // 
             TUsuario.BackColor = Color.FromArgb(249, 249, 249);
             TUsuario.BorderStyle = BorderStyle.None;
-            TUsuario.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            TUsuario.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             TUsuario.ForeColor = SystemColors.ControlText;
             TUsuario.Location = new Point(294, 93);
             TUsuario.Name = "TUsuario";
-            TUsuario.Size = new Size(421, 20);
+            TUsuario.Size = new Size(421, 19);
             TUsuario.TabIndex = 1;
             TUsuario.Text = "Usuario";
             TUsuario.TextChanged += TUsuario_TextChanged;
@@ -91,11 +92,11 @@
             // 
             TContraseña.BackColor = Color.FromArgb(249, 249, 249);
             TContraseña.BorderStyle = BorderStyle.None;
-            TContraseña.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            TContraseña.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             TContraseña.ForeColor = SystemColors.ControlText;
             TContraseña.Location = new Point(294, 158);
             TContraseña.Name = "TContraseña";
-            TContraseña.Size = new Size(405, 20);
+            TContraseña.Size = new Size(405, 19);
             TContraseña.TabIndex = 2;
             TContraseña.Text = "Contraseña";
             TContraseña.TextChanged += TContraseña_TextChanged;
@@ -106,10 +107,10 @@
             // LTitlelogin
             // 
             LTitlelogin.AutoSize = true;
-            LTitlelogin.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LTitlelogin.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             LTitlelogin.Location = new Point(472, 9);
             LTitlelogin.Name = "LTitlelogin";
-            LTitlelogin.Size = new Size(77, 24);
+            LTitlelogin.Size = new Size(76, 25);
             LTitlelogin.TabIndex = 3;
             LTitlelogin.Text = "LOGIN";
             // 
@@ -120,7 +121,7 @@
             BLogin.FlatAppearance.MouseDownBackColor = Color.DimGray;
             BLogin.FlatAppearance.MouseOverBackColor = Color.LightGray;
             BLogin.FlatStyle = FlatStyle.Flat;
-            BLogin.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            BLogin.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             BLogin.ForeColor = SystemColors.ControlText;
             BLogin.Location = new Point(307, 230);
             BLogin.Name = "BLogin";
@@ -135,12 +136,12 @@
             // 
             LSesion.ActiveLinkColor = Color.MidnightBlue;
             LSesion.AutoSize = true;
-            LSesion.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            LSesion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             LSesion.ForeColor = SystemColors.HotTrack;
             LSesion.LinkColor = Color.RoyalBlue;
             LSesion.Location = new Point(434, 286);
             LSesion.Name = "LSesion";
-            LSesion.Size = new Size(174, 17);
+            LSesion.Size = new Size(160, 15);
             LSesion.TabIndex = 0;
             LSesion.TabStop = true;
             LSesion.Text = "¿Has Olvidado Contraseña?";
@@ -204,12 +205,32 @@
             iconEye.UseVisualStyleBackColor = false;
             iconEye.Click += iconEye_Click;
             // 
+            // lblError
+            // 
+            lblError.BackColor = Color.DarkGray;
+            lblError.Enabled = false;
+            lblError.FlatAppearance.BorderSize = 0;
+            lblError.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            lblError.FlatAppearance.MouseOverBackColor = Color.LightGray;
+            lblError.FlatStyle = FlatStyle.Flat;
+            lblError.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblError.ForeColor = SystemColors.ControlText;
+            lblError.Location = new Point(307, 37);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(408, 40);
+            lblError.TabIndex = 11;
+            lblError.Text = "Iniciar Sesion";
+            lblError.UseVisualStyleBackColor = false;
+            lblError.Visible = false;
+            lblError.Click += lblError_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(249, 249, 249);
             ClientSize = new Size(780, 330);
+            Controls.Add(lblError);
             Controls.Add(iconEye);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
@@ -252,5 +273,6 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private FontAwesome.Sharp.IconButton iconEye;
+        private Button lblError;
     }
 }
