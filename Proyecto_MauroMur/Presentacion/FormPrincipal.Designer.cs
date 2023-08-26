@@ -35,7 +35,6 @@
             TContraseña = new TextBox();
             LTitlelogin = new Label();
             BLogin = new Button();
-            LSesion = new LinkLabel();
             btncerrar = new PictureBox();
             btnminimizar = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -123,7 +122,7 @@
             BLogin.FlatStyle = FlatStyle.Flat;
             BLogin.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             BLogin.ForeColor = SystemColors.ControlText;
-            BLogin.Location = new Point(307, 230);
+            BLogin.Location = new Point(307, 252);
             BLogin.Name = "BLogin";
             BLogin.Size = new Size(408, 40);
             BLogin.TabIndex = 3;
@@ -131,21 +130,6 @@
             BLogin.UseVisualStyleBackColor = false;
             BLogin.Click += BLogin_Click;
             BLogin.KeyPress += BLogin_KeyPress;
-            // 
-            // LSesion
-            // 
-            LSesion.ActiveLinkColor = Color.MidnightBlue;
-            LSesion.AutoSize = true;
-            LSesion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            LSesion.ForeColor = SystemColors.HotTrack;
-            LSesion.LinkColor = Color.RoyalBlue;
-            LSesion.Location = new Point(434, 286);
-            LSesion.Name = "LSesion";
-            LSesion.Size = new Size(160, 15);
-            LSesion.TabIndex = 0;
-            LSesion.TabStop = true;
-            LSesion.Text = "¿Has Olvidado Contraseña?";
-            LSesion.LinkClicked += LSesion_LinkClicked;
             // 
             // btncerrar
             // 
@@ -212,7 +196,7 @@
             lbErrorMenssage.ForeColor = Color.RosyBrown;
             lbErrorMenssage.Image = (Image)resources.GetObject("lbErrorMenssage.Image");
             lbErrorMenssage.ImageAlign = ContentAlignment.MiddleLeft;
-            lbErrorMenssage.Location = new Point(294, 202);
+            lbErrorMenssage.Location = new Point(294, 211);
             lbErrorMenssage.Name = "lbErrorMenssage";
             lbErrorMenssage.Size = new Size(88, 15);
             lbErrorMenssage.TabIndex = 11;
@@ -231,7 +215,6 @@
             Controls.Add(pictureBox1);
             Controls.Add(btnminimizar);
             Controls.Add(btncerrar);
-            Controls.Add(LSesion);
             Controls.Add(BLogin);
             Controls.Add(LTitlelogin);
             Controls.Add(TContraseña);
@@ -261,7 +244,6 @@
         private TextBox TContraseña;
         private Label LTitlelogin;
         private Button BLogin;
-        private LinkLabel LSesion;
         private PictureBox btncerrar;
         private PictureBox pictureBox3;
         private PictureBox btnminimizar;

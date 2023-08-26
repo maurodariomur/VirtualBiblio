@@ -107,18 +107,22 @@ namespace Proyecto_MauroMur
             {
                 if (TContraseña.Text != "Contraseña")
                 {
-                    UserModel user=new UserModel();
+                    UserModel user = new UserModel();
                     var validLogin = user.LoginUser(TUsuario.Text, TContraseña.Text);
                     if (validLogin == true)
                     {
                         FLobi lobi = new FLobi();
                         lobi.Show();
+                        lobi.FormClosed += (s, args) =>
+                        {
+                            Logout(s, args); // Llama a Logout con los parámetros adecuados
+                        };
                         this.Hide();
                     }
                     else
                     {
                         msgError("Datos Incorrectos.Verificarlos.");
-                        TContraseña.Clear();
+                        TContraseña.Text="Contraseña";
                         TUsuario.Focus();
                     }
                 }
@@ -137,6 +141,16 @@ namespace Proyecto_MauroMur
         {
             lbErrorMenssage.Text = "        " + msg;
             lbErrorMenssage.Visible = true;
+        }
+
+        private void Logout(object sender,FormClosedEventArgs e)
+        {
+            TContraseña.Text="Contraseña";
+            TContraseña.UseSystemPasswordChar = false;
+            TUsuario.Text="Usuario";
+            lbErrorMenssage.Visible = false;
+            this.Show();
+            TUsuario.Focus();
         }
 
 

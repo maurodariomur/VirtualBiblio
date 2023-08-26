@@ -109,9 +109,7 @@ namespace Proyecto_MauroMur.Formularios.Lobi
             DialogResult salida = MessageBox.Show("Estas seguro que desea salir","Salir",MessageBoxButtons.OKCancel,MessageBoxIcon.Information,MessageBoxDefaultButton.Button2);
             if (salida == DialogResult.OK) 
             {
-                Login login = new();
-                login.Show();
-                this.Hide();
+                this.Close();
             }
            
 
