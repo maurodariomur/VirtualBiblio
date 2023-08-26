@@ -1,6 +1,5 @@
-using Proyecto_MauroMur.Peticiones;
-using Proyecto_MauroMur.Modelos;
 using System.Runtime.InteropServices;//biblioteca que permite arrastar el formulario
+using Domain;
 using Proyecto_MauroMur.Formularios.Lobi;
 
 namespace Proyecto_MauroMur
@@ -10,8 +9,6 @@ namespace Proyecto_MauroMur
         public Login()
         {
             InitializeComponent();
-            PeticionUsuarios usuarios = new();
-            usuarios.obtenerUsuarios();
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -106,37 +103,44 @@ namespace Proyecto_MauroMur
 
         private void BLogin_Click(object sender, EventArgs e)
         {
-            string usuario = TUsuario.Text;
-            string contraseña = TContraseña.Text;
-
-            try
+            if (TUsuario.Text != "Usuario")
             {
-                PeticionUsuarios peticionUsuarios = new PeticionUsuarios();
-                List<User> usuarios = peticionUsuarios.obtenerUsuarios();
-
-                User usuarioEncontrado = usuarios.FirstOrDefault(u => u.Usuario == usuario && u.Pass == contraseña);
-
-
-                if (usuarioEncontrado != null)
+                if (TContraseña.Text != "Contraseña")
                 {
-                    MessageBox.Show("Inicio de sesión exitoso");
-                    FLobi lobi = new FLobi();
-                    lobi.Show(); // Mostrar el formulario FLobi
-                    this.Hide(); // Ocultar el formulario de inicio de sesión actual
-
+                    UserModel user=new UserModel();
+                    var validLogin = user.LoginUser(TUsuario.Text, TContraseña.Text);
+                    if (validLogin == true)
+                    {
+                        FLobi lobi = new FLobi();
+                        lobi.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        msgError("Datos Incorrectos.Verificarlos.");
+                        TContraseña.Clear();
+                        TUsuario.Focus();
+                    }
                 }
                 else
                 {
-                    lblError.Visible = true;
-                    MessageBox.Show("Credenciales inválidas. Por favor, intenta nuevamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgError("Por favor ingrese Contraseña.");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                // Manejo de la excepción: muestra un mensaje de error o realiza otra acción apropiada
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgError("Por favor ingrese Usuario.");
             }
         }
+
+        private void msgError(string msg)
+        {
+            lbErrorMenssage.Text = "        " + msg;
+            lbErrorMenssage.Visible = true;
+        }
+
+
+
 
         private void iconEye_Click(object sender, EventArgs e)
         {

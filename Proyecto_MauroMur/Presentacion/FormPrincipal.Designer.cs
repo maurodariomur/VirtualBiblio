@@ -41,7 +41,7 @@
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             iconEye = new FontAwesome.Sharp.IconButton();
-            lblError = new Button();
+            lbErrorMenssage = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btncerrar).BeginInit();
@@ -205,24 +205,19 @@
             iconEye.UseVisualStyleBackColor = false;
             iconEye.Click += iconEye_Click;
             // 
-            // lblError
+            // lbErrorMenssage
             // 
-            lblError.BackColor = Color.DarkGray;
-            lblError.Enabled = false;
-            lblError.FlatAppearance.BorderSize = 0;
-            lblError.FlatAppearance.MouseDownBackColor = Color.DimGray;
-            lblError.FlatAppearance.MouseOverBackColor = Color.LightGray;
-            lblError.FlatStyle = FlatStyle.Flat;
-            lblError.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblError.ForeColor = SystemColors.ControlText;
-            lblError.Location = new Point(307, 37);
-            lblError.Name = "lblError";
-            lblError.Size = new Size(408, 40);
-            lblError.TabIndex = 11;
-            lblError.Text = "Iniciar Sesion";
-            lblError.UseVisualStyleBackColor = false;
-            lblError.Visible = false;
-            lblError.Click += lblError_Click;
+            lbErrorMenssage.AutoSize = true;
+            lbErrorMenssage.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lbErrorMenssage.ForeColor = Color.RosyBrown;
+            lbErrorMenssage.Image = (Image)resources.GetObject("lbErrorMenssage.Image");
+            lbErrorMenssage.ImageAlign = ContentAlignment.MiddleLeft;
+            lbErrorMenssage.Location = new Point(294, 202);
+            lbErrorMenssage.Name = "lbErrorMenssage";
+            lbErrorMenssage.Size = new Size(88, 15);
+            lbErrorMenssage.TabIndex = 11;
+            lbErrorMenssage.Text = "Error Message";
+            lbErrorMenssage.Visible = false;
             // 
             // Login
             // 
@@ -230,7 +225,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(249, 249, 249);
             ClientSize = new Size(780, 330);
-            Controls.Add(lblError);
+            Controls.Add(lbErrorMenssage);
             Controls.Add(iconEye);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
@@ -273,6 +268,6 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private FontAwesome.Sharp.IconButton iconEye;
-        private Button lblError;
+        private Label lbErrorMenssage;
     }
 }
