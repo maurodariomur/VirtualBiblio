@@ -292,7 +292,7 @@
             // 
             // panelEscritorio
             // 
-            panelEscritorio.BackColor = Color.IndianRed;
+            panelEscritorio.BackColor = Color.LightGray;
             panelEscritorio.Controls.Add(Lfecha);
             panelEscritorio.Controls.Add(Lhora);
             panelEscritorio.Controls.Add(pictureBox1);
