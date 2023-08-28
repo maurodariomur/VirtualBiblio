@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 {
@@ -20,7 +22,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void CUsuarios_Load(object sender, EventArgs e)
         {
-
+            txName.Focus();
         }
 
         private void btRegistrar_Click(object sender, EventArgs e)
@@ -35,16 +37,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             int tipoPerfil = ObtenerTipoPerfilSeleccionado();
 
             UserModel userModel = new UserModel();
-            bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, tipoPerfil);
 
-            if (usuarioAgregado)
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(mail))
             {
-                MessageBox.Show("Usuario agregado exitosamente.");
-                LimpiarCampos();
+                msgError("Debe completar todos los campos");
+
+            }
+            else if (fechaNacimiento == DateTime.MinValue) // Validación del DateTime
+            {
+                msgError("Debe seleccionar una fecha de nacimiento válida");
+
+            }
+            else if (ObtenerTipoPerfilSeleccionado() == 0)
+            {
+                msgError("Debe seleccionar un tipo de usuario");
             }
             else
             {
-                MessageBox.Show("No se pudo agregar el usuario.");
+                bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, tipoPerfil);
+                MessageBox.Show("Usuario agregado exitosamente.");
+                LimpiarCampos();
             }
         }
 
@@ -82,7 +94,159 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             txcPerfil.SelectedIndex = -1; // Desseleccionar el ComboBox
         }
 
-        private void txcPerfil_SelectedIndexChanged(object sender, EventArgs e)
+        private void msgError(string msg)
+        {
+            lbError.Text = "        " + msg;
+            lbError.Visible = true;
+        }
+
+        private void txName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        private void txDNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txName_Enter(object sender, EventArgs e)
+        {
+            if (txName.Text == "Nombre")
+            {
+                txName.Text = "";
+            }
+        }
+
+        private void txName_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txName.Text))
+            {
+                txName.Text = "Nombre";
+            }
+        }
+
+        private void txLastName_Enter(object sender, EventArgs e)
+        {
+            if (txLastName.Text == "Apellido")
+            {
+                txLastName.Text = "";
+            }
+        }
+
+        private void txLastName_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txLastName.Text))
+            {
+                txLastName.Text = "Apellido";
+            }
+        }
+
+        private void txMail_Enter(object sender, EventArgs e)
+        {
+            if (txMail.Text == "Correo Electronico")
+            {
+                txMail.Text = "";
+            }
+        }
+
+        private void txMail_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txMail.Text))
+            {
+                txMail.Text = "Correo Electronico";
+            }
+        }
+
+        private void txEmpleado_Enter(object sender, EventArgs e)
+        {
+            if (txEmpleado.Text == "Usuario")
+            {
+                txEmpleado.Text = "";
+            }
+        }
+
+        private void txEmpleado_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txEmpleado.Text))
+            {
+                txEmpleado.Text = "Usuario";
+            }
+        }
+
+        private void txPassword_Enter(object sender, EventArgs e)
+        {
+            if (txPassword.Text == "Contraseña")
+            {
+                txPassword.Text = "";
+            }
+        }
+
+        private void txPassword_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txPassword.Text))
+            {
+                txPassword.Text = "Contraseña";
+            }
+        }
+
+        private void txDNI_Enter(object sender, EventArgs e)
+        {
+            if (txDNI.Text == "DNI")
+            {
+                txDNI.Text = "";
+            }
+        }
+
+        private void txDNI_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txDNI.Text))
+            {
+                txDNI.Text = "DNI";
+            }
+        }
+
+        private void txEmpleado_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txDNI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbError_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txName_Leave_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txLastName_Leave_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
