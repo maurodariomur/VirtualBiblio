@@ -70,7 +70,7 @@
             // 
             // panelTitleBar
             // 
-            panelTitleBar.BackColor = Color.FromArgb(0, 23, 25);
+            panelTitleBar.BackColor = Color.FromArgb(24, 61, 61);
             panelTitleBar.Controls.Add(btnlobiMinimizar);
             panelTitleBar.Controls.Add(btnlobiMaximizar);
             panelTitleBar.Controls.Add(btnlobiSalir);
@@ -166,7 +166,7 @@
             // panelEscritorio
             // 
             panelEscritorio.Anchor = AnchorStyles.None;
-            panelEscritorio.BackColor = Color.LightGray;
+            panelEscritorio.BackColor = Color.Transparent;
             panelEscritorio.Controls.Add(Lfecha);
             panelEscritorio.Controls.Add(Lhora);
             panelEscritorio.Controls.Add(pictureBox1);
@@ -249,7 +249,7 @@
             // 
             // iconUsuarios
             // 
-            iconUsuarios.BackColor = Color.FromArgb(0, 23, 25);
+            iconUsuarios.BackColor = Color.FromArgb(24, 61, 61);
             iconUsuarios.Dock = DockStyle.Top;
             iconUsuarios.FlatAppearance.BorderSize = 0;
             iconUsuarios.FlatStyle = FlatStyle.Flat;
@@ -273,7 +273,7 @@
             // 
             // iconEstadistica
             // 
-            iconEstadistica.BackColor = Color.FromArgb(0, 23, 25);
+            iconEstadistica.BackColor = Color.FromArgb(24, 61, 61);
             iconEstadistica.Dock = DockStyle.Top;
             iconEstadistica.FlatAppearance.BorderSize = 0;
             iconEstadistica.FlatStyle = FlatStyle.Flat;
@@ -297,7 +297,7 @@
             // 
             // iconExit
             // 
-            iconExit.BackColor = Color.FromArgb(0, 23, 25);
+            iconExit.BackColor = Color.FromArgb(24, 61, 61);
             iconExit.Dock = DockStyle.Bottom;
             iconExit.FlatAppearance.BorderSize = 0;
             iconExit.FlatStyle = FlatStyle.Flat;
@@ -321,7 +321,7 @@
             // 
             // panelMenu
             // 
-            panelMenu.BackColor = Color.FromArgb(0, 23, 25);
+            panelMenu.BackColor = Color.FromArgb(24, 61, 61);
             panelMenu.Controls.Add(panel1);
             panelMenu.Controls.Add(iconExit);
             panelMenu.Controls.Add(iconEstadistica);

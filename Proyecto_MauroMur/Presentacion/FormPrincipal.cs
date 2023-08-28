@@ -122,7 +122,7 @@ namespace Proyecto_MauroMur
                     else
                     {
                         msgError("Datos Incorrectos.Verificarlos.");
-                        TContraseña.Text="Contraseña";
+                        TContraseña.Text = "Contraseña";
                         TUsuario.Focus();
                     }
                 }
@@ -143,11 +143,11 @@ namespace Proyecto_MauroMur
             lbErrorMenssage.Visible = true;
         }
 
-        private void Logout(object sender,FormClosedEventArgs e)
+        private void Logout(object sender, FormClosedEventArgs e)
         {
-            TContraseña.Text="Contraseña";
+            TContraseña.Text = "Contraseña";
             TContraseña.UseSystemPasswordChar = false;
-            TUsuario.Text="Usuario";
+            TUsuario.Text = "Usuario";
             lbErrorMenssage.Visible = false;
             this.Show();
             TUsuario.Focus();
@@ -176,5 +176,11 @@ namespace Proyecto_MauroMur
         {
 
         }
+
+        private void lbErrorMenssage_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

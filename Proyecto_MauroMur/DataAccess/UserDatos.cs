@@ -57,7 +57,12 @@ namespace DataAccess
         // Metodo Para Agregar Usuarios
         public bool AgregarUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
         {
-          
+
+            if (fechaNacimiento == DateTime.MinValue)
+            {
+                return false; // Fecha de nacimiento no válida
+            }
+
             using (var connetion = GetConnection())
             {
                 connetion.Open();
@@ -75,8 +80,16 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
                     command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0;
+                    try
+                    {
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
                 }
             }
         }
