@@ -109,9 +109,6 @@ C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\bin\Debug\net7.0-win
 C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.csproj.AssemblyReference.cache
 C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Login.resources
-C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.FLobi.resources
-C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CEstadistica.resources
-C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Formularios.Lobi.SeccionesAdmin.CUsuarios.resources
 C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Properties.Resources.resources
 C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.csproj.GenerateResource.cache
 C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.GeneratedMSBuildEditorConfig.editorconfig
@@ -167,3 +164,7 @@ C:\Users\mauro\source\repos\VirtualBiblio-Desarrollo\Proyecto_MauroMur\obj\Debug
 C:\Users\mauro\source\repos\VirtualBiblio-Desarrollo\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.CEstadistica.resources
 C:\Users\mauro\source\repos\VirtualBiblio-Desarrollo\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.CUsuarios.resources
 C:\Users\mauro\source\repos\VirtualBiblio-Desarrollo\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.CPerfil.resources
+C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.FLobi.resources
+C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.CEstadistica.resources
+C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.CUsuarios.resources
+C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\bin\Debug\net7.0-windows\BCrypt.Net-Next.dll

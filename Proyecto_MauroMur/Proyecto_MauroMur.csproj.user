@@ -13,8 +13,5 @@
     <Compile Update="Presentacion\Formularios\Lobi\SeccionGerente\CUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Presentacion\Formularios\Lobi\SeccionGerente\CPerfil.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>
