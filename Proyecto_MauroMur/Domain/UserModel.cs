@@ -14,5 +14,13 @@ namespace Domain
         {
             return userDatos.Login(user,pass);
         }
+        public bool AgregarNuevoUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
+        {
+            // Generar el hash de la contraseña
+            string hashContrasena = BCrypt.Net.BCrypt.HashPassword(contrasena);
+
+            // Llamar al método para agregar usuario de UserDatos
+            return userDatos.AgregarUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, hashContrasena, tipoPerfil);
+        }
     }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
+using Common.Cache;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 {
@@ -101,12 +102,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         {
             ActivateButton(sender, RGBColors.color2);
             OpenChildForm(new SeccionGerente.CEstadistica());
-        }
-
-        private void iconPerfil_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new SeccionGerente.CPerfil());
         }
 
         private void iconExit_Click(object sender, EventArgs e)
@@ -233,6 +228,31 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
         }
 
+        private void iconDatos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            switch (UserLoginCache.TipoPerfil)
+            {
+                case 1:
+                    lbRol.Text = "Gerente";
+                    break;
+                case 2:
+                    lbRol.Text = "Administrador";
+                    break;
+                case 3:
+                    lbRol.Text = "Vendedor";
+                    break;
+                default:
+                    lbRol.Text = "Desconocido";
+                    break;
+            }
+            lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
+            lbCorreo.Text = UserLoginCache.Mail;
+        }
     }
 }
 

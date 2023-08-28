@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using Common.Cache;
+using BCrypt.Net;
+using Org.BouncyCastle.Crypto.Generators;
+
 
 
 //Clase para los datos del usuario
@@ -47,6 +50,33 @@ namespace DataAccess
                         return false;
                     }
 
+                }
+            }
+        }
+
+        // Metodo Para Agregar Usuarios
+        public bool AgregarUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
+        {
+          
+            using (var connetion = GetConnection())
+            {
+                connetion.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connetion;
+                    command.CommandText = "INSERT INTO Usuarios (Nombre, Apellido, DNI, Mail, Usuario, Contraseña, FechaNacimiento, TipoPerfil) VALUES (@Nombre, @Apellido, @DNI, @Mail, @Usuario, @Contraseña, @FechaNacimiento, @TipoPerfil)";
+
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@Apellido", apellido);
+                    command.Parameters.AddWithValue("@DNI", dni);
+                    command.Parameters.AddWithValue("@Mail", mail);
+                    command.Parameters.AddWithValue("@Usuario", usuario);
+                    command.Parameters.AddWithValue("@Contraseña", contrasena); // Guardar el hash en lugar de la contraseña
+                    command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
+                    command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
                 }
             }
         }
