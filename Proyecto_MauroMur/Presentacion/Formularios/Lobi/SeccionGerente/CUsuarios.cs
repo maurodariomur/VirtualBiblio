@@ -25,7 +25,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             txName.Focus();
         }
 
-        private void btRegistrar_Click(object sender, EventArgs e)
+        private void btRegistrar_Click_1(object sender, EventArgs e)
         {
             string nombre = txName.Text;
             string apellido = txLastName.Text;
@@ -38,15 +38,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
             UserModel userModel = new UserModel();
 
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(mail))
+            if (nombre == "Nombre" || apellido == "Apellido" || dni == "DNI" || mail == "Correo Electronico" || usuario == "Usuario")
             {
                 msgError("Debe completar todos los campos");
-
+            }
+            else if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni)
+                || string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(mail))
+            {
+                msgError("Debe completar todos los campos");
             }
             else if (fechaNacimiento == DateTime.MinValue) // Validación del DateTime
             {
                 msgError("Debe seleccionar una fecha de nacimiento válida");
-
             }
             else if (ObtenerTipoPerfilSeleccionado() == 0)
             {
@@ -59,6 +62,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 LimpiarCampos();
             }
         }
+
+
 
         private int ObtenerTipoPerfilSeleccionado()
         {
@@ -84,15 +89,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void LimpiarCampos()
         {
-            txName.Text = "";
-            txLastName.Text = "";
-            txDNI.Text = "";
-            dTBith.Value = DateTime.Now; // Establecer la fecha actual o algún valor predeterminado
-            txMail.Text = "";
-            txEmpleado.Text = "";
-            txPassword.Text = "";
+            txName.Text = "Nombre";
+            txLastName.Text = "Apellido";
+            txDNI.Text = "DNI";
+            dTBith.Value = DateTime.Now; // Puedes establecer la fecha actual u otra fecha predeterminada
+            txMail.Text = "Correo Electronico";
+            txEmpleado.Text = "Usuario";
+            txPassword.Text = "Contrasela";
             txcPerfil.SelectedIndex = -1; // Desseleccionar el ComboBox
+            txcPerfil.Text = "Seleccione un Tipo de perfil";
+            txName.Focus();
         }
+
 
         private void msgError(string msg)
         {
@@ -100,32 +108,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             lbError.Visible = true;
         }
 
-        private void txName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txLastName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-
-        private void txDNI_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txName_Enter(object sender, EventArgs e)
+        private void txName_Enter_1(object sender, EventArgs e)
         {
             if (txName.Text == "Nombre")
             {
@@ -133,7 +116,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txName_Leave(object sender, EventArgs e)
+        private void txName_Leave_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txName.Text))
             {
@@ -141,7 +124,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txLastName_Enter(object sender, EventArgs e)
+        private void txLastName_Enter_1(object sender, EventArgs e)
         {
             if (txLastName.Text == "Apellido")
             {
@@ -149,7 +132,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txLastName_Leave(object sender, EventArgs e)
+        private void txLastName_Leave_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txLastName.Text))
             {
@@ -157,7 +140,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txMail_Enter(object sender, EventArgs e)
+        private void txMail_Enter_1(object sender, EventArgs e)
         {
             if (txMail.Text == "Correo Electronico")
             {
@@ -165,7 +148,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txMail_Leave(object sender, EventArgs e)
+        private void txMail_Leave_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txMail.Text))
             {
@@ -173,7 +156,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txEmpleado_Enter(object sender, EventArgs e)
+        private void txEmpleado_Enter_1(object sender, EventArgs e)
         {
             if (txEmpleado.Text == "Usuario")
             {
@@ -181,7 +164,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txEmpleado_Leave(object sender, EventArgs e)
+        private void txEmpleado_Leave_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txEmpleado.Text))
             {
@@ -189,7 +172,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txPassword_Enter(object sender, EventArgs e)
+        private void txPassword_Enter_1(object sender, EventArgs e)
         {
             if (txPassword.Text == "Contraseña")
             {
@@ -197,7 +180,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txPassword_Leave(object sender, EventArgs e)
+        private void txPassword_Leave_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txPassword.Text))
             {
@@ -205,7 +188,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txDNI_Enter(object sender, EventArgs e)
+        private void txDNI_Enter_1(object sender, EventArgs e)
         {
             if (txDNI.Text == "DNI")
             {
@@ -213,7 +196,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txDNI_Leave(object sender, EventArgs e)
+        private void txDNI_Leave_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txDNI.Text))
             {
@@ -221,34 +204,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void txEmpleado_TextChanged(object sender, EventArgs e)
+        private void txName_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
-        private void txDNI_TextChanged(object sender, EventArgs e)
+        private void txLastName_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
-        private void lbError_Click(object sender, EventArgs e)
+        private void txDNI_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
-        private void txName_Leave_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txLastName_Leave_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
