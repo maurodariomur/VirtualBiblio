@@ -10,6 +10,9 @@
     <Compile Update="Presentacion\Formularios\Lobi\SeccionGerente\CEstadistica.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Presentacion\Formularios\Lobi\SeccionGerente\CTablas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Presentacion\Formularios\Lobi\SeccionGerente\CUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>

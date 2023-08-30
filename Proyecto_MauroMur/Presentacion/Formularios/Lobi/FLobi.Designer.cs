@@ -165,11 +165,11 @@
             // 
             // panelEscritorio
             // 
-            panelEscritorio.Anchor = AnchorStyles.None;
             panelEscritorio.BackColor = Color.FromArgb(221, 230, 237);
             panelEscritorio.Controls.Add(Lfecha);
             panelEscritorio.Controls.Add(Lhora);
             panelEscritorio.Controls.Add(pictureBox1);
+            panelEscritorio.Dock = DockStyle.Fill;
             panelEscritorio.ForeColor = Color.Transparent;
             panelEscritorio.Location = new Point(220, 100);
             panelEscritorio.Name = "panelEscritorio";
@@ -184,7 +184,7 @@
             Lfecha.BackColor = Color.Transparent;
             Lfecha.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
             Lfecha.ForeColor = Color.FromArgb(24, 61, 61);
-            Lfecha.Location = new Point(201, 332);
+            Lfecha.Location = new Point(190, 331);
             Lfecha.Name = "Lfecha";
             Lfecha.Size = new Size(85, 29);
             Lfecha.TabIndex = 4;
@@ -200,7 +200,7 @@
             Lhora.FlatStyle = FlatStyle.Flat;
             Lhora.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
             Lhora.ForeColor = Color.FromArgb(24, 61, 61);
-            Lhora.Location = new Point(312, 294);
+            Lhora.Location = new Point(302, 294);
             Lhora.Name = "Lhora";
             Lhora.Size = new Size(100, 37);
             Lhora.TabIndex = 3;
@@ -254,7 +254,7 @@
             iconUsuarios.FlatStyle = FlatStyle.Flat;
             iconUsuarios.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             iconUsuarios.ForeColor = Color.Gainsboro;
-            iconUsuarios.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+            iconUsuarios.IconChar = FontAwesome.Sharp.IconChar.UsersRectangle;
             iconUsuarios.IconColor = Color.Gainsboro;
             iconUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconUsuarios.IconSize = 32;
@@ -264,7 +264,7 @@
             iconUsuarios.Padding = new Padding(10, 0, 20, 0);
             iconUsuarios.Size = new Size(220, 60);
             iconUsuarios.TabIndex = 1;
-            iconUsuarios.Text = "Usuarios";
+            iconUsuarios.Text = "Empleados";
             iconUsuarios.TextAlign = ContentAlignment.MiddleLeft;
             iconUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconUsuarios.UseVisualStyleBackColor = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -23,6 +24,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private void CUsuarios_Load(object sender, EventArgs e)
         {
             txName.Focus();
+            // Configura el formato personalizado para el DateTimePicker
+            dTBith.CustomFormat = "dd/MM/yyyy";
+            // Asegúrate de que la propiedad Format esté establecida en Custom
+            dTBith.Format = DateTimePickerFormat.Custom;
         }
 
         private void btRegistrar_Click_1(object sender, EventArgs e)
@@ -55,13 +60,38 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             {
                 msgError("Debe seleccionar un tipo de usuario");
             }
+            else if (!IsValidEmail(mail)) // Validación del correo electrónico
+            {
+                msgError("El correo electrónico ingresado no es válido");
+            }
             else
             {
-                bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, tipoPerfil);
-                MessageBox.Show("Usuario agregado exitosamente.");
-                LimpiarCampos();
+                // Mostrar mensaje de confirmación
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea registrar este usuario?", "Confirmar Registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmResult == DialogResult.Yes)
+                {
+                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, tipoPerfil);
+                    MessageBox.Show("Usuario agregado exitosamente: " + nombre + " " + apellido, "Empleado Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarCampos();
+                }
             }
         }
+
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
 
 
@@ -95,16 +125,23 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             dTBith.Value = DateTime.Now; // Puedes establecer la fecha actual u otra fecha predeterminada
             txMail.Text = "Correo Electronico";
             txEmpleado.Text = "Usuario";
-            txPassword.Text = "Contrasela";
+            txPassword.Text = "Contraseña";
             txcPerfil.SelectedIndex = -1; // Desseleccionar el ComboBox
             txcPerfil.Text = "Seleccione un Tipo de perfil";
             txName.Focus();
+
+            // Hacer invisible el botón contraVisible
+            contraVisible.Visible = false;
+
+            // Asegurarse de que el campo de contraseña oculte el texto
+            txPassword.UseSystemPasswordChar = true;
         }
+
 
 
         private void msgError(string msg)
         {
-            lbError.Text = "        " + msg;
+            lbError.Text = "     " + msg;
             lbError.Visible = true;
         }
 
@@ -228,5 +265,72 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
+        private void txPassword_TextChanged(object sender, EventArgs e)
+        {
+            contraVisible.Visible = !string.IsNullOrEmpty(txPassword.Text) && txPassword.Text != "Contraseña";
+
+
+            // Si el campo de contraseña está vacío, también ocultar el botón
+            if (string.IsNullOrEmpty(txPassword.Text) && txPassword.Text != "Contraseña")
+            {
+                contraVisible.Visible = false;
+            }
+        }
+
+
+        private void contraVisible_Click(object sender, EventArgs e)
+        {
+            txPassword.UseSystemPasswordChar = !txPassword.UseSystemPasswordChar;
+        }
+
+        private void lbContraseña_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btRegistrar_MouseEnter(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void btRegistrar_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void lbError_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btTablaUsuarios_Click(object sender, EventArgs e)
+        {
+            // Cerrar el formulario actual
+            this.Close();
+
+            // Abrir el nuevo formulario
+            CTablas tablas = new CTablas();
+            tablas.Show();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dTBith_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txName_TextChanged(object sender, EventArgs e)
+        {
+ 
+        }
     }
 }

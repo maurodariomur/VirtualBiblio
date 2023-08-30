@@ -211,3 +211,4 @@ C:\Users\Priscila\source\repos\VirtualBiblio\VirtualBiblio\Proyecto_MauroMur\obj
 C:\Users\Priscila\source\repos\VirtualBiblio\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.pdb
 C:\Users\Priscila\source\repos\VirtualBiblio\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.genruntimeconfig.cache
 C:\Users\Priscila\source\repos\VirtualBiblio\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\ref\Proyecto_MauroMur.dll
+C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.CTablas.resources

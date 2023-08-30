@@ -226,8 +226,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void FLobi_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            pictureBox1.Image = Image.FromFile("C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage; // Corrección en esta línea
+            pictureBox1.Image = Image.FromFile("C:\\Users\\mauro\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
         }
 
