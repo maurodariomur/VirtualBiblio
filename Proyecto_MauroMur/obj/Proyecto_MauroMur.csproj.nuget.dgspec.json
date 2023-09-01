@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj": {}
+    "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj": {
+    "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj",
+        "projectUniqueName": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj",
         "projectName": "Proyecto_MauroMur",
-        "projectPath": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj",
+        "projectPath": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj",
         "packagesPath": "C:\\Users\\Priscila\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\obj\\",
+        "outputPath": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Priscila\\AppData\\Roaming\\NuGet\\NuGet.Config",

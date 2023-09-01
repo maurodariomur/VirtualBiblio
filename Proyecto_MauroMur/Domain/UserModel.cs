@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
+using Common.Models;
 
 namespace Domain
 {
@@ -14,6 +15,7 @@ namespace Domain
         {
             return userDatos.Login(user,pass);
         }
+
         public bool AgregarNuevoUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
         {
             // Generar el hash de la contraseña
@@ -21,6 +23,16 @@ namespace Domain
 
             // Llamar al método para agregar usuario de UserDatos
             return userDatos.AgregarUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, hashContrasena, tipoPerfil);
+        }
+
+        public List<Usuarios> MostrarUsers()
+        {
+            return userDatos.ObtenerUsuarios();
+        }
+
+        public Usuarios? ImportarUsuarios(int id)
+        {
+            return userDatos.TraerUsuariosId(id);
         }
     }
 }

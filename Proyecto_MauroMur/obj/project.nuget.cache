@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1m9W6p+pMo/3NhUG+l1AvNiR6qDo1L2UsaSVL8uoOnzejuS6zKJoIuYlNBHZGokhhiV4QVqLFsdR6EdcIMsYjw==",
+  "dgSpecHash": "YCeXbqc9tfPLFfJcSLSnKy8GAZEEajfI145Do8RuSGTP/CMZWv9W/dKbqJPgLmmQN5muh2d19e4ptlBz9w7VZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj",
+  "projectFilePath": "C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Proyecto_MauroMur.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Priscila\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Priscila\\.nuget\\packages\\fontawesome.sharp\\6.3.0\\fontawesome.sharp.6.3.0.nupkg.sha512",
