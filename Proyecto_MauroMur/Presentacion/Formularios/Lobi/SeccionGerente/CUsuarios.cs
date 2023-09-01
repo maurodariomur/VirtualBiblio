@@ -16,9 +16,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 {
     public partial class CUsuarios : Form
     {
-        public CUsuarios()
+        private FLobi intanciaFLobi;
+
+        public CUsuarios(FLobi lobi)
         {
             InitializeComponent();
+            this.intanciaFLobi = lobi;
         }
 
         private void CUsuarios_Load(object sender, EventArgs e)
@@ -92,9 +95,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-
-
-
         private int ObtenerTipoPerfilSeleccionado()
         {
             if (txcPerfil.SelectedItem != null)
@@ -136,8 +136,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             // Asegurarse de que el campo de contraseña oculte el texto
             txPassword.UseSystemPasswordChar = true;
         }
-
-
 
         private void msgError(string msg)
         {
@@ -310,12 +308,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void btTablaUsuarios_Click(object sender, EventArgs e)
         {
-            // Cerrar el formulario actual
             this.Close();
-
-            // Abrir el nuevo formulario
-            CTablas tablas = new CTablas();
-            tablas.Show();
+            intanciaFLobi.OpenChildForm(new SeccionGerente.CTablas());
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -330,7 +324,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void txName_TextChanged(object sender, EventArgs e)
         {
- 
+
+        }
+
+        private void txcPerfil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

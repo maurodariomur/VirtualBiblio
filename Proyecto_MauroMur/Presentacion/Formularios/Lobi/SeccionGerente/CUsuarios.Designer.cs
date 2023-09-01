@@ -226,6 +226,7 @@
             txcPerfil.Size = new Size(297, 29);
             txcPerfil.TabIndex = 30;
             txcPerfil.Text = "Seleccione Usuario";
+            txcPerfil.SelectedIndexChanged += txcPerfil_SelectedIndexChanged;
             // 
             // txPassword
             // 
@@ -388,6 +389,7 @@
             btTablaUsuarios.Text = "Empleados";
             btTablaUsuarios.TextAlign = ContentAlignment.MiddleRight;
             btTablaUsuarios.UseVisualStyleBackColor = false;
+            btTablaUsuarios.Click += btTablaUsuarios_Click;
             // 
             // panel4
             // 

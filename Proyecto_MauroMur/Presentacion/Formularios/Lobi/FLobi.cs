@@ -75,7 +75,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             }
         }
 
-        private void OpenChildForm(Form childForm)
+        internal void OpenChildForm(Form childForm) //internal puede manejar los formularios (hijos de)
         {
             if (currentChildForm != null)
             {
@@ -95,7 +95,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void iconUsuarios_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new SeccionGerente.CUsuarios());
+            OpenChildForm(new SeccionGerente.CUsuarios(this));
         }
 
         private void iconEstadistica_Click(object sender, EventArgs e)
@@ -226,7 +226,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void FLobi_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            pictureBox1.Image = Image.FromFile("C:\\Users\\mauro\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
+            pictureBox1.Image = Image.FromFile("C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
         }
