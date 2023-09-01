@@ -63,7 +63,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.FromArgb(0, 23, 25);
+            pictureBox3.BackColor = Color.FromArgb(24, 61, 61);
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
@@ -156,7 +156,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.FromArgb(0, 23, 25);
+            pictureBox1.BackColor = Color.FromArgb(24, 61, 61);
             pictureBox1.Location = new Point(294, 119);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(435, 3);
@@ -165,7 +165,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.FromArgb(0, 23, 25);
+            pictureBox2.BackColor = Color.FromArgb(24, 61, 61);
             pictureBox2.Location = new Point(294, 184);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(435, 3);
@@ -202,6 +202,7 @@
             lbErrorMenssage.TabIndex = 11;
             lbErrorMenssage.Text = "Error Message";
             lbErrorMenssage.Visible = false;
+            lbErrorMenssage.Click += lbErrorMenssage_Click;
             // 
             // Login
             // 
