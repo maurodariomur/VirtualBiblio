@@ -12,6 +12,7 @@ using Common.Models;
 using System.Drawing.Drawing2D;
 using Microsoft.VisualBasic.Logging;
 
+
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 {
     public partial class CTablas : Form
@@ -23,13 +24,30 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             InitializeComponent();
         }
 
+        private void CTablas_Load(object sender, EventArgs e)
+        {
+            List<Usuarios> usuarios = userModel.MostrarUsers();
+            dataGridUsuarios.DataSource = usuarios;
+        }
+
+        public void loadUsers()
+        {
+            List<Usuarios> usuarios = userModel.MostrarUsers();
+            if (checkBoxAZ.Checked)
+            {
+                usuarios.Sort((x, y) => string.Compare(x.Apellido, y.Apellido));
+            }
+            dataGridUsuarios.DataSource = usuarios;
+        }
+
         private void dataGridUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            DialogResult consulta = MessageBox.Show("¿Desea Editar los datos Del Empleado?", "Editar Datos", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-            if (consulta == DialogResult.OK)
+            // Verificar si el clic ocurrió en una fila válida (no en la cabecera)
+            if (e.RowIndex >= 0)
             {
-                if (e.RowIndex >= 0) // Asegurarse de que el clic ocurrió en una fila válida
+                DialogResult consulta = MessageBox.Show("¿Desea Editar los datos Del Empleado?", "Editar Datos", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (consulta == DialogResult.OK)
                 {
                     // Obtener la fila seleccionada
                     DataGridViewRow selectedRow = dataGridUsuarios.Rows[e.RowIndex];
@@ -38,16 +56,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                     int selectedId = Convert.ToInt32(selectedRow.Cells[0].Value);
 
                     // Crear y mostrar el formulario de edición
-                    FormEdit editForm = new FormEdit(selectedId);
+                    FormEdit editForm = new FormEdit(this, selectedId);
                     editForm.ShowDialog();
                 }
             }
-        }
-
-        private void CTablas_Load(object sender, EventArgs e)
-        {
-            List<Usuarios> usuarios = userModel.MostrarUsers();
-            dataGridUsuarios.DataSource = usuarios;
         }
 
         private void FiltrarUsuarios()
@@ -169,8 +181,31 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void checkBoxAZ_CheckedChanged(object sender, EventArgs e)
         {
-
+              loadUsers();
         }
 
+        private void txBuscadorNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txBuscadorApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txBuscadorDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

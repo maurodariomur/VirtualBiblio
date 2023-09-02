@@ -18,11 +18,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
     public partial class FormEdit : Form
     {
         private int userId;
+        private CTablas? _tablas;
 
-
-        public FormEdit(int id)
+        public FormEdit(CTablas tablas, int id)
         {
             InitializeComponent();
+            this._tablas = tablas;
             userId = id;
             UserModel userModel = new();
             Usuarios? usuario = userModel.ImportarUsuarios(id);
@@ -98,15 +99,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             UserModel userModel = new UserModel();
 
             string nombre = txNameModificar.Text;
-            string apellido=txLastNameModificar.Text;
-            string dni=txDNIModificar.Text;
-            string mail=txMailModificar.Text;
-            string usuario=txEmpleadoModificar.Text;
-            DateTime nacimiento= dTBithModificar.Value;
+            string apellido = txLastNameModificar.Text;
+            string dni = txDNIModificar.Text;
+            string mail = txMailModificar.Text;
+            string usuario = txEmpleadoModificar.Text;
+            DateTime nacimiento = dTBithModificar.Value;
             // Obtener el nombre del tipo de perfil desde el campo de texto
             string tipoPerfilNombre = txcPerfilModificar.Text;
             int tipoPerfilId = userModel.ObtenerIdTipoPerfil(tipoPerfilNombre);
-            string baja =checkBoxSi.Checked ? "SI":"NO";
+            string baja = checkBoxSi.Checked ? "SI" : "NO";
 
             // Crea una instancia del modelo de usuario para actualizar los datos.
             ;
@@ -117,6 +118,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             if (actualizacionExitosa)
             {
                 MessageBox.Show("Los datos del usuario se han actualizado correctamente.");
+                _tablas!.loadUsers();
                 // Cierra el formulario de edición si la actualización fue exitosa.
                 this.Close();
             }
@@ -124,8 +126,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             {
                 MessageBox.Show("Error al actualizar los datos del usuario. Por favor, inténtalo de nuevo.");
             }
-
-
         }
+
     }
 }

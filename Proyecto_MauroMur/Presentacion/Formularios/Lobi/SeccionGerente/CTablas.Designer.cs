@@ -146,6 +146,7 @@
             txBuscadorNombre.Text = "Nombre";
             txBuscadorNombre.TextChanged += txBuscadorNombre_TextChanged;
             txBuscadorNombre.Enter += txBuscadorNombre_Enter;
+            txBuscadorNombre.KeyPress += txBuscadorNombre_KeyPress;
             txBuscadorNombre.Leave += txBuscadorNombre_Leave;
             // 
             // txBuscadorApellido
@@ -160,6 +161,7 @@
             txBuscadorApellido.Text = "Apellido";
             txBuscadorApellido.TextChanged += txBuscadorApellido_TextChanged;
             txBuscadorApellido.Enter += txBuscadorApellido_Enter;
+            txBuscadorApellido.KeyPress += txBuscadorApellido_KeyPress;
             txBuscadorApellido.Leave += txBuscadorApellido_Leave;
             // 
             // buscadorDni
@@ -200,6 +202,7 @@
             txBuscadorDni.Text = "DNI";
             txBuscadorDni.TextChanged += txBuscadorDni_TextChanged;
             txBuscadorDni.Enter += txBuscadorDni_Enter;
+            txBuscadorDni.KeyPress += txBuscadorDni_KeyPress;
             txBuscadorDni.Leave += txBuscadorDni_Leave;
             // 
             // cBBuscadorPerfil
@@ -247,7 +250,6 @@
             // 
             dataGridUsuarios.AllowUserToAddRows = false;
             dataGridUsuarios.AllowUserToDeleteRows = false;
-            dataGridUsuarios.AllowUserToOrderColumns = true;
             dataGridUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridUsuarios.BackgroundColor = Color.FromArgb(221, 230, 237);
