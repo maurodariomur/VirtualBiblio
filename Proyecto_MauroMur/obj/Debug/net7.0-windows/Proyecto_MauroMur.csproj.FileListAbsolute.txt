@@ -257,3 +257,4 @@ C:\Users\Priscila\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-
 C:\Users\Priscila\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.genruntimeconfig.cache
 C:\Users\Priscila\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\ref\Proyecto_MauroMur.dll
 C:\Users\Priscila\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.FormEdit.resources
+C:\Users\mauro\source\repos\VirtualBiblio\Proyecto_MauroMur\obj\Debug\net7.0-windows\Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente.FormEdit.resources

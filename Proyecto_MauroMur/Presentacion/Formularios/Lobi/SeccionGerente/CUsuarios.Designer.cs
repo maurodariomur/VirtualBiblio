@@ -220,7 +220,7 @@
             txcPerfil.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txcPerfil.ForeColor = SystemColors.WindowFrame;
             txcPerfil.FormattingEnabled = true;
-            txcPerfil.Items.AddRange(new object[] { "1-Gerente", "2-Administrador", "3-Vendedor" });
+            txcPerfil.Items.AddRange(new object[] { "Gerente", "Administrador", "Vendedor" });
             txcPerfil.Location = new Point(584, 245);
             txcPerfil.Name = "txcPerfil";
             txcPerfil.Size = new Size(297, 29);

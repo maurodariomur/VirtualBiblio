@@ -97,24 +97,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private int ObtenerTipoPerfilSeleccionado()
         {
+            UserModel userModel = new UserModel();
+
             if (txcPerfil.SelectedItem != null)
             {
-                string tipoSeleccionado = txcPerfil.SelectedItem.ToString();
+                string? tipoSeleccionado = txcPerfil.SelectedItem.ToString();
 
-                switch (tipoSeleccionado)
+                // Verificar que tipoSeleccionado no sea nulo o vacío antes de usarlo
+                if (!string.IsNullOrWhiteSpace(tipoSeleccionado))
                 {
-                    case "1-Gerente":
-                        return 1;
-                    case "2-Administrador":
-                        return 2;
-                    case "3-Vendedor":
-                        return 3;
-                    default:
-                        return 0; // Otra opción por defecto
+                    // Utiliza el método ObtenerIdTipoPerfil para obtener el Id del tipo de perfil
+                    int tipoPerfilId = userModel.ObtenerIdTipoPerfil(tipoSeleccionado);
+
+                    // Si se encontró el tipo de perfil en la base de datos, devuelve su Id
+                    if (tipoPerfilId != -1)
+                    {
+                        return tipoPerfilId;
+                    }
                 }
             }
-
-            return 0; // Opción por defecto si no se selecciona nada
+            return 0; // Opción por defecto si no se selecciona nada o no se encuentra en la base de datos
         }
 
         private void LimpiarCampos()

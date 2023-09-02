@@ -12,6 +12,8 @@ using BCrypt.Net;
 using Org.BouncyCastle.Crypto.Generators;
 using Microsoft.VisualBasic.ApplicationServices;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
 
 
 
@@ -166,5 +168,99 @@ namespace DataAccess
             return usuario;
         }
 
+        public string? GetRoleName(int tipoPerfil)
+        {
+            string? roleName = "Desconocido";
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT Nombre FROM TipoPerfiles WHERE Id = @TipoPerfil";
+                    command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        roleName = result.ToString();
+                    }
+                }
+            }
+
+            return roleName;
+        }
+
+        public int ObtenerIdTipoPerfil(string tipoSeleccionado)
+        {
+           
+            int tipoPerfilId = -1;
+
+            using (var connection = GetConnection()) 
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT Id FROM TipoPerfiles WHERE Nombre = @TipoPerfil";
+                    command.Parameters.AddWithValue("@TipoPerfil", tipoSeleccionado);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        tipoPerfilId = Convert.ToInt32(result);
+                    }
+                }
+            }
+            return tipoPerfilId;
+        }
+
+        public bool ActualizarUsuario(int userId, string nombre, string apellido, string dni, string mail, string usuario, DateTime fechaNacimiento, int tipoPerfil, string baja)
+        {
+            // Verificar si el tipo de perfil proporcionado es válido.
+            if (EsTipoPerfilValido(tipoPerfil))
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+
+                    using (var command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+
+                        command.CommandText = "UPDATE Usuarios SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Mail = @Mail, Usuario = @Usuario, FechaNacimiento = @FechaNacimiento, TipoPerfil = @TipoPerfil, Baja = @Baja WHERE Id = @UserId";
+
+                        command.Parameters.AddWithValue("@UserId", userId);
+                        command.Parameters.AddWithValue("@Nombre", nombre);
+                        command.Parameters.AddWithValue("@Apellido", apellido);
+                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
+                        command.Parameters.AddWithValue("@DNI", dni);
+                        command.Parameters.AddWithValue("@Mail", mail);
+                        command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
+                        command.Parameters.AddWithValue("@Usuario", usuario);
+                        command.Parameters.AddWithValue("@Baja", baja);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0; // Retorna true si al menos una fila fue afectada (actualización exitosa).
+                    }
+                }
+            }
+            else
+            {
+                // El tipo de perfil proporcionado no es válido, puedes manejarlo como desees.
+                return false;
+            }
+        }
+
+        private bool EsTipoPerfilValido(int tipoPerfil)
+        {
+            return tipoPerfil >= 1 && tipoPerfil < 4;
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
 using Common.Cache;
+using Domain;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 {
@@ -226,7 +227,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void FLobi_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            pictureBox1.Image = Image.FromFile("C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
+            pictureBox1.Image = Image.FromFile("C:\\Users\\mauro\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
         }
@@ -238,21 +239,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            switch (UserLoginCache.TipoPerfil)
-            {
-                case 1:
-                    lbRol.Text = "Gerente";
-                    break;
-                case 2:
-                    lbRol.Text = "Administrador";
-                    break;
-                case 3:
-                    lbRol.Text = "Vendedor";
-                    break;
-                default:
-                    lbRol.Text = "Desconocido";
-                    break;
-            }
+            // Crear una instancia de UserModel
+            UserModel userModel = new UserModel();
+
+            // Obtén el nombre del rol desde la capa de dominio
+            int tipoPerfil = UserLoginCache.TipoPerfil; // Quita los paréntesis
+
+            string? roleName = userModel.GetRolName(tipoPerfil); // Llama al método en la instancia de UserModel
+
+            // Asigna el nombre del rol al lbRol.Text
+            lbRol.Text = roleName;
+
+            // Resto del código para mostrar otros datos de usuario
             lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
             lbCorreo.Text = UserLoginCache.Mail;
         }
