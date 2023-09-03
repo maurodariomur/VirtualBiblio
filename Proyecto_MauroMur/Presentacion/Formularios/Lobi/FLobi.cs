@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
+using Common.Cache;
+using Domain;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 {
@@ -33,8 +35,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
         private struct RGBColors
         {
-            public static Color color1 = Color.FromArgb(172, 126, 241);
-            public static Color color2 = Color.FromArgb(249, 118, 176);
+            public static Color color1 = Color.FromArgb(240, 235, 206);
+            public static Color color2 = Color.FromArgb(170, 139, 86);
             public static Color color3 = Color.FromArgb(253, 138, 114);
             public static Color color4 = Color.FromArgb(95, 77, 221);
         }
@@ -45,7 +47,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             if (senderBtn != null)
             {
                 currentBtn = (IconButton)senderBtn;
-                currentBtn.BackColor = Color.FromArgb(37, 36, 81);
+                currentBtn.BackColor = Color.FromArgb(4, 13, 18);
                 currentBtn.ForeColor = color;
                 currentBtn.TextAlign = ContentAlignment.MiddleCenter;
                 currentBtn.IconColor = color;
@@ -65,7 +67,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         {
             if (currentBtn != null)
             {
-                currentBtn.BackColor = Color.FromArgb(0, 23, 25);
+                currentBtn.BackColor = Color.FromArgb(24, 61, 61);
                 currentBtn.ForeColor = Color.Gainsboro;
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft;
                 currentBtn.IconColor = Color.Gainsboro;
@@ -74,7 +76,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             }
         }
 
-        private void OpenChildForm(Form childForm)
+        internal void OpenChildForm(Form childForm) //internal puede manejar los formularios (hijos de)
         {
             if (currentChildForm != null)
             {
@@ -94,19 +96,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void iconUsuarios_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new SeccionGerente.CUsuarios());
+            OpenChildForm(new SeccionGerente.CUsuarios(this));
         }
 
         private void iconEstadistica_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
             OpenChildForm(new SeccionGerente.CEstadistica());
-        }
-
-        private void iconPerfil_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new SeccionGerente.CPerfil());
         }
 
         private void iconExit_Click(object sender, EventArgs e)
@@ -209,7 +205,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void panelTitleBar_Paint(object sender, PaintEventArgs e)
         {
             // Colores para el degradado
-            Color color1 = Color.FromArgb(0, 23, 25);
+            Color color1 = Color.FromArgb(24, 61, 61);
             Color color2 = Color.Silver;
 
             // Crear un pincel de degradado lineal
@@ -230,9 +226,44 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
         private void FLobi_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+            pictureBox1.Image = Image.FromFile("C:\\Users\\mauro\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
         }
 
+        private void iconDatos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            // Crear una instancia de UserModel
+            UserModel userModel = new UserModel();
+
+            // Obtén el nombre del rol desde la capa de dominio
+            int tipoPerfil = UserLoginCache.TipoPerfil; // Quita los paréntesis
+
+            string? roleName = userModel.GetRolName(tipoPerfil); // Llama al método en la instancia de UserModel
+
+            // Asigna el nombre del rol al lbRol.Text
+            lbRol.Text = roleName;
+
+            // Resto del código para mostrar otros datos de usuario
+            lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
+            lbCorreo.Text = UserLoginCache.Mail;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbNApe_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
