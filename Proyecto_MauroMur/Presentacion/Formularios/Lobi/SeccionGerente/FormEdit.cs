@@ -18,11 +18,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
     public partial class FormEdit : Form
     {
         private int userId;
+        private CTablas? _tablas;
 
-
-        public FormEdit(int id)
+        public FormEdit(CTablas tablas, int id)
         {
             InitializeComponent();
+            this._tablas = tablas;
             userId = id;
             UserModel userModel = new();
             Usuarios? usuario = userModel.ImportarUsuarios(id);
@@ -34,26 +35,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 dTBithModificar.Value = usuario.FechaNacimiento;
                 txDNIModificar.Text = usuario.DNI;
                 txMailModificar.Text = usuario.Mail;
-                if (usuario.TipoPerfil == 1)
-                {
-                    txcPerfilModificar.Text = "1-Gerente";
-                }
-                else if (usuario.TipoPerfil == 2)
-                {
-                    txcPerfilModificar.Text = "2-Administrador";
-                }
-                else
-                {
-                    txcPerfilModificar.Text = "3-Vendedor";
-                }
+                userModel.GetRolName(usuario.TipoPerfil);
+                txcPerfilModificar.Text = userModel.GetRolName(usuario.TipoPerfil);
                 txEmpleadoModificar.Text = usuario.Usuario;
                 if (usuario.Baja == "SI")
                 {
-                    checkBox1.Checked = true;
+                    checkBoxSi.Checked = true;
                 }
                 else
                 {
-                    checkBox2.Checked = true;
+                    checkBoxNo.Checked = true;
                 }
 
             }
@@ -80,6 +71,62 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             this.Close();
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void checkBoxSi_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSi.Checked)
+            {
+                checkBoxNo.Checked = !checkBoxSi.Checked;
+
+            }
+        }
+
+        private void checkBoxNo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNo.Checked)
+            {
+                checkBoxSi.Checked = !checkBoxNo.Checked;
+
+            }
+        }
+
+        private void btGuardarDatos_Click(object sender, EventArgs e)
+        {
+            UserModel userModel = new UserModel();
+
+            string nombre = txNameModificar.Text;
+            string apellido = txLastNameModificar.Text;
+            string dni = txDNIModificar.Text;
+            string mail = txMailModificar.Text;
+            string usuario = txEmpleadoModificar.Text;
+            DateTime nacimiento = dTBithModificar.Value;
+            // Obtener el nombre del tipo de perfil desde el campo de texto
+            string tipoPerfilNombre = txcPerfilModificar.Text;
+            int tipoPerfilId = userModel.ObtenerIdTipoPerfil(tipoPerfilNombre);
+            string baja = checkBoxSi.Checked ? "SI" : "NO";
+
+            // Crea una instancia del modelo de usuario para actualizar los datos.
+            ;
+
+            // Llama a un método en el modelo de usuario para actualizar los datos del usuario.
+            bool actualizacionExitosa = userModel.ActualizacionEmpleado(userId, nombre, apellido, dni, mail, usuario, nacimiento, tipoPerfilId, baja);
+
+            if (actualizacionExitosa)
+            {
+                MessageBox.Show("Los datos del usuario se han actualizado correctamente.");
+                _tablas!.loadUsers();
+                // Cierra el formulario de edición si la actualización fue exitosa.
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error al actualizar los datos del usuario. Por favor, inténtalo de nuevo.");
+            }
+        }
 
     }
 }

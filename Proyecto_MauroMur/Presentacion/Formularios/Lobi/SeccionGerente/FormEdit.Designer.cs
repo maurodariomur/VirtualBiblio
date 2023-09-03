@@ -52,8 +52,8 @@
             txEmpleadoModificar = new TextBox();
             txMailModificar = new TextBox();
             label2 = new Label();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
+            checkBoxSi = new CheckBox();
+            checkBoxNo = new CheckBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -76,6 +76,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(580, 51);
             panel1.TabIndex = 1;
+            panel1.Paint += panel1_Paint;
             // 
             // lbTitleEditar
             // 
@@ -129,6 +130,7 @@
             btGuardarDatos.TabIndex = 33;
             btGuardarDatos.Text = "Modificar";
             btGuardarDatos.UseVisualStyleBackColor = false;
+            btGuardarDatos.Click += btGuardarDatos_Click;
             // 
             // panel3
             // 
@@ -278,7 +280,7 @@
             txcPerfilModificar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txcPerfilModificar.ForeColor = SystemColors.WindowFrame;
             txcPerfilModificar.FormattingEnabled = true;
-            txcPerfilModificar.Items.AddRange(new object[] { "1-Gerente", "2-Administrador", "3-Vendedor" });
+            txcPerfilModificar.Items.AddRange(new object[] { "Gerente", "Administrador", "Vendedor" });
             txcPerfilModificar.Location = new Point(335, 252);
             txcPerfilModificar.Name = "txcPerfilModificar";
             txcPerfilModificar.Size = new Size(176, 25);
@@ -328,27 +330,29 @@
             label2.TabIndex = 48;
             label2.Text = "Baja";
             // 
-            // checkBox1
+            // checkBoxSi
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox1.Location = new Point(379, 328);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(40, 25);
-            checkBox1.TabIndex = 49;
-            checkBox1.Text = "Si";
-            checkBox1.UseVisualStyleBackColor = true;
+            checkBoxSi.AutoSize = true;
+            checkBoxSi.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxSi.Location = new Point(379, 328);
+            checkBoxSi.Name = "checkBoxSi";
+            checkBoxSi.Size = new Size(40, 25);
+            checkBoxSi.TabIndex = 49;
+            checkBoxSi.Text = "Si";
+            checkBoxSi.UseVisualStyleBackColor = true;
+            checkBoxSi.CheckedChanged += checkBoxSi_CheckedChanged;
             // 
-            // checkBox2
+            // checkBoxNo
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox2.Location = new Point(441, 328);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(51, 25);
-            checkBox2.TabIndex = 50;
-            checkBox2.Text = "No";
-            checkBox2.UseVisualStyleBackColor = true;
+            checkBoxNo.AutoSize = true;
+            checkBoxNo.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxNo.Location = new Point(441, 328);
+            checkBoxNo.Name = "checkBoxNo";
+            checkBoxNo.Size = new Size(51, 25);
+            checkBoxNo.TabIndex = 50;
+            checkBoxNo.Text = "No";
+            checkBoxNo.UseVisualStyleBackColor = true;
+            checkBoxNo.CheckedChanged += checkBoxNo_CheckedChanged;
             // 
             // FormEdit
             // 
@@ -357,8 +361,8 @@
             BackColor = Color.FromArgb(221, 230, 237);
             ClientSize = new Size(580, 473);
             ControlBox = false;
-            Controls.Add(checkBox2);
-            Controls.Add(checkBox1);
+            Controls.Add(checkBoxNo);
+            Controls.Add(checkBoxSi);
             Controls.Add(label2);
             Controls.Add(txDNIModificar);
             Controls.Add(txNameModificar);
@@ -383,6 +387,7 @@
             Opacity = 0.93D;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Editar Usuarios";
+            Load += FormEdit_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -415,8 +420,8 @@
         private TextBox txEmpleadoModificar;
         private TextBox txMailModificar;
         private Label label2;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
+        private CheckBox checkBoxSi;
+        private CheckBox checkBoxNo;
         private Button button1;
         private Label lbErrorModificar;
     }

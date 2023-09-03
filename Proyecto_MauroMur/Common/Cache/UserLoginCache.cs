@@ -15,11 +15,11 @@ namespace Common.Cache
         public static string? DNI { get; set; }
         public static string? Mail { get; set; }
         public static string? Usuario { get; set; }  
-        public static int? TipoPerfil { get; set; }
+        public static int TipoPerfil { get; set; }
 
         public static void Logout()
         {
-            Id = 0; Nombre = null; Apellido = null; DNI = null;Mail = null;Usuario = null;TipoPerfil = null;
+            Id = 0; Nombre = null; Apellido = null; DNI = null;Mail = null;Usuario = null;TipoPerfil = 0;
         }
     }
 }
