@@ -48,11 +48,11 @@
             iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconExit = new FontAwesome.Sharp.IconButton();
             panelMenu = new Panel();
+            iconProducto = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            lbCorreo = new Label();
             lbNApe = new Label();
             lbRol = new Label();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconCurrentChildForm).BeginInit();
             panelEscritorio.SuspendLayout();
@@ -165,11 +165,11 @@
             // 
             // panelEscritorio
             // 
-            panelEscritorio.Anchor = AnchorStyles.None;
-            panelEscritorio.BackColor = Color.Transparent;
+            panelEscritorio.BackColor = Color.FromArgb(221, 230, 237);
             panelEscritorio.Controls.Add(Lfecha);
             panelEscritorio.Controls.Add(Lhora);
             panelEscritorio.Controls.Add(pictureBox1);
+            panelEscritorio.Dock = DockStyle.Fill;
             panelEscritorio.ForeColor = Color.Transparent;
             panelEscritorio.Location = new Point(220, 100);
             panelEscritorio.Name = "panelEscritorio";
@@ -183,8 +183,8 @@
             Lfecha.AutoSize = true;
             Lfecha.BackColor = Color.Transparent;
             Lfecha.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            Lfecha.ForeColor = Color.BlueViolet;
-            Lfecha.Location = new Point(201, 332);
+            Lfecha.ForeColor = Color.FromArgb(24, 61, 61);
+            Lfecha.Location = new Point(190, 331);
             Lfecha.Name = "Lfecha";
             Lfecha.Size = new Size(85, 29);
             Lfecha.TabIndex = 4;
@@ -199,8 +199,8 @@
             Lhora.BackColor = Color.Transparent;
             Lhora.FlatStyle = FlatStyle.Flat;
             Lhora.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            Lhora.ForeColor = Color.BlueViolet;
-            Lhora.Location = new Point(312, 294);
+            Lhora.ForeColor = Color.FromArgb(24, 61, 61);
+            Lhora.Location = new Point(302, 294);
             Lhora.Name = "Lhora";
             Lhora.Size = new Size(100, 37);
             Lhora.TabIndex = 3;
@@ -212,7 +212,6 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(201, 28);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(333, 249);
@@ -232,7 +231,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(220, 140);
+            panelLogo.Size = new Size(220, 100);
             panelLogo.TabIndex = 1;
             // 
             // btnInicio
@@ -241,7 +240,7 @@
             btnInicio.Image = (Image)resources.GetObject("btnInicio.Image");
             btnInicio.Location = new Point(3, 3);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(214, 137);
+            btnInicio.Size = new Size(214, 97);
             btnInicio.SizeMode = PictureBoxSizeMode.Zoom;
             btnInicio.TabIndex = 1;
             btnInicio.TabStop = false;
@@ -255,17 +254,17 @@
             iconUsuarios.FlatStyle = FlatStyle.Flat;
             iconUsuarios.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             iconUsuarios.ForeColor = Color.Gainsboro;
-            iconUsuarios.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+            iconUsuarios.IconChar = FontAwesome.Sharp.IconChar.UsersRectangle;
             iconUsuarios.IconColor = Color.Gainsboro;
             iconUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconUsuarios.IconSize = 32;
             iconUsuarios.ImageAlign = ContentAlignment.MiddleLeft;
-            iconUsuarios.Location = new Point(0, 140);
+            iconUsuarios.Location = new Point(0, 100);
             iconUsuarios.Name = "iconUsuarios";
             iconUsuarios.Padding = new Padding(10, 0, 20, 0);
             iconUsuarios.Size = new Size(220, 60);
             iconUsuarios.TabIndex = 1;
-            iconUsuarios.Text = "Usuarios";
+            iconUsuarios.Text = "Empleados";
             iconUsuarios.TextAlign = ContentAlignment.MiddleLeft;
             iconUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconUsuarios.UseVisualStyleBackColor = false;
@@ -284,7 +283,7 @@
             iconEstadistica.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconEstadistica.IconSize = 32;
             iconEstadistica.ImageAlign = ContentAlignment.MiddleLeft;
-            iconEstadistica.Location = new Point(0, 200);
+            iconEstadistica.Location = new Point(0, 160);
             iconEstadistica.Name = "iconEstadistica";
             iconEstadistica.Padding = new Padding(10, 0, 20, 0);
             iconEstadistica.Size = new Size(220, 60);
@@ -322,6 +321,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(24, 61, 61);
+            panelMenu.Controls.Add(iconProducto);
             panelMenu.Controls.Add(panel1);
             panelMenu.Controls.Add(iconExit);
             panelMenu.Controls.Add(iconEstadistica);
@@ -334,18 +334,68 @@
             panelMenu.TabIndex = 0;
             panelMenu.Paint += panelMenu_Paint;
             // 
+            // iconProducto
+            // 
+            iconProducto.BackColor = Color.FromArgb(24, 61, 61);
+            iconProducto.Dock = DockStyle.Top;
+            iconProducto.FlatAppearance.BorderSize = 0;
+            iconProducto.FlatStyle = FlatStyle.Flat;
+            iconProducto.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconProducto.ForeColor = Color.Gainsboro;
+            iconProducto.IconChar = FontAwesome.Sharp.IconChar.LayerGroup;
+            iconProducto.IconColor = Color.Gainsboro;
+            iconProducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconProducto.IconSize = 32;
+            iconProducto.ImageAlign = ContentAlignment.MiddleLeft;
+            iconProducto.Location = new Point(0, 220);
+            iconProducto.Name = "iconProducto";
+            iconProducto.Padding = new Padding(10, 0, 20, 0);
+            iconProducto.Size = new Size(220, 60);
+            iconProducto.TabIndex = 6;
+            iconProducto.Text = "Producto";
+            iconProducto.TextAlign = ContentAlignment.MiddleLeft;
+            iconProducto.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconProducto.UseVisualStyleBackColor = false;
+            iconProducto.Click += iconProducto_Click;
+            // 
             // panel1
             // 
-            panel1.Controls.Add(iconButton1);
-            panel1.Controls.Add(lbCorreo);
             panel1.Controls.Add(lbNApe);
             panel1.Controls.Add(lbRol);
+            panel1.Controls.Add(iconButton1);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 339);
+            panel1.Enabled = false;
+            panel1.ForeColor = Color.Transparent;
+            panel1.Location = new Point(0, 359);
             panel1.Name = "panel1";
-            panel1.Size = new Size(220, 80);
+            panel1.Size = new Size(220, 60);
             panel1.TabIndex = 5;
             panel1.Paint += panel1_Paint;
+            // 
+            // lbNApe
+            // 
+            lbNApe.AutoSize = true;
+            lbNApe.BackColor = Color.Transparent;
+            lbNApe.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lbNApe.Location = new Point(42, 33);
+            lbNApe.Name = "lbNApe";
+            lbNApe.Size = new Size(118, 17);
+            lbNApe.TabIndex = 6;
+            lbNApe.Text = "Nombre y Apellido";
+            lbNApe.Click += lbNApe_Click;
+            // 
+            // lbRol
+            // 
+            lbRol.AutoSize = true;
+            lbRol.BackColor = Color.Transparent;
+            lbRol.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lbRol.ForeColor = Color.Transparent;
+            lbRol.Location = new Point(42, 14);
+            lbRol.Name = "lbRol";
+            lbRol.Size = new Size(26, 17);
+            lbRol.TabIndex = 5;
+            lbRol.Text = "Rol";
+            lbRol.Click += label1_Click;
             // 
             // iconButton1
             // 
@@ -358,49 +408,15 @@
             iconButton1.IconSize = 32;
             iconButton1.Location = new Point(0, 0);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(36, 80);
+            iconButton1.Size = new Size(36, 60);
             iconButton1.TabIndex = 5;
             iconButton1.UseVisualStyleBackColor = true;
-            // 
-            // lbCorreo
-            // 
-            lbCorreo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            lbCorreo.AutoSize = true;
-            lbCorreo.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbCorreo.ForeColor = Color.Gainsboro;
-            lbCorreo.Location = new Point(42, 49);
-            lbCorreo.Name = "lbCorreo";
-            lbCorreo.Size = new Size(34, 17);
-            lbCorreo.TabIndex = 5;
-            lbCorreo.Text = "Mail";
-            // 
-            // lbNApe
-            // 
-            lbNApe.Anchor = AnchorStyles.Left;
-            lbNApe.AutoSize = true;
-            lbNApe.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbNApe.ForeColor = Color.Gainsboro;
-            lbNApe.Location = new Point(42, 32);
-            lbNApe.Name = "lbNApe";
-            lbNApe.Size = new Size(61, 17);
-            lbNApe.TabIndex = 5;
-            lbNApe.Text = "Nombre";
-            // 
-            // lbRol
-            // 
-            lbRol.AutoSize = true;
-            lbRol.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbRol.ForeColor = Color.Gainsboro;
-            lbRol.Location = new Point(42, 15);
-            lbRol.Name = "lbRol";
-            lbRol.Size = new Size(28, 17);
-            lbRol.TabIndex = 5;
-            lbRol.Text = "Rol";
             // 
             // FLobi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(221, 230, 237);
             ClientSize = new Size(926, 479);
             Controls.Add(panelEscritorio);
             Controls.Add(panelTitleBar);
@@ -443,8 +459,8 @@
         private Panel panelMenu;
         private Panel panel1;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private Label lbCorreo;
-        private Label lbNApe;
         private Label lbRol;
+        private Label lbNApe;
+        private FontAwesome.Sharp.IconButton iconProducto;
     }
 }
