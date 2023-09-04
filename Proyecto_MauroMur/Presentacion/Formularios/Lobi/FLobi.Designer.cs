@@ -48,8 +48,8 @@
             iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconExit = new FontAwesome.Sharp.IconButton();
             panelMenu = new Panel();
+            iconProducto = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
-            lbCorreo = new Label();
             lbNApe = new Label();
             lbRol = new Label();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -231,7 +231,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(220, 140);
+            panelLogo.Size = new Size(220, 100);
             panelLogo.TabIndex = 1;
             // 
             // btnInicio
@@ -240,7 +240,7 @@
             btnInicio.Image = (Image)resources.GetObject("btnInicio.Image");
             btnInicio.Location = new Point(3, 3);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(214, 137);
+            btnInicio.Size = new Size(214, 97);
             btnInicio.SizeMode = PictureBoxSizeMode.Zoom;
             btnInicio.TabIndex = 1;
             btnInicio.TabStop = false;
@@ -259,7 +259,7 @@
             iconUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconUsuarios.IconSize = 32;
             iconUsuarios.ImageAlign = ContentAlignment.MiddleLeft;
-            iconUsuarios.Location = new Point(0, 140);
+            iconUsuarios.Location = new Point(0, 100);
             iconUsuarios.Name = "iconUsuarios";
             iconUsuarios.Padding = new Padding(10, 0, 20, 0);
             iconUsuarios.Size = new Size(220, 60);
@@ -283,7 +283,7 @@
             iconEstadistica.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconEstadistica.IconSize = 32;
             iconEstadistica.ImageAlign = ContentAlignment.MiddleLeft;
-            iconEstadistica.Location = new Point(0, 200);
+            iconEstadistica.Location = new Point(0, 160);
             iconEstadistica.Name = "iconEstadistica";
             iconEstadistica.Padding = new Padding(10, 0, 20, 0);
             iconEstadistica.Size = new Size(220, 60);
@@ -321,6 +321,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(24, 61, 61);
+            panelMenu.Controls.Add(iconProducto);
             panelMenu.Controls.Add(panel1);
             panelMenu.Controls.Add(iconExit);
             panelMenu.Controls.Add(iconEstadistica);
@@ -333,31 +334,43 @@
             panelMenu.TabIndex = 0;
             panelMenu.Paint += panelMenu_Paint;
             // 
+            // iconProducto
+            // 
+            iconProducto.BackColor = Color.FromArgb(24, 61, 61);
+            iconProducto.Dock = DockStyle.Top;
+            iconProducto.FlatAppearance.BorderSize = 0;
+            iconProducto.FlatStyle = FlatStyle.Flat;
+            iconProducto.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconProducto.ForeColor = Color.Gainsboro;
+            iconProducto.IconChar = FontAwesome.Sharp.IconChar.LayerGroup;
+            iconProducto.IconColor = Color.Gainsboro;
+            iconProducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconProducto.IconSize = 32;
+            iconProducto.ImageAlign = ContentAlignment.MiddleLeft;
+            iconProducto.Location = new Point(0, 220);
+            iconProducto.Name = "iconProducto";
+            iconProducto.Padding = new Padding(10, 0, 20, 0);
+            iconProducto.Size = new Size(220, 60);
+            iconProducto.TabIndex = 6;
+            iconProducto.Text = "Producto";
+            iconProducto.TextAlign = ContentAlignment.MiddleLeft;
+            iconProducto.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconProducto.UseVisualStyleBackColor = false;
+            iconProducto.Click += iconProducto_Click;
+            // 
             // panel1
             // 
-            panel1.Controls.Add(lbCorreo);
             panel1.Controls.Add(lbNApe);
             panel1.Controls.Add(lbRol);
             panel1.Controls.Add(iconButton1);
             panel1.Dock = DockStyle.Bottom;
             panel1.Enabled = false;
             panel1.ForeColor = Color.Transparent;
-            panel1.Location = new Point(0, 339);
+            panel1.Location = new Point(0, 359);
             panel1.Name = "panel1";
-            panel1.Size = new Size(220, 80);
+            panel1.Size = new Size(220, 60);
             panel1.TabIndex = 5;
             panel1.Paint += panel1_Paint;
-            // 
-            // lbCorreo
-            // 
-            lbCorreo.AutoSize = true;
-            lbCorreo.BackColor = Color.Transparent;
-            lbCorreo.Font = new Font("Century Gothic", 6.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbCorreo.Location = new Point(42, 55);
-            lbCorreo.Name = "lbCorreo";
-            lbCorreo.Size = new Size(26, 13);
-            lbCorreo.TabIndex = 7;
-            lbCorreo.Text = "Mail";
             // 
             // lbNApe
             // 
@@ -395,7 +408,7 @@
             iconButton1.IconSize = 32;
             iconButton1.Location = new Point(0, 0);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(36, 80);
+            iconButton1.Size = new Size(36, 60);
             iconButton1.TabIndex = 5;
             iconButton1.UseVisualStyleBackColor = true;
             // 
@@ -447,7 +460,7 @@
         private Panel panel1;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Label lbRol;
-        private Label lbCorreo;
         private Label lbNApe;
+        private FontAwesome.Sharp.IconButton iconProducto;
     }
 }
