@@ -13,8 +13,10 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Common.Models;
-
-
+using Proyecto_MauroMur.Common.Models;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
+using System.Net;
+using System.Drawing.Imaging;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
@@ -29,10 +31,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void CProductos_Load(object sender, EventArgs e)
         {
-
             opcionesCategoria();
             mostrarOpcionesAutor();
-
+            mostrarOpcionesEditoriales();
         }
 
         private void msgError(string msg)
@@ -49,18 +50,32 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string precioStr = txPrecio.Text;
             string descripcion = rtbDescripcion.Text;
             string imagen = lbPathTittleP.Text;
+            Image imagenAGuardar = pProducts.Image;
+            string carpetaDestino = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Presentacion/Formularios/Pictures/Productos");
+            carpetaDestino = Path.GetFullPath(carpetaDestino);
             string stockStr = txStock.Text;
             string categoria = txCategoria.Text;
-
             ProductModel producModel = new();
 
-            if (string.IsNullOrWhiteSpace(nombreProd) || string.IsNullOrWhiteSpace(nombreEditorial) || string.IsNullOrWhiteSpace(precioStr) || string.IsNullOrWhiteSpace(descripcion))
+            if (nombreProd == "Titulo" || nombreEditorial == "Editorial" || nombreAutor == "Autor")
             {
                 msgError("Debe completar todos los campos");
+            }
+            else if (string.IsNullOrWhiteSpace(nombreProd) || string.IsNullOrWhiteSpace(nombreEditorial) || string.IsNullOrWhiteSpace(precioStr) || string.IsNullOrWhiteSpace(descripcion))
+            {
+                msgError("Debe completar todos los campos");
+            }
+            else if (ObtenerCategoria() == 0)
+            {
+                msgError("Debe seleccionar una categoria");
             }
             else if (!float.TryParse(precioStr, out float precio) || !int.TryParse(stockStr, out int stock))
             {
                 msgError("Ingrese valores válidos en los campos numéricos (Precio, Stock)");
+            }
+            else if (imagen == "Path: Producto")
+            {
+                msgError("Ingrese una imagen");
             }
             else
             {
@@ -80,6 +95,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                         int idCategoria = producModel.ObtenerCategoria(categoria);
 
                         bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
+                        string nombreArchivo = Path.GetFileName(lbPathTittleP.Text);
+                        string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
+                        imagenAGuardar.Save(rutaCompleta,ImageFormat.Png);
 
                         if (productoAgregado)
                         {
@@ -105,9 +123,37 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txEditorial.Text = "Editorial";
             txPrecio.Text = "$ Precio";
             rtbDescripcion.Text = "Descripcion";
+            txAutor.Text = "Autor";
+            txStock.Text = "Stock";
+            txCategoria.SelectedIndex = 0;
             txNameProducto.Focus();
         }
 
+        private int ObtenerCategoria()
+        {
+            ProductModel userModel = new ProductModel();
+
+            if (txCategoria.SelectedItem != null)
+            {
+                string? categoria = txCategoria.SelectedItem.ToString();
+
+                // Verificar que tipoSeleccionado no sea nulo o vacío antes de usarlo
+                if (!string.IsNullOrWhiteSpace(categoria))
+                {
+                    // Utiliza el método ObtenerIdTipoPerfil para obtener el Id del tipo de perfil
+                    int tipoCategoria = userModel.ObtenerCategoria(categoria);
+
+                    // Si se encontró el tipo de perfil en la base de datos, devuelve su Id
+                    if (tipoCategoria != -1)
+                    {
+                        return tipoCategoria;
+                    }
+                }
+            }
+            return 0; // Opción por defecto si no se selecciona nada o no se encuentra en la base de datos
+        }
+
+        //LIMITAR CARACTERES EN DESCRIPCION
         private void rtbDescripcion_TextChanged(object sender, EventArgs e)
         {
             // Obtén la longitud actual del texto en el RichTextBox
@@ -127,6 +173,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             lbLimite.Visible = longitudTexto > 0;
         }
 
+        //TITULOS DE LOS TEXTBOXS
         private void txNameProducto_Enter(object sender, EventArgs e)
         {
             if (txNameProducto.Text == "Titulo")
@@ -145,7 +192,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void txEditorial_Enter(object sender, EventArgs e)
         {
-            if (txEditorial.Text == "Editorial")
+            if (txEditorial.Text == "Editorial" || txEditorial.Text == "EDITORIAL")
             {
                 txEditorial.Text = "";
             }
@@ -188,21 +235,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             }
         }
 
-        private void lbLimite_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbStock_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txStock_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txStock_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -229,7 +261,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void txAutor_Enter(object sender, EventArgs e)
         {
-            if (txAutor.Text == "Autor")
+            if (txAutor.Text == "Autor" || txAutor.Text == "AUTOR")
             {
                 txAutor.Text = "";
             }
@@ -243,6 +275,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             }
         }
 
+        //MOSTRAR IMAGENES
         private void iconImagen_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFile = new();
@@ -280,11 +313,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             return false;
         }
 
-        private void txNameProducto_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        //MOSTRAR OPCIONES DE CATEGORIAS EN EL CHECKEDLISTBOX
         private void opcionesCategoria()
         {
             ProductModel productModel = new ProductModel();
@@ -300,6 +329,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txCategoria.SelectedIndex = 0;
         }
 
+        //AUTOCOMPLETAR TEXTBOX
         private void mostrarOpcionesAutor()
         {
             ProductModel productModel = new ProductModel();
@@ -319,6 +349,39 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txAutor.AutoCompleteCustomSource = fuenteAutoCompletar;
             txAutor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txAutor.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private void mostrarOpcionesEditoriales()
+        {
+            ProductModel productModel = new ProductModel();
+            // Cargar la lista de objetos Autores desde la base de datos
+            List<Editoriales> listaEditoriales = productModel.ObtenerNombreEditoriales();
+
+            // Configurar la fuente personalizada de autocompletar
+            AutoCompleteStringCollection fuenteAutoCompletar = new AutoCompleteStringCollection();
+
+            // Extraer nombres de autores y agregarlos a la colección de autocompletar
+            foreach (var editorial in listaEditoriales)
+            {
+                fuenteAutoCompletar.Add(editorial.NombreEditorial); // Reemplaza "Nombre" con el nombre de la propiedad que almacena el nombre del autor en tu clase Autores
+            }
+
+            // Asignar la fuente personalizada al TextBox
+            txEditorial.AutoCompleteCustomSource = fuenteAutoCompletar;
+            txEditorial.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txEditorial.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private void txEditorial_TextChanged(object sender, EventArgs e)
+        {
+            txEditorial.Text = txEditorial.Text.ToUpper();
+            txEditorial.SelectionStart = txEditorial.Text.Length;
+        }
+
+        private void txAutor_TextChanged(object sender, EventArgs e)
+        {
+            txAutor.Text = txAutor.Text.ToUpper();
+            txAutor.SelectionStart = txAutor.Text.Length;
         }
     }
 }

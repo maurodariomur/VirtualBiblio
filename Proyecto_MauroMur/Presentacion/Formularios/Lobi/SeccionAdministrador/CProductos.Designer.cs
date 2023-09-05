@@ -167,6 +167,7 @@
             txAutor.Size = new Size(213, 27);
             txAutor.TabIndex = 55;
             txAutor.Text = "Autor";
+            txAutor.TextChanged += txAutor_TextChanged;
             txAutor.Enter += txAutor_Enter;
             txAutor.Leave += txAutor_Leave;
             // 
@@ -194,7 +195,6 @@
             txStock.Size = new Size(213, 27);
             txStock.TabIndex = 53;
             txStock.Text = "Stock";
-            txStock.TextChanged += txStock_TextChanged;
             txStock.Enter += txStock_Enter;
             txStock.KeyPress += txStock_KeyPress;
             txStock.Leave += txStock_Leave;
@@ -211,7 +211,6 @@
             lbStock.Size = new Size(50, 19);
             lbStock.TabIndex = 52;
             lbStock.Text = "Stock";
-            lbStock.Click += lbStock_Click;
             // 
             // lbLimite
             // 
@@ -225,7 +224,6 @@
             lbLimite.TabIndex = 51;
             lbLimite.Text = "label1";
             lbLimite.Visible = false;
-            lbLimite.Click += lbLimite_Click;
             // 
             // panel3
             // 
@@ -365,6 +363,7 @@
             txEditorial.Size = new Size(213, 27);
             txEditorial.TabIndex = 31;
             txEditorial.Text = "Editorial";
+            txEditorial.TextChanged += txEditorial_TextChanged;
             txEditorial.Enter += txEditorial_Enter;
             txEditorial.Leave += txEditorial_Leave;
             // 
@@ -392,7 +391,6 @@
             txNameProducto.Size = new Size(213, 27);
             txNameProducto.TabIndex = 24;
             txNameProducto.Text = "Titulo";
-            txNameProducto.TextChanged += txNameProducto_TextChanged;
             txNameProducto.Enter += txNameProducto_Enter;
             txNameProducto.Leave += txNameProducto_Leave;
             // 
@@ -517,11 +515,9 @@
         private TextBox txNameProducto;
         private Label lbImagen;
         private Label lbCategoria;
-        private Label lbFechaN;
         private ComboBox txCategoria;
         private Label lbDescripcion;
         private Label lbPrecio;
-        private Label lbContraseña;
         private TextBox txPrecio;
         private Panel panel5;
         private Label lbErrorProd;

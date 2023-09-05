@@ -81,7 +81,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-
         private bool IsValidEmail(string email)
         {
             try
@@ -283,11 +282,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             txPassword.UseSystemPasswordChar = !txPassword.UseSystemPasswordChar;
         }
 
-        private void lbContraseña_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btRegistrar_MouseEnter(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
@@ -298,40 +292,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             Cursor = Cursors.Default;
         }
 
-        private void lbError_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btTablaUsuarios_Click(object sender, EventArgs e)
         {
             this.Close();
             intanciaFLobi.OpenChildForm(new SeccionGerente.CTablas());
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dTBith_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txcPerfil_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

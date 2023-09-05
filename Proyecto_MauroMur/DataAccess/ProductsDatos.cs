@@ -1,5 +1,6 @@
 ﻿using Common.Models;
 using DataAccess;
+using Proyecto_MauroMur.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -235,6 +236,34 @@ namespace Proyecto_MauroMur.DataAccess
             }
 
             return autores;
+        }
+
+        public List<Editoriales> ObtenerNombresE()
+        {
+            List<Editoriales> editoriales = new();
+
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+                using (var comando = new SqlCommand())
+                {
+                    comando.Connection = conexion;
+                    comando.CommandText = "SELECT * FROM Editorial";
+
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Editoriales editorial = new();
+                            editorial.Id_Editorial = reader.GetInt32(0);
+                            editorial.NombreEditorial = reader.GetString(1);
+                            editoriales.Add(editorial);
+                        }
+                    }
+                }
+            }
+
+            return editoriales;
         }
     }
 }

@@ -147,7 +147,6 @@
             dTBith.Name = "dTBith";
             dTBith.Size = new Size(296, 27);
             dTBith.TabIndex = 29;
-            dTBith.ValueChanged += dTBith_ValueChanged;
             // 
             // lbMail
             // 
@@ -184,7 +183,6 @@
             txName.Size = new Size(296, 27);
             txName.TabIndex = 24;
             txName.Text = "Nombre";
-            txName.TextChanged += txName_TextChanged;
             txName.Enter += txName_Enter_1;
             txName.KeyPress += txName_KeyPress_1;
             txName.Leave += txName_Leave_1;
@@ -212,7 +210,6 @@
             lbContraseña.Size = new Size(98, 19);
             lbContraseña.TabIndex = 23;
             lbContraseña.Text = "Contraseña";
-            lbContraseña.Click += lbContraseña_Click;
             // 
             // txcPerfil
             // 
@@ -226,7 +223,6 @@
             txcPerfil.Size = new Size(297, 29);
             txcPerfil.TabIndex = 30;
             txcPerfil.Text = "Seleccione Usuario";
-            txcPerfil.SelectedIndexChanged += txcPerfil_SelectedIndexChanged;
             // 
             // txPassword
             // 
@@ -301,7 +297,6 @@
             lbError.TextAlign = ContentAlignment.MiddleCenter;
             lbError.UseCompatibleTextRendering = true;
             lbError.Visible = false;
-            lbError.Click += lbError_Click;
             // 
             // notifyIcon1
             // 

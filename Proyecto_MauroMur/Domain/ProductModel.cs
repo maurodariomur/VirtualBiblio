@@ -82,5 +82,10 @@ namespace Proyecto_MauroMur.Domain
             return productModel.ObtenerNombresA();
         }
 
+        public List<Editoriales> ObtenerNombreEditoriales()
+        {
+            return productModel.ObtenerNombresE();
+        }
+
     }
 }

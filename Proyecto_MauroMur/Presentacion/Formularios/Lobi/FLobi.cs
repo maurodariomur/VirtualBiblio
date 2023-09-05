@@ -172,37 +172,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             WindowState = FormWindowState.Minimized;
         }
 
-        private void Lhora_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void horaFecha_Tick(object sender, EventArgs e)
         {
             Lhora.Text = DateTime.Now.ToLongTimeString();
             Lfecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy").ToUpper();
-
-
-        }
-
-        private void Lfecha_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelEscritorio_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelMenu_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void panelTitleBar_Paint(object sender, PaintEventArgs e)
@@ -230,13 +203,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void FLobi_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            pictureBox1.Image = Image.FromFile("C:\\Users\\mauro\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
+            string carpetaDestino = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Presentacion/Formularios/Pictures/Sistema/");
+            carpetaDestino = Path.GetFullPath(carpetaDestino);
+            pictureBox1.Image = Image.FromFile(carpetaDestino + "Bienvenidos.gif");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-
-        }
-
-        private void iconDatos_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -257,17 +227,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbNApe_Click(object sender, EventArgs e)
-        {
-
-        }
-
-       
     }
 }
 
