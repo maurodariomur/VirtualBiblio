@@ -35,10 +35,14 @@
             panel4 = new Panel();
             btRegistrarProd = new Button();
             panel6 = new Panel();
+            txAutor = new TextBox();
+            lbAutor = new Label();
+            txStock = new TextBox();
+            lbStock = new Label();
             lbLimite = new Label();
             panel3 = new Panel();
             btTablaProductos = new FontAwesome.Sharp.IconButton();
-            pictureBox1 = new PictureBox();
+            pProducts = new PictureBox();
             lbPathTittleP = new Label();
             iconImagen = new FontAwesome.Sharp.IconButton();
             rtbDescripcion = new RichTextBox();
@@ -58,7 +62,7 @@
             panel4.SuspendLayout();
             panel6.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pProducts).BeginInit();
             panel5.SuspendLayout();
             SuspendLayout();
             // 
@@ -109,6 +113,7 @@
             // 
             btRegistrarProd.Anchor = AnchorStyles.Top;
             btRegistrarProd.BackColor = Color.FromArgb(24, 61, 61);
+            btRegistrarProd.Cursor = Cursors.Hand;
             btRegistrarProd.FlatStyle = FlatStyle.Popup;
             btRegistrarProd.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btRegistrarProd.ForeColor = SystemColors.ButtonFace;
@@ -123,9 +128,13 @@
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(221, 230, 237);
+            panel6.Controls.Add(txAutor);
+            panel6.Controls.Add(lbAutor);
+            panel6.Controls.Add(txStock);
+            panel6.Controls.Add(lbStock);
             panel6.Controls.Add(lbLimite);
             panel6.Controls.Add(panel3);
-            panel6.Controls.Add(pictureBox1);
+            panel6.Controls.Add(pProducts);
             panel6.Controls.Add(lbPathTittleP);
             panel6.Controls.Add(iconImagen);
             panel6.Controls.Add(rtbDescripcion);
@@ -147,13 +156,70 @@
             panel6.Size = new Size(1076, 536);
             panel6.TabIndex = 44;
             // 
+            // txAutor
+            // 
+            txAutor.Anchor = AnchorStyles.None;
+            txAutor.BorderStyle = BorderStyle.FixedSingle;
+            txAutor.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txAutor.ForeColor = SystemColors.WindowFrame;
+            txAutor.Location = new Point(331, 248);
+            txAutor.Name = "txAutor";
+            txAutor.Size = new Size(213, 27);
+            txAutor.TabIndex = 55;
+            txAutor.Text = "Autor";
+            txAutor.Enter += txAutor_Enter;
+            txAutor.Leave += txAutor_Leave;
+            // 
+            // lbAutor
+            // 
+            lbAutor.Anchor = AnchorStyles.None;
+            lbAutor.AutoSize = true;
+            lbAutor.BackColor = Color.Transparent;
+            lbAutor.FlatStyle = FlatStyle.Popup;
+            lbAutor.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbAutor.Location = new Point(331, 210);
+            lbAutor.Name = "lbAutor";
+            lbAutor.Size = new Size(50, 19);
+            lbAutor.TabIndex = 54;
+            lbAutor.Text = "Autor";
+            // 
+            // txStock
+            // 
+            txStock.Anchor = AnchorStyles.None;
+            txStock.BorderStyle = BorderStyle.FixedSingle;
+            txStock.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txStock.ForeColor = SystemColors.WindowFrame;
+            txStock.Location = new Point(604, 248);
+            txStock.Name = "txStock";
+            txStock.Size = new Size(213, 27);
+            txStock.TabIndex = 53;
+            txStock.Text = "Stock";
+            txStock.TextChanged += txStock_TextChanged;
+            txStock.Enter += txStock_Enter;
+            txStock.KeyPress += txStock_KeyPress;
+            txStock.Leave += txStock_Leave;
+            // 
+            // lbStock
+            // 
+            lbStock.Anchor = AnchorStyles.None;
+            lbStock.AutoSize = true;
+            lbStock.BackColor = Color.Transparent;
+            lbStock.FlatStyle = FlatStyle.Popup;
+            lbStock.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbStock.Location = new Point(604, 210);
+            lbStock.Name = "lbStock";
+            lbStock.Size = new Size(50, 19);
+            lbStock.TabIndex = 52;
+            lbStock.Text = "Stock";
+            lbStock.Click += lbStock_Click;
+            // 
             // lbLimite
             // 
             lbLimite.Anchor = AnchorStyles.None;
             lbLimite.AutoSize = true;
             lbLimite.Font = new Font("Century Gothic", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbLimite.ForeColor = Color.RosyBrown;
-            lbLimite.Location = new Point(332, 416);
+            lbLimite.Location = new Point(333, 457);
             lbLimite.Name = "lbLimite";
             lbLimite.Size = new Size(44, 16);
             lbLimite.TabIndex = 51;
@@ -191,14 +257,15 @@
             btTablaProductos.TextAlign = ContentAlignment.MiddleRight;
             btTablaProductos.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
+            // pProducts
             // 
-            pictureBox1.Anchor = AnchorStyles.None;
-            pictureBox1.Location = new Point(659, 284);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(118, 116);
-            pictureBox1.TabIndex = 48;
-            pictureBox1.TabStop = false;
+            pProducts.Anchor = AnchorStyles.None;
+            pProducts.Location = new Point(654, 325);
+            pProducts.Name = "pProducts";
+            pProducts.Size = new Size(120, 122);
+            pProducts.SizeMode = PictureBoxSizeMode.StretchImage;
+            pProducts.TabIndex = 48;
+            pProducts.TabStop = false;
             // 
             // lbPathTittleP
             // 
@@ -207,7 +274,7 @@
             lbPathTittleP.BackColor = Color.Transparent;
             lbPathTittleP.FlatStyle = FlatStyle.Popup;
             lbPathTittleP.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbPathTittleP.Location = new Point(669, 403);
+            lbPathTittleP.Location = new Point(641, 457);
             lbPathTittleP.Name = "lbPathTittleP";
             lbPathTittleP.Size = new Size(120, 19);
             lbPathTittleP.TabIndex = 46;
@@ -217,18 +284,22 @@
             // 
             iconImagen.Anchor = AnchorStyles.None;
             iconImagen.BackColor = Color.Transparent;
+            iconImagen.Cursor = Cursors.Hand;
             iconImagen.FlatAppearance.BorderSize = 0;
+            iconImagen.FlatAppearance.MouseDownBackColor = Color.FromArgb(92, 131, 116);
+            iconImagen.FlatAppearance.MouseOverBackColor = Color.FromArgb(147, 177, 166);
             iconImagen.FlatStyle = FlatStyle.Flat;
             iconImagen.IconChar = FontAwesome.Sharp.IconChar.FileImage;
             iconImagen.IconColor = Color.Black;
             iconImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconImagen.IconSize = 25;
             iconImagen.ImageAlign = ContentAlignment.BottomCenter;
-            iconImagen.Location = new Point(633, 397);
+            iconImagen.Location = new Point(604, 447);
             iconImagen.Name = "iconImagen";
-            iconImagen.Size = new Size(45, 34);
+            iconImagen.Size = new Size(31, 37);
             iconImagen.TabIndex = 49;
             iconImagen.UseVisualStyleBackColor = false;
+            iconImagen.Click += iconImagen_Click;
             // 
             // rtbDescripcion
             // 
@@ -236,7 +307,7 @@
             rtbDescripcion.BackColor = SystemColors.Window;
             rtbDescripcion.BorderStyle = BorderStyle.FixedSingle;
             rtbDescripcion.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            rtbDescripcion.Location = new Point(331, 284);
+            rtbDescripcion.Location = new Point(332, 325);
             rtbDescripcion.Name = "rtbDescripcion";
             rtbDescripcion.Size = new Size(213, 116);
             rtbDescripcion.TabIndex = 47;
@@ -276,19 +347,20 @@
             lbNombre.BackColor = Color.Transparent;
             lbNombre.FlatStyle = FlatStyle.Popup;
             lbNombre.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbNombre.Location = new Point(332, 77);
+            lbNombre.Location = new Point(332, 50);
             lbNombre.Name = "lbNombre";
-            lbNombre.Size = new Size(73, 19);
+            lbNombre.Size = new Size(48, 19);
             lbNombre.TabIndex = 17;
-            lbNombre.Text = "Nombre";
+            lbNombre.Text = "Titulo";
             // 
             // txEditorial
             // 
             txEditorial.Anchor = AnchorStyles.None;
+            txEditorial.AutoCompleteMode = AutoCompleteMode.Suggest;
             txEditorial.BackColor = SystemColors.Window;
             txEditorial.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txEditorial.ForeColor = SystemColors.WindowFrame;
-            txEditorial.Location = new Point(331, 189);
+            txEditorial.Location = new Point(331, 164);
             txEditorial.Name = "txEditorial";
             txEditorial.Size = new Size(213, 27);
             txEditorial.TabIndex = 31;
@@ -303,7 +375,7 @@
             lbEditorial.BackColor = Color.Transparent;
             lbEditorial.FlatStyle = FlatStyle.Flat;
             lbEditorial.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbEditorial.Location = new Point(331, 156);
+            lbEditorial.Location = new Point(331, 131);
             lbEditorial.Name = "lbEditorial";
             lbEditorial.Size = new Size(70, 19);
             lbEditorial.TabIndex = 33;
@@ -315,11 +387,12 @@
             txNameProducto.Cursor = Cursors.IBeam;
             txNameProducto.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txNameProducto.ForeColor = SystemColors.WindowFrame;
-            txNameProducto.Location = new Point(331, 108);
+            txNameProducto.Location = new Point(331, 83);
             txNameProducto.Name = "txNameProducto";
             txNameProducto.Size = new Size(213, 27);
             txNameProducto.TabIndex = 24;
-            txNameProducto.Text = "Nombre";
+            txNameProducto.Text = "Titulo";
+            txNameProducto.TextChanged += txNameProducto_TextChanged;
             txNameProducto.Enter += txNameProducto_Enter;
             txNameProducto.Leave += txNameProducto_Leave;
             // 
@@ -330,7 +403,7 @@
             lbImagen.BackColor = Color.Transparent;
             lbImagen.FlatStyle = FlatStyle.Popup;
             lbImagen.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbImagen.Location = new Point(682, 252);
+            lbImagen.Location = new Point(678, 293);
             lbImagen.Name = "lbImagen";
             lbImagen.Size = new Size(71, 19);
             lbImagen.TabIndex = 18;
@@ -343,7 +416,7 @@
             lbCategoria.BackColor = Color.Transparent;
             lbCategoria.FlatStyle = FlatStyle.Flat;
             lbCategoria.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbCategoria.Location = new Point(604, 75);
+            lbCategoria.Location = new Point(604, 50);
             lbCategoria.Name = "lbCategoria";
             lbCategoria.Size = new Size(87, 19);
             lbCategoria.TabIndex = 21;
@@ -353,15 +426,14 @@
             // 
             txCategoria.Anchor = AnchorStyles.None;
             txCategoria.BackColor = SystemColors.Window;
+            txCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             txCategoria.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txCategoria.ForeColor = SystemColors.WindowFrame;
             txCategoria.FormattingEnabled = true;
-            txCategoria.Items.AddRange(new object[] { "Gerente", "Administrador", "Vendedor" });
-            txCategoria.Location = new Point(604, 108);
+            txCategoria.Location = new Point(604, 83);
             txCategoria.Name = "txCategoria";
             txCategoria.Size = new Size(213, 29);
             txCategoria.TabIndex = 30;
-            txCategoria.Text = " Categoria";
             // 
             // lbDescripcion
             // 
@@ -370,7 +442,7 @@
             lbDescripcion.BackColor = Color.Transparent;
             lbDescripcion.FlatStyle = FlatStyle.Popup;
             lbDescripcion.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbDescripcion.Location = new Point(332, 252);
+            lbDescripcion.Location = new Point(333, 293);
             lbDescripcion.Name = "lbDescripcion";
             lbDescripcion.Size = new Size(100, 19);
             lbDescripcion.TabIndex = 22;
@@ -383,7 +455,7 @@
             lbPrecio.BackColor = Color.Transparent;
             lbPrecio.FlatStyle = FlatStyle.Popup;
             lbPrecio.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbPrecio.Location = new Point(604, 162);
+            lbPrecio.Location = new Point(604, 137);
             lbPrecio.Name = "lbPrecio";
             lbPrecio.Size = new Size(57, 19);
             lbPrecio.TabIndex = 19;
@@ -395,7 +467,7 @@
             txPrecio.BorderStyle = BorderStyle.FixedSingle;
             txPrecio.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txPrecio.ForeColor = SystemColors.WindowFrame;
-            txPrecio.Location = new Point(604, 190);
+            txPrecio.Location = new Point(604, 165);
             txPrecio.Name = "txPrecio";
             txPrecio.Size = new Size(213, 27);
             txPrecio.TabIndex = 27;
@@ -417,13 +489,14 @@
             Controls.Add(panel1);
             Name = "CProductos";
             Text = "CProductos";
+            Load += CProductos_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel4.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pProducts).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ResumeLayout(false);
@@ -446,7 +519,6 @@
         private Label lbCategoria;
         private Label lbFechaN;
         private ComboBox txCategoria;
-        private DateTimePicker dTBith;
         private Label lbDescripcion;
         private Label lbPrecio;
         private Label lbContraseña;
@@ -454,11 +526,15 @@
         private Panel panel5;
         private Label lbErrorProd;
         private Label lbPathTittleP;
-        private PictureBox pictureBox1;
+        private PictureBox pProducts;
         private RichTextBox rtbDescripcion;
         private FontAwesome.Sharp.IconButton iconImagen;
         private Panel panel3;
         private FontAwesome.Sharp.IconButton btTablaProductos;
         private Label lbLimite;
+        private Label lbStock;
+        private TextBox txStock;
+        private TextBox txAutor;
+        private Label lbAutor;
     }
 }
