@@ -28,6 +28,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             List<Usuarios> usuarios = userModel.MostrarUsers();
             dataGridUsuarios.DataSource = usuarios;
+            opcionesPerfiles();
         }
 
         public void loadUsers()
@@ -62,6 +63,21 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
+        private void opcionesPerfiles()
+        {
+            UserModel userModel = new();
+            var roles = userModel.ObtenerPerfiles();
+
+            // Agrega el mensaje predeterminado al comienzo de la lista
+            roles.Insert(0, "Seleccione Perfil");
+
+            // Asigna la lista de categorías como DataSource del ComboBox
+            cBBuscadorPerfil.DataSource = roles;
+
+            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
+            cBBuscadorPerfil.SelectedIndex = 0;
+        }
+
         private void FiltrarUsuarios()
         {
 
@@ -69,7 +85,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             string textoBusquedaApellido = txBuscadorApellido.Text.ToLower();
             string textoBusquedaDNI = txBuscadorDni.Text.ToLower();
             string? perfilSeleccionado = cBBuscadorPerfil.SelectedItem as string;
-            int tipoPerfilId = -1;
+            int tipoPerfilId = 0;
 
             if (!string.IsNullOrEmpty(perfilSeleccionado))
             {
@@ -82,7 +98,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                     (string.IsNullOrEmpty(textoBusquedaNombre) || usuario?.Nombre?.ToLower()?.Contains(textoBusquedaNombre) == true) ||
                     (string.IsNullOrEmpty(textoBusquedaApellido) || usuario?.Apellido?.ToLower()?.Contains(textoBusquedaApellido) == true) ||
                     (string.IsNullOrEmpty(textoBusquedaDNI) || usuario?.DNI?.ToLower()?.Contains(textoBusquedaDNI) == true) ||
-                    (usuario?.TipoPerfil == tipoPerfilId && tipoPerfilId != -1))
+                    (tipoPerfilId == 0 || (usuario?.TipoPerfil == tipoPerfilId)))
                 .ToList();
 
             dataGridUsuarios.DataSource = usuariosFiltrados;
@@ -181,7 +197,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void checkBoxAZ_CheckedChanged(object sender, EventArgs e)
         {
-              loadUsers();
+            loadUsers();
         }
 
         private void txBuscadorNombre_KeyPress(object sender, KeyPressEventArgs e)

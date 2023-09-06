@@ -107,7 +107,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void iconProducto_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new SeccionAdministrador.CProductos());
+            OpenChildForm(new SeccionAdministrador.CProductos(this));
         }
 
         private void iconExit_Click(object sender, EventArgs e)

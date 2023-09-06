@@ -145,13 +145,13 @@
             // 
             lbErrorModificar.Anchor = AnchorStyles.Top;
             lbErrorModificar.AutoSize = true;
-            lbErrorModificar.Font = new Font("Century Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            lbErrorModificar.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
             lbErrorModificar.ForeColor = Color.Brown;
             lbErrorModificar.Image = (Image)resources.GetObject("lbErrorModificar.Image");
             lbErrorModificar.ImageAlign = ContentAlignment.MiddleLeft;
-            lbErrorModificar.Location = new Point(220, 8);
+            lbErrorModificar.Location = new Point(127, 8);
             lbErrorModificar.Name = "lbErrorModificar";
-            lbErrorModificar.Size = new Size(40, 25);
+            lbErrorModificar.Size = new Size(30, 19);
             lbErrorModificar.TabIndex = 35;
             lbErrorModificar.Text = "Error";
             lbErrorModificar.TextAlign = ContentAlignment.MiddleCenter;
@@ -252,6 +252,7 @@
             txDNIModificar.Size = new Size(176, 23);
             txDNIModificar.TabIndex = 47;
             txDNIModificar.Text = "DNI";
+            txDNIModificar.KeyPress += txDNIModificar_KeyPress;
             // 
             // txNameModificar
             // 
@@ -263,6 +264,7 @@
             txNameModificar.Size = new Size(175, 23);
             txNameModificar.TabIndex = 41;
             txNameModificar.Text = "Nombre";
+            txNameModificar.KeyPress += txNameModificar_KeyPress;
             // 
             // txLastNameModificar
             // 
@@ -273,19 +275,19 @@
             txLastNameModificar.Size = new Size(176, 23);
             txLastNameModificar.TabIndex = 42;
             txLastNameModificar.Text = "Apellido";
+            txLastNameModificar.KeyPress += txLastNameModificar_KeyPress;
             // 
             // txcPerfilModificar
             // 
             txcPerfilModificar.BackColor = SystemColors.Window;
+            txcPerfilModificar.DropDownStyle = ComboBoxStyle.DropDownList;
             txcPerfilModificar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txcPerfilModificar.ForeColor = SystemColors.WindowFrame;
             txcPerfilModificar.FormattingEnabled = true;
-            txcPerfilModificar.Items.AddRange(new object[] { "Gerente", "Administrador", "Vendedor" });
             txcPerfilModificar.Location = new Point(335, 252);
             txcPerfilModificar.Name = "txcPerfilModificar";
             txcPerfilModificar.Size = new Size(176, 25);
             txcPerfilModificar.TabIndex = 46;
-            txcPerfilModificar.Text = "Seleccione Usuario";
             // 
             // dTBithModificar
             // 

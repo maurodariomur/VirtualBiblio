@@ -254,6 +254,7 @@
             btTablaProductos.Text = "Productos ";
             btTablaProductos.TextAlign = ContentAlignment.MiddleRight;
             btTablaProductos.UseVisualStyleBackColor = false;
+            btTablaProductos.Click += btTablaProductos_Click;
             // 
             // pProducts
             // 
@@ -486,7 +487,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "CProductos";
-            Text = "CProductos";
+            Text = "Productos";
             Load += CProductos_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
