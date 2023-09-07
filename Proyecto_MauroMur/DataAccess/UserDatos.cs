@@ -109,7 +109,9 @@ namespace DataAccess
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
-                    comando.CommandText = "SELECT * FROM Usuarios";
+                    comando.CommandText = "SELECT U.*, TP.Nombre AS Rol " +
+                                          "FROM Usuarios U " +
+                                          "INNER JOIN TipoPerfiles TP ON U.TipoPerfil = TP.Id";
 
                     using (SqlDataReader reader = comando.ExecuteReader())
                     {
@@ -123,7 +125,8 @@ namespace DataAccess
                             usuario.Mail = reader.GetString(4);
                             usuario.Usuario = reader.GetString(5);
                             usuario.FechaNacimiento = reader.GetDateTime(7);
-                            usuario.TipoPerfil = reader.GetInt32(8);
+                            usuario.TipoPerfil = reader.GetInt32(8); // ID del tipo de perfil
+                            usuario.Rol = reader.GetString(10); // Nombre del tipo de perfil
                             usuario.Baja = reader.GetString(9);
                             usuarios.Add(usuario);
                         }
@@ -197,7 +200,7 @@ namespace DataAccess
         public int ObtenerIdTipoPerfil(string tipoSeleccionado)
         {
            
-            int tipoPerfilId = -1;
+            int tipoPerfilId = 0;
 
             using (var connection = GetConnection()) 
             {
@@ -261,6 +264,31 @@ namespace DataAccess
         private bool EsTipoPerfilValido(int tipoPerfil)
         {
             return tipoPerfil >= 1 && tipoPerfil < 4;
+        }
+
+        public List<string> ObtenerRoles()
+        {
+            using (var connection = GetConnection())
+            {
+                List<string> roles = new List<string>();
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    string query = "SELECT Nombre FROM TipoPerfiles";
+                    command.CommandText = query;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            roles.Add(reader["Nombre"].ToString());
+                        }
+                    }
+                }
+
+                return roles;
+            }
         }
     }
 }

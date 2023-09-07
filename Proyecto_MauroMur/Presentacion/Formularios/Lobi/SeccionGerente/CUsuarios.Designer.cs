@@ -196,6 +196,7 @@
             txMail.Size = new Size(296, 27);
             txMail.TabIndex = 26;
             txMail.Text = "Correo Electronico";
+            txMail.TextChanged += txMail_TextChanged;
             txMail.Enter += txMail_Enter_1;
             txMail.Leave += txMail_Leave_1;
             // 
@@ -214,6 +215,7 @@
             // txcPerfil
             // 
             txcPerfil.BackColor = SystemColors.Window;
+            txcPerfil.DropDownStyle = ComboBoxStyle.DropDownList;
             txcPerfil.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txcPerfil.ForeColor = SystemColors.WindowFrame;
             txcPerfil.FormattingEnabled = true;
@@ -222,7 +224,6 @@
             txcPerfil.Name = "txcPerfil";
             txcPerfil.Size = new Size(297, 29);
             txcPerfil.TabIndex = 30;
-            txcPerfil.Text = "Seleccione Usuario";
             // 
             // txPassword
             // 

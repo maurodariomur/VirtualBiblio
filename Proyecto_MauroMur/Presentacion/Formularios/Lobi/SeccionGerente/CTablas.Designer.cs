@@ -208,6 +208,7 @@
             // cBBuscadorPerfil
             // 
             cBBuscadorPerfil.Anchor = AnchorStyles.Top;
+            cBBuscadorPerfil.DropDownStyle = ComboBoxStyle.DropDownList;
             cBBuscadorPerfil.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorPerfil.ForeColor = SystemColors.WindowFrame;
             cBBuscadorPerfil.FormattingEnabled = true;
@@ -216,7 +217,6 @@
             cBBuscadorPerfil.Name = "cBBuscadorPerfil";
             cBBuscadorPerfil.Size = new Size(129, 24);
             cBBuscadorPerfil.TabIndex = 7;
-            cBBuscadorPerfil.Text = "Seleccion Opcion";
             cBBuscadorPerfil.SelectedIndexChanged += cBBuscadorPerfil_SelectedIndexChanged;
             // 
             // panel4
@@ -240,9 +240,9 @@
             checkBoxAZ.ForeColor = Color.FromArgb(57, 91, 100);
             checkBoxAZ.Location = new Point(163, 13);
             checkBoxAZ.Name = "checkBoxAZ";
-            checkBoxAZ.Size = new Size(49, 22);
+            checkBoxAZ.Size = new Size(134, 22);
             checkBoxAZ.TabIndex = 1;
-            checkBoxAZ.Text = "A-Z";
+            checkBoxAZ.Text = "A-Z.(Apellidos)";
             checkBoxAZ.UseVisualStyleBackColor = false;
             checkBoxAZ.CheckedChanged += checkBoxAZ_CheckedChanged;
             // 

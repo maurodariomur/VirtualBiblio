@@ -22,11 +22,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     public partial class CProductos : Form
     {
+        private FLobi objFLobi;
         private const int maxCaracteres = 200;
 
-        public CProductos()
+        public CProductos(FLobi flobi)
         {
             InitializeComponent();
+            this.objFLobi = flobi;
         }
 
         private void CProductos_Load(object sender, EventArgs e)
@@ -97,7 +99,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                         bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
                         string nombreArchivo = Path.GetFileName(lbPathTittleP.Text);
                         string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
-                        imagenAGuardar.Save(rutaCompleta,ImageFormat.Png);
+                        imagenAGuardar.Save(rutaCompleta, ImageFormat.Png);
 
                         if (productoAgregado)
                         {
@@ -382,6 +384,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         {
             txAutor.Text = txAutor.Text.ToUpper();
             txAutor.SelectionStart = txAutor.Text.Length;
+        }
+
+        private void btTablaProductos_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            objFLobi.OpenChildForm(new SeccionAdministrador.CTablaProductos());
         }
     }
 }
