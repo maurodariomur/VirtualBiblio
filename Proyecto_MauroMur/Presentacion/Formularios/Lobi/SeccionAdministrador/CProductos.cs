@@ -125,7 +125,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             rtbDescripcion.Text = "Descripcion";
             txAutor.Text = "Autor";
             txStock.Text = "Stock";
-            txCategoria.SelectedIndex = 0;
+            txCategoria.SelectedIndex =g 0;
             txNameProducto.Focus();
         }
 
