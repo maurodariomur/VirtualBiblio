@@ -1,6 +1,7 @@
 ﻿using Common.Models;
 using Domain;
 using Proyecto_MauroMur.Domain;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,17 +63,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string autorSeleccionado = cBBuscadorAutor.SelectedItem as string;
             string editorialSeleccionado = cBBuscadorEditorial.SelectedItem as string;
             string categoriaSeleccionada = cBBuscadorCategoria.SelectedItem as string;
+            int categoria = 0;
+
+            categoria = productModel.ObtenerCategoria(categoriaSeleccionada);
 
             // Aplicar el filtro y obtener los libros filtrados
-            List<Libro> productosFiltrados = libros
+            List<Libro> productosFiltrados = productModel.MostrarProducts()
                 .Where(libro =>
                     (string.IsNullOrEmpty(textoBusquedaTitulo) || libro?.Titulo?.ToLower()?.Contains(textoBusquedaTitulo) == true) &&
                     (string.IsNullOrEmpty(autorSeleccionado) || libro?.AutorNombre?.ToLower()?.Contains(autorSeleccionado.ToLower()) == true) &&
                     (string.IsNullOrEmpty(editorialSeleccionado) || libro?.EditorialNombre?.ToLower()?.Contains(editorialSeleccionado.ToLower()) == true) &&
-                    (string.IsNullOrEmpty(categoriaSeleccionada) || libro?.CategoriaNombre?.ToLower()?.Contains(categoriaSeleccionada.ToLower()) == true))
+                    (categoria == 0 || (libro?.Id_Categoria == categoria)))
                 .ToList();
 
-            // Cargar imÃ¡genes para los libros filtrados
             foreach (Libro libro in productosFiltrados)
             {
                 productModel.CargarImagen(libro);
