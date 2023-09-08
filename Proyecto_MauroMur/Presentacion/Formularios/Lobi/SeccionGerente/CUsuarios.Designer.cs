@@ -147,7 +147,6 @@
             dTBith.Name = "dTBith";
             dTBith.Size = new Size(296, 27);
             dTBith.TabIndex = 29;
-            dTBith.ValueChanged += dTBith_ValueChanged;
             // 
             // lbMail
             // 
@@ -184,7 +183,6 @@
             txName.Size = new Size(296, 27);
             txName.TabIndex = 24;
             txName.Text = "Nombre";
-            txName.TextChanged += txName_TextChanged;
             txName.Enter += txName_Enter_1;
             txName.KeyPress += txName_KeyPress_1;
             txName.Leave += txName_Leave_1;
@@ -198,6 +196,7 @@
             txMail.Size = new Size(296, 27);
             txMail.TabIndex = 26;
             txMail.Text = "Correo Electronico";
+            txMail.TextChanged += txMail_TextChanged;
             txMail.Enter += txMail_Enter_1;
             txMail.Leave += txMail_Leave_1;
             // 
@@ -212,11 +211,11 @@
             lbContraseña.Size = new Size(98, 19);
             lbContraseña.TabIndex = 23;
             lbContraseña.Text = "Contraseña";
-            lbContraseña.Click += lbContraseña_Click;
             // 
             // txcPerfil
             // 
             txcPerfil.BackColor = SystemColors.Window;
+            txcPerfil.DropDownStyle = ComboBoxStyle.DropDownList;
             txcPerfil.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txcPerfil.ForeColor = SystemColors.WindowFrame;
             txcPerfil.FormattingEnabled = true;
@@ -225,8 +224,6 @@
             txcPerfil.Name = "txcPerfil";
             txcPerfil.Size = new Size(297, 29);
             txcPerfil.TabIndex = 30;
-            txcPerfil.Text = "Seleccione Usuario";
-            txcPerfil.SelectedIndexChanged += txcPerfil_SelectedIndexChanged;
             // 
             // txPassword
             // 
@@ -301,7 +298,6 @@
             lbError.TextAlign = ContentAlignment.MiddleCenter;
             lbError.UseCompatibleTextRendering = true;
             lbError.Visible = false;
-            lbError.Click += lbError_Click;
             // 
             // notifyIcon1
             // 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
 using Common.Models;
+using Proyecto_MauroMur.Domain;
 
 namespace Domain
 {
@@ -50,6 +51,11 @@ namespace Domain
         {
             // Llamar al método para agregar usuario de UserDatos
             return userDatos.ActualizarUsuario(id,nombre,apellido,dni,mail,usuario,fechaNacimiento,tipoPerfil,baja);
+        }
+
+        public List<string> ObtenerPerfiles()
+        {
+            return userDatos.ObtenerRoles();
         }
     }
 }

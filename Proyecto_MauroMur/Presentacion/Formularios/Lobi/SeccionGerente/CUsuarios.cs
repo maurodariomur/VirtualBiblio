@@ -10,18 +10,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Proyecto_MauroMur.Domain;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 {
     public partial class CUsuarios : Form
     {
-        private FLobi intanciaFLobi;
+        private FLobi instanciaFLobi;
 
         public CUsuarios(FLobi lobi)
         {
             InitializeComponent();
-            this.intanciaFLobi = lobi;
+            this.instanciaFLobi = lobi;
         }
 
         private void CUsuarios_Load(object sender, EventArgs e)
@@ -31,6 +32,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             dTBith.CustomFormat = "dd/MM/yyyy";
             // Asegúrate de que la propiedad Format esté establecida en Custom
             dTBith.Format = DateTimePickerFormat.Custom;
+            opcionesPerfiles();
         }
 
         private void btRegistrar_Click_1(object sender, EventArgs e)
@@ -42,9 +44,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             string mail = txMail.Text;
             string usuario = txEmpleado.Text;
             string contrasena = txPassword.Text;
-            int tipoPerfil = ObtenerTipoPerfilSeleccionado();
+            string tipoPerfil = txcPerfil.Text;
 
             UserModel userModel = new UserModel();
+
+            int idTipoPerfil = userModel.ObtenerIdTipoPerfil(tipoPerfil);
 
             if (nombre == "Nombre" || apellido == "Apellido" || dni == "DNI" || mail == "Correo Electronico" || usuario == "Usuario")
             {
@@ -59,7 +63,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             {
                 msgError("Debe seleccionar una fecha de nacimiento válida");
             }
-            else if (ObtenerTipoPerfilSeleccionado() == 0)
+            else if (idTipoPerfil == 0)
             {
                 msgError("Debe seleccionar un tipo de usuario");
             }
@@ -74,13 +78,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, tipoPerfil);
+                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, idTipoPerfil);
                     MessageBox.Show("Usuario agregado exitosamente: " + nombre + " " + apellido, "Empleado Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();
                 }
             }
         }
-
 
         private bool IsValidEmail(string email)
         {
@@ -95,28 +98,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private int ObtenerTipoPerfilSeleccionado()
+        private void opcionesPerfiles()
         {
-            UserModel userModel = new UserModel();
+            UserModel userModel = new();
+            var roles = userModel.ObtenerPerfiles();
 
-            if (txcPerfil.SelectedItem != null)
-            {
-                string? tipoSeleccionado = txcPerfil.SelectedItem.ToString();
+            // Agrega el mensaje predeterminado al comienzo de la lista
+            roles.Insert(0, "Seleccione Perfil");
 
-                // Verificar que tipoSeleccionado no sea nulo o vacío antes de usarlo
-                if (!string.IsNullOrWhiteSpace(tipoSeleccionado))
-                {
-                    // Utiliza el método ObtenerIdTipoPerfil para obtener el Id del tipo de perfil
-                    int tipoPerfilId = userModel.ObtenerIdTipoPerfil(tipoSeleccionado);
+            // Asigna la lista de categorías como DataSource del ComboBox
+            txcPerfil.DataSource = roles;
 
-                    // Si se encontró el tipo de perfil en la base de datos, devuelve su Id
-                    if (tipoPerfilId != -1)
-                    {
-                        return tipoPerfilId;
-                    }
-                }
-            }
-            return 0; // Opción por defecto si no se selecciona nada o no se encuentra en la base de datos
+            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
+            txcPerfil.SelectedIndex = 0;
         }
 
         private void LimpiarCampos()
@@ -128,7 +122,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             txMail.Text = "Correo Electronico";
             txEmpleado.Text = "Usuario";
             txPassword.Text = "Contraseña";
-            txcPerfil.SelectedIndex = -1; // Desseleccionar el ComboBox
+            txcPerfil.SelectedIndex = 0; // Desseleccionar el ComboBox
             txcPerfil.Text = "Seleccione un Tipo de perfil";
             txName.Focus();
 
@@ -283,11 +277,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             txPassword.UseSystemPasswordChar = !txPassword.UseSystemPasswordChar;
         }
 
-        private void lbContraseña_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btRegistrar_MouseEnter(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
@@ -298,38 +287,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             Cursor = Cursors.Default;
         }
 
-        private void lbError_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btTablaUsuarios_Click(object sender, EventArgs e)
         {
             this.Close();
-            intanciaFLobi.OpenChildForm(new SeccionGerente.CTablas());
+            instanciaFLobi.OpenChildForm(new SeccionGerente.CTablas());
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dTBith_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txcPerfil_SelectedIndexChanged(object sender, EventArgs e)
+        private void txMail_TextChanged(object sender, EventArgs e)
         {
 
         }
