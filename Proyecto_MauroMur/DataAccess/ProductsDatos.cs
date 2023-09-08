@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_MauroMur.DataAccess
 {
-    internal class ProductsDatos:ConnectionToSql
+    internal class ProductsDatos : ConnectionToSql
     {
         public bool AgregarEditorial(string nombreEditorial)
         {
@@ -126,7 +126,7 @@ namespace Proyecto_MauroMur.DataAccess
             return autor;
         }
 
-        public bool AgregarProducto(string nombreTitle, string descripcion,float precio,string imagen,int stock,int idCategoria, int idEditorial,int idAutor)
+        public bool AgregarProducto(string nombreTitle, string descripcion, float precio, string imagen, int stock, int idCategoria, int idEditorial, int idAutor)
         {
             using (var connetion = GetConnection())
             {
@@ -265,5 +265,50 @@ namespace Proyecto_MauroMur.DataAccess
 
             return editoriales;
         }
-    }
+
+        public List<Libro> ObtenerProductos()
+        {
+            List<Libro> productos = new List<Libro>();
+
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+                using (var comando = new SqlCommand())
+                {
+                    comando.Connection = conexion;
+                    comando.CommandText = "SELECT L.*, A.Nombre AS Autor, E.NombreEditorial AS Editorial, C.Nombre AS Categoria " +
+                                          "FROM Libro L " +
+                                          "INNER JOIN Autor A ON L.Id_Autor = A.Id_Autor " +
+                                          "INNER JOIN Editorial E ON L.Id_Editorial = E.Id_Editorial " +
+                                          "INNER JOIN Categoria C ON L.Id_Categoria = C.Id_Categoria";
+
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Libro libro = new Libro();
+                            libro.Id_Libro = reader.GetInt32(0);
+                            libro.Titulo = reader.GetString(1);
+                            libro.Descripcion = reader.GetString(2);
+                            libro.Precio = reader.GetDouble(3);
+                            libro.Portada = reader.GetString(4);
+                            libro.Stock = reader.GetInt32(5);
+                            libro.Baja = reader.GetString(6);
+                            libro.Id_Categoria = reader.GetInt32(7);
+                            libro.CategoriaNombre = reader.GetString(10);
+                            libro.Id_Editorial = reader.GetInt32(8);
+                            libro.EditorialNombre = reader.GetString(11);
+                            libro.Id_Autor = reader.GetInt32(9);
+                            libro.AutorNombre = reader.GetString(12);
+                            productos.Add(libro);
+                        }
+                    }
+                }
+            }
+
+            return productos;
+        }
+
+    } 
+
 }
