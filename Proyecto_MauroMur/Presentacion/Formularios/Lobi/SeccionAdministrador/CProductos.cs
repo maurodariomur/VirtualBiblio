@@ -96,13 +96,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                         int idAutor = producModel.ObtenerIdAutor(nombreAutor);
                         int idCategoria = producModel.ObtenerCategoria(categoria);
 
-                        bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
+                        // Actualiza la variable "imagen" con la ruta completa
                         string nombreArchivo = Path.GetFileName(lbPathTittleP.Text);
                         string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
-                        imagenAGuardar.Save(rutaCompleta, ImageFormat.Png);
+                        imagen = rutaCompleta; // Actualiza la variable "imagen" con la ruta completa
+
+                        bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
 
                         if (productoAgregado)
                         {
+                            // Copia la imagen a la carpeta de destino
+                            File.Copy(lbPathTittleP.Text, rutaCompleta, true);
+
                             MessageBox.Show("Libro agregado exitosamente: " + nombreProd, "Libro Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LimpiarCampos();
                         }
@@ -117,7 +122,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     }
                 }
             }
-        }
+    }
 
         private void LimpiarCampos()
         {
@@ -390,6 +395,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         {
             this.Close();
             objFLobi.OpenChildForm(new SeccionAdministrador.CTablaProductos());
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

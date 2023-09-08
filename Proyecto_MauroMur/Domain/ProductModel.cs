@@ -87,5 +87,25 @@ namespace Proyecto_MauroMur.Domain
             return productModel.ObtenerNombresE();
         }
 
+        public List<Libro> MostrarProducts()
+        {
+            return productModel.ObtenerProductos();
+        }
+
+        public void CargarImagen(Libro libro)
+        {
+          
+            if (!string.IsNullOrEmpty(libro.Portada) && File.Exists(libro.Portada))
+            {
+                libro.ImagenPortada = Image.FromFile(libro.Portada);
+            }
+        }
+
+        // Método para obtener la ruta del archivo de la imagen
+        public string ObtenerRutaImagen(Libro libro)
+        {
+            return libro.Portada;
+        }
+
     }
 }

@@ -28,6 +28,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             List<Usuarios> usuarios = userModel.MostrarUsers();
             dataGridUsuarios.DataSource = usuarios;
+            dataGridUsuarios.Columns["TipoPerfil"].Visible = false;
             opcionesPerfiles();
         }
 

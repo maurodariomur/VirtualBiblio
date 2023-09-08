@@ -155,6 +155,7 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(1076, 536);
             panel6.TabIndex = 44;
+            panel6.Paint += panel6_Paint;
             // 
             // txAutor
             // 
