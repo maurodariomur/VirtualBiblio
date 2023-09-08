@@ -19,9 +19,11 @@ namespace Common.Models
         public int     Id_Categoria { get; set; }
         public int     Id_Editorial { get; set; }
         public int     Id_Autor { get; set; }
-        public string? AutorNombre { get; set; } 
-        public string? EditorialNombre { get; set; }
         public string? CategoriaNombre { get; set; }
+        public string? EditorialNombre { get; set; }
+        public string? AutorNombre { get; set; } 
+        
+       
 
     }
 }

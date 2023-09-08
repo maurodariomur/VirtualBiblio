@@ -24,9 +24,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             InitializeComponent();
         }
 
-        private void CTablaProductos_Load(object sender, EventArgs e)
+        private async void CTablaProductos_Load(object sender, EventArgs e)
         {
-            libros = productModel.MostrarProducts();
+            libros = await productModel.MostrarProducts();
 
             // Cargar las imágenes para cada libro
 
@@ -55,26 +55,34 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 ((DataGridViewImageColumn)dataGridProductos.Columns["ImagenPortada"]).ImageLayout = DataGridViewImageCellLayout.Zoom;
             }
             opcionesCategorias();
+            opcionesAutores();
+            opcionesEditoriales();
         }
 
-        private void FiltrarProducts()
+        private async void FiltrarProducts()
         {
             string textoBusquedaTitulo = txBuscadorTitulo.Text.ToLower();
-            string autorSeleccionado = cBBuscadorAutor.SelectedItem as string;
-            string editorialSeleccionado = cBBuscadorEditorial.SelectedItem as string;
-            string categoriaSeleccionada = cBBuscadorCategoria.SelectedItem as string;
+            string? autorSeleccionado = cBBuscadorAutor.SelectedItem as string;
+            string? editorialSeleccionado = cBBuscadorEditorial.SelectedItem as string;
+            string? categoriaSeleccionada = cBBuscadorCategoria.SelectedItem as string;
             int categoria = 0;
+            int autor = -1;
+            int editorial = -1;
 
-            categoria = productModel.ObtenerCategoria(categoriaSeleccionada);
+            categoria = await productModel.ObtenerCategoria(categoriaSeleccionada!);
+            autor = await productModel.ObtenerIdAutor(autorSeleccionado!);
+            editorial = await productModel.ObtenerIdEditorial(editorialSeleccionado!);
 
             // Aplicar el filtro y obtener los libros filtrados
-            List<Libro> productosFiltrados = productModel.MostrarProducts()
-                .Where(libro =>
+            List<Libro> productosFiltrados = await productModel.MostrarProducts();
+
+            productosFiltrados = productosFiltrados.Where(libro =>
                     (string.IsNullOrEmpty(textoBusquedaTitulo) || libro?.Titulo?.ToLower()?.Contains(textoBusquedaTitulo) == true) &&
-                    (string.IsNullOrEmpty(autorSeleccionado) || libro?.AutorNombre?.ToLower()?.Contains(autorSeleccionado.ToLower()) == true) &&
-                    (string.IsNullOrEmpty(editorialSeleccionado) || libro?.EditorialNombre?.ToLower()?.Contains(editorialSeleccionado.ToLower()) == true) &&
-                    (categoria == 0 || (libro?.Id_Categoria == categoria)))
+                    (categoria == 0 || libro?.Id_Categoria == categoria) &&
+                    (autor == -1 || libro?.Id_Autor == autor) &&
+                    (editorial == -1 || libro?.Id_Editorial == editorial))
                 .ToList();
+
 
             foreach (Libro libro in productosFiltrados)
             {
@@ -86,10 +94,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         }
 
 
-        private void opcionesCategorias()
+        private async void opcionesCategorias()
         {
             ProductModel productModel = new();
-            var categorias = productModel.ObtenerCategorias();
+            var categorias = await productModel.ObtenerCategorias();
 
             // Agrega el mensaje predeterminado al comienzo de la lista
             categorias.Insert(0, "Categorias");
@@ -100,6 +108,37 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBBuscadorCategoria.SelectedIndex = 0;
         }
+
+        private async void opcionesAutores()
+        {
+            ProductModel productModel = new();
+            var autores = await productModel.ObtenerListaAutores();
+
+            // Agrega el mensaje predeterminado al comienzo de la lista
+            autores.Insert(0, "Autor");
+
+            // Asigna la lista de categorías como DataSource del ComboBox
+            cBBuscadorAutor.DataSource = autores;
+
+            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
+            cBBuscadorAutor.SelectedIndex = 0;
+        }
+
+        private async void opcionesEditoriales()
+        {
+            ProductModel productModel = new();
+            var editoriales = await productModel.ObtenerListaEditoriales();
+
+            // Agrega el mensaje predeterminado al comienzo de la lista
+            editoriales.Insert(0, "Editoriales");
+
+            // Asigna la lista de categorías como DataSource del ComboBox
+            cBBuscadorEditorial.DataSource = editoriales;
+
+            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
+            cBBuscadorEditorial.SelectedIndex = 0;
+        }
+
 
         private void cBBuscadorAutor_SelectedIndexChanged(object sender, EventArgs e)
         {

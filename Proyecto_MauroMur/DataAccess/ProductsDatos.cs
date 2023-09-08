@@ -8,16 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Proyecto_MauroMur.DataAccess
 {
     internal class ProductsDatos : ConnectionToSql
     {
-        public bool AgregarEditorial(string nombreEditorial)
+        public async Task<bool> AgregarEditorial(string nombreEditorial)
         {
             using (var connection = GetConnection())
             {
-                connection.Open();
+                await connection.OpenAsync();
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
@@ -27,7 +26,7 @@ namespace Proyecto_MauroMur.DataAccess
 
                     try
                     {
-                        int rowsAffected = command.ExecuteNonQuery();
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
                         return rowsAffected > 0;
                     }
                     catch (Exception ex)
@@ -39,11 +38,11 @@ namespace Proyecto_MauroMur.DataAccess
             }
         }
 
-        public bool AgregarAutor(string nombreAutor)
+        public async Task<bool> AgregarAutor(string nombreAutor)
         {
             using (var connection = GetConnection())
             {
-                connection.Open();
+                await connection.OpenAsync();
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
@@ -53,7 +52,7 @@ namespace Proyecto_MauroMur.DataAccess
 
                     try
                     {
-                        int rowsAffected = command.ExecuteNonQuery();
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
                         return rowsAffected > 0;
                     }
                     catch (Exception ex)
@@ -65,7 +64,7 @@ namespace Proyecto_MauroMur.DataAccess
             }
         }
 
-        public int ObtenerIdEditorial(string nameEditorial)
+        public async Task<int> ObtenerIdEditorial(string nameEditorial)
         {
             int editorialId = -1;
 
@@ -73,7 +72,7 @@ namespace Proyecto_MauroMur.DataAccess
             {
                 using (var connection = GetConnection())
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
 
                     using (var command = new SqlCommand())
                     {
@@ -81,7 +80,7 @@ namespace Proyecto_MauroMur.DataAccess
                         command.CommandText = "SELECT Id_Editorial FROM Editorial WHERE NombreEditorial = @NombreEditorial";
                         command.Parameters.AddWithValue("@NombreEditorial", nameEditorial);
 
-                        object result = command.ExecuteScalar();
+                        object result = await command.ExecuteScalarAsync();
 
                         if (result != null && result != DBNull.Value)
                         {
@@ -92,45 +91,44 @@ namespace Proyecto_MauroMur.DataAccess
             }
             catch (Exception ex)
             {
-                // Manejar la excepción adecuadamente, por ejemplo, registrarla o lanzar una excepción personalizada.
                 Console.WriteLine("Error: " + ex.Message);
-                // También puedes lanzar una excepción personalizada aquí si lo prefieres.
             }
 
             return editorialId;
         }
 
-        public int ObtenerIdAutor(string nameAutor)
+        public async Task<int> ObtenerIdAutor(string nameAutor)
         {
+            int autorId = -1;
 
-            int autor = -1;
+            string nombreAutor = nameAutor != null? nameAutor : "";
 
             using (var connection = GetConnection())
             {
-                connection.Open();
+                await connection.OpenAsync();
 
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
                     command.CommandText = "SELECT Id_Autor FROM Autor WHERE Nombre = @Nombre";
-                    command.Parameters.AddWithValue("@Nombre", nameAutor);
+                    command.Parameters.AddWithValue("@Nombre", nombreAutor);
 
-                    object result = command.ExecuteScalar();
+                    object result = await command.ExecuteScalarAsync();
 
                     if (result != null && result != DBNull.Value)
                     {
-                        autor = Convert.ToInt32(result);
+                        autorId = Convert.ToInt32(result);
                     }
                 }
             }
-            return autor;
+            return autorId;
         }
 
-        public bool AgregarProducto(string nombreTitle, string descripcion, float precio, string imagen, int stock, int idCategoria, int idEditorial, int idAutor)
+        public async Task<bool> AgregarProducto(string nombreTitle, string descripcion, float precio, string imagen, int stock, int idCategoria, int idEditorial, int idAutor)
         {
             using (var connetion = GetConnection())
             {
-                connetion.Open();
+                await connetion.OpenAsync();
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connetion;
@@ -147,7 +145,7 @@ namespace Proyecto_MauroMur.DataAccess
 
                     try
                     {
-                        int rowsAffected = command.ExecuteNonQuery();
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
                         return rowsAffected > 0;
                     }
                     catch (Exception ex)
@@ -159,21 +157,21 @@ namespace Proyecto_MauroMur.DataAccess
             }
         }
 
-        public List<string> ObtenerCategorias()
+        public async Task<List<string>> ObtenerCategorias()
         {
             using (var connection = GetConnection())
             {
                 List<string> categorias = new List<string>();
-                connection.Open();
+                await connection.OpenAsync();
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
                     string query = "SELECT Nombre FROM Categoria";
                     command.CommandText = query;
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
                             categorias.Add(reader["Nombre"].ToString());
                         }
@@ -184,14 +182,63 @@ namespace Proyecto_MauroMur.DataAccess
             }
         }
 
-        public int ObtenerIdCategoria(string nameCategoria)
+        public async Task<List<string>> ObtenerAutores()
         {
+            using (var connection = GetConnection())
+            {
+                List<string> autores = new List<string>();
+                await connection.OpenAsync();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    string query = "SELECT Nombre FROM Autor";
+                    command.CommandText = query;
 
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            autores.Add(reader["Nombre"].ToString());
+                        }
+                    }
+                }
+
+                return autores;
+            }
+        }
+
+        public async Task<List<string>> ObtenerEditoriales()
+        {
+            using (var connection = GetConnection())
+            {
+                List<string> editoriales = new List<string>();
+                await connection.OpenAsync();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    string query = "SELECT NombreEditorial FROM Editorial";
+                    command.CommandText = query;
+
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            editoriales.Add(reader["NombreEditorial"].ToString());
+                        }
+                    }
+                }
+
+                return editoriales;
+            }
+        }
+
+        public async Task<int> ObtenerIdCategoria(string nameCategoria)
+        {
             int categoria = 0;
 
             using (var connection = GetConnection())
             {
-                connection.Open();
+                await connection.OpenAsync();
 
                 using (var command = new SqlCommand())
                 {
@@ -199,7 +246,7 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT Id_Categoria FROM Categoria WHERE Nombre = @Nombre";
                     command.Parameters.AddWithValue("@Nombre", nameCategoria);
 
-                    object result = command.ExecuteScalar();
+                    object result = await command.ExecuteScalarAsync();
 
                     if (result != null && result != DBNull.Value)
                     {
@@ -210,23 +257,23 @@ namespace Proyecto_MauroMur.DataAccess
             return categoria;
         }
 
-        public List<Autores> ObtenerNombresA()
+        public async Task<List<Autores>> ObtenerNombresA()
         {
-            List<Autores> autores = new();
+            List<Autores> autores = new List<Autores>();
 
             using (var conexion = GetConnection())
             {
-                conexion.Open();
+                await conexion.OpenAsync();
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
                     comando.CommandText = "SELECT * FROM Autor";
 
-                    using (SqlDataReader reader = comando.ExecuteReader())
+                    using (SqlDataReader reader = await comando.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
-                            Autores autor = new();
+                            Autores autor = new Autores();
                             autor.Id_Autor = reader.GetInt32(0);
                             autor.Nombre = reader.GetString(1);
                             autores.Add(autor);
@@ -238,23 +285,23 @@ namespace Proyecto_MauroMur.DataAccess
             return autores;
         }
 
-        public List<Editoriales> ObtenerNombresE()
+        public async Task<List<Editoriales>> ObtenerNombresE()
         {
-            List<Editoriales> editoriales = new();
+            List<Editoriales> editoriales = new List<Editoriales>();
 
             using (var conexion = GetConnection())
             {
-                conexion.Open();
+                await conexion.OpenAsync();
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
                     comando.CommandText = "SELECT * FROM Editorial";
 
-                    using (SqlDataReader reader = comando.ExecuteReader())
+                    using (SqlDataReader reader = await comando.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
-                            Editoriales editorial = new();
+                            Editoriales editorial = new Editoriales();
                             editorial.Id_Editorial = reader.GetInt32(0);
                             editorial.NombreEditorial = reader.GetString(1);
                             editoriales.Add(editorial);
@@ -266,13 +313,13 @@ namespace Proyecto_MauroMur.DataAccess
             return editoriales;
         }
 
-        public List<Libro> ObtenerProductos()
+        public async Task<List<Libro>> ObtenerProductos()
         {
             List<Libro> productos = new List<Libro>();
 
             using (var conexion = GetConnection())
             {
-                conexion.Open();
+                await conexion.OpenAsync();
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
@@ -282,9 +329,9 @@ namespace Proyecto_MauroMur.DataAccess
                                           "INNER JOIN Editorial E ON L.Id_Editorial = E.Id_Editorial " +
                                           "INNER JOIN Categoria C ON L.Id_Categoria = C.Id_Categoria";
 
-                    using (SqlDataReader reader = comando.ExecuteReader())
+                    using (SqlDataReader reader = await comando.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
                             Libro libro = new Libro();
                             libro.Id_Libro = reader.GetInt32(0);
@@ -295,11 +342,11 @@ namespace Proyecto_MauroMur.DataAccess
                             libro.Stock = reader.GetInt32(5);
                             libro.Baja = reader.GetString(6);
                             libro.Id_Categoria = reader.GetInt32(7);
-                            libro.CategoriaNombre = reader.GetString(10);
+                            libro.CategoriaNombre = reader.GetString(12);
                             libro.Id_Editorial = reader.GetInt32(8);
                             libro.EditorialNombre = reader.GetString(11);
                             libro.Id_Autor = reader.GetInt32(9);
-                            libro.AutorNombre = reader.GetString(12);
+                            libro.AutorNombre = reader.GetString(10);
                             productos.Add(libro);
                         }
                     }
@@ -308,7 +355,5 @@ namespace Proyecto_MauroMur.DataAccess
 
             return productos;
         }
-
-    } 
-
+    }
 }

@@ -14,16 +14,16 @@ namespace Proyecto_MauroMur.Domain
     {
         private ProductsDatos productModel = new();
         
-        public bool AgregarNuevoProducto(string nombreTitle, string descripcion, float precio, string imagen, int stock, int idCategoria, int idEditorial, int idAutor)
+        public async Task<bool> AgregarNuevoProducto(string nombreTitle, string descripcion, float precio, string imagen, int stock, int idCategoria, int idEditorial, int idAutor)
         {
             // Llamar al método para agregar usuario de UserDatos
-            return productModel.AgregarProducto(nombreTitle,descripcion,precio,imagen,stock,idCategoria,idEditorial,idAutor);
+            return await productModel.AgregarProducto(nombreTitle,descripcion,precio,imagen,stock,idCategoria,idEditorial,idAutor);
         }
 
-        public bool AgregarNuevoAutor(string nombreAutor)
+        public async Task<bool> AgregarNuevoAutor(string nombreAutor)
         {
             // Verifica si el autor ya existe en la base de datos
-            int idAutorExistente = productModel.ObtenerIdAutor(nombreAutor);
+            int idAutorExistente = await productModel.ObtenerIdAutor(nombreAutor);
 
             if (idAutorExistente != -1)
             {
@@ -33,14 +33,14 @@ namespace Proyecto_MauroMur.Domain
             else
             {
                 // El autor no existe, agrégalo a la base de datos
-                return productModel.AgregarAutor(nombreAutor);
+                return await productModel.AgregarAutor(nombreAutor);
             }
         }
 
-        public bool AgregarNuevaEditorial(string nombreEditorial)
+        public async Task<bool> AgregarNuevaEditorial(string nombreEditorial)
         {
             // Verifica si la editorial ya existe en la base de datos
-            int idEditorialExistente = productModel.ObtenerIdEditorial(nombreEditorial);
+            int idEditorialExistente = await productModel.ObtenerIdEditorial(nombreEditorial);
 
             if (idEditorialExistente != -1)
             {
@@ -50,46 +50,56 @@ namespace Proyecto_MauroMur.Domain
             else
             {
                 // La editorial no existe, agrégala a la base de datos
-                return productModel.AgregarEditorial(nombreEditorial);
+                return await productModel.AgregarEditorial(nombreEditorial);
             }
         }
 
-        public int ObtenerIdEditorial(string editorial)
+        public async Task<int> ObtenerIdEditorial(string editorial)
         {
-            int IdEditorial = productModel.ObtenerIdEditorial(editorial);
+            int IdEditorial = await productModel.ObtenerIdEditorial(editorial);
             return IdEditorial;
         }
 
-        public int ObtenerIdAutor(string autor)
+        public async Task<int> ObtenerIdAutor(string autor)
         {
-            int IdAutor = productModel.ObtenerIdAutor(autor);
+            int IdAutor = await productModel.ObtenerIdAutor(autor);
             return IdAutor;
         }
 
-        public List<string> ObtenerCategorias()
+        public async Task<List<string>> ObtenerCategorias()
         {
-            return productModel.ObtenerCategorias();
+            return await productModel.ObtenerCategorias();
         }
 
-        public int ObtenerCategoria(string nameCategoria)
+        public async Task<List<string>> ObtenerListaAutores()
         {
-            int IdCategoria = productModel.ObtenerIdCategoria(nameCategoria);
+            return await productModel.ObtenerAutores();
+        }
+
+        public async Task<List<string>> ObtenerListaEditoriales()
+        {
+            return await productModel.ObtenerEditoriales();
+        }
+
+        public async Task<int> ObtenerCategoria(string nameCategoria)
+        {
+            int IdCategoria =  await productModel.ObtenerIdCategoria(nameCategoria);
             return IdCategoria;
         }
 
-        public List<Autores> ObtenerNombresAutores()
+        public async Task<List<Autores>> ObtenerNombresAutores()
         {
-            return productModel.ObtenerNombresA();
+            return await productModel.ObtenerNombresA();
         }
 
-        public List<Editoriales> ObtenerNombreEditoriales()
+        public async Task<List<Editoriales>> ObtenerNombreEditoriales()
         {
-            return productModel.ObtenerNombresE();
+            return await productModel.ObtenerNombresE();
         }
 
-        public List<Libro> MostrarProducts()
+        public async Task<List<Libro>> MostrarProducts()
         {
-            return productModel.ObtenerProductos();
+            return  await productModel.ObtenerProductos();
         }
 
         public void CargarImagen(Libro libro)
@@ -102,7 +112,7 @@ namespace Proyecto_MauroMur.Domain
         }
 
         // Método para obtener la ruta del archivo de la imagen
-        public string ObtenerRutaImagen(Libro libro)
+        public string? ObtenerRutaImagen(Libro libro)
         {
             return libro.Portada;
         }
