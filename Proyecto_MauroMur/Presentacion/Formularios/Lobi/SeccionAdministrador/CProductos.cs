@@ -44,7 +44,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             lbErrorProd.Visible = true;
         }
 
-        private async void btRegistrarProd_Click(object sender, EventArgs e)
+        private void btRegistrarProd_Click(object sender, EventArgs e)
         {
             string nombreProd = txNameProducto.Text;
             string nombreEditorial = txEditorial.Text;
@@ -58,7 +58,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string stockStr = txStock.Text;
             string categoria = txCategoria.Text;
             ProductModel producModel = new();
-            var categorias = await ObtenerCategoria();
 
             if (nombreProd == "Titulo" || nombreEditorial == "Editorial" || nombreAutor == "Autor")
             {
@@ -68,7 +67,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             {
                 msgError("Debe completar todos los campos");
             }
-            else if (categorias == 0)
+            else if (ObtenerCategoria() == 0)
             {
                 msgError("Debe seleccionar una categoria");
             }
@@ -87,22 +86,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    bool AutorAgregado = await producModel.AgregarNuevoAutor(nombreAutor);
-                    bool EditorialAgregado = await producModel.AgregarNuevaEditorial(nombreEditorial);
+                    bool AutorAgregado = producModel.AgregarNuevoAutor(nombreAutor);
+                    bool EditorialAgregado = producModel.AgregarNuevaEditorial(nombreEditorial);
                     if (AutorAgregado && EditorialAgregado)
                     {
                         // Ambos autor y editorial se agregaron correctamente o ya existían
                         // Llama al método AgregarNuevoProducto con los valores convertidos
-                        int idEditorial = await producModel.ObtenerIdEditorial(nombreEditorial);
-                        int idAutor = await producModel.ObtenerIdAutor(nombreAutor);
-                        int idCategoria = await producModel.ObtenerCategoria(categoria);
+                        int idEditorial = producModel.ObtenerIdEditorial(nombreEditorial);
+                        int idAutor = producModel.ObtenerIdAutor(nombreAutor);
+                        int idCategoria = producModel.ObtenerCategoria(categoria);
 
                         // Actualiza la variable "imagen" con la ruta completa
                         string nombreArchivo = Path.GetFileName(lbPathTittleP.Text);
                         string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
                         imagen = rutaCompleta; // Actualiza la variable "imagen" con la ruta completa
 
-                        bool productoAgregado = await producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
+                        bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
 
                         if (productoAgregado)
                         {
@@ -123,7 +122,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     }
                 }
             }
-    }
+        }
 
         private void LimpiarCampos()
         {
@@ -137,7 +136,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txNameProducto.Focus();
         }
 
-        private async Task<int> ObtenerCategoria()
+        private int ObtenerCategoria()
         {
             ProductModel userModel = new ProductModel();
 
@@ -149,7 +148,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 if (!string.IsNullOrWhiteSpace(categoria))
                 {
                     // Utiliza el método ObtenerIdTipoPerfil para obtener el Id del tipo de perfil
-                    int tipoCategoria = await userModel.ObtenerCategoria(categoria);
+                    int tipoCategoria = userModel.ObtenerCategoria(categoria);
 
                     // Si se encontró el tipo de perfil en la base de datos, devuelve su Id
                     if (tipoCategoria != -1)
@@ -322,10 +321,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         }
 
         //MOSTRAR OPCIONES DE CATEGORIAS EN EL CHECKEDLISTBOX
-        private async void opcionesCategoria()
+        private void opcionesCategoria()
         {
             ProductModel productModel = new ProductModel();
-            var categorias = await productModel.ObtenerCategorias();
+            var categorias = productModel.ObtenerCategorias();
 
             // Agrega el mensaje predeterminado al comienzo de la lista
             categorias.Insert(0, "Seleccione Categoría");
@@ -338,11 +337,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         }
 
         //AUTOCOMPLETAR TEXTBOX
-        private async void mostrarOpcionesAutor()
+        private void mostrarOpcionesAutor()
         {
             ProductModel productModel = new ProductModel();
             // Cargar la lista de objetos Autores desde la base de datos
-            List<Autores> listaAutores =  await productModel.ObtenerNombresAutores();
+            List<Autores> listaAutores = productModel.ObtenerNombresAutores();
 
             // Configurar la fuente personalizada de autocompletar
             AutoCompleteStringCollection fuenteAutoCompletar = new AutoCompleteStringCollection();
@@ -359,11 +358,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txAutor.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        private async void mostrarOpcionesEditoriales()
+        private void mostrarOpcionesEditoriales()
         {
             ProductModel productModel = new ProductModel();
             // Cargar la lista de objetos Autores desde la base de datos
-            List<Editoriales> listaEditoriales = await productModel.ObtenerNombreEditoriales();
+            List<Editoriales> listaEditoriales = productModel.ObtenerNombreEditoriales();
 
             // Configurar la fuente personalizada de autocompletar
             AutoCompleteStringCollection fuenteAutoCompletar = new AutoCompleteStringCollection();

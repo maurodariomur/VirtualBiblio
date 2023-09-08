@@ -24,9 +24,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             InitializeComponent();
         }
 
-        private async void CTablaProductos_Load(object sender, EventArgs e)
+        private void CTablaProductos_Load(object sender, EventArgs e)
         {
-            libros = await productModel.MostrarProducts();
+            libros = productModel.MostrarProducts();
 
             // Cargar las imágenes para cada libro
 
@@ -59,7 +59,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             opcionesEditoriales();
         }
 
-        private async void FiltrarProducts()
+        private void FiltrarProducts()
         {
             string textoBusquedaTitulo = txBuscadorTitulo.Text.ToLower();
             string? autorSeleccionado = cBBuscadorAutor.SelectedItem as string;
@@ -69,14 +69,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             int autor = -1;
             int editorial = -1;
 
-            categoria = await productModel.ObtenerCategoria(categoriaSeleccionada!);
-            autor = await productModel.ObtenerIdAutor(autorSeleccionado!);
-            editorial = await productModel.ObtenerIdEditorial(editorialSeleccionado!);
+            categoria = productModel.ObtenerCategoria(categoriaSeleccionada!);
+            autor = productModel.ObtenerIdAutor(autorSeleccionado!);
+            editorial = productModel.ObtenerIdEditorial(editorialSeleccionado!);
 
             // Aplicar el filtro y obtener los libros filtrados
-            List<Libro> productosFiltrados = await productModel.MostrarProducts();
-
-            productosFiltrados = productosFiltrados.Where(libro =>
+            List<Libro> productosFiltrados = productModel.MostrarProducts()
+            .Where(libro =>
                     (string.IsNullOrEmpty(textoBusquedaTitulo) || libro?.Titulo?.ToLower()?.Contains(textoBusquedaTitulo) == true) &&
                     (categoria == 0 || libro?.Id_Categoria == categoria) &&
                     (autor == -1 || libro?.Id_Autor == autor) &&
@@ -94,10 +93,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         }
 
 
-        private async void opcionesCategorias()
+        private void opcionesCategorias()
         {
             ProductModel productModel = new();
-            var categorias = await productModel.ObtenerCategorias();
+            var categorias = productModel.ObtenerCategorias();
 
             // Agrega el mensaje predeterminado al comienzo de la lista
             categorias.Insert(0, "Categorias");
@@ -109,10 +108,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             cBBuscadorCategoria.SelectedIndex = 0;
         }
 
-        private async void opcionesAutores()
+        private void opcionesAutores()
         {
             ProductModel productModel = new();
-            var autores = await productModel.ObtenerListaAutores();
+            var autores = productModel.ObtenerListaAutores();
 
             // Agrega el mensaje predeterminado al comienzo de la lista
             autores.Insert(0, "Autor");
@@ -124,10 +123,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             cBBuscadorAutor.SelectedIndex = 0;
         }
 
-        private async void opcionesEditoriales()
+        private void opcionesEditoriales()
         {
             ProductModel productModel = new();
-            var editoriales = await productModel.ObtenerListaEditoriales();
+            var editoriales = productModel.ObtenerListaEditoriales();
 
             // Agrega el mensaje predeterminado al comienzo de la lista
             editoriales.Insert(0, "Editoriales");
