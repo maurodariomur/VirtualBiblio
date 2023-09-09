@@ -12,16 +12,16 @@ namespace Common.Models
         public string? Titulo { get; set; }
         public string? Descripcion { get; set; }
         public double   Precio { get; set; }
-        public string? Portada { get; set; }
+        public string? Ruta { get; set; }
         public Image? ImagenPortada { get; set; }
         public int     Stock { get; set; }
         public string? Baja { get; set; }
         public int     Id_Categoria { get; set; }
         public int     Id_Editorial { get; set; }
         public int     Id_Autor { get; set; }
-        public string? CategoriaNombre { get; set; }
-        public string? EditorialNombre { get; set; }
-        public string? AutorNombre { get; set; } 
+        public string? Categoria { get; set; }
+        public string? Editorial { get; set; }
+        public string? Autor { get; set; } 
         
        
 

@@ -342,15 +342,15 @@ namespace Proyecto_MauroMur.DataAccess
                             libro.Titulo = reader.GetString(1);
                             libro.Descripcion = reader.GetString(2);
                             libro.Precio = reader.GetDouble(3);
-                            libro.Portada = reader.GetString(4);
+                            libro.Ruta = reader.GetString(4);
                             libro.Stock = reader.GetInt32(5);
                             libro.Baja = reader.GetString(6);
                             libro.Id_Categoria = reader.GetInt32(7);
-                            libro.CategoriaNombre = reader.GetString(12);
+                            libro.Categoria = reader.GetString(12);
                             libro.Id_Editorial = reader.GetInt32(8);
-                            libro.EditorialNombre = reader.GetString(11);
+                            libro.Editorial = reader.GetString(11);
                             libro.Id_Autor = reader.GetInt32(9);
-                            libro.AutorNombre = reader.GetString(10);
+                            libro.Autor = reader.GetString(10);
                             productos.Add(libro);
                         }
                     }
@@ -359,6 +359,97 @@ namespace Proyecto_MauroMur.DataAccess
 
             return productos;
         }
+
+        public bool ActualizarLibro(string titulo, string descripcion, double precio, string portada, int stock, string baja, int idCategoria, int idLibro)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE Libro SET NombreProducto = @NombreProducto, Descripcion = @Descripcion, PrecioUnitario = @PrecioUnitario, Imagen = @Imagen, Stock = @Stock, Baja = @Baja, Id_Categoria = @Id_Categoria, Id_Editorial = @Id_Editorial, Id_Autor = @Id_Autor WHERE Id_Libro = @Id_Libro";
+
+                    command.Parameters.AddWithValue("@NombreProducto", titulo);
+                    command.Parameters.AddWithValue("@Descripcion", descripcion);
+                    command.Parameters.AddWithValue("@PrecioUnitario", precio);
+                    command.Parameters.AddWithValue("@Imagen", portada);
+                    command.Parameters.AddWithValue("@Stock", stock);
+                    command.Parameters.AddWithValue("@Baja", baja);
+                    command.Parameters.AddWithValue("@Id_Categoria", idCategoria);
+                    command.Parameters.AddWithValue("@Id_Libro", idLibro); // Agregar el parámetro Id_Libro
+
+                    try
+                    {
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+
+        public bool ActualizarAutor(string nombreAutor)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE Autor SET Nombre = @Nombre WHERE Id_Autor = @Id_Autor";
+
+                    command.Parameters.AddWithValue("@Nombre", nombreAutor);
+
+                    try
+                    {
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ActualizarEditorial(string nombreEditorial)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE Editorial SET NombreEditorial = @NombreEditorial WHERE Id_Editorial = @Id_Editorial";
+
+                    command.Parameters.AddWithValue("@NombreEditorial", nombreEditorial);
+
+                    try
+                    {
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
 
     }
 

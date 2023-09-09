@@ -71,6 +71,16 @@ namespace Proyecto_MauroMur.Domain
             return productModel.ObtenerCategorias();
         }
 
+        public List<string> ObtenerListaAutores()
+        {
+            return productModel.ObtenerAutores();
+        }
+
+        public List<string> ObtenerListaEditoriales()
+        {
+            return productModel.ObtenerEditoriales();
+        }
+
         public int ObtenerCategoria(string nameCategoria)
         {
             int IdCategoria = productModel.ObtenerIdCategoria(nameCategoria);
@@ -95,17 +105,37 @@ namespace Proyecto_MauroMur.Domain
         public void CargarImagen(Libro libro)
         {
 
-            if (!string.IsNullOrEmpty(libro.Portada) && File.Exists(libro.Portada))
+            if (!string.IsNullOrEmpty(libro.Ruta) && File.Exists(libro.Ruta))
             {
-                libro.ImagenPortada = Image.FromFile(libro.Portada);
+                libro.ImagenPortada = Image.FromFile(libro.Ruta);
             }
         }
 
         // Método para obtener la ruta del archivo de la imagen
         public string? ObtenerRutaImagen(Libro libro)
         {
-            return libro.Portada;
+            return libro.Ruta;
         }
+
+
+        public bool ActualizarLibro(string titulo, string descripcion, double precio, string portada, int stock, string baja, int idCategoria, int idLibro)
+        {
+            // Suponiendo que Libro tiene propiedades como IdLibro, Titulo, Descripcion, Precio, Portada, Stock, Baja, Id_Categoria, Id_Editorial, Id_Autor, etc.
+            return productModel.ActualizarLibro(titulo, descripcion, precio, portada, stock, baja, idCategoria, idLibro);
+        }
+
+        public bool ActualizarAutor(string nombreAutor)
+        {
+            // Suponiendo que Autor tiene propiedades como IdAutor y Nombre.
+            return productModel.ActualizarAutor(nombreAutor);
+        }
+
+        public bool ActualizarEditorial(string nombreEditorial)
+        {
+            // Suponiendo que Editorial tiene propiedades como IdEditorial y NombreEditorial.
+            return productModel.ActualizarEditorial(nombreEditorial);
+        }
+
 
     }
 }

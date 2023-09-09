@@ -1,5 +1,7 @@
 ﻿using Common.Models;
 using Domain;
+using Google.Protobuf;
+using Proyecto_MauroMur.Common.Models;
 using Proyecto_MauroMur.Domain;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
 using System;
@@ -18,6 +20,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
     {
         private ProductModel productModel = new ProductModel();
         private List<Libro> libros = new List<Libro>();
+        private Libro? libroSeleccionado;
+        private int idLibroSeleccionado = -1;
+
 
         public CTablaProductos()
         {
@@ -42,6 +47,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dataGridProductos.Columns["Id_Categoria"].Visible = false;
             dataGridProductos.Columns["Id_Editorial"].Visible = false;
             dataGridProductos.Columns["Id_Autor"].Visible = false;
+            dataGridProductos.Columns["Ruta"].Visible = false;
             dataGridProductos.Columns["Titulo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridProductos.Columns["Baja"].DisplayIndex = dataGridProductos.Columns.Count - 1;
 
@@ -57,6 +63,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             opcionesCategorias();
             opcionesAutores();
             opcionesEditoriales();
+            editarOpcionesCategoria();
+            dataGridProductos.CellClick += new DataGridViewCellEventHandler(dataGridProductos_CellContentClick);
         }
 
         private void FiltrarProducts()
@@ -103,10 +111,24 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
             // Asigna la lista de categorías como DataSource del ComboBox
             cBBuscadorCategoria.DataSource = categorias;
-
             // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBBuscadorCategoria.SelectedIndex = 0;
         }
+
+        private void editarOpcionesCategoria()
+        {
+            ProductModel productModel = new();
+            var editCategorias = productModel.ObtenerCategorias();
+
+            // Agrega el mensaje predeterminado al comienzo de la lista
+            editCategorias.Insert(0, "Seleccion Categorias");
+
+            // Asigna la lista de categorías como DataSource del ComboBox
+            txEditarCategoria.DataSource = editCategorias;
+            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
+            txEditarCategoria.SelectedIndex = 0;
+        }
+
 
         private void opcionesAutores()
         {
@@ -158,5 +180,146 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         {
             FiltrarProducts();
         }
+
+        private void dataGridProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
+                libroSeleccionado = (Libro)row.DataBoundItem;
+                idLibroSeleccionado = libroSeleccionado.Id_Libro;
+
+                // Llena los controles con los detalles del libro
+                txEditarProducto.Text = libroSeleccionado.Titulo;
+                txEditarEditorial.Text = libroSeleccionado.Editorial;
+                txEditarAutor.Text = libroSeleccionado.Autor;
+                txEditarPrecio.Text = libroSeleccionado.Precio.ToString();
+                txEditarStock.Text = libroSeleccionado.Stock.ToString();
+                rtbEditarDescripcion.Text = libroSeleccionado.Descripcion;
+                string? rutaImagen = libroSeleccionado.Ruta;
+                MostrarImagen(rutaImagen);
+
+                if (libroSeleccionado.Baja == "SI")
+                {
+                    checkBoxSiEd.Checked = true;
+                    checkBoxNoEd.Checked = false; // Desmarcar checkBoxNoEd si está marcado
+                }
+                else
+                {
+                    checkBoxSiEd.Checked = false; // Desmarcar checkBoxSiEd si está marcado
+                    checkBoxNoEd.Checked = true;
+                }
+
+                // Selecciona la categoría en el ComboBox
+                txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
+            }
+        }
+
+
+        private void MostrarImagen(string rutaImagen)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(rutaImagen) && System.IO.File.Exists(rutaImagen))
+                {
+                    pEditarProducts.Image = Image.FromFile(rutaImagen);
+                }
+                else
+                {
+                    pEditarProducts.Image = null; // Si la ruta de la imagen es nula o el archivo no existe, limpia el PictureBox
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error que pueda ocurrir al cargar la imagen
+                MessageBox.Show("Error al cargar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBoxSiEd_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSiEd.Checked)
+            {
+                checkBoxNoEd.Checked = false;
+
+            }
+        }
+
+        private void checkBoxNoEd_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNoEd.Checked)
+            {
+                checkBoxSiEd.Checked = false;
+
+            }
+        } 
+
+        private void btEditar_Click(object sender, EventArgs e)
+        {
+
+            if (idLibroSeleccionado == -1)
+            {
+                MessageBox.Show("Por favor, seleccione un libro para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Recopila los datos editados
+            string nuevoTitulo = txEditarProducto.Text;
+            string nuevaDescripcion = rtbEditarDescripcion.Text;
+            double nuevoPrecio;
+            string imagen = txEditarProducto.Text;
+            int nuevoStock;
+            string nuevoEstado = checkBoxSiEd.Checked ? "SI" : "NO";
+            string? nuevaCategoria = txEditarCategoria.SelectedItem as string;
+            int idNuevaCategoria = productModel.ObtenerCategoria(nuevaCategoria);
+            string? nuevoAutor = txEditarAutor.Text;
+            string? nuevaEditorial = txEditarEditorial.Text;
+         
+
+            // Valida que no haya campos vacíos
+            if (string.IsNullOrWhiteSpace(nuevoTitulo) || string.IsNullOrWhiteSpace(nuevaDescripcion) ||
+                !double.TryParse(txEditarPrecio.Text, out nuevoPrecio) || !int.TryParse(txEditarStock.Text, out nuevoStock) ||
+                string.IsNullOrWhiteSpace(nuevaCategoria) || string.IsNullOrWhiteSpace(nuevoAutor) || string.IsNullOrWhiteSpace(nuevaEditorial))
+            {
+                MessageBox.Show("Por favor, complete todos los campos antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Confirma con el usuario si está seguro de realizar las modificaciones
+            DialogResult confirmacion = MessageBox.Show("¿Está seguro de realizar estas modificaciones?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                bool exitoAutor = productModel.ActualizarAutor(nuevoAutor);
+
+                // Llamada al método ActualizarEditorial
+                bool exitoEditorial = productModel.ActualizarEditorial(nuevaEditorial);
+                
+                bool exitoLibro = productModel.ActualizarLibro(
+                    nuevoTitulo,
+                    nuevaDescripcion,
+                    nuevoPrecio,
+                    imagen,
+                    nuevoStock,
+                    nuevoEstado,
+                    idNuevaCategoria,
+                    idLibroSeleccionado // Pasa el ID del libro seleccionado
+                );
+
+                if (exitoLibro && exitoAutor && exitoEditorial)
+                {
+                    MessageBox.Show("El producto se ha actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error al actualizar el producto. Por favor, intente de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se realizaron cambios en el producto.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
     }
 }
