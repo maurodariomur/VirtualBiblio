@@ -23,6 +23,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
     public partial class CProductos : Form
     {
         private FLobi objFLobi;
+        private string? fileSavePath;
+        private string? fileActualPath;
+        private string? imagenName;
         private const int maxCaracteres = 200;
 
         public CProductos(FLobi flobi)
@@ -51,10 +54,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string nombreAutor = txAutor.Text;
             string precioStr = txPrecio.Text;
             string descripcion = rtbDescripcion.Text;
-            string imagen = lbPathTittleP.Text;
-            Image imagenAGuardar = pProducts.Image;
-            string carpetaDestino = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Presentacion/Formularios/Pictures/Productos");
-            carpetaDestino = Path.GetFullPath(carpetaDestino);
             string stockStr = txStock.Text;
             string categoria = txCategoria.Text;
             ProductModel producModel = new();
@@ -75,7 +74,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             {
                 msgError("Ingrese valores válidos en los campos numéricos (Precio, Stock)");
             }
-            else if (imagen == "Path: Producto")
+            else if (string.IsNullOrEmpty(imagenName))
             {
                 msgError("Ingrese una imagen");
             }
@@ -96,17 +95,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                         int idAutor = producModel.ObtenerIdAutor(nombreAutor);
                         int idCategoria = producModel.ObtenerCategoria(categoria);
 
-                        // Actualiza la variable "imagen" con la ruta completa
-                        string nombreArchivo = Path.GetFileName(lbPathTittleP.Text);
-                        string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
-                        imagen = rutaCompleta; // Actualiza la variable "imagen" con la ruta completa
-
-                        bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
+                        bool productoAgregado = producModel.AgregarNuevoProducto(nombreProd, descripcion, precio, imagenName!, stock, idCategoria, idEditorial, idAutor);
 
                         if (productoAgregado)
                         {
                             // Copia la imagen a la carpeta de destino
-                            File.Copy(lbPathTittleP.Text, rutaCompleta, true);
+                            File.Copy(fileActualPath!, fileSavePath!);
 
                             MessageBox.Show("Libro agregado exitosamente: " + nombreProd, "Libro Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LimpiarCampos();
@@ -122,16 +116,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     }
                 }
             }
-    }
+        }
 
         private void LimpiarCampos()
         {
             txNameProducto.Text = "Nombre";
             txEditorial.Text = "Editorial";
             txPrecio.Text = "$ Precio";
-            rtbDescripcion.Text = "Descripcion";
             txAutor.Text = "Autor";
             txStock.Text = "Stock";
+            rtbDescripcion.Text= string.Empty;
+            pProducts.Image=null;
+            lbPathTittleP.Text = "Producto";
             txCategoria.SelectedIndex = 0;
             txNameProducto.Focus();
         }
@@ -285,39 +281,27 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         //MOSTRAR IMAGENES
         private void iconImagen_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog openFile = new();
-            openFile.Filter = "Archivos de imagen|*.jpg;*jpeg;*png;*.gif;*.bmp";
+            System.Windows.Forms.OpenFileDialog openFile = new()
+            {
+                Filter = "Archivos de imagen (*.png) | *.png",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Multiselect = false,
+                Title = "Seleccione una Imagen",
+            };
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
+                imagenName = Guid.NewGuid().ToString() + ".png";
+                string actualName = openFile.SafeFileName;
+                fileSavePath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", imagenName);
                 string selectedImagePath = openFile.FileName;
+                fileActualPath = selectedImagePath;
+                // Mostrar la imagen en el PictureBox
+                pProducts.Image = Image.FromFile(fileActualPath);
 
-                // Verificar si el archivo seleccionado es una imagen
-                if (IsImageFile(selectedImagePath))
-                {
-                    // Mostrar la imagen en el PictureBox
-                    pProducts.Image = Image.FromFile(selectedImagePath);
-
-                    // Mostrar la ruta del archivo en el TextBox
-                    lbPathTittleP.Text = selectedImagePath;
-                }
-                else
-                {
-                    MessageBox.Show("El archivo seleccionado no es una imagen válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                // Mostrar la ruta del archivo en el TextBox
+                lbPathTittleP.Text = actualName;
             }
-
-        }
-
-        private bool IsImageFile(string filePath)
-        {
-            string extension = Path.GetExtension(filePath);
-            if (extension != null)
-            {
-                string ext = extension.ToLower();
-                return ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif" || ext == ".bmp";
-            }
-            return false;
         }
 
         //MOSTRAR OPCIONES DE CATEGORIAS EN EL CHECKEDLISTBOX

@@ -13,11 +13,11 @@ namespace Proyecto_MauroMur.Domain
     internal class ProductModel
     {
         private ProductsDatos productModel = new();
-        
+
         public bool AgregarNuevoProducto(string nombreTitle, string descripcion, float precio, string imagen, int stock, int idCategoria, int idEditorial, int idAutor)
         {
             // Llamar al método para agregar usuario de UserDatos
-            return productModel.AgregarProducto(nombreTitle,descripcion,precio,imagen,stock,idCategoria,idEditorial,idAutor);
+            return productModel.AgregarProducto(nombreTitle, descripcion, precio, imagen, stock, idCategoria, idEditorial, idAutor);
         }
 
         public bool AgregarNuevoAutor(string nombreAutor)
@@ -71,6 +71,16 @@ namespace Proyecto_MauroMur.Domain
             return productModel.ObtenerCategorias();
         }
 
+        public List<string> ObtenerListaAutores()
+        {
+            return productModel.ObtenerAutores();
+        }
+
+        public List<string> ObtenerListaEditoriales()
+        {
+            return productModel.ObtenerEditoriales();
+        }
+
         public int ObtenerCategoria(string nameCategoria)
         {
             int IdCategoria = productModel.ObtenerIdCategoria(nameCategoria);
@@ -94,18 +104,29 @@ namespace Proyecto_MauroMur.Domain
 
         public void CargarImagen(Libro libro)
         {
-          
-            if (!string.IsNullOrEmpty(libro.Portada) && File.Exists(libro.Portada))
-            {
-                libro.ImagenPortada = Image.FromFile(libro.Portada);
-            }
+            string libroPath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos",libro.Imagen!);
+
+            libro.ImagenPortada = Image.FromFile(libroPath);
+            
         }
 
-        // Método para obtener la ruta del archivo de la imagen
-        public string ObtenerRutaImagen(Libro libro)
-        {
-            return libro.Portada;
+        public bool ActualizarLibro(int idLibro,string titulo, string descripcion, double precio, string imagen, int stock, string baja, int idCategoria,string autor,string editorial )
+        { 
+            return productModel.ActualizarLibro(idLibro,titulo, descripcion, precio, imagen, stock, baja, idCategoria,autor,editorial);
         }
+
+        public bool ActualizarAutor(string nombreAutor)
+        {
+            // Suponiendo que Autor tiene propiedades como IdAutor y Nombre.
+            return productModel.ActualizarAutor(nombreAutor);
+        }
+
+        public bool ActualizarEditorial(string nombreEditorial)
+        {
+            // Suponiendo que Editorial tiene propiedades como IdEditorial y NombreEditorial.
+            return productModel.ActualizarEditorial(nombreEditorial);
+        }
+
 
     }
 }

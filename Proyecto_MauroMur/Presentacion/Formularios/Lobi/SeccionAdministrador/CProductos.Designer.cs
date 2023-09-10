@@ -274,11 +274,11 @@
             lbPathTittleP.BackColor = Color.Transparent;
             lbPathTittleP.FlatStyle = FlatStyle.Popup;
             lbPathTittleP.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbPathTittleP.Location = new Point(641, 457);
+            lbPathTittleP.Location = new Point(654, 457);
             lbPathTittleP.Name = "lbPathTittleP";
-            lbPathTittleP.Size = new Size(120, 19);
+            lbPathTittleP.Size = new Size(78, 19);
             lbPathTittleP.TabIndex = 46;
-            lbPathTittleP.Text = "Path: Producto";
+            lbPathTittleP.Text = "Producto";
             // 
             // iconImagen
             // 
@@ -294,7 +294,7 @@
             iconImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconImagen.IconSize = 25;
             iconImagen.ImageAlign = ContentAlignment.BottomCenter;
-            iconImagen.Location = new Point(604, 447);
+            iconImagen.Location = new Point(617, 444);
             iconImagen.Name = "iconImagen";
             iconImagen.Size = new Size(31, 37);
             iconImagen.TabIndex = 49;
