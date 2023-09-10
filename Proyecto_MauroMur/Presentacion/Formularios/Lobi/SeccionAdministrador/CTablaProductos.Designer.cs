@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CTablaProductos));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -62,7 +61,9 @@
             txEditarProducto = new TextBox();
             panel5 = new Panel();
             label1 = new Label();
+            checkBoxAZT = new CheckBox();
             panel3 = new Panel();
+            dataGridProductos = new DataGridView();
             panel4 = new Panel();
             cBBuscadorEditorial = new ComboBox();
             buscadorEditorial = new Label();
@@ -72,8 +73,6 @@
             buscadorTitulo = new Label();
             buscadorAutor = new Label();
             buscadorCategoria = new Label();
-            checkBoxAZ = new CheckBox();
-            dataGridProductos = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel6.SuspendLayout();
@@ -81,8 +80,8 @@
             panel7.SuspendLayout();
             panel5.SuspendLayout();
             panel3.SuspendLayout();
-            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridProductos).BeginInit();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -152,8 +151,8 @@
             // 
             // pEditarProducts
             // 
-            pEditarProducts.Image = (Image)resources.GetObject("pEditarProducts.Image");
-            pEditarProducts.Location = new Point(133, 419);
+            pEditarProducts.Image = Properties.Resources.roboJaime;
+            pEditarProducts.Location = new Point(138, 407);
             pEditarProducts.Name = "pEditarProducts";
             pEditarProducts.Size = new Size(100, 128);
             pEditarProducts.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -293,11 +292,12 @@
             iconEditarImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconEditarImagen.IconSize = 20;
             iconEditarImagen.ImageAlign = ContentAlignment.BottomCenter;
-            iconEditarImagen.Location = new Point(239, 509);
+            iconEditarImagen.Location = new Point(244, 505);
             iconEditarImagen.Name = "iconEditarImagen";
             iconEditarImagen.Size = new Size(25, 30);
             iconEditarImagen.TabIndex = 70;
             iconEditarImagen.UseVisualStyleBackColor = false;
+            iconEditarImagen.Click += iconEditarImagen_Click;
             // 
             // lbEditarImagen
             // 
@@ -481,17 +481,90 @@
             label1.TabIndex = 2;
             label1.Text = "Modificar Producto";
             // 
+            // checkBoxAZT
+            // 
+            checkBoxAZT.AutoSize = true;
+            checkBoxAZT.BackColor = Color.Transparent;
+            checkBoxAZT.FlatAppearance.BorderSize = 0;
+            checkBoxAZT.FlatAppearance.CheckedBackColor = Color.Black;
+            checkBoxAZT.FlatStyle = FlatStyle.Flat;
+            checkBoxAZT.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            checkBoxAZT.ForeColor = Color.Gainsboro;
+            checkBoxAZT.Location = new Point(73, 58);
+            checkBoxAZT.Name = "checkBoxAZT";
+            checkBoxAZT.Size = new Size(109, 22);
+            checkBoxAZT.TabIndex = 2;
+            checkBoxAZT.Text = "A-Z.(Titulo)";
+            checkBoxAZT.UseVisualStyleBackColor = false;
+            checkBoxAZT.CheckedChanged += checkBoxAZT_CheckedChanged;
+            // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(57, 91, 100);
-            panel3.Controls.Add(panel4);
-            panel3.Controls.Add(checkBoxAZ);
             panel3.Controls.Add(dataGridProductos);
+            panel3.Controls.Add(checkBoxAZT);
+            panel3.Controls.Add(panel4);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 51);
             panel3.Name = "panel3";
             panel3.Size = new Size(772, 663);
             panel3.TabIndex = 2;
+            // 
+            // dataGridProductos
+            // 
+            dataGridProductos.AllowUserToAddRows = false;
+            dataGridProductos.AllowUserToDeleteRows = false;
+            dataGridProductos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dataGridProductos.BackgroundColor = Color.FromArgb(57, 91, 100);
+            dataGridProductos.BorderStyle = BorderStyle.None;
+            dataGridProductos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridProductos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(147, 177, 166);
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridProductos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridProductos.EnableHeadersVisualStyles = false;
+            dataGridProductos.GridColor = Color.FromArgb(165, 201, 202);
+            dataGridProductos.Location = new Point(73, 86);
+            dataGridProductos.MultiSelect = false;
+            dataGridProductos.Name = "dataGridProductos";
+            dataGridProductos.ReadOnly = true;
+            dataGridProductos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridProductos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridProductos.RowHeadersVisible = false;
+            dataGridProductos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle4.SelectionForeColor = Color.WhiteSmoke;
+            dataGridProductos.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridProductos.RowTemplate.Height = 25;
+            dataGridProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridProductos.Size = new Size(599, 331);
+            dataGridProductos.TabIndex = 1;
+            dataGridProductos.CellContentClick += dataGridProductos_CellContentClick;
             // 
             // panel4
             // 
@@ -614,78 +687,6 @@
             buscadorCategoria.TabIndex = 14;
             buscadorCategoria.Text = "Categoria";
             // 
-            // checkBoxAZ
-            // 
-            checkBoxAZ.Anchor = AnchorStyles.Top;
-            checkBoxAZ.AutoSize = true;
-            checkBoxAZ.BackColor = Color.Transparent;
-            checkBoxAZ.FlatAppearance.BorderSize = 0;
-            checkBoxAZ.FlatStyle = FlatStyle.Flat;
-            checkBoxAZ.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            checkBoxAZ.ForeColor = Color.Gainsboro;
-            checkBoxAZ.Location = new Point(12, 79);
-            checkBoxAZ.Name = "checkBoxAZ";
-            checkBoxAZ.Size = new Size(109, 22);
-            checkBoxAZ.TabIndex = 2;
-            checkBoxAZ.Text = "A-Z.(Titulo)";
-            checkBoxAZ.UseVisualStyleBackColor = false;
-            // 
-            // dataGridProductos
-            // 
-            dataGridProductos.AllowUserToAddRows = false;
-            dataGridProductos.AllowUserToDeleteRows = false;
-            dataGridProductos.Anchor = AnchorStyles.Top;
-            dataGridProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            dataGridProductos.BackgroundColor = Color.FromArgb(57, 91, 100);
-            dataGridProductos.BorderStyle = BorderStyle.None;
-            dataGridProductos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridProductos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(147, 177, 166);
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.Window;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridProductos.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridProductos.EnableHeadersVisualStyles = false;
-            dataGridProductos.GridColor = Color.FromArgb(165, 201, 202);
-            dataGridProductos.Location = new Point(12, 107);
-            dataGridProductos.MultiSelect = false;
-            dataGridProductos.Name = "dataGridProductos";
-            dataGridProductos.ReadOnly = true;
-            dataGridProductos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridProductos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridProductos.RowHeadersVisible = false;
-            dataGridProductos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle4.SelectionForeColor = Color.WhiteSmoke;
-            dataGridProductos.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridProductos.RowTemplate.Height = 25;
-            dataGridProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridProductos.Size = new Size(747, 429);
-            dataGridProductos.TabIndex = 1;
-            dataGridProductos.CellContentClick += dataGridProductos_CellContentClick;
-            // 
             // CTablaProductos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -708,9 +709,9 @@
             panel5.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridProductos).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).EndInit();
             ResumeLayout(false);
         }
 
@@ -721,7 +722,7 @@
         private Panel panel2;
         private Panel panel3;
         private DataGridView dataGridProductos;
-        private CheckBox checkBoxAZ;
+        private CheckBox checkBoxAZT;
         private Panel panel4;
         private TextBox txBuscadorTitulo;
         private Label buscadorTitulo;

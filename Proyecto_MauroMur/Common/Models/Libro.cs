@@ -12,7 +12,7 @@ namespace Common.Models
         public string? Titulo { get; set; }
         public string? Descripcion { get; set; }
         public double   Precio { get; set; }
-        public string? Ruta { get; set; }
+        public string? Imagen { get; set; }
         public Image? ImagenPortada { get; set; }
         public int     Stock { get; set; }
         public string? Baja { get; set; }
@@ -22,8 +22,5 @@ namespace Common.Models
         public string? Categoria { get; set; }
         public string? Editorial { get; set; }
         public string? Autor { get; set; } 
-        
-       
-
     }
 }

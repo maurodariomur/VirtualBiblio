@@ -104,24 +104,15 @@ namespace Proyecto_MauroMur.Domain
 
         public void CargarImagen(Libro libro)
         {
+            string libroPath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos",libro.Imagen!);
 
-            if (!string.IsNullOrEmpty(libro.Ruta) && File.Exists(libro.Ruta))
-            {
-                libro.ImagenPortada = Image.FromFile(libro.Ruta);
-            }
+            libro.ImagenPortada = Image.FromFile(libroPath);
+            
         }
 
-        // Método para obtener la ruta del archivo de la imagen
-        public string? ObtenerRutaImagen(Libro libro)
-        {
-            return libro.Ruta;
-        }
-
-
-        public bool ActualizarLibro(string titulo, string descripcion, double precio, string portada, int stock, string baja, int idCategoria, int idLibro)
-        {
-            // Suponiendo que Libro tiene propiedades como IdLibro, Titulo, Descripcion, Precio, Portada, Stock, Baja, Id_Categoria, Id_Editorial, Id_Autor, etc.
-            return productModel.ActualizarLibro(titulo, descripcion, precio, portada, stock, baja, idCategoria, idLibro);
+        public bool ActualizarLibro(int idLibro,string titulo, string descripcion, double precio, string imagen, int stock, string baja, int idCategoria,string autor,string editorial )
+        { 
+            return productModel.ActualizarLibro(idLibro,titulo, descripcion, precio, imagen, stock, baja, idCategoria,autor,editorial);
         }
 
         public bool ActualizarAutor(string nombreAutor)

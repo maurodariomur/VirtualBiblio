@@ -342,7 +342,7 @@ namespace Proyecto_MauroMur.DataAccess
                             libro.Titulo = reader.GetString(1);
                             libro.Descripcion = reader.GetString(2);
                             libro.Precio = reader.GetDouble(3);
-                            libro.Ruta = reader.GetString(4);
+                            libro.Imagen = reader.GetString(4);
                             libro.Stock = reader.GetInt32(5);
                             libro.Baja = reader.GetString(6);
                             libro.Id_Categoria = reader.GetInt32(7);
@@ -360,8 +360,68 @@ namespace Proyecto_MauroMur.DataAccess
             return productos;
         }
 
-        public bool ActualizarLibro(string titulo, string descripcion, double precio, string portada, int stock, string baja, int idCategoria, int idLibro)
+        public Libro ObtenerProductoId(int idLibro)
         {
+            Libro producto = new();
+
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+                using (var comando = new SqlCommand())
+                {
+                    comando.Connection = conexion;
+                    comando.CommandText = "SELECT L.*, A.Nombre AS Autor, E.NombreEditorial AS Editorial, C.Nombre AS Categoria " +
+                                          "FROM Libro L " +
+                                          "INNER JOIN Autor A ON L.Id_Autor = A.Id_Autor " +
+                                          "INNER JOIN Editorial E ON L.Id_Editorial = E.Id_Editorial " +
+                                          "INNER JOIN Categoria C ON L.Id_Categoria = C.Id_Categoria " +
+                                          "WHERE L.Id_Libro = @ProductId";
+                   
+                    comando.Parameters.AddWithValue("@ProductId", idLibro);
+                    
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        if (reader.Read()) // Verificar si hay datos para leer
+                        {
+                            producto.Id_Libro = reader.GetInt32(0);
+                            producto.Titulo = reader.GetString(1);
+                            producto.Descripcion = reader.GetString(2);
+                            producto.Precio = reader.GetDouble(3);
+                            producto.Imagen = reader.GetString(4);
+                            producto.Stock = reader.GetInt32(5);
+                            producto.Baja = reader.GetString(6);
+                            producto.Id_Categoria = reader.GetInt32(7);
+                            producto.Categoria = reader.GetString(12);
+                            producto.Id_Editorial = reader.GetInt32(8);
+                            producto.Editorial = reader.GetString(11);
+                            producto.Id_Autor = reader.GetInt32(9);
+                            producto.Autor = reader.GetString(10);
+                        }
+                    }
+                }
+            }
+
+            return producto;
+        }
+
+        public bool ActualizarLibro(int idLibro,string titulo, string descripcion, double precio, string imagen, int stock, string baja, int idCategoria,string autor,string editorial)
+        {
+           Libro libroEditar = ObtenerProductoId(idLibro);
+
+            if (libroEditar.Autor != autor)
+            {
+                AgregarAutor(autor);
+
+            }
+            if (libroEditar.Editorial != editorial)
+            {
+                AgregarEditorial(editorial);
+
+            }
+
+            int idAutor = ObtenerIdAutor(autor);
+            int idEditorial=ObtenerIdEditorial(editorial);
+
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -374,11 +434,13 @@ namespace Proyecto_MauroMur.DataAccess
                     command.Parameters.AddWithValue("@NombreProducto", titulo);
                     command.Parameters.AddWithValue("@Descripcion", descripcion);
                     command.Parameters.AddWithValue("@PrecioUnitario", precio);
-                    command.Parameters.AddWithValue("@Imagen", portada);
+                    command.Parameters.AddWithValue("@Imagen", imagen);
                     command.Parameters.AddWithValue("@Stock", stock);
                     command.Parameters.AddWithValue("@Baja", baja);
                     command.Parameters.AddWithValue("@Id_Categoria", idCategoria);
-                    command.Parameters.AddWithValue("@Id_Libro", idLibro); // Agregar el parámetro Id_Libro
+                    command.Parameters.AddWithValue("@Id_Libro", idLibro);
+                    command.Parameters.AddWithValue("@Id_Autor", idAutor);
+                    command.Parameters.AddWithValue("@Id_Editorial", idEditorial);
 
                     try
                     {
@@ -449,8 +511,5 @@ namespace Proyecto_MauroMur.DataAccess
                 }
             }
         }
-
-
     }
-
 }

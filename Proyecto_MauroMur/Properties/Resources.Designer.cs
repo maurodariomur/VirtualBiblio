@@ -59,5 +59,15 @@ namespace Proyecto_MauroMur.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roboJaime {
+            get {
+                object obj = ResourceManager.GetObject("roboJaime", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

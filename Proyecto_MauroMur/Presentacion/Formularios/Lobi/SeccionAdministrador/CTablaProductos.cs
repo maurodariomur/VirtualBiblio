@@ -1,7 +1,6 @@
 ﻿using Common.Models;
 using Domain;
 using Google.Protobuf;
-using Proyecto_MauroMur.Common.Models;
 using Proyecto_MauroMur.Domain;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
 using System;
@@ -22,6 +21,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private List<Libro> libros = new List<Libro>();
         private Libro? libroSeleccionado;
         private int idLibroSeleccionado = -1;
+        private string? fileSavePath;
+        private string? fileActualPath;
+        private string? imagenName;
 
 
         public CTablaProductos()
@@ -34,7 +36,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             libros = productModel.MostrarProducts();
 
             // Cargar las imágenes para cada libro
-
             foreach (Libro libro in libros)
             {
                 productModel.CargarImagen(libro);
@@ -47,7 +48,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dataGridProductos.Columns["Id_Categoria"].Visible = false;
             dataGridProductos.Columns["Id_Editorial"].Visible = false;
             dataGridProductos.Columns["Id_Autor"].Visible = false;
-            dataGridProductos.Columns["Ruta"].Visible = false;
+            dataGridProductos.Columns["Imagen"].Visible = false;
             dataGridProductos.Columns["Titulo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridProductos.Columns["Baja"].DisplayIndex = dataGridProductos.Columns.Count - 1;
 
@@ -64,7 +65,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             opcionesAutores();
             opcionesEditoriales();
             editarOpcionesCategoria();
-            dataGridProductos.CellClick += new DataGridViewCellEventHandler(dataGridProductos_CellContentClick);
+            dataGridProductos.CellClick += new DataGridViewCellEventHandler(dataGridProductos_CellContentClick!);
+        }
+
+        private void loadLibros()
+        {
+            List<Libro> productos = productModel.MostrarProducts();
+
+            // Ordenar la lista alfabéticamente si checkBoxAZT está marcado
+            if (checkBoxAZT.Checked)
+            {
+                productos.Sort((x, y) => string.Compare(x.Titulo, y.Titulo));
+            }
+
+            dataGridProductos.DataSource = productos;
+
+            // Recuerda cargar las imágenes para los libros en la lista 'productos'
+            foreach (Libro libro in productos)
+            {
+                productModel.CargarImagen(libro);
+            }
         }
 
         private void FiltrarProducts()
@@ -128,7 +148,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             txEditarCategoria.SelectedIndex = 0;
         }
-
 
         private void opcionesAutores()
         {
@@ -196,8 +215,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 txEditarPrecio.Text = libroSeleccionado.Precio.ToString();
                 txEditarStock.Text = libroSeleccionado.Stock.ToString();
                 rtbEditarDescripcion.Text = libroSeleccionado.Descripcion;
-                string? rutaImagen = libroSeleccionado.Ruta;
-                MostrarImagen(rutaImagen);
+                pEditarProducts.Image = libroSeleccionado.ImagenPortada;
 
                 if (libroSeleccionado.Baja == "SI")
                 {
@@ -212,27 +230,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                 // Selecciona la categoría en el ComboBox
                 txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
-            }
-        }
-
-
-        private void MostrarImagen(string rutaImagen)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(rutaImagen) && System.IO.File.Exists(rutaImagen))
-                {
-                    pEditarProducts.Image = Image.FromFile(rutaImagen);
-                }
-                else
-                {
-                    pEditarProducts.Image = null; // Si la ruta de la imagen es nula o el archivo no existe, limpia el PictureBox
-                }
-            }
-            catch (Exception ex)
-            {
-                // Manejar cualquier error que pueda ocurrir al cargar la imagen
-                MessageBox.Show("Error al cargar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -252,7 +249,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 checkBoxSiEd.Checked = false;
 
             }
-        } 
+        }
 
         private void btEditar_Click(object sender, EventArgs e)
         {
@@ -267,14 +264,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string nuevoTitulo = txEditarProducto.Text;
             string nuevaDescripcion = rtbEditarDescripcion.Text;
             double nuevoPrecio;
-            string imagen = txEditarProducto.Text;
+            string imagen = libroSeleccionado!.Imagen!;
             int nuevoStock;
             string nuevoEstado = checkBoxSiEd.Checked ? "SI" : "NO";
             string? nuevaCategoria = txEditarCategoria.SelectedItem as string;
-            int idNuevaCategoria = productModel.ObtenerCategoria(nuevaCategoria);
+            int idNuevaCategoria = productModel.ObtenerCategoria(nuevaCategoria!);
             string? nuevoAutor = txEditarAutor.Text;
             string? nuevaEditorial = txEditarEditorial.Text;
-         
+
 
             // Valida que no haya campos vacíos
             if (string.IsNullOrWhiteSpace(nuevoTitulo) || string.IsNullOrWhiteSpace(nuevaDescripcion) ||
@@ -290,25 +287,25 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
             if (confirmacion == DialogResult.Yes)
             {
-                bool exitoAutor = productModel.ActualizarAutor(nuevoAutor);
-
-                // Llamada al método ActualizarEditorial
-                bool exitoEditorial = productModel.ActualizarEditorial(nuevaEditorial);
-                
                 bool exitoLibro = productModel.ActualizarLibro(
+                    libroSeleccionado.Id_Libro,
                     nuevoTitulo,
                     nuevaDescripcion,
                     nuevoPrecio,
-                    imagen,
+                    imagenName!,
                     nuevoStock,
                     nuevoEstado,
                     idNuevaCategoria,
-                    idLibroSeleccionado // Pasa el ID del libro seleccionado
+                    nuevoAutor,
+                    nuevaEditorial
                 );
 
-                if (exitoLibro && exitoAutor && exitoEditorial)
+                if (exitoLibro)
                 {
+                    File.Copy(fileActualPath!, fileSavePath!);
                     MessageBox.Show("El producto se ha actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarCamposModificar();
+                    CTablaProductos_Load(sender, e);
                 }
                 else
                 {
@@ -321,5 +318,45 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             }
         }
 
+        private void LimpiarCamposModificar()
+        {
+            txEditarProducto.Text = "";
+            txEditarAutor.Text = "";
+            txEditarStock.Text = "";
+            rtbEditarDescripcion.Text = "";
+            txEditarPrecio.Text = "";
+            txEditarEditorial.Text = "";
+            txEditarCategoria.SelectedIndex = 0;
+            checkBoxSiEd.Checked = false;
+            checkBoxNoEd.Checked = false;
+            checkBoxAZT.Checked = false;
+            pEditarProducts.Image = Properties.Resources.roboJaime;
+        }
+
+        private void iconEditarImagen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new()
+            {
+                Filter = "Archivos de imagen (*.png) | *.png",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Multiselect = false,
+                Title = "Seleccione Imagen a Editar",
+            };
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                imagenName = Guid.NewGuid().ToString() + ".png";
+                fileSavePath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", imagenName);
+                string selectedImagePath = openFile.FileName;
+                fileActualPath = selectedImagePath;
+                // Mostrar la imagen en el PictureBox
+                pEditarProducts.Image = Image.FromFile(fileActualPath);
+            }
+        }
+
+        private void checkBoxAZT_CheckedChanged(object sender, EventArgs e)
+        {
+            loadLibros();
+        }
     }
 }
