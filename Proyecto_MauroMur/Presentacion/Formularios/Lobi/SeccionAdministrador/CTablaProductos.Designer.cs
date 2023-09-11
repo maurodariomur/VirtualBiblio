@@ -38,6 +38,7 @@
             panel6 = new Panel();
             pEditarProducts = new PictureBox();
             panel7 = new Panel();
+            iconLimpiar = new FontAwesome.Sharp.IconButton();
             btEditar = new Button();
             txEditarStock = new TextBox();
             label2 = new Label();
@@ -102,7 +103,7 @@
             lbEditarProducto.FlatStyle = FlatStyle.Flat;
             lbEditarProducto.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbEditarProducto.ForeColor = Color.Gainsboro;
-            lbEditarProducto.Location = new Point(524, 9);
+            lbEditarProducto.Location = new Point(571, 9);
             lbEditarProducto.Name = "lbEditarProducto";
             lbEditarProducto.Size = new Size(227, 31);
             lbEditarProducto.TabIndex = 1;
@@ -151,8 +152,7 @@
             // 
             // pEditarProducts
             // 
-            pEditarProducts.Image = Properties.Resources.roboJaime;
-            pEditarProducts.Location = new Point(138, 407);
+            pEditarProducts.Location = new Point(143, 429);
             pEditarProducts.Name = "pEditarProducts";
             pEditarProducts.Size = new Size(100, 128);
             pEditarProducts.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -161,6 +161,7 @@
             // 
             // panel7
             // 
+            panel7.Controls.Add(iconLimpiar);
             panel7.Controls.Add(btEditar);
             panel7.Dock = DockStyle.Bottom;
             panel7.Location = new Point(0, 568);
@@ -168,15 +169,36 @@
             panel7.Size = new Size(350, 47);
             panel7.TabIndex = 78;
             // 
+            // iconLimpiar
+            // 
+            iconLimpiar.Anchor = AnchorStyles.None;
+            iconLimpiar.BackColor = Color.Transparent;
+            iconLimpiar.Cursor = Cursors.Hand;
+            iconLimpiar.FlatAppearance.BorderSize = 0;
+            iconLimpiar.FlatAppearance.MouseDownBackColor = Color.FromArgb(92, 131, 116);
+            iconLimpiar.FlatAppearance.MouseOverBackColor = Color.FromArgb(147, 177, 166);
+            iconLimpiar.FlatStyle = FlatStyle.Flat;
+            iconLimpiar.IconChar = FontAwesome.Sharp.IconChar.RotateBackward;
+            iconLimpiar.IconColor = Color.FromArgb(175, 211, 226);
+            iconLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconLimpiar.IconSize = 20;
+            iconLimpiar.ImageAlign = ContentAlignment.BottomCenter;
+            iconLimpiar.Location = new Point(281, 3);
+            iconLimpiar.Name = "iconLimpiar";
+            iconLimpiar.Size = new Size(31, 35);
+            iconLimpiar.TabIndex = 71;
+            iconLimpiar.UseVisualStyleBackColor = false;
+            iconLimpiar.Click += iconLimpiar_Click;
+            // 
             // btEditar
             // 
             btEditar.BackColor = Color.FromArgb(57, 91, 100);
             btEditar.FlatStyle = FlatStyle.Popup;
             btEditar.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btEditar.ForeColor = SystemColors.ButtonFace;
-            btEditar.Location = new Point(83, 3);
+            btEditar.Location = new Point(125, 3);
             btEditar.Name = "btEditar";
-            btEditar.Size = new Size(219, 35);
+            btEditar.Size = new Size(155, 35);
             btEditar.TabIndex = 33;
             btEditar.Text = "Editar";
             btEditar.UseVisualStyleBackColor = false;
@@ -194,6 +216,7 @@
             txEditarStock.Size = new Size(57, 22);
             txEditarStock.TabIndex = 77;
             txEditarStock.TextAlign = HorizontalAlignment.Center;
+            txEditarStock.KeyPress += txEditarStock_KeyPress;
             // 
             // label2
             // 
@@ -221,6 +244,7 @@
             txEditarPrecio.Size = new Size(57, 22);
             txEditarPrecio.TabIndex = 75;
             txEditarPrecio.TextAlign = HorizontalAlignment.Center;
+            txEditarPrecio.KeyPress += txEditarPrecio_KeyPress;
             // 
             // lbEditarPrecio
             // 
@@ -292,7 +316,7 @@
             iconEditarImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconEditarImagen.IconSize = 20;
             iconEditarImagen.ImageAlign = ContentAlignment.BottomCenter;
-            iconEditarImagen.Location = new Point(244, 505);
+            iconEditarImagen.Location = new Point(249, 527);
             iconEditarImagen.Name = "iconEditarImagen";
             iconEditarImagen.Size = new Size(25, 30);
             iconEditarImagen.TabIndex = 70;
@@ -390,6 +414,7 @@
             txEditarAutor.PlaceholderText = "Autor";
             txEditarAutor.Size = new Size(213, 22);
             txEditarAutor.TabIndex = 61;
+            txEditarAutor.TextChanged += txEditarAutor_TextChanged;
             // 
             // lbEditarAutor
             // 
@@ -431,6 +456,7 @@
             txEditarEditorial.PlaceholderText = "Editorial";
             txEditarEditorial.Size = new Size(213, 22);
             txEditarEditorial.TabIndex = 58;
+            txEditarEditorial.TextChanged += txEditarEditorial_TextChanged;
             // 
             // lbEditarEditorial
             // 
@@ -562,7 +588,7 @@
             dataGridProductos.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridProductos.RowTemplate.Height = 25;
             dataGridProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridProductos.Size = new Size(599, 331);
+            dataGridProductos.Size = new Size(693, 331);
             dataGridProductos.TabIndex = 1;
             dataGridProductos.CellContentClick += dataGridProductos_CellContentClick;
             // 
@@ -590,7 +616,7 @@
             cBBuscadorEditorial.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorEditorial.ForeColor = SystemColors.WindowFrame;
             cBBuscadorEditorial.FormattingEnabled = true;
-            cBBuscadorEditorial.Location = new Point(422, 8);
+            cBBuscadorEditorial.Location = new Point(469, 8);
             cBBuscadorEditorial.Name = "cBBuscadorEditorial";
             cBBuscadorEditorial.Size = new Size(125, 21);
             cBBuscadorEditorial.TabIndex = 18;
@@ -603,7 +629,7 @@
             buscadorEditorial.BackColor = Color.Transparent;
             buscadorEditorial.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorEditorial.ForeColor = SystemColors.Window;
-            buscadorEditorial.Location = new Point(349, 10);
+            buscadorEditorial.Location = new Point(396, 10);
             buscadorEditorial.Name = "buscadorEditorial";
             buscadorEditorial.Size = new Size(65, 16);
             buscadorEditorial.TabIndex = 17;
@@ -616,7 +642,7 @@
             cBBuscadorAutor.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorAutor.ForeColor = SystemColors.WindowFrame;
             cBBuscadorAutor.FormattingEnabled = true;
-            cBBuscadorAutor.Location = new Point(218, 8);
+            cBBuscadorAutor.Location = new Point(265, 8);
             cBBuscadorAutor.Name = "cBBuscadorAutor";
             cBBuscadorAutor.Size = new Size(125, 21);
             cBBuscadorAutor.TabIndex = 16;
@@ -629,7 +655,7 @@
             cBBuscadorCategoria.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorCategoria.ForeColor = SystemColors.WindowFrame;
             cBBuscadorCategoria.FormattingEnabled = true;
-            cBBuscadorCategoria.Location = new Point(631, 8);
+            cBBuscadorCategoria.Location = new Point(678, 8);
             cBBuscadorCategoria.Name = "cBBuscadorCategoria";
             cBBuscadorCategoria.Size = new Size(115, 21);
             cBBuscadorCategoria.TabIndex = 15;
@@ -640,7 +666,7 @@
             txBuscadorTitulo.Anchor = AnchorStyles.None;
             txBuscadorTitulo.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             txBuscadorTitulo.ForeColor = SystemColors.WindowFrame;
-            txBuscadorTitulo.Location = new Point(60, 8);
+            txBuscadorTitulo.Location = new Point(107, 8);
             txBuscadorTitulo.Name = "txBuscadorTitulo";
             txBuscadorTitulo.PlaceholderText = "Titulo";
             txBuscadorTitulo.Size = new Size(104, 20);
@@ -655,7 +681,7 @@
             buscadorTitulo.FlatStyle = FlatStyle.Flat;
             buscadorTitulo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorTitulo.ForeColor = Color.White;
-            buscadorTitulo.Location = new Point(13, 12);
+            buscadorTitulo.Location = new Point(60, 12);
             buscadorTitulo.Name = "buscadorTitulo";
             buscadorTitulo.Size = new Size(46, 16);
             buscadorTitulo.TabIndex = 9;
@@ -668,7 +694,7 @@
             buscadorAutor.BackColor = Color.Transparent;
             buscadorAutor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorAutor.ForeColor = SystemColors.Window;
-            buscadorAutor.Location = new Point(170, 11);
+            buscadorAutor.Location = new Point(217, 11);
             buscadorAutor.Name = "buscadorAutor";
             buscadorAutor.Size = new Size(43, 16);
             buscadorAutor.TabIndex = 10;
@@ -681,7 +707,7 @@
             buscadorCategoria.BackColor = Color.Transparent;
             buscadorCategoria.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorCategoria.ForeColor = SystemColors.Window;
-            buscadorCategoria.Location = new Point(553, 10);
+            buscadorCategoria.Location = new Point(600, 10);
             buscadorCategoria.Name = "buscadorCategoria";
             buscadorCategoria.Size = new Size(75, 16);
             buscadorCategoria.TabIndex = 14;
@@ -758,5 +784,6 @@
         private Panel panel7;
         private Button btEditar;
         private PictureBox pEditarProducts;
+        private FontAwesome.Sharp.IconButton iconLimpiar;
     }
 }

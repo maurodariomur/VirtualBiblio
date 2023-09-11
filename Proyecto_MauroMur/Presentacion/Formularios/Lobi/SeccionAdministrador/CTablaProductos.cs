@@ -25,7 +25,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private string? fileActualPath;
         private string? imagenName;
 
-
         public CTablaProductos()
         {
             InitializeComponent();
@@ -202,35 +201,41 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void dataGridProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            DialogResult confirmResult = MessageBox.Show("¿Estás seguro de que deseas editar este libro?", "Confirmación de edición", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmResult == DialogResult.Yes)
             {
-                DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
-                libroSeleccionado = (Libro)row.DataBoundItem;
-                idLibroSeleccionado = libroSeleccionado.Id_Libro;
-
-                // Llena los controles con los detalles del libro
-                txEditarProducto.Text = libroSeleccionado.Titulo;
-                txEditarEditorial.Text = libroSeleccionado.Editorial;
-                txEditarAutor.Text = libroSeleccionado.Autor;
-                txEditarPrecio.Text = libroSeleccionado.Precio.ToString();
-                txEditarStock.Text = libroSeleccionado.Stock.ToString();
-                rtbEditarDescripcion.Text = libroSeleccionado.Descripcion;
-                pEditarProducts.Image = libroSeleccionado.ImagenPortada;
-
-                if (libroSeleccionado.Baja == "SI")
+                if (e.RowIndex >= 0)
                 {
-                    checkBoxSiEd.Checked = true;
-                    checkBoxNoEd.Checked = false; // Desmarcar checkBoxNoEd si está marcado
-                }
-                else
-                {
-                    checkBoxSiEd.Checked = false; // Desmarcar checkBoxSiEd si está marcado
-                    checkBoxNoEd.Checked = true;
-                }
+                    DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
+                    libroSeleccionado = (Libro)row.DataBoundItem;
+                    idLibroSeleccionado = libroSeleccionado.Id_Libro;
 
-                // Selecciona la categoría en el ComboBox
-                txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
+                    // Llena los controles con los detalles del libro
+                    txEditarProducto.Text = libroSeleccionado.Titulo;
+                    txEditarEditorial.Text = libroSeleccionado.Editorial;
+                    txEditarAutor.Text = libroSeleccionado.Autor;
+                    txEditarPrecio.Text = libroSeleccionado.Precio.ToString();
+                    txEditarStock.Text = libroSeleccionado.Stock.ToString();
+                    rtbEditarDescripcion.Text = libroSeleccionado.Descripcion;
+                    pEditarProducts.Image = libroSeleccionado.ImagenPortada;
+
+                    if (libroSeleccionado.Baja == "SI")
+                    {
+                        checkBoxSiEd.Checked = true;
+                        checkBoxNoEd.Checked = false; // Desmarcar checkBoxNoEd si está marcado
+                    }
+                    else
+                    {
+                        checkBoxSiEd.Checked = false; // Desmarcar checkBoxSiEd si está marcado
+                        checkBoxNoEd.Checked = true;
+                    }
+
+                    // Selecciona la categoría en el ComboBox
+                    txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
+                }
             }
+
         }
 
         private void checkBoxSiEd_CheckedChanged(object sender, EventArgs e)
@@ -253,6 +258,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void btEditar_Click(object sender, EventArgs e)
         {
+            string imagenActual = libroSeleccionado != null ? libroSeleccionado.Imagen : null;
 
             if (idLibroSeleccionado == -1)
             {
@@ -264,7 +270,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string nuevoTitulo = txEditarProducto.Text;
             string nuevaDescripcion = rtbEditarDescripcion.Text;
             double nuevoPrecio;
-            string imagen = libroSeleccionado!.Imagen!;
             int nuevoStock;
             string nuevoEstado = checkBoxSiEd.Checked ? "SI" : "NO";
             string? nuevaCategoria = txEditarCategoria.SelectedItem as string;
@@ -272,11 +277,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string? nuevoAutor = txEditarAutor.Text;
             string? nuevaEditorial = txEditarEditorial.Text;
 
-
             // Valida que no haya campos vacíos
             if (string.IsNullOrWhiteSpace(nuevoTitulo) || string.IsNullOrWhiteSpace(nuevaDescripcion) ||
                 !double.TryParse(txEditarPrecio.Text, out nuevoPrecio) || !int.TryParse(txEditarStock.Text, out nuevoStock) ||
-                string.IsNullOrWhiteSpace(nuevaCategoria) || string.IsNullOrWhiteSpace(nuevoAutor) || string.IsNullOrWhiteSpace(nuevaEditorial))
+                string.IsNullOrWhiteSpace(nuevaCategoria) || string.IsNullOrWhiteSpace(nuevoAutor) || string.IsNullOrWhiteSpace(nuevaEditorial) ||
+                string.IsNullOrWhiteSpace(nuevoEstado))
             {
                 MessageBox.Show("Por favor, complete todos los campos antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -287,12 +292,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
             if (confirmacion == DialogResult.Yes)
             {
+                // Comprueba si se ha seleccionado una nueva imagen
+                if (!string.IsNullOrWhiteSpace(imagenName) && !string.Equals(imagenActual, imagenName, StringComparison.OrdinalIgnoreCase))
+                {
+                    libroSeleccionado!.Imagen = imagenName;
+                }
+
                 bool exitoLibro = productModel.ActualizarLibro(
-                    libroSeleccionado.Id_Libro,
+                    libroSeleccionado!.Id_Libro,
                     nuevoTitulo,
                     nuevaDescripcion,
                     nuevoPrecio,
-                    imagenName!,
+                    libroSeleccionado.Imagen!, // Utilizamos la ruta actual de la imagen
                     nuevoStock,
                     nuevoEstado,
                     idNuevaCategoria,
@@ -302,7 +313,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                 if (exitoLibro)
                 {
-                    File.Copy(fileActualPath!, fileSavePath!);
                     MessageBox.Show("El producto se ha actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCamposModificar();
                     CTablaProductos_Load(sender, e);
@@ -330,7 +340,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             checkBoxSiEd.Checked = false;
             checkBoxNoEd.Checked = false;
             checkBoxAZT.Checked = false;
-            pEditarProducts.Image = Properties.Resources.roboJaime;
+            pEditarProducts.Image = null;
         }
 
         private void iconEditarImagen_Click(object sender, EventArgs e)
@@ -357,6 +367,61 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private void checkBoxAZT_CheckedChanged(object sender, EventArgs e)
         {
             loadLibros();
+        }
+
+        private void txEditarPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txEditarStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void iconLimpiar_Click(object sender, EventArgs e)
+        {
+            // Verificar si los campos están en blanco o si las casillas de verificación no están marcadas
+            if (string.IsNullOrWhiteSpace(txEditarProducto.Text) ||
+                string.IsNullOrWhiteSpace(txEditarEditorial.Text) ||
+                string.IsNullOrWhiteSpace(txEditarAutor.Text) ||
+                string.IsNullOrWhiteSpace(txEditarCategoria.Text) ||
+                string.IsNullOrWhiteSpace(txEditarPrecio.Text) ||
+                string.IsNullOrWhiteSpace(txEditarStock.Text) ||
+                string.IsNullOrWhiteSpace(rtbEditarDescripcion.Text) ||
+                (checkBoxSiEd.Checked == false && checkBoxNoEd.Checked == false) ||
+                pEditarProducts.Image == null)
+            {
+                MessageBox.Show("Algunos campos están en blanco o no se han marcado las casillas de verificación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                // Mostrar el cuadro de diálogo de confirmación solo si no hay problemas
+                DialogResult limpiar = MessageBox.Show("Esta por realizar la limpieza de los campos. ¿Seguro?.", "Limpieza", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (limpiar == DialogResult.OK)
+                {
+                    LimpiarCamposModificar();
+                }
+            }
+        }
+
+        private void txEditarEditorial_TextChanged(object sender, EventArgs e)
+        {
+            txEditarEditorial.Text = txEditarEditorial.Text.ToUpper();
+            txEditarEditorial.SelectionStart = txEditarEditorial.Text.Length;
+        }
+
+        private void txEditarAutor_TextChanged(object sender, EventArgs e)
+        {
+            txEditarAutor.Text = txEditarAutor.Text.ToUpper();
+            txEditarAutor.SelectionStart = txEditarAutor.Text.Length;
         }
     }
 }
