@@ -17,6 +17,7 @@ namespace Common.Models
         public string? Usuario { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public int TipoPerfil { get; set; }
+        public string? Rol { get; set; }
         public string? Baja { get; set; }
     }
   
