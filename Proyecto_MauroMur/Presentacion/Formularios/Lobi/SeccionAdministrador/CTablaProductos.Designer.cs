@@ -103,7 +103,7 @@
             lbEditarProducto.FlatStyle = FlatStyle.Flat;
             lbEditarProducto.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbEditarProducto.ForeColor = Color.Gainsboro;
-            lbEditarProducto.Location = new Point(571, 9);
+            lbEditarProducto.Location = new Point(396, 9);
             lbEditarProducto.Name = "lbEditarProducto";
             lbEditarProducto.Size = new Size(227, 31);
             lbEditarProducto.TabIndex = 1;
@@ -122,7 +122,8 @@
             // 
             // panel6
             // 
-            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.Anchor = AnchorStyles.Top;
+            panel6.AutoScroll = true;
             panel6.Controls.Add(pEditarProducts);
             panel6.Controls.Add(panel7);
             panel6.Controls.Add(txEditarStock);
@@ -164,9 +165,9 @@
             panel7.Controls.Add(iconLimpiar);
             panel7.Controls.Add(btEditar);
             panel7.Dock = DockStyle.Bottom;
-            panel7.Location = new Point(0, 568);
+            panel7.Location = new Point(0, 569);
             panel7.Name = "panel7";
-            panel7.Size = new Size(350, 47);
+            panel7.Size = new Size(350, 46);
             panel7.TabIndex = 78;
             // 
             // iconLimpiar
@@ -183,7 +184,7 @@
             iconLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconLimpiar.IconSize = 20;
             iconLimpiar.ImageAlign = ContentAlignment.BottomCenter;
-            iconLimpiar.Location = new Point(281, 3);
+            iconLimpiar.Location = new Point(280, 3);
             iconLimpiar.Name = "iconLimpiar";
             iconLimpiar.Size = new Size(31, 35);
             iconLimpiar.TabIndex = 71;
@@ -196,7 +197,7 @@
             btEditar.FlatStyle = FlatStyle.Popup;
             btEditar.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btEditar.ForeColor = SystemColors.ButtonFace;
-            btEditar.Location = new Point(125, 3);
+            btEditar.Location = new Point(119, 3);
             btEditar.Name = "btEditar";
             btEditar.Size = new Size(155, 35);
             btEditar.TabIndex = 33;
@@ -210,7 +211,7 @@
             txEditarStock.BorderStyle = BorderStyle.FixedSingle;
             txEditarStock.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txEditarStock.ForeColor = SystemColors.WindowFrame;
-            txEditarStock.Location = new Point(281, 224);
+            txEditarStock.Location = new Point(281, 230);
             txEditarStock.Name = "txEditarStock";
             txEditarStock.PlaceholderText = "0";
             txEditarStock.Size = new Size(57, 22);
@@ -226,7 +227,7 @@
             label2.FlatStyle = FlatStyle.Popup;
             label2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Gainsboro;
-            label2.Location = new Point(210, 222);
+            label2.Location = new Point(210, 228);
             label2.Name = "label2";
             label2.Size = new Size(46, 16);
             label2.TabIndex = 76;
@@ -238,7 +239,7 @@
             txEditarPrecio.BorderStyle = BorderStyle.FixedSingle;
             txEditarPrecio.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txEditarPrecio.ForeColor = SystemColors.WindowFrame;
-            txEditarPrecio.Location = new Point(125, 222);
+            txEditarPrecio.Location = new Point(125, 228);
             txEditarPrecio.Name = "txEditarPrecio";
             txEditarPrecio.PlaceholderText = "$$$";
             txEditarPrecio.Size = new Size(57, 22);
@@ -254,7 +255,7 @@
             lbEditarPrecio.FlatStyle = FlatStyle.Popup;
             lbEditarPrecio.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarPrecio.ForeColor = Color.Gainsboro;
-            lbEditarPrecio.Location = new Point(16, 224);
+            lbEditarPrecio.Location = new Point(16, 230);
             lbEditarPrecio.Name = "lbEditarPrecio";
             lbEditarPrecio.Size = new Size(52, 16);
             lbEditarPrecio.TabIndex = 74;
@@ -266,7 +267,7 @@
             checkBoxNoEd.AutoSize = true;
             checkBoxNoEd.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             checkBoxNoEd.ForeColor = Color.Gainsboro;
-            checkBoxNoEd.Location = new Point(18, 468);
+            checkBoxNoEd.Location = new Point(18, 474);
             checkBoxNoEd.Name = "checkBoxNoEd";
             checkBoxNoEd.Size = new Size(44, 20);
             checkBoxNoEd.TabIndex = 73;
@@ -280,7 +281,7 @@
             checkBoxSiEd.AutoSize = true;
             checkBoxSiEd.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             checkBoxSiEd.ForeColor = Color.Gainsboro;
-            checkBoxSiEd.Location = new Point(18, 429);
+            checkBoxSiEd.Location = new Point(18, 435);
             checkBoxSiEd.Name = "checkBoxSiEd";
             checkBoxSiEd.Size = new Size(38, 20);
             checkBoxSiEd.TabIndex = 72;
@@ -296,7 +297,7 @@
             lbEditarBaja.FlatStyle = FlatStyle.Popup;
             lbEditarBaja.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarBaja.ForeColor = Color.Gainsboro;
-            lbEditarBaja.Location = new Point(16, 388);
+            lbEditarBaja.Location = new Point(16, 394);
             lbEditarBaja.Name = "lbEditarBaja";
             lbEditarBaja.Size = new Size(39, 16);
             lbEditarBaja.TabIndex = 71;
@@ -316,7 +317,7 @@
             iconEditarImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconEditarImagen.IconSize = 20;
             iconEditarImagen.ImageAlign = ContentAlignment.BottomCenter;
-            iconEditarImagen.Location = new Point(249, 527);
+            iconEditarImagen.Location = new Point(249, 533);
             iconEditarImagen.Name = "iconEditarImagen";
             iconEditarImagen.Size = new Size(25, 30);
             iconEditarImagen.TabIndex = 70;
@@ -331,7 +332,7 @@
             lbEditarImagen.FlatStyle = FlatStyle.Popup;
             lbEditarImagen.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarImagen.ForeColor = Color.Gainsboro;
-            lbEditarImagen.Location = new Point(152, 388);
+            lbEditarImagen.Location = new Point(152, 394);
             lbEditarImagen.Name = "lbEditarImagen";
             lbEditarImagen.Size = new Size(58, 16);
             lbEditarImagen.TabIndex = 67;
@@ -343,7 +344,7 @@
             lbLimite.AutoSize = true;
             lbLimite.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbLimite.ForeColor = Color.RosyBrown;
-            lbLimite.Location = new Point(125, 372);
+            lbLimite.Location = new Point(125, 378);
             lbLimite.Name = "lbLimite";
             lbLimite.Size = new Size(41, 13);
             lbLimite.TabIndex = 66;
@@ -356,7 +357,7 @@
             rtbEditarDescripcion.BackColor = SystemColors.Window;
             rtbEditarDescripcion.BorderStyle = BorderStyle.FixedSingle;
             rtbEditarDescripcion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            rtbEditarDescripcion.Location = new Point(125, 274);
+            rtbEditarDescripcion.Location = new Point(119, 280);
             rtbEditarDescripcion.Name = "rtbEditarDescripcion";
             rtbEditarDescripcion.Size = new Size(213, 95);
             rtbEditarDescripcion.TabIndex = 65;
@@ -370,7 +371,7 @@
             lbEditarDescripcion.FlatStyle = FlatStyle.Popup;
             lbEditarDescripcion.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarDescripcion.ForeColor = Color.Gainsboro;
-            lbEditarDescripcion.Location = new Point(16, 274);
+            lbEditarDescripcion.Location = new Point(16, 280);
             lbEditarDescripcion.Name = "lbEditarDescripcion";
             lbEditarDescripcion.Size = new Size(90, 16);
             lbEditarDescripcion.TabIndex = 64;
@@ -384,7 +385,7 @@
             lbEditarCategoria.FlatStyle = FlatStyle.Flat;
             lbEditarCategoria.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarCategoria.ForeColor = Color.Gainsboro;
-            lbEditarCategoria.Location = new Point(16, 176);
+            lbEditarCategoria.Location = new Point(16, 182);
             lbEditarCategoria.Name = "lbEditarCategoria";
             lbEditarCategoria.Size = new Size(75, 16);
             lbEditarCategoria.TabIndex = 62;
@@ -398,7 +399,7 @@
             txEditarCategoria.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txEditarCategoria.ForeColor = SystemColors.WindowFrame;
             txEditarCategoria.FormattingEnabled = true;
-            txEditarCategoria.Location = new Point(125, 168);
+            txEditarCategoria.Location = new Point(125, 174);
             txEditarCategoria.Name = "txEditarCategoria";
             txEditarCategoria.Size = new Size(213, 24);
             txEditarCategoria.TabIndex = 63;
@@ -409,7 +410,7 @@
             txEditarAutor.BorderStyle = BorderStyle.FixedSingle;
             txEditarAutor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txEditarAutor.ForeColor = SystemColors.WindowFrame;
-            txEditarAutor.Location = new Point(125, 120);
+            txEditarAutor.Location = new Point(125, 126);
             txEditarAutor.Name = "txEditarAutor";
             txEditarAutor.PlaceholderText = "Autor";
             txEditarAutor.Size = new Size(213, 22);
@@ -424,7 +425,7 @@
             lbEditarAutor.FlatStyle = FlatStyle.Popup;
             lbEditarAutor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarAutor.ForeColor = Color.Gainsboro;
-            lbEditarAutor.Location = new Point(16, 120);
+            lbEditarAutor.Location = new Point(16, 126);
             lbEditarAutor.Name = "lbEditarAutor";
             lbEditarAutor.Size = new Size(43, 16);
             lbEditarAutor.TabIndex = 60;
@@ -438,7 +439,7 @@
             lbEditarTitulo.FlatStyle = FlatStyle.Popup;
             lbEditarTitulo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarTitulo.ForeColor = Color.Gainsboro;
-            lbEditarTitulo.Location = new Point(16, 25);
+            lbEditarTitulo.Location = new Point(16, 31);
             lbEditarTitulo.Name = "lbEditarTitulo";
             lbEditarTitulo.Size = new Size(46, 16);
             lbEditarTitulo.TabIndex = 56;
@@ -451,7 +452,7 @@
             txEditarEditorial.BackColor = SystemColors.Window;
             txEditarEditorial.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txEditarEditorial.ForeColor = SystemColors.WindowFrame;
-            txEditarEditorial.Location = new Point(125, 73);
+            txEditarEditorial.Location = new Point(125, 79);
             txEditarEditorial.Name = "txEditarEditorial";
             txEditarEditorial.PlaceholderText = "Editorial";
             txEditarEditorial.Size = new Size(213, 22);
@@ -466,7 +467,7 @@
             lbEditarEditorial.FlatStyle = FlatStyle.Flat;
             lbEditarEditorial.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarEditorial.ForeColor = Color.Gainsboro;
-            lbEditarEditorial.Location = new Point(16, 73);
+            lbEditarEditorial.Location = new Point(16, 79);
             lbEditarEditorial.Name = "lbEditarEditorial";
             lbEditarEditorial.Size = new Size(65, 16);
             lbEditarEditorial.TabIndex = 59;
@@ -478,7 +479,7 @@
             txEditarProducto.Cursor = Cursors.IBeam;
             txEditarProducto.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txEditarProducto.ForeColor = SystemColors.WindowFrame;
-            txEditarProducto.Location = new Point(125, 25);
+            txEditarProducto.Location = new Point(125, 31);
             txEditarProducto.Name = "txEditarProducto";
             txEditarProducto.PlaceholderText = "Titulo";
             txEditarProducto.Size = new Size(213, 22);
@@ -565,7 +566,7 @@
             dataGridProductos.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridProductos.EnableHeadersVisualStyles = false;
             dataGridProductos.GridColor = Color.FromArgb(165, 201, 202);
-            dataGridProductos.Location = new Point(73, 86);
+            dataGridProductos.Location = new Point(58, 108);
             dataGridProductos.MultiSelect = false;
             dataGridProductos.Name = "dataGridProductos";
             dataGridProductos.ReadOnly = true;
@@ -616,7 +617,7 @@
             cBBuscadorEditorial.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorEditorial.ForeColor = SystemColors.WindowFrame;
             cBBuscadorEditorial.FormattingEnabled = true;
-            cBBuscadorEditorial.Location = new Point(469, 8);
+            cBBuscadorEditorial.Location = new Point(440, 6);
             cBBuscadorEditorial.Name = "cBBuscadorEditorial";
             cBBuscadorEditorial.Size = new Size(125, 21);
             cBBuscadorEditorial.TabIndex = 18;
@@ -629,7 +630,7 @@
             buscadorEditorial.BackColor = Color.Transparent;
             buscadorEditorial.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorEditorial.ForeColor = SystemColors.Window;
-            buscadorEditorial.Location = new Point(396, 10);
+            buscadorEditorial.Location = new Point(367, 8);
             buscadorEditorial.Name = "buscadorEditorial";
             buscadorEditorial.Size = new Size(65, 16);
             buscadorEditorial.TabIndex = 17;
@@ -642,7 +643,7 @@
             cBBuscadorAutor.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorAutor.ForeColor = SystemColors.WindowFrame;
             cBBuscadorAutor.FormattingEnabled = true;
-            cBBuscadorAutor.Location = new Point(265, 8);
+            cBBuscadorAutor.Location = new Point(236, 6);
             cBBuscadorAutor.Name = "cBBuscadorAutor";
             cBBuscadorAutor.Size = new Size(125, 21);
             cBBuscadorAutor.TabIndex = 16;
@@ -655,7 +656,7 @@
             cBBuscadorCategoria.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorCategoria.ForeColor = SystemColors.WindowFrame;
             cBBuscadorCategoria.FormattingEnabled = true;
-            cBBuscadorCategoria.Location = new Point(678, 8);
+            cBBuscadorCategoria.Location = new Point(649, 6);
             cBBuscadorCategoria.Name = "cBBuscadorCategoria";
             cBBuscadorCategoria.Size = new Size(115, 21);
             cBBuscadorCategoria.TabIndex = 15;
@@ -666,7 +667,7 @@
             txBuscadorTitulo.Anchor = AnchorStyles.None;
             txBuscadorTitulo.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             txBuscadorTitulo.ForeColor = SystemColors.WindowFrame;
-            txBuscadorTitulo.Location = new Point(107, 8);
+            txBuscadorTitulo.Location = new Point(78, 6);
             txBuscadorTitulo.Name = "txBuscadorTitulo";
             txBuscadorTitulo.PlaceholderText = "Titulo";
             txBuscadorTitulo.Size = new Size(104, 20);
@@ -681,7 +682,7 @@
             buscadorTitulo.FlatStyle = FlatStyle.Flat;
             buscadorTitulo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorTitulo.ForeColor = Color.White;
-            buscadorTitulo.Location = new Point(60, 12);
+            buscadorTitulo.Location = new Point(31, 10);
             buscadorTitulo.Name = "buscadorTitulo";
             buscadorTitulo.Size = new Size(46, 16);
             buscadorTitulo.TabIndex = 9;
@@ -694,7 +695,7 @@
             buscadorAutor.BackColor = Color.Transparent;
             buscadorAutor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorAutor.ForeColor = SystemColors.Window;
-            buscadorAutor.Location = new Point(217, 11);
+            buscadorAutor.Location = new Point(188, 9);
             buscadorAutor.Name = "buscadorAutor";
             buscadorAutor.Size = new Size(43, 16);
             buscadorAutor.TabIndex = 10;
@@ -707,7 +708,7 @@
             buscadorCategoria.BackColor = Color.Transparent;
             buscadorCategoria.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorCategoria.ForeColor = SystemColors.Window;
-            buscadorCategoria.Location = new Point(600, 10);
+            buscadorCategoria.Location = new Point(571, 8);
             buscadorCategoria.Name = "buscadorCategoria";
             buscadorCategoria.Size = new Size(75, 16);
             buscadorCategoria.TabIndex = 14;

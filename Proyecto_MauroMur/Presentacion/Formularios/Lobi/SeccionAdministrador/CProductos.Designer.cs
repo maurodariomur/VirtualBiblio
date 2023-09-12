@@ -390,9 +390,9 @@
             txNameProducto.ForeColor = SystemColors.WindowFrame;
             txNameProducto.Location = new Point(331, 83);
             txNameProducto.Name = "txNameProducto";
+            txNameProducto.PlaceholderText = "Titulo";
             txNameProducto.Size = new Size(213, 27);
             txNameProducto.TabIndex = 24;
-            txNameProducto.Text = "Titulo";
             txNameProducto.Enter += txNameProducto_Enter;
             txNameProducto.Leave += txNameProducto_Leave;
             // 

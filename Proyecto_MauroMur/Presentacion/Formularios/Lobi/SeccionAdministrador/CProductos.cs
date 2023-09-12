@@ -120,13 +120,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void LimpiarCampos()
         {
-            txNameProducto.Text = "Nombre";
+            txNameProducto.Text = "";
             txEditorial.Text = "Editorial";
             txPrecio.Text = "$ Precio";
             txAutor.Text = "Autor";
             txStock.Text = "Stock";
-            rtbDescripcion.Text= string.Empty;
-            pProducts.Image=null;
+            rtbDescripcion.Text = string.Empty;
+            pProducts.Image = null;
             lbPathTittleP.Text = "Producto";
             txCategoria.SelectedIndex = 0;
             txNameProducto.Focus();
