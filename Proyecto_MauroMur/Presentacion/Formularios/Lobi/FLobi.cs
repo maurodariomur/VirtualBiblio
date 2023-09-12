@@ -31,6 +31,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            this.MinimumSize = new Size(1300, 600);
         }
 
         private struct RGBColors

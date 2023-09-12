@@ -24,6 +24,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private string? fileSavePath;
         private string? fileActualPath;
         private string? imagenName;
+        private bool edicionRealizada = false;
 
         public CTablaProductos()
         {
@@ -201,13 +202,21 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void dataGridProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            DialogResult confirmResult = MessageBox.Show("¿Estás seguro de que deseas editar este libro?", "Confirmación de edición", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (confirmResult == DialogResult.Yes)
+            // Verifica si la edición ya se realizó y si se hizo clic en una fila válida
+            if (!edicionRealizada && e.RowIndex >= 0)
             {
-                if (e.RowIndex >= 0)
+                // Marca que la edición se ha realizado
+                edicionRealizada = true;
+
+                // Muestra el mensaje de confirmación
+                DialogResult confirmResult = MessageBox.Show("¿Estás seguro de que deseas editar este libro?", "Confirmación de edición", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmResult == DialogResult.Yes)
                 {
+                    // Obtiene la fila seleccionada
                     DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
+
+                    // Obtén el objeto 'Libro' correspondiente a la fila seleccionada
                     libroSeleccionado = (Libro)row.DataBoundItem;
                     idLibroSeleccionado = libroSeleccionado.Id_Libro;
 
@@ -234,8 +243,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     // Selecciona la categoría en el ComboBox
                     txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
                 }
+                else
+                {
+                    edicionRealizada = false;
+                }
             }
-
         }
 
         private void checkBoxSiEd_CheckedChanged(object sender, EventArgs e)
@@ -258,7 +270,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void btEditar_Click(object sender, EventArgs e)
         {
-            string imagenActual = libroSeleccionado != null ? libroSeleccionado.Imagen : null;
+            string? imagenActual = null;
+            // Reiniciar la variable edicionRealizada
+            edicionRealizada = false;
+
+            if (libroSeleccionado != null)
+            {
+                imagenActual = libroSeleccionado.Imagen;
+            }
 
             if (idLibroSeleccionado == -1)
             {
@@ -287,6 +306,25 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 return;
             }
 
+            // Comprueba si se ha realizado algún cambio en los campos
+            bool cambiosRealizados = !string.Equals(nuevoTitulo, libroSeleccionado?.Titulo, StringComparison.OrdinalIgnoreCase) ||
+                                     !string.Equals(nuevaDescripcion, libroSeleccionado?.Descripcion, StringComparison.OrdinalIgnoreCase) ||
+                                     !double.Equals(nuevoPrecio, libroSeleccionado?.Precio) ||
+                                     !int.Equals(nuevoStock, libroSeleccionado.Stock) ||
+                                     !string.Equals(nuevoEstado, libroSeleccionado.Baja, StringComparison.OrdinalIgnoreCase) ||
+                                     idNuevaCategoria != libroSeleccionado.Id_Categoria ||
+                                     !string.Equals(nuevoAutor, libroSeleccionado.Autor, StringComparison.OrdinalIgnoreCase) ||
+                                     !string.Equals(nuevaEditorial, libroSeleccionado.Editorial, StringComparison.OrdinalIgnoreCase) ||
+                                     (!string.IsNullOrWhiteSpace(imagenName) && !string.Equals(imagenActual, imagenName, StringComparison.OrdinalIgnoreCase));
+
+            // Si no se realizaron cambios, muestra un mensaje y regresa
+            if (!cambiosRealizados)
+            {
+                LimpiarCamposModificar();
+                MessageBox.Show("Usted no realizó cambios.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             // Confirma con el usuario si está seguro de realizar las modificaciones
             DialogResult confirmacion = MessageBox.Show("¿Está seguro de realizar estas modificaciones?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -303,7 +341,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     nuevoTitulo,
                     nuevaDescripcion,
                     nuevoPrecio,
-                    libroSeleccionado.Imagen!, // Utilizamos la ruta actual de la imagen
+                    libroSeleccionado.Imagen!,
                     nuevoStock,
                     nuevoEstado,
                     idNuevaCategoria,
@@ -313,6 +351,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                 if (exitoLibro)
                 {
+                    // Comprueba si se ha seleccionado una nueva imagen y si es diferente a la actual
+                    if (!string.IsNullOrWhiteSpace(imagenName) && !string.Equals(imagenActual, imagenName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        libroSeleccionado!.Imagen = imagenName;
+
+                        // Realiza la copia de la imagen
+                        File.Copy(fileActualPath!, fileSavePath!);
+                    }
                     MessageBox.Show("El producto se ha actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCamposModificar();
                     CTablaProductos_Load(sender, e);
@@ -330,6 +376,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void LimpiarCamposModificar()
         {
+            edicionRealizada = false;
             txEditarProducto.Text = "";
             txEditarAutor.Text = "";
             txEditarStock.Text = "";

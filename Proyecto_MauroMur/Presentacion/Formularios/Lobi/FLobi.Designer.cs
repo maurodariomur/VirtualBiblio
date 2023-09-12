@@ -414,6 +414,7 @@
             Controls.Add(panelEscritorio);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FLobi";
             Text = "Form1";

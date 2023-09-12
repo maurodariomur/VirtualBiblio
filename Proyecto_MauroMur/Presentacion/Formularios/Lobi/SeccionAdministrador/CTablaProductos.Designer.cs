@@ -122,7 +122,7 @@
             // 
             // panel6
             // 
-            panel6.Anchor = AnchorStyles.Top;
+            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel6.AutoScroll = true;
             panel6.Controls.Add(pEditarProducts);
             panel6.Controls.Add(panel7);
@@ -617,9 +617,9 @@
             cBBuscadorEditorial.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorEditorial.ForeColor = SystemColors.WindowFrame;
             cBBuscadorEditorial.FormattingEnabled = true;
-            cBBuscadorEditorial.Location = new Point(440, 6);
+            cBBuscadorEditorial.Location = new Point(430, 14);
             cBBuscadorEditorial.Name = "cBBuscadorEditorial";
-            cBBuscadorEditorial.Size = new Size(125, 21);
+            cBBuscadorEditorial.Size = new Size(116, 21);
             cBBuscadorEditorial.TabIndex = 18;
             cBBuscadorEditorial.SelectedIndexChanged += cBBuscadorEditorial_SelectedIndexChanged;
             // 
@@ -628,11 +628,11 @@
             buscadorEditorial.Anchor = AnchorStyles.Top;
             buscadorEditorial.AutoSize = true;
             buscadorEditorial.BackColor = Color.Transparent;
-            buscadorEditorial.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorEditorial.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorEditorial.ForeColor = SystemColors.Window;
-            buscadorEditorial.Location = new Point(367, 8);
+            buscadorEditorial.Location = new Point(363, 15);
             buscadorEditorial.Name = "buscadorEditorial";
-            buscadorEditorial.Size = new Size(65, 16);
+            buscadorEditorial.Size = new Size(61, 15);
             buscadorEditorial.TabIndex = 17;
             buscadorEditorial.Text = "Editorial";
             // 
@@ -643,9 +643,9 @@
             cBBuscadorAutor.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorAutor.ForeColor = SystemColors.WindowFrame;
             cBBuscadorAutor.FormattingEnabled = true;
-            cBBuscadorAutor.Location = new Point(236, 6);
+            cBBuscadorAutor.Location = new Point(235, 14);
             cBBuscadorAutor.Name = "cBBuscadorAutor";
-            cBBuscadorAutor.Size = new Size(125, 21);
+            cBBuscadorAutor.Size = new Size(113, 21);
             cBBuscadorAutor.TabIndex = 16;
             cBBuscadorAutor.SelectedIndexChanged += cBBuscadorAutor_SelectedIndexChanged;
             // 
@@ -656,7 +656,7 @@
             cBBuscadorCategoria.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cBBuscadorCategoria.ForeColor = SystemColors.WindowFrame;
             cBBuscadorCategoria.FormattingEnabled = true;
-            cBBuscadorCategoria.Location = new Point(649, 6);
+            cBBuscadorCategoria.Location = new Point(627, 13);
             cBBuscadorCategoria.Name = "cBBuscadorCategoria";
             cBBuscadorCategoria.Size = new Size(115, 21);
             cBBuscadorCategoria.TabIndex = 15;
@@ -667,7 +667,7 @@
             txBuscadorTitulo.Anchor = AnchorStyles.None;
             txBuscadorTitulo.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             txBuscadorTitulo.ForeColor = SystemColors.WindowFrame;
-            txBuscadorTitulo.Location = new Point(78, 6);
+            txBuscadorTitulo.Location = new Point(78, 14);
             txBuscadorTitulo.Name = "txBuscadorTitulo";
             txBuscadorTitulo.PlaceholderText = "Titulo";
             txBuscadorTitulo.Size = new Size(104, 20);
@@ -680,11 +680,11 @@
             buscadorTitulo.AutoSize = true;
             buscadorTitulo.BackColor = Color.Transparent;
             buscadorTitulo.FlatStyle = FlatStyle.Flat;
-            buscadorTitulo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorTitulo.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorTitulo.ForeColor = Color.White;
-            buscadorTitulo.Location = new Point(31, 10);
+            buscadorTitulo.Location = new Point(30, 15);
             buscadorTitulo.Name = "buscadorTitulo";
-            buscadorTitulo.Size = new Size(46, 16);
+            buscadorTitulo.Size = new Size(43, 15);
             buscadorTitulo.TabIndex = 9;
             buscadorTitulo.Text = "Titulo";
             // 
@@ -693,11 +693,11 @@
             buscadorAutor.Anchor = AnchorStyles.Top;
             buscadorAutor.AutoSize = true;
             buscadorAutor.BackColor = Color.Transparent;
-            buscadorAutor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorAutor.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorAutor.ForeColor = SystemColors.Window;
-            buscadorAutor.Location = new Point(188, 9);
+            buscadorAutor.Location = new Point(189, 15);
             buscadorAutor.Name = "buscadorAutor";
-            buscadorAutor.Size = new Size(43, 16);
+            buscadorAutor.Size = new Size(40, 15);
             buscadorAutor.TabIndex = 10;
             buscadorAutor.Text = "Autor";
             // 
@@ -706,11 +706,11 @@
             buscadorCategoria.Anchor = AnchorStyles.Top;
             buscadorCategoria.AutoSize = true;
             buscadorCategoria.BackColor = Color.Transparent;
-            buscadorCategoria.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorCategoria.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buscadorCategoria.ForeColor = SystemColors.Window;
-            buscadorCategoria.Location = new Point(571, 8);
+            buscadorCategoria.Location = new Point(552, 15);
             buscadorCategoria.Name = "buscadorCategoria";
-            buscadorCategoria.Size = new Size(75, 16);
+            buscadorCategoria.Size = new Size(69, 15);
             buscadorCategoria.TabIndex = 14;
             buscadorCategoria.Text = "Categoria";
             // 
