@@ -48,6 +48,7 @@
             iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconExit = new FontAwesome.Sharp.IconButton();
             panelMenu = new Panel();
+            iconCatalogo = new FontAwesome.Sharp.IconButton();
             iconProducto = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
             lbNApe = new Label();
@@ -175,7 +176,6 @@
             panelEscritorio.Name = "panelEscritorio";
             panelEscritorio.Size = new Size(706, 379);
             panelEscritorio.TabIndex = 3;
-            panelEscritorio.Paint += panelEscritorio_Paint;
             // 
             // Lfecha
             // 
@@ -190,7 +190,6 @@
             Lfecha.TabIndex = 4;
             Lfecha.Text = "label1";
             Lfecha.TextAlign = ContentAlignment.MiddleCenter;
-            Lfecha.Click += Lfecha_Click;
             // 
             // Lhora
             // 
@@ -206,7 +205,6 @@
             Lhora.TabIndex = 3;
             Lhora.Text = "label1";
             Lhora.TextAlign = ContentAlignment.MiddleCenter;
-            Lhora.Click += Lhora_Click;
             // 
             // pictureBox1
             // 
@@ -218,7 +216,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // horaFecha
             // 
@@ -321,6 +318,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(24, 61, 61);
+            panelMenu.Controls.Add(iconCatalogo);
             panelMenu.Controls.Add(iconProducto);
             panelMenu.Controls.Add(panel1);
             panelMenu.Controls.Add(iconExit);
@@ -332,7 +330,30 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(220, 479);
             panelMenu.TabIndex = 0;
-            panelMenu.Paint += panelMenu_Paint;
+            // 
+            // iconCatalogo
+            // 
+            iconCatalogo.BackColor = Color.FromArgb(24, 61, 61);
+            iconCatalogo.Dock = DockStyle.Top;
+            iconCatalogo.FlatAppearance.BorderSize = 0;
+            iconCatalogo.FlatStyle = FlatStyle.Flat;
+            iconCatalogo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconCatalogo.ForeColor = Color.Gainsboro;
+            iconCatalogo.IconChar = FontAwesome.Sharp.IconChar.Book;
+            iconCatalogo.IconColor = Color.Gainsboro;
+            iconCatalogo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconCatalogo.IconSize = 32;
+            iconCatalogo.ImageAlign = ContentAlignment.MiddleLeft;
+            iconCatalogo.Location = new Point(0, 280);
+            iconCatalogo.Name = "iconCatalogo";
+            iconCatalogo.Padding = new Padding(10, 0, 20, 0);
+            iconCatalogo.Size = new Size(220, 60);
+            iconCatalogo.TabIndex = 7;
+            iconCatalogo.Text = "Catalogo";
+            iconCatalogo.TextAlign = ContentAlignment.MiddleLeft;
+            iconCatalogo.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconCatalogo.UseVisualStyleBackColor = false;
+            iconCatalogo.Click += iconCatalogo_Click;
             // 
             // iconProducto
             // 
@@ -382,7 +403,6 @@
             lbNApe.Size = new Size(118, 17);
             lbNApe.TabIndex = 6;
             lbNApe.Text = "Nombre y Apellido";
-            lbNApe.Click += lbNApe_Click;
             // 
             // lbRol
             // 
@@ -395,7 +415,6 @@
             lbRol.Size = new Size(26, 17);
             lbRol.TabIndex = 5;
             lbRol.Text = "Rol";
-            lbRol.Click += label1_Click;
             // 
             // iconButton1
             // 
@@ -421,6 +440,8 @@
             Controls.Add(panelEscritorio);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FLobi";
             Text = "Form1";
             Load += FLobi_Load;
@@ -462,5 +483,6 @@
         private Label lbRol;
         private Label lbNApe;
         private FontAwesome.Sharp.IconButton iconProducto;
+        private FontAwesome.Sharp.IconButton iconCatalogo;
     }
 }

@@ -28,6 +28,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             List<Usuarios> usuarios = userModel.MostrarUsers();
             dataGridUsuarios.DataSource = usuarios;
+            dataGridUsuarios.Columns["TipoPerfil"].Visible = false;
+            opcionesPerfiles();
         }
 
         public void loadUsers()
@@ -62,32 +64,41 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
+        private void opcionesPerfiles()
+        {
+            UserModel userModel = new();
+            var roles = userModel.ObtenerPerfiles();
+
+            // Agrega el mensaje predeterminado al comienzo de la lista
+            roles.Insert(0, "Seleccione Perfil");
+
+            // Asigna la lista de categorías como DataSource del ComboBox
+            cBBuscadorPerfil.DataSource = roles;
+
+            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
+            cBBuscadorPerfil.SelectedIndex = 0;
+        }
+
         private void FiltrarUsuarios()
         {
-
             string textoBusquedaNombre = txBuscadorNombre.Text.ToLower();
             string textoBusquedaApellido = txBuscadorApellido.Text.ToLower();
             string textoBusquedaDNI = txBuscadorDni.Text.ToLower();
             string? perfilSeleccionado = cBBuscadorPerfil.SelectedItem as string;
-            int tipoPerfilId = -1;
+            int tipoPerfilId = 0;
 
-            if (!string.IsNullOrEmpty(perfilSeleccionado))
-            {
-                tipoPerfilId = userModel.ObtenerIdTipoPerfil(perfilSeleccionado);
-            }
-
-
+            tipoPerfilId = userModel.ObtenerIdTipoPerfil(perfilSeleccionado);
+            
             List<Usuarios> usuariosFiltrados = userModel.MostrarUsers()
                 .Where(usuario =>
-                    (string.IsNullOrEmpty(textoBusquedaNombre) || usuario?.Nombre?.ToLower()?.Contains(textoBusquedaNombre) == true) ||
-                    (string.IsNullOrEmpty(textoBusquedaApellido) || usuario?.Apellido?.ToLower()?.Contains(textoBusquedaApellido) == true) ||
-                    (string.IsNullOrEmpty(textoBusquedaDNI) || usuario?.DNI?.ToLower()?.Contains(textoBusquedaDNI) == true) ||
-                    (usuario?.TipoPerfil == tipoPerfilId && tipoPerfilId != -1))
+                    (string.IsNullOrEmpty(textoBusquedaNombre) || usuario?.Nombre?.ToLower()?.Contains(textoBusquedaNombre) == true) &&
+                    (string.IsNullOrEmpty(textoBusquedaApellido) || usuario?.Apellido?.ToLower()?.Contains(textoBusquedaApellido) == true) &&
+                    (string.IsNullOrEmpty(textoBusquedaDNI) || usuario?.DNI?.ToLower()?.Contains(textoBusquedaDNI) == true) &&
+                   (tipoPerfilId == 0 || (usuario?.TipoPerfil == tipoPerfilId)))
                 .ToList();
 
             dataGridUsuarios.DataSource = usuariosFiltrados;
         }
-
 
         private void txBuscadorNombre_TextChanged(object sender, EventArgs e)
         {
@@ -109,54 +120,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             FiltrarUsuarios();
         }
 
-        private void txBuscadorNombre_Enter(object sender, EventArgs e)
-        {
-            if (txBuscadorNombre.Text == "Nombre")
-            {
-                txBuscadorNombre.Text = null;
-            }
-        }
-
-        private void txBuscadorNombre_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txBuscadorNombre.Text))
-            {
-                txBuscadorNombre.Text = "Nombre";
-            }
-        }
-
-        private void txBuscadorApellido_Enter(object sender, EventArgs e)
-        {
-            if (txBuscadorApellido.Text == "Apellido")
-            {
-                txBuscadorApellido.Text = null;
-            }
-        }
-
-        private void txBuscadorApellido_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txBuscadorApellido.Text))
-            {
-                txBuscadorApellido.Text = "Apellido";
-            }
-        }
-
-        private void txBuscadorDni_Enter(object sender, EventArgs e)
-        {
-            if (txBuscadorDni.Text == "DNI")
-            {
-                txBuscadorDni.Text = null;
-            }
-        }
-
-        private void txBuscadorDni_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txBuscadorDni.Text))
-            {
-                txBuscadorDni.Text = "DNI";
-            }
-        }
-
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
             Color colorInicio = Color.FromArgb(147, 177, 166); // Rojo más claro
@@ -174,14 +137,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             e.Graphics.FillRectangle(gradientBrush, panel1.ClientRectangle);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void checkBoxAZ_CheckedChanged(object sender, EventArgs e)
         {
-              loadUsers();
+            loadUsers();
         }
 
         private void txBuscadorNombre_KeyPress(object sender, KeyPressEventArgs e)
