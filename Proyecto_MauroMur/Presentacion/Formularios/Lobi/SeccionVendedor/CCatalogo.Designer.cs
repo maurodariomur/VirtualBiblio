@@ -259,6 +259,7 @@
             ForeColor = SystemColors.ControlText;
             Name = "CCatalogo";
             Text = "Catalogo";
+            Load += CCatalogo_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

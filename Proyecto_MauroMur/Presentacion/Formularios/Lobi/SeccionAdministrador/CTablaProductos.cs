@@ -1,5 +1,4 @@
 ﻿using Common.Models;
-using Domain;
 using Google.Protobuf;
 using Proyecto_MauroMur.Domain;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;

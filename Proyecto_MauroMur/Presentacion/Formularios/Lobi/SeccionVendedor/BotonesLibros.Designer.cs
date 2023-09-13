@@ -78,7 +78,7 @@
             // 
             btAñadir.BackColor = Color.FromArgb(23, 107, 135);
             btAñadir.Cursor = Cursors.Hand;
-            btAñadir.Dock = DockStyle.Fill;
+            btAñadir.Dock = DockStyle.Bottom;
             btAñadir.FlatStyle = FlatStyle.Popup;
             btAñadir.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btAñadir.ForeColor = SystemColors.ButtonFace;
@@ -97,19 +97,20 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 305);
             panel5.Name = "panel5";
-            panel5.Size = new Size(231, 155);
+            panel5.Size = new Size(231, 108);
             panel5.TabIndex = 3;
             // 
             // rtbDescripcionCatalogo
             // 
             rtbDescripcionCatalogo.BackColor = Color.FromArgb(5, 59, 80);
             rtbDescripcionCatalogo.BorderStyle = BorderStyle.None;
+            rtbDescripcionCatalogo.Dock = DockStyle.Fill;
             rtbDescripcionCatalogo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             rtbDescripcionCatalogo.ForeColor = SystemColors.Window;
-            rtbDescripcionCatalogo.Location = new Point(3, 6);
+            rtbDescripcionCatalogo.Location = new Point(0, 0);
             rtbDescripcionCatalogo.Name = "rtbDescripcionCatalogo";
             rtbDescripcionCatalogo.ReadOnly = true;
-            rtbDescripcionCatalogo.Size = new Size(225, 97);
+            rtbDescripcionCatalogo.Size = new Size(231, 108);
             rtbDescripcionCatalogo.TabIndex = 1;
             rtbDescripcionCatalogo.Text = "";
             // 
@@ -140,7 +141,7 @@
             lbStockCatalogo.AutoSize = true;
             lbStockCatalogo.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             lbStockCatalogo.ForeColor = SystemColors.ControlLightLight;
-            lbStockCatalogo.Location = new Point(171, 10);
+            lbStockCatalogo.Location = new Point(163, 10);
             lbStockCatalogo.Name = "lbStockCatalogo";
             lbStockCatalogo.Size = new Size(43, 17);
             lbStockCatalogo.TabIndex = 3;
@@ -152,7 +153,7 @@
             lbPrecioCatalogo.AutoSize = true;
             lbPrecioCatalogo.Font = new Font("Century Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
             lbPrecioCatalogo.ForeColor = SystemColors.ControlLightLight;
-            lbPrecioCatalogo.Location = new Point(2, 10);
+            lbPrecioCatalogo.Location = new Point(3, 10);
             lbPrecioCatalogo.Name = "lbPrecioCatalogo";
             lbPrecioCatalogo.Size = new Size(54, 16);
             lbPrecioCatalogo.TabIndex = 2;
@@ -174,7 +175,7 @@
             lbTituloCatalogo.AutoSize = true;
             lbTituloCatalogo.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbTituloCatalogo.ForeColor = SystemColors.ControlLightLight;
-            lbTituloCatalogo.Location = new Point(2, 8);
+            lbTituloCatalogo.Location = new Point(3, 9);
             lbTituloCatalogo.Name = "lbTituloCatalogo";
             lbTituloCatalogo.Size = new Size(48, 19);
             lbTituloCatalogo.TabIndex = 1;

@@ -339,7 +339,7 @@
             iconCatalogo.FlatStyle = FlatStyle.Flat;
             iconCatalogo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             iconCatalogo.ForeColor = Color.Gainsboro;
-            iconCatalogo.IconChar = FontAwesome.Sharp.IconChar.Book;
+            iconCatalogo.IconChar = FontAwesome.Sharp.IconChar.Swatchbook;
             iconCatalogo.IconColor = Color.Gainsboro;
             iconCatalogo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconCatalogo.IconSize = 32;

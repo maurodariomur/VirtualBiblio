@@ -38,7 +38,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         {
             public static Color color1 = Color.FromArgb(240, 235, 206);
             public static Color color2 = Color.FromArgb(170, 139, 86);
-            public static Color color3 = Color.FromArgb(253, 138, 114);
+            public static Color color3 = Color.FromArgb(0, 129, 138);
             public static Color color4 = Color.FromArgb(95, 77, 221);
         }
 
@@ -230,7 +230,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
         private void iconCatalogo_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color1);
+            ActivateButton(sender, RGBColors.color3);
             OpenChildForm(new SeccionVendedor.CCatalogo());
         }
     }
