@@ -291,16 +291,25 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
-                imagenName = Guid.NewGuid().ToString() + ".png";
-                string actualName = openFile.SafeFileName;
-                fileSavePath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", imagenName);
-                string selectedImagePath = openFile.FileName;
-                fileActualPath = selectedImagePath;
-                // Mostrar la imagen en el PictureBox
-                pProducts.Image = Image.FromFile(fileActualPath);
+                try
+                {
+                    imagenName = Guid.NewGuid().ToString() + ".png";
+                    string actualName = openFile.SafeFileName;
+                    fileSavePath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", imagenName);
+                    string selectedImagePath = openFile.FileName;
+                    fileActualPath = selectedImagePath;
 
-                // Mostrar la ruta del archivo en el TextBox
-                lbPathTittleP.Text = actualName;
+                    // Intenta cargar la imagen desde el archivo
+                    pProducts.Image = Image.FromFile(fileActualPath);
+
+                    // Mostrar la ruta del archivo en el TextBox
+                    lbPathTittleP.Text = actualName;
+                }
+                catch (Exception ex)
+                {
+                    // Manejar la excepción aquí, puedes mostrar un mensaje de error
+                    MessageBox.Show("No se pudo agregar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

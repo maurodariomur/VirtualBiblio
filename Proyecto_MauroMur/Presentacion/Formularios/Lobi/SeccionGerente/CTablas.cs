@@ -30,6 +30,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             dataGridUsuarios.DataSource = usuarios;
             dataGridUsuarios.Columns["TipoPerfil"].Visible = false;
             opcionesPerfiles();
+            dataGridUsuarios.RowPrePaint += DataGridUsuarios_RowPrePaint!;
+        }
+
+        private void DataGridUsuarios_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            // Obtén la fila actual
+            DataGridViewRow row = dataGridUsuarios.Rows[e.RowIndex];
+
+            // Verifica el valor de la columna "Baja" (asegúrate de que el nombre de la columna sea correcto)
+            string? valorBaja = row.Cells["Baja"].Value.ToString();
+
+            // Define el color de fondo deseado para las filas con "Baja" en "SI"
+            if (valorBaja == "SI")
+            {
+                row.DefaultCellStyle.BackColor = Color.FromArgb(255, 140, 140);
+                row.DefaultCellStyle.ForeColor = Color.Black; // Opcional: establecer el color de texto en blanco para mayor visibilidad
+            }
+            else
+            {
+                // Restablece el color de fondo y texto para las demás filas (opcional)
+                row.DefaultCellStyle.BackColor = SystemColors.Window;
+                row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
+            }
         }
 
         public void loadUsers()

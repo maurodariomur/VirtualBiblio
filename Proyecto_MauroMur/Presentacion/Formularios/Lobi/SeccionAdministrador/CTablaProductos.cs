@@ -34,6 +34,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         {
             libros = productModel.MostrarProducts();
 
+            desactivarBotones();
             // Cargar las imágenes para cada libro
             foreach (Libro libro in libros)
             {
@@ -65,6 +66,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             opcionesEditoriales();
             editarOpcionesCategoria();
             dataGridProductos.CellClick += new DataGridViewCellEventHandler(dataGridProductos_CellContentClick!);
+            dataGridProductos.RowPrePaint += DataGridProductos_RowPrePaint!;
+        }
+
+        private void DataGridProductos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            // Obtén la fila actual
+            DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
+
+            // Verifica el valor de la columna "Baja" (asegúrate de que el nombre de la columna sea correcto)
+            string? valorBaja = row.Cells["Baja"].Value.ToString();
+
+            // Define el color de fondo deseado para las filas con "Baja" en "SI"
+            if (valorBaja == "SI")
+            {
+                row.DefaultCellStyle.BackColor = Color.FromArgb(243, 106, 106);
+                row.DefaultCellStyle.ForeColor = Color.White; // Opcional: establecer el color de texto en blanco para mayor visibilidad
+            }
+            else
+            {
+                // Restablece el color de fondo y texto para las demás filas (opcional)
+                row.DefaultCellStyle.BackColor = SystemColors.Window;
+                row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
+            }
         }
 
         private void loadLibros()
@@ -178,6 +202,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             cBBuscadorEditorial.SelectedIndex = 0;
         }
 
+        private void desactivarBotones()
+        {
+            txEditarProducto.Enabled = false;
+            rtbEditarDescripcion.Enabled = false;
+            checkBoxSiEd.Enabled = false;
+            checkBoxNoEd.Enabled = false;
+            txEditarCategoria.Enabled = false;
+            txEditarAutor.Enabled = false;
+            txEditarEditorial.Enabled = false;
+            txEditarPrecio.Enabled = false;
+            txEditarStock.Enabled = false;
+            iconEditarImagen.Enabled = false;
+        }
 
         private void cBBuscadorAutor_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -208,10 +245,21 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 edicionRealizada = true;
 
                 // Muestra el mensaje de confirmación
-                DialogResult confirmResult = MessageBox.Show("¿Estás seguro de que deseas editar este libro?", "Confirmación de edición", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult confirmResult = MessageBox.Show("Usted esta por realizar una Edición.En caso de que no lo desee vacie Los campos", "Informe de edición", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                if (confirmResult == DialogResult.Yes)
+                if (confirmResult == DialogResult.OK)
                 {
+                    txEditarProducto.Enabled = true;
+                    rtbEditarDescripcion.Enabled = true;
+                    checkBoxSiEd.Enabled = true;
+                    checkBoxNoEd.Enabled = true;
+                    txEditarCategoria.Enabled = true;
+                    txEditarAutor.Enabled = true;
+                    txEditarEditorial.Enabled = true;
+                    txEditarPrecio.Enabled = true;
+                    txEditarStock.Enabled = true;
+                    iconEditarImagen.Enabled = true;
+
                     // Obtiene la fila seleccionada
                     DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
 
@@ -241,10 +289,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                     // Selecciona la categoría en el ComboBox
                     txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
-                }
-                else
-                {
-                    edicionRealizada = false;
                 }
             }
         }
@@ -299,7 +343,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             if (string.IsNullOrWhiteSpace(nuevoTitulo) || string.IsNullOrWhiteSpace(nuevaDescripcion) ||
                 !double.TryParse(txEditarPrecio.Text, out nuevoPrecio) || !int.TryParse(txEditarStock.Text, out nuevoStock) ||
                 string.IsNullOrWhiteSpace(nuevaCategoria) || string.IsNullOrWhiteSpace(nuevoAutor) || string.IsNullOrWhiteSpace(nuevaEditorial) ||
-                string.IsNullOrWhiteSpace(nuevoEstado))
+                (checkBoxSiEd.Checked == false && checkBoxNoEd.Checked == false))
             {
                 MessageBox.Show("Por favor, complete todos los campos antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -320,6 +364,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             if (!cambiosRealizados)
             {
                 LimpiarCamposModificar();
+                desactivarBotones();
                 MessageBox.Show("Usted no realizó cambios.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -360,15 +405,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     }
                     MessageBox.Show("El producto se ha actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCamposModificar();
+                    desactivarBotones();
                     CTablaProductos_Load(sender, e);
                 }
                 else
                 {
+                    desactivarBotones();
                     MessageBox.Show("Ha ocurrido un error al actualizar el producto. Por favor, intente de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
+                desactivarBotones();
                 MessageBox.Show("No se realizaron cambios en el producto.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -433,29 +481,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void iconLimpiar_Click(object sender, EventArgs e)
         {
-            // Verificar si los campos están en blanco o si las casillas de verificación no están marcadas
-            if (string.IsNullOrWhiteSpace(txEditarProducto.Text) ||
-                string.IsNullOrWhiteSpace(txEditarEditorial.Text) ||
-                string.IsNullOrWhiteSpace(txEditarAutor.Text) ||
-                string.IsNullOrWhiteSpace(txEditarCategoria.Text) ||
-                string.IsNullOrWhiteSpace(txEditarPrecio.Text) ||
-                string.IsNullOrWhiteSpace(txEditarStock.Text) ||
-                string.IsNullOrWhiteSpace(rtbEditarDescripcion.Text) ||
-                (checkBoxSiEd.Checked == false && checkBoxNoEd.Checked == false) ||
-                pEditarProducts.Image == null)
-            {
-                MessageBox.Show("Algunos campos están en blanco o no se han marcado las casillas de verificación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                // Mostrar el cuadro de diálogo de confirmación solo si no hay problemas
-                DialogResult limpiar = MessageBox.Show("Esta por realizar la limpieza de los campos. ¿Seguro?.", "Limpieza", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            // Mostrar el cuadro de diálogo de confirmación solo si no hay problemas
+            DialogResult limpiar = MessageBox.Show("Esta por realizar la limpieza de los campos. ¿Seguro?.", "Limpieza", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-                if (limpiar == DialogResult.OK)
-                {
-                    LimpiarCamposModificar();
-                }
+            if (limpiar == DialogResult.OK)
+            {
+                LimpiarCamposModificar();
+                desactivarBotones();
             }
+
         }
 
         private void txEditarEditorial_TextChanged(object sender, EventArgs e)

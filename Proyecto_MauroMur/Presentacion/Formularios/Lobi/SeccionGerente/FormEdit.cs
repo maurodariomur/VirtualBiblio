@@ -123,7 +123,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             string baja = checkBoxSi.Checked ? "SI" : "NO";
 
             // Verificar si algún campo obligatorio está vacío
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario))
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario) || (checkBoxSi.Checked ==false && checkBoxNo.Checked==false))
             {
                 msgError("Por favor, completa todos los campos obligatorios");
                 return;

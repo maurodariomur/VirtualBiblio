@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lbEditarProducto = new Label();
             panel2 = new Panel();
@@ -153,7 +153,7 @@
             // 
             // pEditarProducts
             // 
-            pEditarProducts.Location = new Point(143, 429);
+            pEditarProducts.Location = new Point(143, 438);
             pEditarProducts.Name = "pEditarProducts";
             pEditarProducts.Size = new Size(100, 128);
             pEditarProducts.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -179,7 +179,7 @@
             iconLimpiar.FlatAppearance.MouseDownBackColor = Color.FromArgb(92, 131, 116);
             iconLimpiar.FlatAppearance.MouseOverBackColor = Color.FromArgb(147, 177, 166);
             iconLimpiar.FlatStyle = FlatStyle.Flat;
-            iconLimpiar.IconChar = FontAwesome.Sharp.IconChar.RotateBackward;
+            iconLimpiar.IconChar = FontAwesome.Sharp.IconChar.Trash;
             iconLimpiar.IconColor = Color.FromArgb(175, 211, 226);
             iconLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconLimpiar.IconSize = 20;
@@ -317,7 +317,7 @@
             iconEditarImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconEditarImagen.IconSize = 20;
             iconEditarImagen.ImageAlign = ContentAlignment.BottomCenter;
-            iconEditarImagen.Location = new Point(249, 533);
+            iconEditarImagen.Location = new Point(249, 521);
             iconEditarImagen.Name = "iconEditarImagen";
             iconEditarImagen.Size = new Size(25, 30);
             iconEditarImagen.TabIndex = 70;
@@ -332,7 +332,7 @@
             lbEditarImagen.FlatStyle = FlatStyle.Popup;
             lbEditarImagen.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbEditarImagen.ForeColor = Color.Gainsboro;
-            lbEditarImagen.Location = new Point(152, 394);
+            lbEditarImagen.Location = new Point(165, 394);
             lbEditarImagen.Name = "lbEditarImagen";
             lbEditarImagen.Size = new Size(58, 16);
             lbEditarImagen.TabIndex = 67;
@@ -547,23 +547,23 @@
             dataGridProductos.BorderStyle = BorderStyle.None;
             dataGridProductos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridProductos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(147, 177, 166);
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.Window;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = Color.FromArgb(147, 177, 166);
+            dataGridViewCellStyle13.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle13.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle13.SelectionForeColor = Color.White;
+            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
+            dataGridProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridProductos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle14.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle14.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.False;
+            dataGridProductos.DefaultCellStyle = dataGridViewCellStyle14;
             dataGridProductos.EnableHeadersVisualStyles = false;
             dataGridProductos.GridColor = Color.FromArgb(165, 201, 202);
             dataGridProductos.Location = new Point(58, 108);
@@ -571,22 +571,22 @@
             dataGridProductos.Name = "dataGridProductos";
             dataGridProductos.ReadOnly = true;
             dataGridProductos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridProductos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle15.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle15.ForeColor = Color.Black;
+            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle15.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
+            dataGridProductos.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             dataGridProductos.RowHeadersVisible = false;
             dataGridProductos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle4.SelectionForeColor = Color.WhiteSmoke;
-            dataGridProductos.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle16.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle16.ForeColor = Color.Black;
+            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle16.SelectionForeColor = Color.WhiteSmoke;
+            dataGridProductos.RowsDefaultCellStyle = dataGridViewCellStyle16;
             dataGridProductos.RowTemplate.Height = 25;
             dataGridProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridProductos.Size = new Size(693, 331);

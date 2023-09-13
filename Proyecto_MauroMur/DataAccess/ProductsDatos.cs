@@ -523,7 +523,7 @@ namespace Proyecto_MauroMur.DataAccess
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Libro WHERE baja = 'NO'";
+                    command.CommandText = "SELECT * FROM Libro WHERE baja = 'NO' AND stock > 0";
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {

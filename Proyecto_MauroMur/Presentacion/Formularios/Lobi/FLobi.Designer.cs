@@ -184,7 +184,7 @@
             Lfecha.BackColor = Color.Transparent;
             Lfecha.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
             Lfecha.ForeColor = Color.FromArgb(24, 61, 61);
-            Lfecha.Location = new Point(190, 331);
+            Lfecha.Location = new Point(96, 331);
             Lfecha.Name = "Lfecha";
             Lfecha.Size = new Size(85, 29);
             Lfecha.TabIndex = 4;
@@ -199,7 +199,7 @@
             Lhora.FlatStyle = FlatStyle.Flat;
             Lhora.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
             Lhora.ForeColor = Color.FromArgb(24, 61, 61);
-            Lhora.Location = new Point(302, 294);
+            Lhora.Location = new Point(287, 292);
             Lhora.Name = "Lhora";
             Lhora.Size = new Size(100, 37);
             Lhora.TabIndex = 3;
