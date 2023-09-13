@@ -48,6 +48,7 @@
             iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconExit = new FontAwesome.Sharp.IconButton();
             panelMenu = new Panel();
+            iconCatalogo = new FontAwesome.Sharp.IconButton();
             iconProducto = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
             lbNApe = new Label();
@@ -317,6 +318,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(24, 61, 61);
+            panelMenu.Controls.Add(iconCatalogo);
             panelMenu.Controls.Add(iconProducto);
             panelMenu.Controls.Add(panel1);
             panelMenu.Controls.Add(iconExit);
@@ -328,6 +330,30 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(220, 479);
             panelMenu.TabIndex = 0;
+            // 
+            // iconCatalogo
+            // 
+            iconCatalogo.BackColor = Color.FromArgb(24, 61, 61);
+            iconCatalogo.Dock = DockStyle.Top;
+            iconCatalogo.FlatAppearance.BorderSize = 0;
+            iconCatalogo.FlatStyle = FlatStyle.Flat;
+            iconCatalogo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconCatalogo.ForeColor = Color.Gainsboro;
+            iconCatalogo.IconChar = FontAwesome.Sharp.IconChar.Book;
+            iconCatalogo.IconColor = Color.Gainsboro;
+            iconCatalogo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconCatalogo.IconSize = 32;
+            iconCatalogo.ImageAlign = ContentAlignment.MiddleLeft;
+            iconCatalogo.Location = new Point(0, 280);
+            iconCatalogo.Name = "iconCatalogo";
+            iconCatalogo.Padding = new Padding(10, 0, 20, 0);
+            iconCatalogo.Size = new Size(220, 60);
+            iconCatalogo.TabIndex = 7;
+            iconCatalogo.Text = "Catalogo";
+            iconCatalogo.TextAlign = ContentAlignment.MiddleLeft;
+            iconCatalogo.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconCatalogo.UseVisualStyleBackColor = false;
+            iconCatalogo.Click += iconCatalogo_Click;
             // 
             // iconProducto
             // 
@@ -457,5 +483,6 @@
         private Label lbRol;
         private Label lbNApe;
         private FontAwesome.Sharp.IconButton iconProducto;
+        private FontAwesome.Sharp.IconButton iconCatalogo;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Common.Models;
 using DataAccess;
 using Proyecto_MauroMur.Common.Models;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -507,6 +509,50 @@ namespace Proyecto_MauroMur.DataAccess
                     {
                         Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
                         return false;
+                    }
+                }
+            }
+        }
+
+        public void LlenarBotones(FlowLayoutPanel Contenedor)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT * FROM Libro WHERE baja = 'NO'";
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Libro libro = new Libro();
+                            libro.Id_Libro = Convert.ToInt32(reader[0]);
+                            libro.Titulo = reader.GetString(1);
+                            libro.Descripcion = reader.GetString(2);
+                            libro.Precio = Convert.ToDouble(reader[3]);
+                            libro.Imagen = reader.GetString(4);
+                            libro.Stock = Convert.ToInt32(reader[5]);
+
+                            BotonesLibros btn = new BotonesLibros();
+                            btn.idLibro = libro.Id_Libro;
+                            btn.tituloLibro = libro.Titulo;
+                            btn.descripcionLibro = libro.Descripcion;
+                            btn.precioLibro = "$" + libro.Precio.ToString("N2");
+                            btn.stockLibro = "Stock " + libro.Stock.ToString();
+
+                            // Cargar la imagen desde el archivo y establecerla en el botón
+                            string libroPath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", libro.Imagen!);
+                            if (File.Exists(libroPath))
+                            {
+                                btn.imagenLibro = Image.FromFile(libroPath);
+                            }
+
+                            Contenedor.Controls.Add(btn);
+                        }
                     }
                 }
             }

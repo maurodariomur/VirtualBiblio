@@ -127,6 +127,9 @@ namespace Proyecto_MauroMur.Domain
             return productModel.ActualizarEditorial(nombreEditorial);
         }
 
-
+        public void LlenarCatalogo(FlowLayoutPanel Contenedor)
+        {
+            productModel.LlenarBotones(Contenedor);
+        }
     }
 }
