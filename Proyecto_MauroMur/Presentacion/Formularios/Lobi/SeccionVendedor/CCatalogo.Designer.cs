@@ -41,6 +41,7 @@
             catalogoAutor = new Label();
             catalogoCategoria = new Label();
             panel3 = new Panel();
+            iconCatalogo = new FontAwesome.Sharp.IconButton();
             btVenta = new Button();
             panel4 = new Panel();
             flowLayoutPanel = new FlowLayoutPanel();
@@ -205,12 +206,34 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(iconCatalogo);
             panel3.Controls.Add(btVenta);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 85);
             panel3.Name = "panel3";
             panel3.Size = new Size(800, 40);
             panel3.TabIndex = 41;
+            // 
+            // iconCatalogo
+            // 
+            iconCatalogo.BackColor = Color.Transparent;
+            iconCatalogo.Cursor = Cursors.Hand;
+            iconCatalogo.Dock = DockStyle.Left;
+            iconCatalogo.FlatAppearance.BorderSize = 0;
+            iconCatalogo.FlatAppearance.MouseDownBackColor = Color.FromArgb(92, 131, 116);
+            iconCatalogo.FlatAppearance.MouseOverBackColor = Color.FromArgb(147, 177, 166);
+            iconCatalogo.FlatStyle = FlatStyle.Flat;
+            iconCatalogo.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
+            iconCatalogo.IconColor = Color.FromArgb(46, 79, 79);
+            iconCatalogo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconCatalogo.IconSize = 30;
+            iconCatalogo.ImageAlign = ContentAlignment.BottomCenter;
+            iconCatalogo.Location = new Point(0, 0);
+            iconCatalogo.Name = "iconCatalogo";
+            iconCatalogo.Size = new Size(48, 40);
+            iconCatalogo.TabIndex = 74;
+            iconCatalogo.UseVisualStyleBackColor = false;
+            iconCatalogo.Click += iconCatalogo_Click;
             // 
             // btVenta
             // 
@@ -287,5 +310,6 @@
         private Button btVenta;
         private Panel panel4;
         private FlowLayoutPanel flowLayoutPanel;
+        private FontAwesome.Sharp.IconButton iconCatalogo;
     }
 }

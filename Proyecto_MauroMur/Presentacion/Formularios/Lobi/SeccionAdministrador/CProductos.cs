@@ -387,7 +387,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private void btTablaProductos_Click(object sender, EventArgs e)
         {
             this.Close();
-            objFLobi.OpenChildForm(new SeccionAdministrador.CTablaProductos());
+            objFLobi.OpenChildForm(new SeccionAdministrador.CTablaProductos(objFLobi));
         }
 
         private void panel6_Paint(object sender, PaintEventArgs e)

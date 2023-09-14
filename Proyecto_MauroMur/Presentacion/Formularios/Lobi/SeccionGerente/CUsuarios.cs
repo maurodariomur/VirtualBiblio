@@ -290,12 +290,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private void btTablaUsuarios_Click(object sender, EventArgs e)
         {
             this.Close();
-            instanciaFLobi.OpenChildForm(new SeccionGerente.CTablas());
+            instanciaFLobi.OpenChildForm(new SeccionGerente.CTablas(instanciaFLobi));
         }
 
-        private void txMail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
