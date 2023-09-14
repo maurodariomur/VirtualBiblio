@@ -16,11 +16,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     {
         private ProductModel productModel = new ProductModel();
         private List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
+        private FLobi flobi;
 
-        public CCatalogo()
+        public CCatalogo(FLobi flobi)
         {
             InitializeComponent();
             LlenarProductos();
+            this.flobi = flobi;
         }
 
         private void LlenarProductos()
@@ -116,5 +118,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             FiltrarProductos();
         }
 
+        private void iconCatalogo_Click(object sender, EventArgs e)
+        {
+            CDetalleCatalogo cDetalleCatalogo = new CDetalleCatalogo();
+            cDetalleCatalogo.ShowDialog();
+        }
     }
 }
