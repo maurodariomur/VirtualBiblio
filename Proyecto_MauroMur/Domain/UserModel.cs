@@ -17,21 +17,23 @@ namespace Domain
             return userDatos.Login(user,pass);
         }
 
-        public bool AgregarNuevoUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
+        public bool AgregarNuevoUsuario(string user, string contrasena, int tipoPerfil, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento)
         {
             // Generar el hash de la contraseña
             string hashContrasena = BCrypt.Net.BCrypt.HashPassword(contrasena);
 
             // Llamar al método para agregar usuario de UserDatos
-            return userDatos.AgregarUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, hashContrasena, tipoPerfil);
+            return userDatos.AgregarUsuario(nombre, apellido, dni, fechaNacimiento, mail, user, hashContrasena, tipoPerfil);
         }
 
-        public List<Usuarios> MostrarUsers()
+
+
+        public List<UsuarioConInformacion> MostrarUsers()
         {
             return userDatos.ObtenerUsuarios();
         }
 
-        public Usuarios? ImportarUsuarios(int id)
+        public UsuarioConInformacion? ImportarUsuarios(int id)
         {
             return userDatos.TraerUsuariosId(id);
         }

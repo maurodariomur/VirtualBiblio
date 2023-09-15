@@ -14,76 +14,84 @@ using Microsoft.VisualBasic.ApplicationServices;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Net;
+using Proyecto_MauroMur.Common.Models;
 
 
 
 //Clase para los datos del usuario
 namespace DataAccess
 {
-     public class UserDatos:ConnectionToSql
+    public class UserDatos : ConnectionToSql
     {
-        public bool Login(string user,string pass)
+        public bool Login(string user, string pass)
         {
-            //Se crea un Bloque de conexion y se abre esa conexion y no es 
-            //necesario cerrar esa conexion por usar using,solo existiran en ese bloque 
-            using (var connetion = GetConnection())
+            using (var connection = GetConnection())
             {
-                connetion.Open();
-                using(var command=new SqlCommand())
+                connection.Open();
+                using (var command = new SqlCommand())
                 {
-                    command.Connection=connetion;
-                    command.CommandText = "select * from Usuarios where Usuario=@Usuario and Contraseña=@Contraseña";
-                    command.Parameters.AddWithValue("@Usuario", user);//envia el usuario al metodo login
-                    command.Parameters.AddWithValue("@Contraseña", pass);//envia el contraseña al metodo login
-                    SqlDataReader reader = command.ExecuteReader();//decimos que es de tipo consulta de base de datos
+                    command.Connection = connection;
+                    command.CommandText = "SELECT U.*, P.Nombre AS NombrePersona, P.Apellido AS ApellidoPersona, P.DNI AS DNIPersona, P.Mail AS MailPersona, P.FechaNacimiento AS FechaNacimientoPersona, P.Baja AS BajaPersona, U.Contraseña AS ContraseñaUsuario " +
+                                          "FROM Usuario U " +
+                                          "INNER JOIN Persona P ON U.id_Persona = P.Id_Persona " +
+                                          "WHERE U.UserNombre = @UserNombre";
+                    command.Parameters.AddWithValue("@UserNombre", user);
+
+                    SqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            UserLoginCache.Id = reader.GetInt32(0);
-                            UserLoginCache.Nombre = reader.GetString(1);
-                            UserLoginCache.Apellido = reader.GetString(2);
-                            UserLoginCache.DNI = reader.GetString(3);
-                            UserLoginCache.Mail = reader.GetString(4); // Asignar valor leído a la propiedad Mail
-                            UserLoginCache.Usuario = reader.GetString(5); // Asignar valor leído a la propiedad Usuario
-                            UserLoginCache.TipoPerfil = reader.GetInt32(8); // Asignar valor leído a la propiedad TipoPerfil    
-                        }
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                            // Obtener la contraseña cifrada almacenada en la base de datos
+                            string contrasenaCifrada = reader.GetString(reader.GetOrdinal("ContraseñaUsuario"));
 
+                            // Verificar si la contraseña ingresada coincide con la contraseña cifrada
+                            if (BCrypt.Net.BCrypt.Verify(pass, contrasenaCifrada))
+                            {
+                                // Las contraseñas coinciden, puedes continuar con el inicio de sesión
+                                UserLoginCache.Id = reader.GetInt32(0);
+                                UserLoginCache.User = reader.GetString(1); // Cambia esto a "UserNombre"
+                                UserLoginCache.TipoPerfil = reader.GetInt32(3);
+                                UserLoginCache.Rol = reader.GetString(4);
+                                UserLoginCache.id_Persona = reader.GetInt32(5);
+                                UserLoginCache.Nombre = reader["NombrePersona"] as string;
+                                UserLoginCache.Apellido = reader["ApellidoPersona"] as string;
+                                UserLoginCache.DNI = reader["DNIPersona"] as string;
+                                UserLoginCache.Mail = reader["MailPersona"] as string;
+                                UserLoginCache.FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimientoPersona"));
+                                UserLoginCache.Baja = reader["BajaPersona"] as string;
+
+                                return true;
+                            }
+                        }
+                    }
+                    // Si llegamos aquí, no se encontró una coincidencia de usuario y contraseña
+                    return false;
                 }
             }
         }
 
-        // Metodo Para Agregar Usuarios
-        public bool AgregarUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
-        {
 
+        public bool AgregarPersona(string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento)
+        {
             if (fechaNacimiento == DateTime.MinValue)
             {
                 return false; // Fecha de nacimiento no válida
             }
 
-            using (var connetion = GetConnection())
+            using (var connection = GetConnection())
             {
-                connetion.Open();
+                connection.Open();
                 using (var command = new SqlCommand())
                 {
-                    command.Connection = connetion;
-                    command.CommandText = "INSERT INTO Usuarios (Nombre, Apellido, DNI, Mail, Usuario, Contraseña, FechaNacimiento, TipoPerfil) VALUES (@Nombre, @Apellido, @DNI, @Mail, @Usuario, @Contraseña, @FechaNacimiento, @TipoPerfil)";
+                    command.Connection = connection;
+                    command.CommandText = "INSERT INTO Persona (Nombre, Apellido, DNI, Mail, FechaNacimiento) VALUES (@Nombre, @Apellido, @DNI, @Mail, @FechaNacimiento);";
 
                     command.Parameters.AddWithValue("@Nombre", nombre);
                     command.Parameters.AddWithValue("@Apellido", apellido);
                     command.Parameters.AddWithValue("@DNI", dni);
                     command.Parameters.AddWithValue("@Mail", mail);
-                    command.Parameters.AddWithValue("@Usuario", usuario);
-                    command.Parameters.AddWithValue("@Contraseña", contrasena); // Guardar el hash en lugar de la contraseña
                     command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
-                    command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
 
                     try
                     {
@@ -99,37 +107,148 @@ namespace DataAccess
             }
         }
 
-        public List<Usuarios> ObtenerUsuarios()
+        public Persona ObtenerPersonaPorDNI(string dni)
         {
-            List<Usuarios> usuarios = new List<Usuarios>();
+            Persona persona = new();
 
-            using (var conexion = GetConnection())
+            using (var connection = GetConnection())
             {
-                conexion.Open();
-                using (var comando = new SqlCommand())
+                connection.Open();
+                using (var command = new SqlCommand())
                 {
-                    comando.Connection = conexion;
-                    comando.CommandText = "SELECT U.*, TP.Nombre AS Rol " +
-                                          "FROM Usuarios U " +
-                                          "INNER JOIN TipoPerfiles TP ON U.TipoPerfil = TP.Id";
+                    command.Connection = connection;
+                    command.CommandText = "SELECT Id_Persona, Nombre, Apellido, DNI, Mail, FechaNacimiento " +
+                                          "FROM Persona " +
+                                          "WHERE DNI = @DNI;";
+                    command.Parameters.AddWithValue("@DNI", dni);
 
-                    using (SqlDataReader reader = comando.ExecuteReader())
+                    try
                     {
-                        while (reader.Read())
+                        using (var reader = command.ExecuteReader())
                         {
-                            Usuarios usuario = new Usuarios();
-                            usuario.Id = reader.GetInt32(0);
-                            usuario.Nombre = reader.GetString(1);
-                            usuario.Apellido = reader.GetString(2);
-                            usuario.DNI = reader.GetString(3);
-                            usuario.Mail = reader.GetString(4);
-                            usuario.Usuario = reader.GetString(5);
-                            usuario.FechaNacimiento = reader.GetDateTime(7);
-                            usuario.TipoPerfil = reader.GetInt32(8); // ID del tipo de perfil
-                            usuario.Rol = reader.GetString(10); // Nombre del tipo de perfil
-                            usuario.Baja = reader.GetString(9);
-                            usuarios.Add(usuario);
+                            if (reader.Read())
+                            {
+                                // Si se encontró una persona con el DNI especificado, crea un objeto Persona y asigna sus propiedades.
+                                persona = new Persona
+                                {
+                                    Id_Persona = reader.GetInt32(reader.GetOrdinal("Id_Persona")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("Apellido")),
+                                    DNI = reader.GetString(reader.GetOrdinal("DNI")),
+                                    Mail = reader.GetString(reader.GetOrdinal("Mail")),
+                                    FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento"))
+                                };
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                    }
+                }
+            }
+
+            return persona;
+        }
+
+
+        public bool AgregarUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string user, string contrasena, int tipoPerfil)
+        {
+            // Primero, intenta agregar la persona
+            bool personaAgregada = AgregarPersona(nombre, apellido, dni, mail, fechaNacimiento);
+
+            if (!personaAgregada)
+            {
+                // Si no se pudo agregar la persona, retorna false
+                return false;
+            }
+
+            // Obtén la persona que acabas de agregar
+            Persona persona = ObtenerPersonaPorDNI(dni); // Implementa este método en tu capa intermedia para buscar por DNI
+
+            // Verifica si se encontró la persona
+            if (persona != null)
+            {
+                // Si la persona existe, puedes continuar con la inserción del usuario
+                int personaId = persona.Id_Persona;
+
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandText = "INSERT INTO Usuario (UserNombre, Contraseña, TipoPerfil, Id_Persona) VALUES (@User, @Contraseña, @TipoPerfil, @Id_Persona);";
+
+                        command.Parameters.AddWithValue("@User", user);
+                        command.Parameters.AddWithValue("@Contraseña", contrasena);
+                        command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
+                        command.Parameters.AddWithValue("@Id_Persona", personaId);
+
+                        try
+                        {
+                            int rowsAffected = command.ExecuteNonQuery();
+                            return rowsAffected > 0;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // La persona no existe, por lo que no se puede agregar el usuario
+                return false;
+            }
+        }
+
+        public List<UsuarioConInformacion> ObtenerUsuarios()
+        {
+            List<UsuarioConInformacion> usuarios = new List<UsuarioConInformacion>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = @"SELECT u.Id, u.UserNombre, tp.Nombre AS TipoPerfilNombre, 
+                                        p.Nombre AS PersonaNombre, p.Apellido AS PersonaApellido, 
+                                        p.DNI AS PersonaDNI, p.Mail AS PersonaMail, 
+                                        p.FechaNacimiento AS PersonaFechaNacimiento, p.Baja AS PersonaBaja
+                                        FROM Usuario u
+                                        INNER JOIN Persona p ON u.Id_Persona = p.Id_Persona
+                                        INNER JOIN TipoPerfiles tp ON u.TipoPerfil = tp.Id";
+
+                    try
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                UsuarioConInformacion usuario = new UsuarioConInformacion
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    PersonaApellido = reader["PersonaApellido"].ToString(),
+                                    PersonaNombre = reader["PersonaNombre"].ToString(),
+                                    UserNombre = reader["UserNombre"].ToString(),
+                                    PersonaDNI = reader["PersonaDNI"].ToString(),
+                                    PersonaMail = reader["PersonaMail"].ToString(),
+                                    PersonaFechaNacimiento = (DateTime)reader["PersonaFechaNacimiento"],
+                                    PerfilNombre = reader["TipoPerfilNombre"].ToString(),
+                                    PersonaBaja = reader["PersonaBaja"].ToString(),
+                                };
+
+                                usuarios.Add(usuario);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
                     }
                 }
             }
@@ -137,9 +256,9 @@ namespace DataAccess
             return usuarios;
         }
 
-        public Usuarios? TraerUsuariosId(int id)
+        public UsuarioConInformacion? TraerUsuariosId(int id)
         {
-            Usuarios? usuario = null; // Declarar una variable para almacenar el usuario
+            UsuarioConInformacion? usuario = null; // Declarar una variable para almacenar el usuario
 
             using (var conexion = GetConnection())
             {
@@ -147,29 +266,36 @@ namespace DataAccess
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
-                    comando.CommandText = "SELECT Id, Nombre, Apellido, DNI, Mail, Usuario, TipoPerfil, FechaNacimiento, Baja FROM Usuarios WHERE Id = @Id";
+                    comando.CommandText = @"SELECT u.Id, p.Nombre AS PersonaNombre, p.Apellido AS PersonaApellido, p.DNI AS PersonaDNI, 
+                                           p.Mail AS PersonaMail, p.FechaNacimiento AS PersonaFechaNacimiento, 
+                                           u.UserNombre, u.TipoPerfil, p.Id_Persona, p.Baja AS PersonaBaja 
+                                    FROM Usuario u
+                                    INNER JOIN Persona p ON u.Id_Persona = p.Id_Persona
+                                    WHERE u.Id = @Id";
                     comando.Parameters.AddWithValue("@Id", id); // Agregar el parámetro Id
 
                     using (SqlDataReader reader = comando.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            usuario = new Usuarios();
+                            usuario = new UsuarioConInformacion(); // Crear una instancia de UsuarioConInformacion
                             usuario.Id = reader.GetInt32(0);
-                            usuario.Nombre = reader.GetString(1);
-                            usuario.Apellido = reader.GetString(2);
-                            usuario.DNI = reader.GetString(3);
-                            usuario.Mail = reader.GetString(4);
-                            usuario.Usuario = reader.GetString(5);
-                            usuario.TipoPerfil = reader.GetInt32(6);
-                            usuario.FechaNacimiento = reader.GetDateTime(7);
-                            usuario.Baja = reader.GetString(8);
+                            usuario.PersonaNombre = reader.GetString(1);
+                            usuario.PersonaApellido = reader.GetString(2);
+                            usuario.PersonaDNI = reader.GetString(3);
+                            usuario.PersonaMail = reader.GetString(4);
+                            usuario.PersonaFechaNacimiento = reader.GetDateTime(5);
+                            usuario.UserNombre = reader.GetString(6);
+                            usuario.TipoPerfil = reader.GetInt32(7);
+                            usuario.Id_Persona = reader.GetInt32(8);
+                            usuario.PersonaBaja = reader.GetString(9);
                         }
                     }
                 }
             }
             return usuario;
         }
+
 
         public string? GetRoleName(int tipoPerfil)
         {
@@ -199,10 +325,9 @@ namespace DataAccess
 
         public int ObtenerIdTipoPerfil(string tipoSeleccionado)
         {
-           
             int tipoPerfilId = 0;
 
-            using (var connection = GetConnection()) 
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -223,43 +348,94 @@ namespace DataAccess
             return tipoPerfilId;
         }
 
-        public bool ActualizarUsuario(int userId, string nombre, string apellido, string dni, string mail, string usuario, DateTime fechaNacimiento, int tipoPerfil, string baja)
+        public bool ActualizarPersona(string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento,string baja)
         {
-            // Verificar si el tipo de perfil proporcionado es válido.
-            if (EsTipoPerfilValido(tipoPerfil))
+            if (fechaNacimiento == DateTime.MinValue)
             {
-                using (var connection = GetConnection())
+                return false; // Fecha de nacimiento no válida
+            }
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
                 {
-                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, Mail = @Mail, FechaNacimiento = @FechaNacimiento,Baja=@Baja WHERE DNI = @DNI;";
 
-                    using (var command = new SqlCommand())
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@Apellido", apellido);
+                    command.Parameters.AddWithValue("@DNI", dni);
+                    command.Parameters.AddWithValue("@Mail", mail);
+                    command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
+                    command.Parameters.AddWithValue("@Baja", baja);
+
+                    try
                     {
-                        command.Connection = connection;
-
-                        command.CommandText = "UPDATE Usuarios SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Mail = @Mail, Usuario = @Usuario, FechaNacimiento = @FechaNacimiento, TipoPerfil = @TipoPerfil, Baja = @Baja WHERE Id = @UserId";
-
-                        command.Parameters.AddWithValue("@UserId", userId);
-                        command.Parameters.AddWithValue("@Nombre", nombre);
-                        command.Parameters.AddWithValue("@Apellido", apellido);
-                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
-                        command.Parameters.AddWithValue("@DNI", dni);
-                        command.Parameters.AddWithValue("@Mail", mail);
-                        command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
-                        command.Parameters.AddWithValue("@Usuario", usuario);
-                        command.Parameters.AddWithValue("@Baja", baja);
-
                         int rowsAffected = command.ExecuteNonQuery();
-
-                        return rowsAffected > 0; // Retorna true si al menos una fila fue afectada (actualización exitosa).
+                        return rowsAffected > 0;
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ActualizarUsuario(int userId, string nombre, string apellido, string dni, string mail, string user, DateTime fechaNacimiento, int tipoPerfil, string baja)
+        {
+            bool personaActualizada = ActualizarPersona(nombre, apellido, dni, mail, fechaNacimiento,baja);
+
+            if (!personaActualizada)
+            {
+                return false;
+            }
+
+            // Obtén la persona que acabas de actualizar
+            Persona persona = ObtenerPersonaPorDNI(dni); // Implementa este método en tu capa intermedia para buscar por DNI
+
+            // Verifica si se encontró la persona
+            if (persona != null)
+            {
+                // Si la persona existe, puedes continuar con la actualización del usuario
+                int personaId = persona.Id_Persona;
+
+                if (EsTipoPerfilValido(tipoPerfil))
+                {
+                    using (var connection = GetConnection())
+                    {
+                        connection.Open();
+
+                        using (var command = new SqlCommand())
+                        {
+                            command.Connection = connection;
+
+                            command.CommandText = "UPDATE Usuario SET UserNombre = @UserNombre, TipoPerfil = @TipoPerfil WHERE Id_Persona = @Id_Persona";
+
+                            command.Parameters.AddWithValue("@Id", userId);
+                            command.Parameters.AddWithValue("@UserNombre", user);
+                            command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
+                            command.Parameters.AddWithValue("@Id_Persona", personaId);
+
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            return rowsAffected > 0;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
                 }
             }
             else
             {
-                // El tipo de perfil proporcionado no es válido, puedes manejarlo como desees.
-                return false;
+                return false; // La persona no se encontró, por lo tanto, no se puede actualizar el usuario
             }
         }
+
 
         private bool EsTipoPerfilValido(int tipoPerfil)
         {

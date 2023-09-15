@@ -1,5 +1,6 @@
 ﻿using Common.Models;
 using Domain;
+using Proyecto_MauroMur.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,20 +28,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             this._tablas = tablas;
             userId = id;
             UserModel userModel = new();
-            Usuarios? usuario = userModel.ImportarUsuarios(id);
+            UsuarioConInformacion? usuario = userModel.ImportarUsuarios(id);
 
             if (usuario != null)
             {
-                txNameModificar.Text = usuario.Nombre;
-                txLastNameModificar.Text = usuario.Apellido;
-                dTBithModificar.Value = usuario.FechaNacimiento;
-                txDNIModificar.Text = usuario.DNI;
-                txMailModificar.Text = usuario.Mail;
-                //userModel.GetRolName(usuario.TipoPerfil);
-                //txcPerfilModificar.Text = userModel.GetRolName(usuario.TipoPerfil);
+
+                // Luego, puedes utilizar usuarioConPersona para acceder a todos los datos necesarios
+                txNameModificar.Text = usuario.PersonaNombre;
+                txLastNameModificar.Text = usuario.PersonaApellido;
+                dTBithModificar.Value = usuario.PersonaFechaNacimiento;
+                txDNIModificar.Text = usuario.PersonaDNI;
+                txMailModificar.Text = usuario.PersonaMail;
+                // userModel.GetRolName(usuario.TipoPerfil);
+                // txcPerfilModificar.Text = userModel.GetRolName(usuario.TipoPerfil);
                 opcionesPerfiles(id);
-                txEmpleadoModificar.Text = usuario.Usuario;
-                if (usuario.Baja == "SI")
+                txEmpleadoModificar.Text = usuario.UserNombre;
+                if (usuario.PersonaBaja == "SI")
                 {
                     checkBoxSi.Checked = true;
                 }
@@ -48,9 +51,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 {
                     checkBoxNo.Checked = true;
                 }
-
             }
         }
+
 
         private void FormEdit_Load(object sender, EventArgs e)
         {
@@ -63,13 +66,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private void opcionesPerfiles(int id)
         {
             UserModel userModel = new();
-            Usuarios? usuario = userModel.ImportarUsuarios(id);
+            UsuarioConInformacion? usuario = userModel.ImportarUsuarios(id);
             var roles = userModel.ObtenerPerfiles();
 
             // Asigna la lista de categorías como DataSource del ComboBox
             txcPerfilModificar.DataSource = roles;
             // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
-            userModel.GetRolName(usuario.TipoPerfil);
+            userModel.GetRolName(usuario!.TipoPerfil);
             txcPerfilModificar.Text = userModel.GetRolName(usuario.TipoPerfil);
         }
 
@@ -123,7 +126,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             string baja = checkBoxSi.Checked ? "SI" : "NO";
 
             // Verificar si algún campo obligatorio está vacío
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario) || (checkBoxSi.Checked ==false && checkBoxNo.Checked==false))
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario) || (checkBoxSi.Checked == false && checkBoxNo.Checked == false))
             {
                 msgError("Por favor, completa todos los campos obligatorios");
                 return;
@@ -146,16 +149,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
 
             // Verificar si los datos no han cambiado
-            Usuarios? usuarioActual = userModel.ImportarUsuarios(userId);
+            UsuarioConInformacion? usuarioActual = userModel.ImportarUsuarios(userId);
             if (usuarioActual != null &&
-                nombre == usuarioActual.Nombre &&
-                apellido == usuarioActual.Apellido &&
-                dni == usuarioActual.DNI &&
-                mail == usuarioActual.Mail &&
-                usuario == usuarioActual.Usuario &&
-                nacimiento == usuarioActual.FechaNacimiento &&
+                nombre == usuarioActual.PersonaNombre &&
+                apellido == usuarioActual.PersonaApellido &&
+                dni == usuarioActual.PersonaDNI &&
+                mail == usuarioActual.PersonaMail &&
+                usuario == usuarioActual.UserNombre &&
+                nacimiento == usuarioActual.PersonaFechaNacimiento &&
                 tipoPerfilId == usuarioActual.TipoPerfil &&
-                baja == usuarioActual.Baja)
+                baja == usuarioActual.PersonaBaja)
             {
                 MessageBox.Show("No se han realizado cambios en los datos.");
                 this.Close();

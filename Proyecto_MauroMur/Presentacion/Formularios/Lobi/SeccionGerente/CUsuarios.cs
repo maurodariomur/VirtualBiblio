@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
+using Microsoft.VisualBasic.ApplicationServices;
 using Proyecto_MauroMur.Domain;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -78,7 +79,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, contrasena, idTipoPerfil);
+                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(usuario,contrasena, idTipoPerfil, nombre, apellido, dni, mail, fechaNacimiento);
                     MessageBox.Show("Usuario agregado exitosamente: " + nombre + " " + apellido, "Empleado Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();
                 }

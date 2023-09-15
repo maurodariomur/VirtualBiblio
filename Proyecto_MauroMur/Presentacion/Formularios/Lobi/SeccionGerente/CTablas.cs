@@ -11,7 +11,7 @@ using Domain;
 using Common.Models;
 using System.Drawing.Drawing2D;
 using Microsoft.VisualBasic.Logging;
-
+using Proyecto_MauroMur.Common.Models;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 {
@@ -26,12 +26,27 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void CTablas_Load(object sender, EventArgs e)
         {
-            List<Usuarios> usuarios = userModel.MostrarUsers();
+            List<UsuarioConInformacion> usuarios = userModel.MostrarUsers();
             dataGridUsuarios.DataSource = usuarios;
+
+            // Configura los nombres de las columnas personalizados
+            dataGridUsuarios.Columns["Id"].HeaderText = "ID";
+            dataGridUsuarios.Columns["UserNombre"].HeaderText = "Usuario";
+            dataGridUsuarios.Columns["PerfilNombre"].HeaderText = "Perfil";
+            dataGridUsuarios.Columns["PersonaNombre"].HeaderText = "Nombre";
+            dataGridUsuarios.Columns["PersonaApellido"].HeaderText = "Apellido";
+            dataGridUsuarios.Columns["PersonaDNI"].HeaderText = "Documento";
+            dataGridUsuarios.Columns["PersonaMail"].HeaderText = "Correo Electronico";
+            dataGridUsuarios.Columns["PersonaFechaNacimiento"].HeaderText = "Fecha de Nacimiento";
+            dataGridUsuarios.Columns["PersonaBaja"].HeaderText = "Baja"; // Si tienes la columna PersonaBaja
+
+            // Otras configuraciones que puedas necesitar
             dataGridUsuarios.Columns["TipoPerfil"].Visible = false;
+            dataGridUsuarios.Columns["Id_Persona"].Visible = false;
             opcionesPerfiles();
             dataGridUsuarios.RowPrePaint += DataGridUsuarios_RowPrePaint!;
         }
+
 
         private void DataGridUsuarios_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
@@ -39,7 +54,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             DataGridViewRow row = dataGridUsuarios.Rows[e.RowIndex];
 
             // Verifica el valor de la columna "Baja" (asegúrate de que el nombre de la columna sea correcto)
-            string? valorBaja = row.Cells["Baja"].Value.ToString();
+            string? valorBaja = row.Cells["PersonaBaja"].Value.ToString();
 
             // Define el color de fondo deseado para las filas con "Baja" en "SI"
             if (valorBaja == "SI")
@@ -57,10 +72,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         public void loadUsers()
         {
-            List<Usuarios> usuarios = userModel.MostrarUsers();
+            List<UsuarioConInformacion> usuarios = userModel.MostrarUsers();
+            UsuarioConInformacion usuarioConPersona = new();
             if (checkBoxAZ.Checked)
             {
-                usuarios.Sort((x, y) => string.Compare(x.Apellido, y.Apellido));
+                usuarios.Sort((x, y) => string.Compare(x.PersonaApellido, y.PersonaApellido));
             }
             dataGridUsuarios.DataSource = usuarios;
         }
@@ -108,16 +124,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             string textoBusquedaApellido = txBuscadorApellido.Text.ToLower();
             string textoBusquedaDNI = txBuscadorDni.Text.ToLower();
             string? perfilSeleccionado = cBBuscadorPerfil.SelectedItem as string;
-            int tipoPerfilId = 0;
 
-            tipoPerfilId = userModel.ObtenerIdTipoPerfil(perfilSeleccionado);
-            
-            List<Usuarios> usuariosFiltrados = userModel.MostrarUsers()
+            List<UsuarioConInformacion> usuariosFiltrados = userModel.MostrarUsers()
                 .Where(usuario =>
-                    (string.IsNullOrEmpty(textoBusquedaNombre) || usuario?.Nombre?.ToLower()?.Contains(textoBusquedaNombre) == true) &&
-                    (string.IsNullOrEmpty(textoBusquedaApellido) || usuario?.Apellido?.ToLower()?.Contains(textoBusquedaApellido) == true) &&
-                    (string.IsNullOrEmpty(textoBusquedaDNI) || usuario?.DNI?.ToLower()?.Contains(textoBusquedaDNI) == true) &&
-                   (tipoPerfilId == 0 || (usuario?.TipoPerfil == tipoPerfilId)))
+                    (string.IsNullOrEmpty(textoBusquedaNombre) || usuario?.PersonaNombre?.ToLower()?.Contains(textoBusquedaNombre) == true) &&
+                    (string.IsNullOrEmpty(textoBusquedaApellido) || usuario?.PersonaApellido?.ToLower()?.Contains(textoBusquedaApellido) == true) &&
+                    (string.IsNullOrEmpty(textoBusquedaDNI) || usuario?.PersonaDNI?.ToLower()?.Contains(textoBusquedaDNI) == true) &&
+                    (perfilSeleccionado == "Seleccione Perfil" || usuario?.PerfilNombre == perfilSeleccionado))
                 .ToList();
 
             dataGridUsuarios.DataSource = usuariosFiltrados;
