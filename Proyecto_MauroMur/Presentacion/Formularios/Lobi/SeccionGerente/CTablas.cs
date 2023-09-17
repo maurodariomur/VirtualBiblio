@@ -18,10 +18,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
     public partial class CTablas : Form
     {
         private UserModel userModel = new UserModel();
-
-        public CTablas()
+        private FLobi flobi;
+        public CTablas(FLobi flobi)
         {
             InitializeComponent();
+            this.flobi = flobi;
         }
 
         private void CTablas_Load(object sender, EventArgs e)
@@ -200,6 +201,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             {
                 e.Handled = true;
             }
+        }
+
+        private void iconAtrasU_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            flobi.OpenChildForm(new SeccionGerente.CUsuarios(flobi));
         }
     }
 }

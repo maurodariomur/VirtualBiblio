@@ -196,7 +196,6 @@
             txMail.Size = new Size(296, 27);
             txMail.TabIndex = 26;
             txMail.Text = "Correo Electronico";
-            txMail.TextChanged += txMail_TextChanged;
             txMail.Enter += txMail_Enter_1;
             txMail.Leave += txMail_Leave_1;
             // 

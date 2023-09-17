@@ -54,6 +54,7 @@
             lbNApe = new Label();
             lbRol = new Label();
             iconButton1 = new FontAwesome.Sharp.IconButton();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconCurrentChildForm).BeginInit();
             panelEscritorio.SuspendLayout();
@@ -463,8 +464,6 @@
         private NotifyIcon notifyIcon1;
         private Panel panelTitleBar;
         private FontAwesome.Sharp.IconPictureBox iconCurrentChildForm;
-        private Label lbTitleCurrentForm;
-        private Panel panelEscritorio;
         private FontAwesome.Sharp.IconButton btnlobiMinimizar;
         private FontAwesome.Sharp.IconButton btnlobiMaximizar;
         private FontAwesome.Sharp.IconButton btnlobiSalir;
@@ -484,5 +483,8 @@
         private Label lbNApe;
         private FontAwesome.Sharp.IconButton iconProducto;
         private FontAwesome.Sharp.IconButton iconCatalogo;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        public Panel panelEscritorio;
+        public Label lbTitleCurrentForm;
     }
 }

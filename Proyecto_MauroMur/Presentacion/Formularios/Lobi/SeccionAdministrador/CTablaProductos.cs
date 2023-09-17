@@ -25,9 +25,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private string? imagenName;
         private bool edicionRealizada = false;
 
-        public CTablaProductos()
+        private FLobi objFLobi;
+
+        public CTablaProductos(FLobi flobi)
         {
             InitializeComponent();
+            this.objFLobi = flobi;
         }
 
         private void CTablaProductos_Load(object sender, EventArgs e)
@@ -503,5 +506,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txEditarAutor.Text = txEditarAutor.Text.ToUpper();
             txEditarAutor.SelectionStart = txEditarAutor.Text.Length;
         }
+
+
+        private void iconAtras_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            objFLobi.OpenChildForm(new SeccionAdministrador.CProductos(objFLobi));
+        }
+
     }
 }

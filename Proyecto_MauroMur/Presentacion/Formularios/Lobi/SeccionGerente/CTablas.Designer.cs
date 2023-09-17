@@ -48,6 +48,7 @@
             panel4 = new Panel();
             checkBoxAZ = new CheckBox();
             dataGridUsuarios = new DataGridView();
+            iconAtrasU = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -58,6 +59,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(46, 79, 79);
+            panel1.Controls.Add(iconAtrasU);
             panel1.Controls.Add(lbTitleTable);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -299,6 +301,27 @@
             dataGridUsuarios.TabIndex = 0;
             dataGridUsuarios.CellContentClick += dataGridUsuarios_CellContentClick;
             // 
+            // iconAtrasU
+            // 
+            iconAtrasU.BackColor = Color.Transparent;
+            iconAtrasU.Cursor = Cursors.Hand;
+            iconAtrasU.Dock = DockStyle.Left;
+            iconAtrasU.FlatAppearance.BorderSize = 0;
+            iconAtrasU.FlatAppearance.MouseDownBackColor = Color.FromArgb(92, 131, 116);
+            iconAtrasU.FlatAppearance.MouseOverBackColor = Color.FromArgb(147, 177, 166);
+            iconAtrasU.FlatStyle = FlatStyle.Flat;
+            iconAtrasU.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
+            iconAtrasU.IconColor = Color.FromArgb(175, 211, 226);
+            iconAtrasU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconAtrasU.IconSize = 30;
+            iconAtrasU.ImageAlign = ContentAlignment.BottomCenter;
+            iconAtrasU.Location = new Point(0, 0);
+            iconAtrasU.Name = "iconAtrasU";
+            iconAtrasU.Size = new Size(48, 51);
+            iconAtrasU.TabIndex = 74;
+            iconAtrasU.UseVisualStyleBackColor = false;
+            iconAtrasU.Click += iconAtrasU_Click;
+            // 
             // CTablas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -338,5 +361,6 @@
         private ComboBox cBBuscadorPerfil;
         private Panel panel3;
         private CheckBox checkBoxAZ;
+        private FontAwesome.Sharp.IconButton iconAtrasU;
     }
 }
