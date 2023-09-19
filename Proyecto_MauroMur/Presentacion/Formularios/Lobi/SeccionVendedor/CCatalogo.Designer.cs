@@ -41,11 +41,11 @@
             catalogoAutor = new Label();
             catalogoCategoria = new Label();
             panel3 = new Panel();
+            lbContador = new Label();
             iconCatalogo = new FontAwesome.Sharp.IconButton();
             btVenta = new Button();
             panel4 = new Panel();
             flowLayoutPanel = new FlowLayoutPanel();
-            lbContador = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -216,6 +216,16 @@
             panel3.Size = new Size(800, 40);
             panel3.TabIndex = 41;
             // 
+            // lbContador
+            // 
+            lbContador.AutoSize = true;
+            lbContador.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbContador.Location = new Point(41, 9);
+            lbContador.Name = "lbContador";
+            lbContador.Size = new Size(18, 19);
+            lbContador.TabIndex = 75;
+            lbContador.Text = "0";
+            // 
             // iconCatalogo
             // 
             iconCatalogo.BackColor = Color.Transparent;
@@ -269,15 +279,6 @@
             flowLayoutPanel.Name = "flowLayoutPanel";
             flowLayoutPanel.Size = new Size(759, 325);
             flowLayoutPanel.TabIndex = 44;
-            // 
-            // lbContador
-            // 
-            lbContador.AutoSize = true;
-            lbContador.Location = new Point(44, 13);
-            lbContador.Name = "lbContador";
-            lbContador.Size = new Size(13, 15);
-            lbContador.TabIndex = 75;
-            lbContador.Text = "0";
             // 
             // CCatalogo
             // 

@@ -28,10 +28,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             contador = 0;
 
-            if (Contador.contador != null)
+            if (Carrito.contador != null)
             {
-                contador = (int)Contador.contador;
-                lbContador.Text = Contador.contador.ToString();
+                contador = (int)Carrito.contador;
+                lbContador.Text = Carrito.contador.ToString();
             }
 
             foreach (BotonesLibros btn in listaDeBotones)
@@ -42,8 +42,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void añadirEvento(object sender, EventArgs e)
         {
+            BotonesLibros btn = (BotonesLibros)sender;
+            Libro libro = productModel.ObtenerProducto(btn.idLibro);
+            Carrito.libros!.Add(libro);
             contador++;
-            Contador.contador = contador;
+            Carrito.contador = contador;
             lbContador.Text = contador.ToString();
         }
 

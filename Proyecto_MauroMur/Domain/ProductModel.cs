@@ -132,5 +132,6 @@ namespace Proyecto_MauroMur.Domain
         {
             productModel.LlenarBotones(Contenedor,catalog);
         }
+
     }
 }
