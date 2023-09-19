@@ -9,25 +9,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_MauroMur.Common.Cache;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
     public partial class CCatalogo : Form
     {
         private ProductModel productModel = new ProductModel();
-        private List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
+        public List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
         private FLobi flobi;
+        private int contador;
 
         public CCatalogo(FLobi flobi)
         {
             InitializeComponent();
             LlenarProductos();
             this.flobi = flobi;
+
+            contador = 0;
+
+            if (Contador.contador != null)
+            {
+                contador = (int)Contador.contador;
+                lbContador.Text = Contador.contador.ToString();
+            }
+
+            foreach (BotonesLibros btn in listaDeBotones)
+            {
+                btn.añadirEvento += añadirEvento!;
+            }
+        }
+
+        private void añadirEvento(object sender, EventArgs e)
+        {
+            contador++;
+            Contador.contador = contador;
+            lbContador.Text = contador.ToString();
         }
 
         private void LlenarProductos()
         {
-            productModel.LlenarCatalogo(flowLayoutPanel);
+            productModel.LlenarCatalogo(flowLayoutPanel, this);
         }
 
         private void CCatalogo_Load(object sender, EventArgs e)

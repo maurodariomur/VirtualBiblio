@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Proyecto_MauroMur.DataAccess;
 using Common.Models;
 using Proyecto_MauroMur.Common.Models;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor;
 
 namespace Proyecto_MauroMur.Domain
 {
@@ -127,9 +128,9 @@ namespace Proyecto_MauroMur.Domain
             return productModel.ActualizarEditorial(nombreEditorial);
         }
 
-        public void LlenarCatalogo(FlowLayoutPanel Contenedor)
+        public void LlenarCatalogo(FlowLayoutPanel Contenedor,CCatalogo catalog)
         {
-            productModel.LlenarBotones(Contenedor);
+            productModel.LlenarBotones(Contenedor,catalog);
         }
     }
 }

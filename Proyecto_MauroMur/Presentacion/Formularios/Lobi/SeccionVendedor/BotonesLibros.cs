@@ -18,6 +18,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         public BotonesLibros()
         {
             InitializeComponent();
+            btAñadir.Click += delegate { añadirEvento?.Invoke(this, EventArgs.Empty); };
         }
 
         public int idLibro
@@ -56,9 +57,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             set { lbStockCatalogo.Text = value; }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        public event EventHandler? añadirEvento;
     }
 }

@@ -45,6 +45,7 @@
             btVenta = new Button();
             panel4 = new Panel();
             flowLayoutPanel = new FlowLayoutPanel();
+            lbContador = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -206,6 +207,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(lbContador);
             panel3.Controls.Add(iconCatalogo);
             panel3.Controls.Add(btVenta);
             panel3.Dock = DockStyle.Top;
@@ -268,6 +270,15 @@
             flowLayoutPanel.Size = new Size(759, 325);
             flowLayoutPanel.TabIndex = 44;
             // 
+            // lbContador
+            // 
+            lbContador.AutoSize = true;
+            lbContador.Location = new Point(44, 13);
+            lbContador.Name = "lbContador";
+            lbContador.Size = new Size(13, 15);
+            lbContador.TabIndex = 75;
+            lbContador.Text = "0";
+            // 
             // CCatalogo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -288,6 +299,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel4.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -311,5 +323,6 @@
         private Panel panel4;
         private FlowLayoutPanel flowLayoutPanel;
         private FontAwesome.Sharp.IconButton iconCatalogo;
+        private Label lbContador;
     }
 }

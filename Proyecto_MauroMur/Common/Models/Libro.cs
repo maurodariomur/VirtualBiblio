@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    internal class Libro
+    public class Libro
     {
         public int Id_Libro { get; set; }
         public string? Titulo { get; set; }

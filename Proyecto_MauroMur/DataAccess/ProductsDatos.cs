@@ -514,7 +514,7 @@ namespace Proyecto_MauroMur.DataAccess
             }
         }
 
-        public void LlenarBotones(FlowLayoutPanel Contenedor)
+        public void LlenarBotones(FlowLayoutPanel Contenedor,CCatalogo catalog)
         {
             using (var connection = GetConnection())
             {
@@ -552,6 +552,7 @@ namespace Proyecto_MauroMur.DataAccess
                             }
 
                             Contenedor.Controls.Add(btn);
+                            catalog.listaDeBotones.Add(btn);
                         }
                     }
                 }
