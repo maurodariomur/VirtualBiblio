@@ -43,7 +43,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void añadirEvento(object sender, EventArgs e)
         {
             BotonesLibros btn = (BotonesLibros)sender;
-            Libro libro = productModel.ObtenerProducto(btn.idLibro);
+            Libro libro = productModel.ObtenerLibroId(btn.idLibro);
             Carrito.libros!.Add(libro);
             contador++;
             Carrito.contador = contador;

@@ -133,5 +133,9 @@ namespace Proyecto_MauroMur.Domain
             productModel.LlenarBotones(Contenedor,catalog);
         }
 
+        public Libro ObtenerLibroId(int idLibro)
+        {
+            return productModel.ObtenerProductoId(idLibro);
+        }
     }
 }
