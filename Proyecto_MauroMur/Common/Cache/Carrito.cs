@@ -9,7 +9,7 @@ namespace Proyecto_MauroMur.Common.Cache
 {
     public static class Carrito
     {
-        public static int? contador { get; private set; }
+        public static int? contador { get; set; }
         public static List<Tuple<Libro, int>> LibrosEnCarrito { get; } = new List<Tuple<Libro, int>>();
 
         static Carrito()
@@ -24,20 +24,30 @@ namespace Proyecto_MauroMur.Common.Cache
             if (libroEnCarrito != null)
             {
                 var index = LibrosEnCarrito.IndexOf(libroEnCarrito);
-                var cantidad = libroEnCarrito.Item2 + 1;
-                LibrosEnCarrito[index] = Tuple.Create(libro, cantidad);
+                var cantidadEnCarrito = libroEnCarrito.Item2;
+
+                // Verifica si la cantidad en el carrito es menor que el stock disponible
+                if (cantidadEnCarrito < libro.Stock)
+                {
+                    var cantidad = cantidadEnCarrito + 1;
+                    LibrosEnCarrito[index] = Tuple.Create(libro, cantidad);
+                    contador++;
+                }
             }
             else
             {
-                LibrosEnCarrito.Add(Tuple.Create(libro, 1));
+                // Verifica si el stock disponible es mayor que 0 antes de agregar el libro.
+                if (libro.Stock > 0)
+                {
+                    LibrosEnCarrito.Add(Tuple.Create(libro, 1));
+                    contador++;
+                }
             }
-
-            contador++;
         }
 
         public static void EliminarLibro(int idLibro)
         {
-            Tuple<Libro, int> libroEnCarrito = LibrosEnCarrito.FirstOrDefault(l => l.Item1.Id_Libro == idLibro);
+            Tuple<Libro, int>? libroEnCarrito = LibrosEnCarrito.FirstOrDefault(l => l.Item1.Id_Libro == idLibro);
 
             if (libroEnCarrito != null)
             {
@@ -56,6 +66,24 @@ namespace Proyecto_MauroMur.Common.Cache
                 contador--;
             }
         }
+
+        public static void VaciarCarrito()
+        {
+            LibrosEnCarrito.Clear();
+            contador = 0;
+        }
+
+        public static void EliminarOneLibro(int idLibro)
+        {
+            Tuple<Libro, int>? libroEnCarrito = LibrosEnCarrito.FirstOrDefault(l => l.Item1.Id_Libro == idLibro);
+
+            if (libroEnCarrito != null)
+            {
+                LibrosEnCarrito.Remove(libroEnCarrito);
+                contador -= libroEnCarrito.Item2;
+            }
+        }
+
     }
 }
 

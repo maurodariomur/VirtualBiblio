@@ -75,11 +75,11 @@
             lbTittleCatalogo.AutoSize = true;
             lbTittleCatalogo.BackColor = Color.Transparent;
             lbTittleCatalogo.FlatStyle = FlatStyle.Flat;
-            lbTittleCatalogo.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbTittleCatalogo.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbTittleCatalogo.ForeColor = Color.Gainsboro;
             lbTittleCatalogo.Location = new Point(301, 9);
             lbTittleCatalogo.Name = "lbTittleCatalogo";
-            lbTittleCatalogo.Size = new Size(252, 33);
+            lbTittleCatalogo.Size = new Size(262, 31);
             lbTittleCatalogo.TabIndex = 0;
             lbTittleCatalogo.Text = "Libros Disponibles ";
             // 
@@ -217,12 +217,16 @@
             // lbContador
             // 
             lbContador.AutoSize = true;
-            lbContador.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbContador.Location = new Point(41, 9);
+            lbContador.BackColor = Color.Transparent;
+            lbContador.FlatStyle = FlatStyle.Flat;
+            lbContador.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbContador.Location = new Point(41, 5);
+            lbContador.Margin = new Padding(0);
             lbContador.Name = "lbContador";
-            lbContador.Size = new Size(18, 19);
+            lbContador.Size = new Size(21, 24);
             lbContador.TabIndex = 75;
             lbContador.Text = "0";
+            lbContador.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // iconCatalogo
             // 
@@ -240,7 +244,7 @@
             iconCatalogo.ImageAlign = ContentAlignment.BottomCenter;
             iconCatalogo.Location = new Point(0, 0);
             iconCatalogo.Name = "iconCatalogo";
-            iconCatalogo.Size = new Size(48, 40);
+            iconCatalogo.Size = new Size(38, 40);
             iconCatalogo.TabIndex = 74;
             iconCatalogo.UseVisualStyleBackColor = false;
             iconCatalogo.Click += iconCatalogo_Click;
