@@ -19,6 +19,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         public List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
         private FLobi flobi;
         private int contador;
+        private int contLibro;
+        CDetalleCatalogo cDetalleCatalogo = new CDetalleCatalogo();
 
         public CCatalogo(FLobi flobi)
         {
@@ -44,10 +46,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             BotonesLibros btn = (BotonesLibros)sender;
             Libro libro = productModel.ObtenerLibroId(btn.idLibro);
-            Carrito.libros!.Add(libro);
-            contador++;
-            Carrito.contador = contador;
-            lbContador.Text = contador.ToString();
+
+            Carrito.AgregarLibro(libro);
+
+            lbContador.Text = Carrito.contador.ToString();
+
         }
 
         private void LlenarProductos()
@@ -145,7 +148,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconCatalogo_Click(object sender, EventArgs e)
         {
-            CDetalleCatalogo cDetalleCatalogo = new CDetalleCatalogo();
+
             cDetalleCatalogo.ShowDialog();
         }
     }

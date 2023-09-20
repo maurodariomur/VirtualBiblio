@@ -43,7 +43,6 @@
             panel3 = new Panel();
             lbContador = new Label();
             iconCatalogo = new FontAwesome.Sharp.IconButton();
-            btVenta = new Button();
             panel4 = new Panel();
             flowLayoutPanel = new FlowLayoutPanel();
             panel1.SuspendLayout();
@@ -209,7 +208,6 @@
             // 
             panel3.Controls.Add(lbContador);
             panel3.Controls.Add(iconCatalogo);
-            panel3.Controls.Add(btVenta);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 85);
             panel3.Name = "panel3";
@@ -246,20 +244,6 @@
             iconCatalogo.TabIndex = 74;
             iconCatalogo.UseVisualStyleBackColor = false;
             iconCatalogo.Click += iconCatalogo_Click;
-            // 
-            // btVenta
-            // 
-            btVenta.Anchor = AnchorStyles.Right;
-            btVenta.BackColor = Color.FromArgb(46, 79, 79);
-            btVenta.FlatStyle = FlatStyle.Popup;
-            btVenta.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btVenta.ForeColor = SystemColors.ButtonFace;
-            btVenta.Location = new Point(641, 2);
-            btVenta.Name = "btVenta";
-            btVenta.Size = new Size(156, 35);
-            btVenta.TabIndex = 34;
-            btVenta.Text = "Confirmar Venta";
-            btVenta.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
@@ -320,7 +304,6 @@
         private Label catalogoAutor;
         private Label catalogoCategoria;
         private Panel panel3;
-        private Button btVenta;
         private Panel panel4;
         private FlowLayoutPanel flowLayoutPanel;
         private FontAwesome.Sharp.IconButton iconCatalogo;
