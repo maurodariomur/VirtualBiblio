@@ -9,25 +9,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_MauroMur.Common.Cache;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
     public partial class CCatalogo : Form
     {
         private ProductModel productModel = new ProductModel();
-        private List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
+        public List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
         private FLobi flobi;
+        private int contador;
+        private int contLibro;
+        CDetalleCatalogo cDetalleCatalogo = new CDetalleCatalogo();
 
         public CCatalogo(FLobi flobi)
         {
             InitializeComponent();
             LlenarProductos();
             this.flobi = flobi;
+
+            contador = 0;
+
+            if (Carrito.contador != null)
+            {
+                contador = (int)Carrito.contador;
+                lbContador.Text = Carrito.contador.ToString();
+            }
+
+            foreach (BotonesLibros btn in listaDeBotones)
+            {
+                btn.añadirEvento += añadirEvento!;
+            }
+        }
+
+        private void añadirEvento(object sender, EventArgs e)
+        {
+            BotonesLibros btn = (BotonesLibros)sender;
+            Libro libro = productModel.ObtenerLibroId(btn.idLibro);
+
+            Carrito.AgregarLibro(libro);
+
+            lbContador.Text = Carrito.contador.ToString();
+
         }
 
         private void LlenarProductos()
         {
-            productModel.LlenarCatalogo(flowLayoutPanel);
+            productModel.LlenarCatalogo(flowLayoutPanel, this);
         }
 
         private void CCatalogo_Load(object sender, EventArgs e)
@@ -120,7 +148,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconCatalogo_Click(object sender, EventArgs e)
         {
-            CDetalleCatalogo cDetalleCatalogo = new CDetalleCatalogo();
+
             cDetalleCatalogo.ShowDialog();
         }
     }

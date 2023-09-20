@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnDCSalir = new FontAwesome.Sharp.IconButton();
             lbTitleDetalleCatalogo = new Label();
@@ -101,6 +101,7 @@
             btVaciarCarrito.TabIndex = 35;
             btVaciarCarrito.Text = "Vaciar Todo";
             btVaciarCarrito.UseVisualStyleBackColor = false;
+            btVaciarCarrito.Click += btVaciarCarrito_Click;
             // 
             // btnConfirmarCompra
             // 
@@ -147,24 +148,24 @@
             dataGridDetalleCat.BorderStyle = BorderStyle.None;
             dataGridDetalleCat.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridDetalleCat.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(147, 177, 166);
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.Window;
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dataGridDetalleCat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(147, 177, 166);
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridDetalleCat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridDetalleCat.ColumnHeadersHeight = 30;
             dataGridDetalleCat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridDetalleCat.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridDetalleCat.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridDetalleCat.EnableHeadersVisualStyles = false;
             dataGridDetalleCat.GridColor = Color.FromArgb(165, 201, 202);
             dataGridDetalleCat.Location = new Point(12, 110);
@@ -172,25 +173,26 @@
             dataGridDetalleCat.Name = "dataGridDetalleCat";
             dataGridDetalleCat.ReadOnly = true;
             dataGridDetalleCat.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridDetalleCat.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridDetalleCat.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridDetalleCat.RowHeadersVisible = false;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle8.SelectionForeColor = Color.WhiteSmoke;
-            dataGridDetalleCat.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle4.SelectionForeColor = Color.WhiteSmoke;
+            dataGridDetalleCat.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridDetalleCat.RowTemplate.Height = 25;
             dataGridDetalleCat.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridDetalleCat.Size = new Size(678, 370);
             dataGridDetalleCat.TabIndex = 39;
+            dataGridDetalleCat.CellContentClick += dataGridDetalleCat_CellContentClick;
             // 
             // CDetalleCatalogo
             // 
@@ -207,6 +209,7 @@
             Opacity = 0.98D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Detalle Catalogo";
+            Load += CDetalleCatalogo_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -224,6 +227,6 @@
         private Button btnConfirmarCompra;
         private Label lbProductos;
         private Panel panel2;
-        private DataGridView dataGridDetalleCat;
+        public DataGridView dataGridDetalleCat;
     }
 }

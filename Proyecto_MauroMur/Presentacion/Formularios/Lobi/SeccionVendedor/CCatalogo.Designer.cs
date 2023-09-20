@@ -41,8 +41,8 @@
             catalogoAutor = new Label();
             catalogoCategoria = new Label();
             panel3 = new Panel();
+            lbContador = new Label();
             iconCatalogo = new FontAwesome.Sharp.IconButton();
-            btVenta = new Button();
             panel4 = new Panel();
             flowLayoutPanel = new FlowLayoutPanel();
             panel1.SuspendLayout();
@@ -206,13 +206,23 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(lbContador);
             panel3.Controls.Add(iconCatalogo);
-            panel3.Controls.Add(btVenta);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 85);
             panel3.Name = "panel3";
             panel3.Size = new Size(800, 40);
             panel3.TabIndex = 41;
+            // 
+            // lbContador
+            // 
+            lbContador.AutoSize = true;
+            lbContador.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbContador.Location = new Point(41, 9);
+            lbContador.Name = "lbContador";
+            lbContador.Size = new Size(18, 19);
+            lbContador.TabIndex = 75;
+            lbContador.Text = "0";
             // 
             // iconCatalogo
             // 
@@ -234,20 +244,6 @@
             iconCatalogo.TabIndex = 74;
             iconCatalogo.UseVisualStyleBackColor = false;
             iconCatalogo.Click += iconCatalogo_Click;
-            // 
-            // btVenta
-            // 
-            btVenta.Anchor = AnchorStyles.Right;
-            btVenta.BackColor = Color.FromArgb(46, 79, 79);
-            btVenta.FlatStyle = FlatStyle.Popup;
-            btVenta.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btVenta.ForeColor = SystemColors.ButtonFace;
-            btVenta.Location = new Point(641, 2);
-            btVenta.Name = "btVenta";
-            btVenta.Size = new Size(156, 35);
-            btVenta.TabIndex = 34;
-            btVenta.Text = "Confirmar Venta";
-            btVenta.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
@@ -288,6 +284,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel4.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -307,9 +304,9 @@
         private Label catalogoAutor;
         private Label catalogoCategoria;
         private Panel panel3;
-        private Button btVenta;
         private Panel panel4;
         private FlowLayoutPanel flowLayoutPanel;
         private FontAwesome.Sharp.IconButton iconCatalogo;
+        private Label lbContador;
     }
 }
