@@ -15,25 +15,27 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
     public partial class CDetalleCatalogo : Form
     {
+        CCatalogo c;
         private bool columnasAgregadas = false;
-        public CDetalleCatalogo()
+
+        public CDetalleCatalogo(CCatalogo catalogo)
         {
             InitializeComponent();
-            
+            dataGridDetalleCat.Visible = false;
+            c = catalogo;
         }
 
         private void CDetalleCatalogo_Load(object sender, EventArgs e)
         {
-            if (Carrito.LibrosEnCarrito != null)
+            if (Carrito.LibrosEnCarrito != null && Carrito.LibrosEnCarrito.Any())
             {
                 // Configurar el DataGridView para mostrar el libro y la cantidad
                 dataGridDetalleCat.DataSource = Carrito.LibrosEnCarrito.Select(t => new
                 {
                     Titulo = t.Item1.Titulo,
-                    Precio = t.Item1.Precio,
+                    Precio = t.Item2 * t.Item1.Precio,
                     Autor = t.Item1.Autor,
                     Editorial = t.Item1.Editorial,
-                    //Agregar = Carrito.AgregarLibro(t.Item1.Id_Libro),
                     Cantidad = t.Item2,
                 }).ToList();
 
@@ -42,6 +44,21 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     agregarColumnas();
                     columnasAgregadas = true; // Marca que las columnas ya se han agregado
                 }
+
+                dataGridDetalleCat.Visible = true;
+                lbMensaje.Visible = false;
+                lbProductos.Visible = true;
+                btVaciarCarrito.Visible = true;
+                btnConfirmarCompra.Visible = true;
+
+            }
+            else
+            {
+                dataGridDetalleCat.Visible = false;
+                lbMensaje.Visible = true;// Ocultar el DataGridView si no hay libros en el carrito
+                lbProductos.Visible = false;
+                btVaciarCarrito.Visible = false;
+                btnConfirmarCompra.Visible = false;
             }
         }
 
@@ -49,12 +66,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             BtnDataGrid agregarColumn = new BtnDataGrid();
             agregarColumn.Text = "+";
-            agregarColumn.DisplayIndex = dataGridDetalleCat.Columns.Count -1;
+            agregarColumn.DisplayIndex = dataGridDetalleCat.Columns.Count - 1;
             dataGridDetalleCat.Columns.Add(agregarColumn);
 
 
             BtnDataGrid eliminarColumn = new BtnDataGrid();
             eliminarColumn.Text = "-";
+            eliminarColumn.Name = "Eliminar";
             dataGridDetalleCat.Columns.Add(eliminarColumn);
 
             BtnDataGrid eliminarTodo = new BtnDataGrid();
@@ -69,7 +87,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void btVaciarCarrito_Click(object sender, EventArgs e)
         {
-            dataGridDetalleCat.Rows.Clear();
+            Carrito.VaciarCarrito();
+            c.LoadLabelContador();
+            CDetalleCatalogo_Load(sender, e);
+            dataGridDetalleCat.Visible = false;
+            lbMensaje.Visible = true;
+            lbProductos.Visible = false;
+            btVaciarCarrito.Visible = false;
+            btnConfirmarCompra.Visible = false;
         }
 
         private void dataGridDetalleCat_CellContentClick(object sender, DataGridViewCellEventArgs e)

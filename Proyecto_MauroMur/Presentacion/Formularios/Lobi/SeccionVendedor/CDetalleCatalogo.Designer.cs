@@ -40,9 +40,12 @@
             lbProductos = new Label();
             panel2 = new Panel();
             dataGridDetalleCat = new DataGridView();
+            panelMensaje = new Panel();
+            lbMensaje = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridDetalleCat).BeginInit();
+            panelMensaje.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -80,11 +83,11 @@
             lbTitleDetalleCatalogo.AutoSize = true;
             lbTitleDetalleCatalogo.BackColor = Color.Transparent;
             lbTitleDetalleCatalogo.FlatStyle = FlatStyle.Flat;
-            lbTitleDetalleCatalogo.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbTitleDetalleCatalogo.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbTitleDetalleCatalogo.ForeColor = Color.Gainsboro;
             lbTitleDetalleCatalogo.Location = new Point(305, 9);
             lbTitleDetalleCatalogo.Name = "lbTitleDetalleCatalogo";
-            lbTitleDetalleCatalogo.Size = new Size(106, 33);
+            lbTitleDetalleCatalogo.Size = new Size(106, 31);
             lbTitleDetalleCatalogo.TabIndex = 1;
             lbTitleDetalleCatalogo.Text = "Detalle";
             // 
@@ -93,7 +96,7 @@
             btVaciarCarrito.Anchor = AnchorStyles.Right;
             btVaciarCarrito.BackColor = Color.FromArgb(244, 80, 80);
             btVaciarCarrito.FlatStyle = FlatStyle.Popup;
-            btVaciarCarrito.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btVaciarCarrito.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btVaciarCarrito.ForeColor = SystemColors.ButtonFace;
             btVaciarCarrito.Location = new Point(196, 0);
             btVaciarCarrito.Name = "btVaciarCarrito";
@@ -108,7 +111,7 @@
             btnConfirmarCompra.Anchor = AnchorStyles.Right;
             btnConfirmarCompra.BackColor = Color.FromArgb(46, 79, 79);
             btnConfirmarCompra.FlatStyle = FlatStyle.Popup;
-            btnConfirmarCompra.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnConfirmarCompra.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnConfirmarCompra.ForeColor = SystemColors.ButtonFace;
             btnConfirmarCompra.Location = new Point(375, 0);
             btnConfirmarCompra.Name = "btnConfirmarCompra";
@@ -119,12 +122,13 @@
             // 
             // lbProductos
             // 
+            lbProductos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lbProductos.AutoSize = true;
-            lbProductos.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbProductos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbProductos.ForeColor = Color.FromArgb(46, 79, 79);
-            lbProductos.Location = new Point(12, 88);
+            lbProductos.Location = new Point(24, 27);
             lbProductos.Name = "lbProductos";
-            lbProductos.Size = new Size(163, 19);
+            lbProductos.Size = new Size(170, 20);
             lbProductos.TabIndex = 37;
             lbProductos.Text = "Productos Añadidos";
             // 
@@ -168,7 +172,7 @@
             dataGridDetalleCat.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridDetalleCat.EnableHeadersVisualStyles = false;
             dataGridDetalleCat.GridColor = Color.FromArgb(165, 201, 202);
-            dataGridDetalleCat.Location = new Point(12, 110);
+            dataGridDetalleCat.Location = new Point(24, 101);
             dataGridDetalleCat.MultiSelect = false;
             dataGridDetalleCat.Name = "dataGridDetalleCat";
             dataGridDetalleCat.ReadOnly = true;
@@ -190,9 +194,34 @@
             dataGridDetalleCat.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridDetalleCat.RowTemplate.Height = 25;
             dataGridDetalleCat.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridDetalleCat.Size = new Size(678, 370);
+            dataGridDetalleCat.Size = new Size(652, 340);
             dataGridDetalleCat.TabIndex = 39;
             dataGridDetalleCat.CellContentClick += dataGridDetalleCat_CellContentClick;
+            // 
+            // panelMensaje
+            // 
+            panelMensaje.BackColor = Color.FromArgb(221, 230, 237);
+            panelMensaje.Controls.Add(lbProductos);
+            panelMensaje.Dock = DockStyle.Top;
+            panelMensaje.Location = new Point(0, 51);
+            panelMensaje.Name = "panelMensaje";
+            panelMensaje.Size = new Size(702, 47);
+            panelMensaje.TabIndex = 41;
+            // 
+            // lbMensaje
+            // 
+            lbMensaje.Anchor = AnchorStyles.Top;
+            lbMensaje.AutoSize = true;
+            lbMensaje.BackColor = Color.Transparent;
+            lbMensaje.FlatStyle = FlatStyle.Flat;
+            lbMensaje.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbMensaje.ForeColor = Color.DimGray;
+            lbMensaje.Location = new Point(268, 277);
+            lbMensaje.Name = "lbMensaje";
+            lbMensaje.Size = new Size(184, 31);
+            lbMensaje.TabIndex = 2;
+            lbMensaje.Text = "Carrito Vacio";
+            lbMensaje.Visible = false;
             // 
             // CDetalleCatalogo
             // 
@@ -200,9 +229,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(221, 230, 237);
             ClientSize = new Size(702, 561);
+            Controls.Add(panelMensaje);
+            Controls.Add(lbMensaje);
             Controls.Add(dataGridDetalleCat);
             Controls.Add(panel2);
-            Controls.Add(lbProductos);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "CDetalleCatalogo";
@@ -214,6 +244,8 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridDetalleCat).EndInit();
+            panelMensaje.ResumeLayout(false);
+            panelMensaje.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -228,5 +260,7 @@
         private Label lbProductos;
         private Panel panel2;
         public DataGridView dataGridDetalleCat;
+        private Panel panelMensaje;
+        private Label lbMensaje;
     }
 }

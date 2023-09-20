@@ -20,11 +20,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private FLobi flobi;
         private int contador;
         private int contLibro;
-        CDetalleCatalogo cDetalleCatalogo = new CDetalleCatalogo();
+        CDetalleCatalogo cDetalleCatalogo;
 
         public CCatalogo(FLobi flobi)
         {
             InitializeComponent();
+            cDetalleCatalogo = new CDetalleCatalogo(this);
             LlenarProductos();
             this.flobi = flobi;
 
@@ -63,6 +64,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             opcionesAutores();
             opcionesCategorias();
             opcionesEditoriales();
+        }
+
+        public void LoadLabelContador()
+        {
+            lbContador.Text = Carrito.contador.ToString();
         }
 
         private void FiltrarProductos()
