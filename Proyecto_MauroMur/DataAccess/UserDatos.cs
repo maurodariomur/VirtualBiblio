@@ -34,7 +34,8 @@ namespace DataAccess
                     command.CommandText = "SELECT U.*, P.Nombre AS NombrePersona, P.Apellido AS ApellidoPersona, P.DNI AS DNIPersona, P.Mail AS MailPersona, P.FechaNacimiento AS FechaNacimientoPersona, P.Baja AS BajaPersona, U.Contraseña AS ContraseñaUsuario " +
                                           "FROM Usuario U " +
                                           "INNER JOIN Persona P ON U.id_Persona = P.Id_Persona " +
-                                          "WHERE U.UserNombre = @UserNombre";
+                                          "WHERE U.UserNombre COLLATE Latin1_General_CS_AS = @UserNombre " +
+                                          "AND P.Baja != 'SI'";
                     command.Parameters.AddWithValue("@UserNombre", user);
 
                     SqlDataReader reader = command.ExecuteReader();
@@ -50,10 +51,12 @@ namespace DataAccess
                             {
                                 // Las contraseñas coinciden, puedes continuar con el inicio de sesión
                                 UserLoginCache.Id = reader.GetInt32(0);
-                                UserLoginCache.User = reader.GetString(1); // Cambia esto a "UserNombre"
+                                UserLoginCache.User = reader.GetString(1);
                                 UserLoginCache.TipoPerfil = reader.GetInt32(3);
-                                UserLoginCache.Rol = reader.GetString(4);
-                                UserLoginCache.id_Persona = reader.GetInt32(5);
+                                int tipoPerfil = UserLoginCache.TipoPerfil;
+                                string? rol = GetRoleName(tipoPerfil); 
+                                UserLoginCache.Rol = rol;
+                                UserLoginCache.id_Persona = reader.GetInt32(4);
                                 UserLoginCache.Nombre = reader["NombrePersona"] as string;
                                 UserLoginCache.Apellido = reader["ApellidoPersona"] as string;
                                 UserLoginCache.DNI = reader["DNIPersona"] as string;

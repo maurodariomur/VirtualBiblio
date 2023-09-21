@@ -9,6 +9,8 @@ namespace Proyecto_MauroMur
         public Login()
         {
             InitializeComponent();
+            this.KeyPreview = true; // Habilita la captura de teclas en el formulario
+            this.KeyDown += new KeyEventHandler(Login_KeyDown!); // Asigna el evento KeyDown
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -149,12 +151,16 @@ namespace Proyecto_MauroMur
             TContraseña.UseSystemPasswordChar = false;
             TUsuario.Text = "Usuario";
             lbErrorMenssage.Visible = false;
+
+            // Cierra el formulario FLobi si está abierto
+            if (Application.OpenForms.OfType<FLobi>().Any())
+            {
+                Application.OpenForms.OfType<FLobi>().First().Close();
+            }
+
             this.Show();
             TUsuario.Focus();
         }
-
-
-
 
         private void iconEye_Click(object sender, EventArgs e)
         {
@@ -182,5 +188,13 @@ namespace Proyecto_MauroMur
 
         }
 
+        private void Login_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // El usuario presionó la tecla Enter, así que intenta iniciar sesión
+                BLogin_Click(sender, e);
+            }
+        }
     }
 }
