@@ -227,6 +227,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Login_Load;
+            KeyDown += Login_KeyDown;
             MouseDown += Login_MouseDown;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
