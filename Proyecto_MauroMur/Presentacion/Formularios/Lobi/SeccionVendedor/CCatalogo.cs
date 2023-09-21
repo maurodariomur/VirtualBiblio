@@ -25,9 +25,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         public CCatalogo(FLobi flobi)
         {
             InitializeComponent();
-            cDetalleCatalogo = new CDetalleCatalogo(this);
             LlenarProductos();
             this.flobi = flobi;
+            cDetalleCatalogo = new CDetalleCatalogo(this);
 
             contador = 0;
 

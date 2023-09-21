@@ -117,10 +117,11 @@
             btnConfirmarCompra.ForeColor = SystemColors.ButtonFace;
             btnConfirmarCompra.Location = new Point(375, 0);
             btnConfirmarCompra.Name = "btnConfirmarCompra";
-            btnConfirmarCompra.Size = new Size(171, 35);
+            btnConfirmarCompra.Size = new Size(176, 35);
             btnConfirmarCompra.TabIndex = 36;
-            btnConfirmarCompra.Text = "Confimar Venta";
+            btnConfirmarCompra.Text = "Confimar Productos";
             btnConfirmarCompra.UseVisualStyleBackColor = false;
+            btnConfirmarCompra.Click += btnConfirmarCompra_Click;
             // 
             // lbProductos
             // 

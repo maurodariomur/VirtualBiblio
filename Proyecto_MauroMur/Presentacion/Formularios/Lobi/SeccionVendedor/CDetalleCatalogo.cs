@@ -130,5 +130,20 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 }
             }
         }
+
+        private void btnConfirmarCompra_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            // Verificar si el formulario principal (FLobi) todavía está abierto y cerrarlo
+            FLobi? formularioLobi = Application.OpenForms.OfType<FLobi>().FirstOrDefault();
+            CClientesFactura cClientesFactura = new CClientesFactura(this);
+
+            if (formularioLobi != null)
+            {
+                formularioLobi.Hide();
+            }
+            cClientesFactura.Show();
+        }
     }
 }

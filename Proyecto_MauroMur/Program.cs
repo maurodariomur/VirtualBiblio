@@ -1,5 +1,6 @@
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor;
 
 namespace Proyecto_MauroMur
 {
