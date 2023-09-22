@@ -20,6 +20,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             DataGridViewCellStyle buttonStyle = new DataGridViewCellStyle();
             buttonStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
             buttonStyle.BackColor = Color.Red; // Cambia el color de fondo aquí
+            buttonStyle.ForeColor = Color.Blue;
             this.DefaultCellStyle = buttonStyle;
         }
 

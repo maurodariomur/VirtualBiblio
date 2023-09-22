@@ -170,13 +170,13 @@
             // 
             lbErrorModificar.Anchor = AnchorStyles.Top;
             lbErrorModificar.AutoSize = true;
-            lbErrorModificar.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbErrorModificar.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             lbErrorModificar.ForeColor = Color.FromArgb(235, 133, 154);
             lbErrorModificar.Image = (Image)resources.GetObject("lbErrorModificar.Image");
             lbErrorModificar.ImageAlign = ContentAlignment.MiddleLeft;
-            lbErrorModificar.Location = new Point(71, 0);
+            lbErrorModificar.Location = new Point(61, 0);
             lbErrorModificar.Name = "lbErrorModificar";
-            lbErrorModificar.Size = new Size(33, 19);
+            lbErrorModificar.Size = new Size(32, 19);
             lbErrorModificar.TabIndex = 36;
             lbErrorModificar.Text = "Error";
             lbErrorModificar.TextAlign = ContentAlignment.MiddleCenter;
@@ -282,6 +282,7 @@
             tbTelefonoCliente.PlaceholderText = "Telefono";
             tbTelefonoCliente.Size = new Size(178, 22);
             tbTelefonoCliente.TabIndex = 55;
+            tbTelefonoCliente.KeyPress += tbTelefonoCliente_KeyPress;
             // 
             // label1
             // 
@@ -312,9 +313,9 @@
             txMailCliente.ForeColor = SystemColors.WindowFrame;
             txMailCliente.Location = new Point(96, 221);
             txMailCliente.Name = "txMailCliente";
+            txMailCliente.PlaceholderText = "Correo Electronico";
             txMailCliente.Size = new Size(178, 22);
             txMailCliente.TabIndex = 52;
-            txMailCliente.Text = "Correo Electronico";
             // 
             // lbFechaN
             // 
@@ -349,9 +350,10 @@
             txDNICliente.ForeColor = SystemColors.WindowFrame;
             txDNICliente.Location = new Point(96, 137);
             txDNICliente.Name = "txDNICliente";
+            txDNICliente.PlaceholderText = "DNI";
             txDNICliente.Size = new Size(178, 22);
             txDNICliente.TabIndex = 49;
-            txDNICliente.Text = "DNI";
+            txDNICliente.KeyPress += txDNICliente_KeyPress;
             // 
             // lbDNI
             // 
@@ -372,9 +374,10 @@
             txApellidoCliente.ForeColor = SystemColors.WindowFrame;
             txApellidoCliente.Location = new Point(96, 94);
             txApellidoCliente.Name = "txApellidoCliente";
+            txApellidoCliente.PlaceholderText = "Apellido";
             txApellidoCliente.Size = new Size(178, 22);
             txApellidoCliente.TabIndex = 45;
-            txApellidoCliente.Text = "Apellido";
+            txApellidoCliente.KeyPress += txApellidoCliente_KeyPress;
             // 
             // lbApellido
             // 
@@ -396,9 +399,10 @@
             txNombreCliente.ForeColor = SystemColors.WindowFrame;
             txNombreCliente.Location = new Point(96, 55);
             txNombreCliente.Name = "txNombreCliente";
+            txNombreCliente.PlaceholderText = "Nombre";
             txNombreCliente.Size = new Size(178, 22);
             txNombreCliente.TabIndex = 43;
-            txNombreCliente.Text = "Nombre";
+            txNombreCliente.KeyPress += txNombreCliente_KeyPress;
             // 
             // lbNombre
             // 

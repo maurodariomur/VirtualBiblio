@@ -71,5 +71,37 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 formularioTablaCli.Show();
             }
         }
+
+        private void txNombreAgCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+            }
+        }
+
+        private void txApellidoAgCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+            }
+        }
+
+        private void txDNIAgCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+            }
+        }
+
+        private void tbTelefonoAgCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+            }
+        }
     }
 }
