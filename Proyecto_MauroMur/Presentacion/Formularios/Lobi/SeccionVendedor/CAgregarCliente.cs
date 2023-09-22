@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Common.Models;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,14 +10,23 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
     public partial class CAgregarCliente : Form
     {
+        ClientModel clientModel = new ClientModel();
         public CAgregarCliente()
         {
             InitializeComponent();
+        }
+
+        private void CAgregarCliente_Load(object sender, EventArgs e)
+        {
+            dTBithAgCliente.CustomFormat = "dd/MM/yyyy";
+            // Asegúrate de que la propiedad Format esté establecida en Custom
+            dTBithAgCliente.Format = DateTimePickerFormat.Custom;
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -28,31 +38,49 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             DateTime nacimiento = dTBithAgCliente.Value;
             string domicilio = tbDomicilioAgCliente.Text;
             string telefono = tbTelefonoAgCliente.Text;
-            string baja = checkBoxSi.Checked ? "SI" : "NO";
+            DateTime fechaRegistro = DateTime.Now;
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
             // Verificar si algún campo obligatorio está vacío
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni)
-                || (checkBoxSi.Checked == false && checkBoxNo.Checked == false))
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni))
             {
                 msgError("Por favor, completa todos los campos obligatorios");
                 return;
             }
-
-            // Verificar si el correo electrónico está vacío
-            if (string.IsNullOrWhiteSpace(mail))
+            else if (string.IsNullOrWhiteSpace(mail))
             {
                 msgError("Por favor, ingresa una dirección de correo electrónico.");
                 return;
             }
-
-            // Validar dirección de correo electrónico
-            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
-            if (!Regex.IsMatch(mail, emailPattern))
+            else if (!Regex.IsMatch(mail, emailPattern))
             {
                 msgError("Por favor, ingresa una dirección de correo electrónico válida.");
                 return;
             }
+            else
+            {
+                // Mostrar mensaje de confirmación
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea registrar este usuario?", "Confirmar Registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmResult == DialogResult.Yes)
+                {
+                    bool clienteAgregado = clientModel.AgregarNuevoCliente(telefono, domicilio, fechaRegistro, nombre, apellido, dni, mail, nacimiento);
+                    MessageBox.Show("Usuario agregado exitosamente: " + nombre + " " + apellido, "Empleado Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarCampos();
+                }
+            }
+        }
+
+        private void LimpiarCampos()
+        {
+            txNombreAgCliente.Text = "";
+            txApellidoAgCliente.Text = "";
+            txDNIAgCliente.Text = "";
+            dTBithAgCliente.Value = DateTime.Now; // Puedes establecer la fecha actual u otra fecha predeterminada
+            txMailAgCliente.Text = "";
+            tbTelefonoAgCliente.Text = "";
+            tbDomicilioAgCliente.Text = "";
+            txNombreAgCliente.Focus();
         }
 
         private void msgError(string msg)

@@ -40,6 +40,8 @@
             panel7 = new Panel();
             lbErrorModificar = new Label();
             panel6 = new Panel();
+            btnEnviar = new Button();
+            iconLimpiar = new FontAwesome.Sharp.IconButton();
             btnConfirmar = new Button();
             checkBoxNo = new CheckBox();
             checkBoxSi = new CheckBox();
@@ -61,7 +63,8 @@
             panel5 = new Panel();
             lbModificarCliente = new Label();
             panel3 = new Panel();
-            dataGridProductos = new DataGridView();
+            checkApellidos = new CheckBox();
+            dataGridClientes = new DataGridView();
             panel4 = new Panel();
             cbBaja = new CheckBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -77,7 +80,7 @@
             panel6.SuspendLayout();
             panel5.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridClientes).BeginInit();
             panel4.SuspendLayout();
             SuspendLayout();
             // 
@@ -185,6 +188,8 @@
             // 
             // panel6
             // 
+            panel6.Controls.Add(btnEnviar);
+            panel6.Controls.Add(iconLimpiar);
             panel6.Controls.Add(btnConfirmar);
             panel6.Dock = DockStyle.Bottom;
             panel6.Location = new Point(0, 429);
@@ -192,19 +197,58 @@
             panel6.Size = new Size(306, 52);
             panel6.TabIndex = 77;
             // 
+            // btnEnviar
+            // 
+            btnEnviar.Anchor = AnchorStyles.None;
+            btnEnviar.BackColor = Color.FromArgb(18, 72, 107);
+            btnEnviar.Cursor = Cursors.Hand;
+            btnEnviar.FlatAppearance.BorderSize = 0;
+            btnEnviar.FlatStyle = FlatStyle.Flat;
+            btnEnviar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEnviar.ForeColor = SystemColors.ButtonFace;
+            btnEnviar.Location = new Point(86, 0);
+            btnEnviar.Name = "btnEnviar";
+            btnEnviar.Size = new Size(70, 35);
+            btnEnviar.TabIndex = 73;
+            btnEnviar.Text = "Elegir";
+            btnEnviar.UseVisualStyleBackColor = false;
+            btnEnviar.Click += btnEnviar_Click;
+            // 
+            // iconLimpiar
+            // 
+            iconLimpiar.Anchor = AnchorStyles.None;
+            iconLimpiar.BackColor = Color.Transparent;
+            iconLimpiar.Cursor = Cursors.Hand;
+            iconLimpiar.FlatAppearance.BorderSize = 0;
+            iconLimpiar.FlatAppearance.MouseDownBackColor = Color.FromArgb(92, 131, 116);
+            iconLimpiar.FlatAppearance.MouseOverBackColor = Color.FromArgb(147, 177, 166);
+            iconLimpiar.FlatStyle = FlatStyle.Flat;
+            iconLimpiar.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            iconLimpiar.IconColor = Color.FromArgb(175, 211, 226);
+            iconLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconLimpiar.IconSize = 20;
+            iconLimpiar.ImageAlign = ContentAlignment.BottomCenter;
+            iconLimpiar.Location = new Point(162, 3);
+            iconLimpiar.Name = "iconLimpiar";
+            iconLimpiar.Size = new Size(31, 30);
+            iconLimpiar.TabIndex = 72;
+            iconLimpiar.UseVisualStyleBackColor = false;
+            iconLimpiar.Click += iconLimpiar_Click;
+            // 
             // btnConfirmar
             // 
             btnConfirmar.Anchor = AnchorStyles.None;
             btnConfirmar.BackColor = Color.FromArgb(18, 72, 107);
             btnConfirmar.Cursor = Cursors.Hand;
-            btnConfirmar.FlatStyle = FlatStyle.Popup;
+            btnConfirmar.FlatAppearance.BorderSize = 0;
+            btnConfirmar.FlatStyle = FlatStyle.Flat;
             btnConfirmar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnConfirmar.ForeColor = SystemColors.ButtonFace;
-            btnConfirmar.Location = new Point(71, 0);
+            btnConfirmar.Location = new Point(204, 0);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Size = new Size(171, 35);
+            btnConfirmar.Size = new Size(70, 35);
             btnConfirmar.TabIndex = 38;
-            btnConfirmar.Text = "Confimar Venta";
+            btnConfirmar.Text = "Editar";
             btnConfirmar.UseVisualStyleBackColor = false;
             btnConfirmar.Click += btnConfirmar_Click;
             // 
@@ -220,6 +264,7 @@
             checkBoxNo.TabIndex = 76;
             checkBoxNo.Text = "No";
             checkBoxNo.UseVisualStyleBackColor = true;
+            checkBoxNo.CheckedChanged += checkBoxNo_CheckedChanged;
             // 
             // checkBoxSi
             // 
@@ -233,6 +278,7 @@
             checkBoxSi.TabIndex = 75;
             checkBoxSi.Text = "Si";
             checkBoxSi.UseVisualStyleBackColor = true;
+            checkBoxSi.CheckedChanged += checkBoxSi_CheckedChanged;
             // 
             // lbEditarBaja
             // 
@@ -443,7 +489,8 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(18, 72, 107);
-            panel3.Controls.Add(dataGridProductos);
+            panel3.Controls.Add(checkApellidos);
+            panel3.Controls.Add(dataGridClientes);
             panel3.Controls.Add(panel4);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 47);
@@ -451,25 +498,38 @@
             panel3.Size = new Size(798, 481);
             panel3.TabIndex = 2;
             // 
-            // dataGridProductos
+            // checkApellidos
             // 
-            dataGridProductos.AllowUserToAddRows = false;
-            dataGridProductos.AllowUserToDeleteRows = false;
-            dataGridProductos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            dataGridProductos.BackgroundColor = Color.FromArgb(57, 91, 100);
-            dataGridProductos.BorderStyle = BorderStyle.None;
-            dataGridProductos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridProductos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            checkApellidos.AutoSize = true;
+            checkApellidos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            checkApellidos.ForeColor = Color.Gainsboro;
+            checkApellidos.Location = new Point(12, 62);
+            checkApellidos.Name = "checkApellidos";
+            checkApellidos.Size = new Size(117, 21);
+            checkApellidos.TabIndex = 13;
+            checkApellidos.Text = "A-Z(Apellidos)";
+            checkApellidos.UseVisualStyleBackColor = true;
+            checkApellidos.CheckedChanged += checkApellidos_CheckedChanged;
+            // 
+            // dataGridClientes
+            // 
+            dataGridClientes.AllowUserToAddRows = false;
+            dataGridClientes.AllowUserToDeleteRows = false;
+            dataGridClientes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dataGridClientes.BackgroundColor = Color.FromArgb(18, 72, 107);
+            dataGridClientes.BorderStyle = BorderStyle.None;
+            dataGridClientes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridClientes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(147, 177, 166);
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(27, 107, 147);
             dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = SystemColors.Window;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(18, 72, 107);
             dataGridViewCellStyle1.SelectionForeColor = Color.White;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -477,14 +537,14 @@
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridProductos.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridProductos.EnableHeadersVisualStyles = false;
-            dataGridProductos.GridColor = Color.FromArgb(165, 201, 202);
-            dataGridProductos.Location = new Point(12, 55);
-            dataGridProductos.MultiSelect = false;
-            dataGridProductos.Name = "dataGridProductos";
-            dataGridProductos.ReadOnly = true;
-            dataGridProductos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridClientes.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridClientes.EnableHeadersVisualStyles = false;
+            dataGridClientes.GridColor = Color.FromArgb(165, 201, 202);
+            dataGridClientes.Location = new Point(12, 87);
+            dataGridClientes.MultiSelect = false;
+            dataGridClientes.Name = "dataGridClientes";
+            dataGridClientes.ReadOnly = true;
+            dataGridClientes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(221, 230, 237);
             dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
@@ -492,19 +552,20 @@
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 79, 79);
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridProductos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridProductos.RowHeadersVisible = false;
-            dataGridProductos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridClientes.RowHeadersVisible = false;
+            dataGridClientes.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
             dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(22, 89, 127);
             dataGridViewCellStyle4.SelectionForeColor = Color.WhiteSmoke;
-            dataGridProductos.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridProductos.RowTemplate.Height = 25;
-            dataGridProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridProductos.Size = new Size(766, 402);
-            dataGridProductos.TabIndex = 2;
+            dataGridClientes.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridClientes.RowTemplate.Height = 25;
+            dataGridClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridClientes.Size = new Size(766, 370);
+            dataGridClientes.TabIndex = 2;
+            dataGridClientes.CellContentClick += dataGridClientes_CellContentClick;
             // 
             // panel4
             // 
@@ -534,6 +595,7 @@
             cbBaja.TabIndex = 12;
             cbBaja.Text = "Baja \"SI\"";
             cbBaja.UseVisualStyleBackColor = true;
+            cbBaja.CheckedChanged += cbBaja_CheckedChanged;
             // 
             // iconButton1
             // 
@@ -590,6 +652,7 @@
             txBuscadorNombre.PlaceholderText = "Nombre";
             txBuscadorNombre.Size = new Size(104, 20);
             txBuscadorNombre.TabIndex = 6;
+            txBuscadorNombre.TextChanged += txBuscadorNombre_TextChanged;
             // 
             // txBuscadorApellido
             // 
@@ -601,6 +664,7 @@
             txBuscadorApellido.PlaceholderText = "Apellido";
             txBuscadorApellido.Size = new Size(110, 20);
             txBuscadorApellido.TabIndex = 9;
+            txBuscadorApellido.TextChanged += txBuscadorApellido_TextChanged;
             // 
             // buscadorDni
             // 
@@ -625,6 +689,7 @@
             txBuscadorDni.PlaceholderText = "DNI";
             txBuscadorDni.Size = new Size(103, 20);
             txBuscadorDni.TabIndex = 10;
+            txBuscadorDni.TextChanged += txBuscadorDni_TextChanged;
             // 
             // CTablaClientes
             // 
@@ -634,9 +699,11 @@
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "CTablaClientes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CTablaClientes";
+            Load += CTablaClientes_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -647,7 +714,8 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).EndInit();
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridClientes).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ResumeLayout(false);
@@ -692,6 +760,9 @@
         private Panel panel7;
         private Label lbErrorModificar;
         private Button btnConfirmar;
-        private DataGridView dataGridProductos;
+        private DataGridView dataGridClientes;
+        private FontAwesome.Sharp.IconButton iconLimpiar;
+        private CheckBox checkApellidos;
+        private Button btnEnviar;
     }
 }
