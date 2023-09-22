@@ -17,6 +17,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     {
         private ProductModel productModel = new ProductModel();
         public List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
+        private List<BotonesLibros> listaBotonesResguardo = new List<BotonesLibros>();
+        private List<BotonesLibros>? todosLosLibros;
+        private List<BotonesLibros>? todasLasEditoriales;
+        private List<BotonesLibros>? todasLasCategorias;
         private FLobi flobi;
         private int contador;
         private int contLibro;
@@ -57,6 +61,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void LlenarProductos()
         {
             productModel.LlenarCatalogo(flowLayoutPanel, this);
+            listaBotonesResguardo = listaDeBotones;
+            todosLosLibros = listaBotonesResguardo.ToList();
+            todasLasEditoriales = listaBotonesResguardo.ToList();
+            todasLasCategorias = listaBotonesResguardo.ToList();
         }
 
         private void CCatalogo_Load(object sender, EventArgs e)
@@ -71,10 +79,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             lbContador.Text = Carrito.contador.ToString();
         }
 
-        private void FiltrarProductos()
+        private void BusquedaProductos()
         {
             string textoBusquedaTitulo = txCatalogoTitulo.Text.ToLower();
-
+            if (string.IsNullOrEmpty(textoBusquedaTitulo))
+            {
+                foreach (var libro in listaBotonesResguardo)
+                {
+                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                }
+                return;
+            }
             var librosFiltrados = flowLayoutPanel.Controls.OfType<BotonesLibros>()
                 .Where(libro => string.IsNullOrEmpty(textoBusquedaTitulo) || libro.tituloLibro.ToLower().Contains(textoBusquedaTitulo))
                 .ToList();
@@ -84,6 +99,71 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             foreach (var libro in librosFiltrados)
             {
                 flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+            }
+        }
+
+        private void FiltrarProductos()
+        {
+            string textoBusqueda = cBCatalogoAutor.Text;
+            string textoBusquedaCategoria = cBCatalogoCategoria.Text;
+            string textoBusquedaEditorial = cBCatalogoEditorial.Text;
+
+
+            if (textoBusqueda.Equals("Autor", StringComparison.OrdinalIgnoreCase))
+            {
+                MostrarTodosLosLibros();
+            }
+            else if (textoBusqueda.Equals("Editoriales", StringComparison.OrdinalIgnoreCase))
+            {
+                MostrarTodasLasEditoriales();
+            }
+            else if (textoBusqueda.Equals("Categorias", StringComparison.OrdinalIgnoreCase))
+            {
+                MostrarTodasLasCategorias();
+            }
+            else
+            {
+                var librosFiltrados = todosLosLibros!
+                    .Where(libro => libro.Autor.Equals(textoBusqueda, StringComparison.OrdinalIgnoreCase) || libro.Editoriales.Equals(textoBusquedaCategoria, StringComparison.OrdinalIgnoreCase) ||
+                            libro.Editoriales.Equals(textoBusquedaEditorial, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+
+                foreach (var libro in librosFiltrados)
+                {
+                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                }
+            }
+        }
+
+        private void MostrarTodosLosLibros()
+        {
+            flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+
+            foreach (var libro in todosLosLibros!)
+            {
+                flowLayoutPanel.Controls.Add(libro); // Agrega todos los botones originales al FlowLayoutPanel
+            }
+        }
+
+        private void MostrarTodasLasEditoriales()
+        {
+            flowLayoutPanel.Controls.Clear();
+
+            foreach (var libro in todasLasEditoriales!)
+            {
+                flowLayoutPanel.Controls.Add(libro);
+            }
+        }
+
+        private void MostrarTodasLasCategorias()
+        {
+            flowLayoutPanel.Controls.Clear();
+
+            foreach (var libro in todasLasCategorias!)
+            {
+                flowLayoutPanel.Controls.Add(libro);
             }
         }
 
@@ -134,7 +214,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void txCatalogoTitulo_TextChanged(object sender, EventArgs e)
         {
-            FiltrarProductos();
+            BusquedaProductos();
         }
 
         private void cBCatalogoAutor_SelectedIndexChanged(object sender, EventArgs e)

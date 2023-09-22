@@ -51,6 +51,21 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             set { lbPrecioCatalogo.Text = value; }
         }
 
+        public string Autor
+        {
+            get; set;
+        }
+
+        public string Editoriales
+        {
+            get; set;
+        }
+
+        public string Categorias
+        {
+            get; set;
+        }
+
         public string stockLibro
         {
             get { return lbStockCatalogo.Text; }

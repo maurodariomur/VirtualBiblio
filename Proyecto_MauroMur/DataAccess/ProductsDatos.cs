@@ -529,20 +529,18 @@ namespace Proyecto_MauroMur.DataAccess
                     {
                         while (reader.Read())
                         {
-                            Libro libro = new Libro();
-                            libro.Id_Libro = Convert.ToInt32(reader[0]);
-                            libro.Titulo = reader.GetString(1);
-                            libro.Descripcion = reader.GetString(2);
-                            libro.Precio = Convert.ToDouble(reader[3]);
-                            libro.Imagen = reader.GetString(4);
-                            libro.Stock = Convert.ToInt32(reader[5]);
+                            int Id_Libro = Convert.ToInt32(reader[0]);
+                            Libro libro = ObtenerProductoId(Id_Libro);
 
                             BotonesLibros btn = new BotonesLibros();
                             btn.idLibro = libro.Id_Libro;
-                            btn.tituloLibro = libro.Titulo;
-                            btn.descripcionLibro = libro.Descripcion;
+                            btn.tituloLibro = libro.Titulo!;
+                            btn.descripcionLibro = libro.Descripcion!;
                             btn.precioLibro = "$" + libro.Precio.ToString("N2");
                             btn.stockLibro = "Stock " + libro.Stock.ToString();
+                            btn.Autor = libro.Autor!;
+                            btn.Editoriales = libro.Editorial!;
+                            btn.Categorias = libro.Categoria!;
 
                             // Cargar la imagen desde el archivo y establecerla en el botón
                             string libroPath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", libro.Imagen!);
