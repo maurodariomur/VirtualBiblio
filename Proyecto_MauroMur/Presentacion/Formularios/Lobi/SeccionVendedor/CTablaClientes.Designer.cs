@@ -170,13 +170,13 @@
             // 
             lbErrorModificar.Anchor = AnchorStyles.Top;
             lbErrorModificar.AutoSize = true;
-            lbErrorModificar.Font = new Font("Century Gothic", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbErrorModificar.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbErrorModificar.ForeColor = Color.FromArgb(235, 133, 154);
             lbErrorModificar.Image = (Image)resources.GetObject("lbErrorModificar.Image");
             lbErrorModificar.ImageAlign = ContentAlignment.MiddleLeft;
             lbErrorModificar.Location = new Point(71, 0);
             lbErrorModificar.Name = "lbErrorModificar";
-            lbErrorModificar.Size = new Size(31, 20);
+            lbErrorModificar.Size = new Size(33, 19);
             lbErrorModificar.TabIndex = 36;
             lbErrorModificar.Text = "Error";
             lbErrorModificar.TextAlign = ContentAlignment.MiddleCenter;
@@ -251,12 +251,12 @@
             // tbDomicilioCliente
             // 
             tbDomicilioCliente.BackColor = SystemColors.Window;
-            tbDomicilioCliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            tbDomicilioCliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             tbDomicilioCliente.ForeColor = SystemColors.WindowFrame;
             tbDomicilioCliente.Location = new Point(97, 306);
             tbDomicilioCliente.Name = "tbDomicilioCliente";
             tbDomicilioCliente.PlaceholderText = "Domicilio";
-            tbDomicilioCliente.Size = new Size(176, 23);
+            tbDomicilioCliente.Size = new Size(176, 22);
             tbDomicilioCliente.TabIndex = 57;
             // 
             // label2
@@ -264,23 +264,23 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.FlatStyle = FlatStyle.Popup;
-            label2.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Gainsboro;
             label2.Location = new Point(17, 309);
             label2.Name = "label2";
-            label2.Size = new Size(68, 16);
+            label2.Size = new Size(72, 16);
             label2.TabIndex = 56;
             label2.Text = "Domicilio";
             // 
             // tbTelefonoCliente
             // 
             tbTelefonoCliente.BackColor = SystemColors.Window;
-            tbTelefonoCliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            tbTelefonoCliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             tbTelefonoCliente.ForeColor = SystemColors.WindowFrame;
             tbTelefonoCliente.Location = new Point(96, 264);
             tbTelefonoCliente.Name = "tbTelefonoCliente";
             tbTelefonoCliente.PlaceholderText = "Telefono";
-            tbTelefonoCliente.Size = new Size(178, 23);
+            tbTelefonoCliente.Size = new Size(178, 22);
             tbTelefonoCliente.TabIndex = 55;
             // 
             // label1
@@ -288,11 +288,11 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.FlatStyle = FlatStyle.Popup;
-            label1.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Gainsboro;
             label1.Location = new Point(24, 271);
             label1.Name = "label1";
-            label1.Size = new Size(61, 16);
+            label1.Size = new Size(69, 16);
             label1.TabIndex = 54;
             label1.Text = "Telefono";
             // 
@@ -300,19 +300,19 @@
             // 
             dTFNCliente.CalendarForeColor = SystemColors.WindowFrame;
             dTFNCliente.CalendarTitleForeColor = SystemColors.WindowFrame;
-            dTFNCliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dTFNCliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             dTFNCliente.Location = new Point(97, 180);
             dTFNCliente.Name = "dTFNCliente";
-            dTFNCliente.Size = new Size(177, 23);
+            dTFNCliente.Size = new Size(177, 22);
             dTFNCliente.TabIndex = 53;
             // 
             // txMailCliente
             // 
-            txMailCliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txMailCliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txMailCliente.ForeColor = SystemColors.WindowFrame;
             txMailCliente.Location = new Point(96, 221);
             txMailCliente.Name = "txMailCliente";
-            txMailCliente.Size = new Size(178, 23);
+            txMailCliente.Size = new Size(178, 22);
             txMailCliente.TabIndex = 52;
             txMailCliente.Text = "Correo Electronico";
             // 
@@ -321,11 +321,11 @@
             lbFechaN.AutoSize = true;
             lbFechaN.BackColor = Color.Transparent;
             lbFechaN.FlatStyle = FlatStyle.Popup;
-            lbFechaN.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbFechaN.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbFechaN.ForeColor = Color.Gainsboro;
             lbFechaN.Location = new Point(15, 187);
             lbFechaN.Name = "lbFechaN";
-            lbFechaN.Size = new Size(64, 16);
+            lbFechaN.Size = new Size(69, 16);
             lbFechaN.TabIndex = 50;
             lbFechaN.Text = "Fec. Nac";
             // 
@@ -334,7 +334,7 @@
             lbMail.AutoSize = true;
             lbMail.BackColor = Color.Transparent;
             lbMail.FlatStyle = FlatStyle.Popup;
-            lbMail.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbMail.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbMail.ForeColor = Color.Gainsboro;
             lbMail.Location = new Point(31, 228);
             lbMail.Name = "lbMail";
@@ -345,11 +345,11 @@
             // txDNICliente
             // 
             txDNICliente.BackColor = SystemColors.Window;
-            txDNICliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txDNICliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txDNICliente.ForeColor = SystemColors.WindowFrame;
             txDNICliente.Location = new Point(96, 137);
             txDNICliente.Name = "txDNICliente";
-            txDNICliente.Size = new Size(178, 23);
+            txDNICliente.Size = new Size(178, 22);
             txDNICliente.TabIndex = 49;
             txDNICliente.Text = "DNI";
             // 
@@ -358,21 +358,21 @@
             lbDNI.AutoSize = true;
             lbDNI.BackColor = Color.Transparent;
             lbDNI.FlatStyle = FlatStyle.Flat;
-            lbDNI.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbDNI.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbDNI.ForeColor = Color.Gainsboro;
             lbDNI.Location = new Point(31, 144);
             lbDNI.Name = "lbDNI";
-            lbDNI.Size = new Size(30, 16);
+            lbDNI.Size = new Size(33, 16);
             lbDNI.TabIndex = 48;
             lbDNI.Text = "DNI";
             // 
             // txApellidoCliente
             // 
-            txApellidoCliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txApellidoCliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txApellidoCliente.ForeColor = SystemColors.WindowFrame;
             txApellidoCliente.Location = new Point(96, 94);
             txApellidoCliente.Name = "txApellidoCliente";
-            txApellidoCliente.Size = new Size(178, 23);
+            txApellidoCliente.Size = new Size(178, 22);
             txApellidoCliente.TabIndex = 45;
             txApellidoCliente.Text = "Apellido";
             // 
@@ -381,22 +381,22 @@
             lbApellido.AutoSize = true;
             lbApellido.BackColor = Color.Transparent;
             lbApellido.FlatStyle = FlatStyle.Popup;
-            lbApellido.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbApellido.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbApellido.ForeColor = Color.Gainsboro;
             lbApellido.Location = new Point(22, 101);
             lbApellido.Name = "lbApellido";
-            lbApellido.Size = new Size(63, 16);
+            lbApellido.Size = new Size(65, 16);
             lbApellido.TabIndex = 44;
             lbApellido.Text = "Apellido";
             // 
             // txNombreCliente
             // 
             txNombreCliente.Cursor = Cursors.IBeam;
-            txNombreCliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txNombreCliente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txNombreCliente.ForeColor = SystemColors.WindowFrame;
             txNombreCliente.Location = new Point(96, 55);
             txNombreCliente.Name = "txNombreCliente";
-            txNombreCliente.Size = new Size(178, 23);
+            txNombreCliente.Size = new Size(178, 22);
             txNombreCliente.TabIndex = 43;
             txNombreCliente.Text = "Nombre";
             // 
@@ -405,11 +405,11 @@
             lbNombre.AutoSize = true;
             lbNombre.BackColor = Color.Transparent;
             lbNombre.FlatStyle = FlatStyle.Popup;
-            lbNombre.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbNombre.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbNombre.ForeColor = Color.Gainsboro;
             lbNombre.Location = new Point(20, 62);
             lbNombre.Name = "lbNombre";
-            lbNombre.Size = new Size(59, 16);
+            lbNombre.Size = new Size(62, 16);
             lbNombre.TabIndex = 42;
             lbNombre.Text = "Nombre";
             // 
@@ -526,9 +526,9 @@
             cbBaja.ForeColor = Color.Gainsboro;
             cbBaja.Location = new Point(631, 13);
             cbBaja.Name = "cbBaja";
-            cbBaja.Size = new Size(78, 21);
+            cbBaja.Size = new Size(80, 21);
             cbBaja.TabIndex = 12;
-            cbBaja.Text = "Baja (SI)";
+            cbBaja.Text = "Baja \"SI\"";
             cbBaja.UseVisualStyleBackColor = true;
             // 
             // iconButton1

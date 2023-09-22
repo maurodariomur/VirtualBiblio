@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Proyecto_MauroMur.Common.Cache;
+using Proyecto_MauroMur.Common.Models;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
@@ -17,7 +18,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     {
         private ProductModel productModel = new ProductModel();
         public List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
-        private List<BotonesLibros> listaBotonesResguardo = new List<BotonesLibros>();
+        private List<BotonesLibros>? listaBotonesResguardo;
         private List<BotonesLibros>? todosLosLibros;
         private List<BotonesLibros>? todasLasEditoriales;
         private List<BotonesLibros>? todasLasCategorias;
@@ -63,8 +64,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             productModel.LlenarCatalogo(flowLayoutPanel, this);
             listaBotonesResguardo = listaDeBotones;
             todosLosLibros = listaBotonesResguardo.ToList();
-            todasLasEditoriales = listaBotonesResguardo.ToList();
-            todasLasCategorias = listaBotonesResguardo.ToList();
         }
 
         private void CCatalogo_Load(object sender, EventArgs e)
@@ -84,7 +83,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             string textoBusquedaTitulo = txCatalogoTitulo.Text.ToLower();
             if (string.IsNullOrEmpty(textoBusquedaTitulo))
             {
-                foreach (var libro in listaBotonesResguardo)
+                foreach (var libro in listaBotonesResguardo!)
                 {
                     flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
                 }
@@ -113,19 +112,57 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             {
                 MostrarTodosLosLibros();
             }
-            else if (textoBusqueda.Equals("Editoriales", StringComparison.OrdinalIgnoreCase))
+            else
             {
-                MostrarTodasLasEditoriales();
+                var librosFiltrados = todosLosLibros!
+                    .Where(libro => libro.Autor.Equals(textoBusqueda, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+
+                foreach (var libro in librosFiltrados)
+                {
+                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                }
             }
-            else if (textoBusqueda.Equals("Categorias", StringComparison.OrdinalIgnoreCase))
+        }
+
+        private void FiltrarProductosEditorial()
+        {
+            string textoBusquedaEditorial = cBCatalogoEditorial.Text;
+
+
+            if (textoBusquedaEditorial.Equals("Editoriales", StringComparison.OrdinalIgnoreCase))
             {
-                MostrarTodasLasCategorias();
+                MostrarTodosLosLibros();
             }
             else
             {
                 var librosFiltrados = todosLosLibros!
-                    .Where(libro => libro.Autor.Equals(textoBusqueda, StringComparison.OrdinalIgnoreCase) || libro.Editoriales.Equals(textoBusquedaCategoria, StringComparison.OrdinalIgnoreCase) ||
-                            libro.Editoriales.Equals(textoBusquedaEditorial, StringComparison.OrdinalIgnoreCase))
+                    .Where(libro => libro.Editoriales.Equals(textoBusquedaEditorial, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+
+                foreach (var libro in librosFiltrados)
+                {
+                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                }
+            }
+        }
+        private void FiltrarProductosCategoria()
+        {
+            string textoBusquedaCategoria = cBCatalogoCategoria.Text;
+
+
+            if (textoBusquedaCategoria.Equals("Categorias", StringComparison.OrdinalIgnoreCase))
+            {
+                MostrarTodosLosLibros();
+            }
+            else
+            {
+                var librosFiltrados = todosLosLibros!
+                    .Where(libro => libro.Categorias.Equals(textoBusquedaCategoria, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
                 flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
@@ -146,27 +183,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 flowLayoutPanel.Controls.Add(libro); // Agrega todos los botones originales al FlowLayoutPanel
             }
         }
-
-        private void MostrarTodasLasEditoriales()
-        {
-            flowLayoutPanel.Controls.Clear();
-
-            foreach (var libro in todasLasEditoriales!)
-            {
-                flowLayoutPanel.Controls.Add(libro);
-            }
-        }
-
-        private void MostrarTodasLasCategorias()
-        {
-            flowLayoutPanel.Controls.Clear();
-
-            foreach (var libro in todasLasCategorias!)
-            {
-                flowLayoutPanel.Controls.Add(libro);
-            }
-        }
-
 
         private void opcionesCategorias()
         {
@@ -224,12 +240,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void cBCatalogoEditorial_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarProductos();
+            FiltrarProductosEditorial();
         }
 
         private void cBCatalogoCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarProductos();
+            FiltrarProductosCategoria();
         }
 
         private void iconCatalogo_Click(object sender, EventArgs e)

@@ -84,6 +84,20 @@ namespace Proyecto_MauroMur.Common.Cache
             }
         }
 
+        public static double ObtenerTotal()
+        {
+            double total = 0;
+
+            foreach (var libroEnCarrito in LibrosEnCarrito)
+            {
+                    double precioLibro = libroEnCarrito.Item1.Precio;
+                    int cantidad = libroEnCarrito.Item2;
+
+                    total +=precioLibro * cantidad;
+            }
+
+            return total;
+        }
     }
 }
 

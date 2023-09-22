@@ -37,7 +37,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     Precio = t.Item2 * t.Item1.Precio,
                     Autor = t.Item1.Autor,
                     Editorial = t.Item1.Editorial,
-                    Cantidad = t.Item2,
+                    Cantidad = t.Item2
                 }).ToList();
 
                 if (!columnasAgregadas)
@@ -45,12 +45,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     agregarColumnas();
                     columnasAgregadas = true; // Marca que las columnas ya se han agregado
                 }
-
+                double precioTotalCarrito = Carrito.ObtenerTotal();
                 dataGridDetalleCat.Visible = true;
                 lbMensaje.Visible = false;
                 lbProductos.Visible = true;
                 btVaciarCarrito.Visible = true;
                 btnConfirmarCompra.Visible = true;
+                lblPrecioTotal.Text = $"Precio Total: ${precioTotalCarrito}";
 
             }
             else
@@ -60,6 +61,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 lbProductos.Visible = false;
                 btVaciarCarrito.Visible = false;
                 btnConfirmarCompra.Visible = false;
+                lblPrecioTotal.Text = "";
             }
         }
 

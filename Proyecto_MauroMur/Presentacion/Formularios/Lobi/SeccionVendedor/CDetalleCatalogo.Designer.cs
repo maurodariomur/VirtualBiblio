@@ -42,6 +42,7 @@
             dataGridDetalleCat = new DataGridView();
             panelMensaje = new Panel();
             lbMensaje = new Label();
+            lblPrecioTotal = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridDetalleCat).BeginInit();
@@ -166,11 +167,11 @@
             dataGridDetalleCat.ColumnHeadersHeight = 30;
             dataGridDetalleCat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.Goldenrod;
+            dataGridViewCellStyle2.SelectionForeColor = Color.DarkOrange;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridDetalleCat.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridDetalleCat.EnableHeadersVisualStyles = false;
@@ -226,12 +227,24 @@
             lbMensaje.Text = "Carrito Vacio";
             lbMensaje.Visible = false;
             // 
+            // lblPrecioTotal
+            // 
+            lblPrecioTotal.AutoSize = true;
+            lblPrecioTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblPrecioTotal.ForeColor = Color.DimGray;
+            lblPrecioTotal.Location = new Point(476, 444);
+            lblPrecioTotal.Name = "lblPrecioTotal";
+            lblPrecioTotal.Size = new Size(50, 16);
+            lblPrecioTotal.TabIndex = 42;
+            lblPrecioTotal.Text = "label1";
+            // 
             // CDetalleCatalogo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(221, 230, 237);
             ClientSize = new Size(702, 561);
+            Controls.Add(lblPrecioTotal);
             Controls.Add(panelMensaje);
             Controls.Add(lbMensaje);
             Controls.Add(dataGridDetalleCat);
@@ -265,5 +278,6 @@
         public DataGridView dataGridDetalleCat;
         private Panel panelMensaje;
         private Label lbMensaje;
+        private Label lblPrecioTotal;
     }
 }
