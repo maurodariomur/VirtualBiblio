@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain;
+using Proyecto_MauroMur.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,10 +15,20 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     public partial class CClientesFactura : Form
     {
         private int maxLength = 16;
+        private ClientModel clientModel = new();
+        public int IdClienteSeleccionado { get; set; }
+        private ClienteConInformacion? cliente;
 
         public CClientesFactura()
         {
             InitializeComponent();
+            if (cliente != null)
+            {
+                cliente = clientModel.ImportarCliente(IdClienteSeleccionado);
+
+                lbNombreApellido.Text = cliente?.PersonaNombre + " " + cliente?.PersonaApellido;
+                lbDNI.Text = cliente?.PersonaDNI;
+            }
         }
 
         private void CClientesFactura_Load(object sender, EventArgs e)

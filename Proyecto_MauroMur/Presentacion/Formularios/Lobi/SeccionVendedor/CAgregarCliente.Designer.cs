@@ -41,9 +41,6 @@
             label1 = new Label();
             tbTelefonoAgCliente = new TextBox();
             label3 = new Label();
-            checkBoxNo = new CheckBox();
-            checkBoxSi = new CheckBox();
-            label2 = new Label();
             txDNIAgCliente = new TextBox();
             txNombreAgCliente = new TextBox();
             txApellidoAgCliente = new TextBox();
@@ -121,14 +118,15 @@
             btnConfirmar.Anchor = AnchorStyles.Right;
             btnConfirmar.BackColor = Color.FromArgb(18, 72, 107);
             btnConfirmar.Cursor = Cursors.Hand;
-            btnConfirmar.FlatStyle = FlatStyle.Popup;
+            btnConfirmar.FlatAppearance.BorderSize = 0;
+            btnConfirmar.FlatStyle = FlatStyle.Flat;
             btnConfirmar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnConfirmar.ForeColor = Color.Gainsboro;
             btnConfirmar.Location = new Point(235, 0);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(171, 35);
             btnConfirmar.TabIndex = 38;
-            btnConfirmar.Text = "Confimar Venta";
+            btnConfirmar.Text = "Agregar Cliente";
             btnConfirmar.UseVisualStyleBackColor = false;
             btnConfirmar.Click += btnConfirmar_Click;
             // 
@@ -166,9 +164,6 @@
             panel4.Controls.Add(label1);
             panel4.Controls.Add(tbTelefonoAgCliente);
             panel4.Controls.Add(label3);
-            panel4.Controls.Add(checkBoxNo);
-            panel4.Controls.Add(checkBoxSi);
-            panel4.Controls.Add(label2);
             panel4.Controls.Add(txDNIAgCliente);
             panel4.Controls.Add(txNombreAgCliente);
             panel4.Controls.Add(txApellidoAgCliente);
@@ -234,43 +229,6 @@
             label3.Size = new Size(74, 18);
             label3.TabIndex = 68;
             label3.Text = "Telefono";
-            // 
-            // checkBoxNo
-            // 
-            checkBoxNo.AutoSize = true;
-            checkBoxNo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxNo.ForeColor = Color.Gainsboro;
-            checkBoxNo.Location = new Point(464, 308);
-            checkBoxNo.Name = "checkBoxNo";
-            checkBoxNo.Size = new Size(48, 24);
-            checkBoxNo.TabIndex = 67;
-            checkBoxNo.Text = "No";
-            checkBoxNo.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSi
-            // 
-            checkBoxSi.AutoSize = true;
-            checkBoxSi.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxSi.ForeColor = Color.Gainsboro;
-            checkBoxSi.Location = new Point(402, 308);
-            checkBoxSi.Name = "checkBoxSi";
-            checkBoxSi.Size = new Size(42, 24);
-            checkBoxSi.TabIndex = 66;
-            checkBoxSi.Text = "Si";
-            checkBoxSi.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.FlatStyle = FlatStyle.Popup;
-            label2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.ForeColor = Color.Gainsboro;
-            label2.Location = new Point(435, 279);
-            label2.Name = "label2";
-            label2.Size = new Size(41, 18);
-            label2.TabIndex = 65;
-            label2.Text = "Baja";
             // 
             // txDNIAgCliente
             // 
@@ -401,10 +359,12 @@
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "CAgregarCliente";
             Opacity = 0.98D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CAgregarCliente";
+            Load += CAgregarCliente_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -421,9 +381,6 @@
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
-        private CheckBox checkBoxNo;
-        private CheckBox checkBoxSi;
-        private Label label2;
         private TextBox txDNIAgCliente;
         private TextBox txNombreAgCliente;
         private TextBox txApellidoAgCliente;
