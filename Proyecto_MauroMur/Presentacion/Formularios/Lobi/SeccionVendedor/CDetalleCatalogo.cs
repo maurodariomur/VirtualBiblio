@@ -137,7 +137,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             // Verificar si el formulario principal (FLobi) todavía está abierto y cerrarlo
             FLobi? formularioLobi = Application.OpenForms.OfType<FLobi>().FirstOrDefault();
-            CClientesFactura cClientesFactura = new CClientesFactura(this);
+            CClientesFactura cClientesFactura = new CClientesFactura();
 
             if (formularioLobi != null)
             {
