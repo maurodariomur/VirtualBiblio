@@ -407,8 +407,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 // Crea una instancia del formulario CClientesFactura
                 CClientesFactura formularioClienteFac = new CClientesFactura();
 
-                // Configura la propiedad IdClienteSeleccionado en CClientesFactura
-                formularioClienteFac.IdClienteSeleccionado = idClienteSeleccionado;
+                // Llama al método para actualizar los detalles del cliente en CClientesFactura
+                formularioClienteFac.ActualizarDetallesCliente(idClienteSeleccionado);
 
                 // Muestra el formulario CClientesFactura
                 formularioClienteFac.Show();

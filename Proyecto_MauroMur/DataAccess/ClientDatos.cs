@@ -196,7 +196,7 @@ namespace DataAccess
             return clientes;
         }
 
-        public ClienteConInformacion? TraerClientesId(int id_Cliente)
+        public ClienteConInformacion? TraerClientesId(int id)
         {
             ClienteConInformacion? cliente = null; // Declarar una variable para almacenar el usuario
 
@@ -206,13 +206,13 @@ namespace DataAccess
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
-                    comando.CommandText = @"SELECT c.Id, p.Nombre AS PersonaNombre, p.Apellido AS PersonaApellido, p.DNI AS PersonaDNI, 
+                    comando.CommandText = @"SELECT c.Id_Cliente, p.Nombre AS PersonaNombre, p.Apellido AS PersonaApellido, p.DNI AS PersonaDNI, 
                                            p.Mail AS PersonaMail, p.FechaNacimiento AS PersonaFechaNacimiento, 
                                            c.Telefono, c.Domicilio,c.FechaRegistro, p.Id_Persona, p.Baja AS PersonaBaja 
                                            FROM Cliente c
                                            INNER JOIN Persona p ON c.Id_Persona = p.Id_Persona
-                                           WHERE c.Id = @Id_Cliente";
-                    comando.Parameters.AddWithValue("@Id_Cliente", id_Cliente);
+                                           WHERE c.Id_Cliente = @Id_Cliente";
+                    comando.Parameters.AddWithValue("@Id_Cliente", id);
 
                     using (SqlDataReader reader = comando.ExecuteReader())
                     {
@@ -227,8 +227,9 @@ namespace DataAccess
                             cliente.PersonaFechaNacimiento = reader.GetDateTime(5);
                             cliente.Telefono = reader.GetString(6);
                             cliente.Domicilio = reader.GetString(7);
-                            cliente.Id_Persona = reader.GetInt32(8);
-                            cliente.PersonaBaja = reader.GetString(9);
+                            cliente.FechaRegistro = reader.GetDateTime(8);
+                            cliente.Id_Persona = reader.GetInt32(9);
+                            cliente.PersonaBaja = reader.GetString(10);
                         }
                     }
                 }

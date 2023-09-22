@@ -22,13 +22,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         public CClientesFactura()
         {
             InitializeComponent();
-            if (cliente != null)
-            {
-                cliente = clientModel.ImportarCliente(IdClienteSeleccionado);
-
-                lbNombreApellido.Text = cliente?.PersonaNombre + " " + cliente?.PersonaApellido;
-                lbDNI.Text = cliente?.PersonaDNI;
-            }
         }
 
         private void CClientesFactura_Load(object sender, EventArgs e)
@@ -36,6 +29,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         }
 
+        public void ActualizarDetallesCliente(int idCliente)
+        {
+            // Obtén el cliente utilizando el idCliente
+            cliente = clientModel.ImportarCliente(idCliente);
+
+            if (cliente != null)
+            {
+                lbNombreApellido.Text = cliente.PersonaNombre + " " + cliente.PersonaApellido;
+                lbDNI.Text = cliente.PersonaDNI;
+            }
+        }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
