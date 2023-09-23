@@ -448,6 +448,7 @@
             txNombreCliente.PlaceholderText = "Nombre";
             txNombreCliente.Size = new Size(178, 22);
             txNombreCliente.TabIndex = 43;
+            txNombreCliente.TextChanged += txNombreCliente_TextChanged;
             txNombreCliente.KeyPress += txNombreCliente_KeyPress;
             // 
             // lbNombre
@@ -530,6 +531,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridClientes.Cursor = Cursors.Hand;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);

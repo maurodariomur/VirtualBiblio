@@ -91,11 +91,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconAtrasU_Click(object sender, EventArgs e)
         {
+            // Cierra el formulario actual
             this.Close();
-            CTablaClientes? formularioTablaCli = Application.OpenForms.OfType<CTablaClientes>().FirstOrDefault();
 
+            // Intenta abrir el formulario deseado
+            CTablaClientes? formularioTablaCli = Application.OpenForms.OfType<CTablaClientes>().FirstOrDefault();
             if (formularioTablaCli != null)
             {
+                formularioTablaCli.Show();
+            }
+            else
+            {
+                // Si el formulario no existe, crea una nueva instancia y ábrelo
+                formularioTablaCli = new CTablaClientes();
                 formularioTablaCli.Show();
             }
         }
