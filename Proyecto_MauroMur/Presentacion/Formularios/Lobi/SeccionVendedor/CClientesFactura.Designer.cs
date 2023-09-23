@@ -302,6 +302,7 @@
             lbNombreApellido.Size = new Size(179, 22);
             lbNombreApellido.TabIndex = 13;
             lbNombreApellido.Text = "Nombre y Apellido";
+            lbNombreApellido.Click += lbNombreApellido_Click;
             // 
             // CClientesFactura
             // 

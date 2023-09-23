@@ -163,5 +163,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
 
         }
+
+        private void lbNombreApellido_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
