@@ -21,10 +21,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private ClienteConInformacion? clienteSeleccionado;
         private int idClienteSeleccionado = -1;
         private bool edicionRealizada = false;
+        private bool modificacionesPendientes = false;
 
         public CTablaClientes()
         {
             InitializeComponent();
+            desactivarBotones();
         }
 
         private void CTablaClientes_Load(object sender, EventArgs e)
@@ -34,7 +36,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridClientes.Columns["IdCliente"].HeaderText = "ID";
             dataGridClientes.Columns["PersonaNombre"].HeaderText = "Nombre";
             dataGridClientes.Columns["PersonaApellido"].HeaderText = "Apellido";
-            dataGridClientes.Columns["PersonaDNI"].HeaderText = "DNI";
+            dataGridClientes.Columns["PersonaDNI"].HeaderText = "D.N.I";
             dataGridClientes.Columns["PersonaMail"].HeaderText = "Correo";
             dataGridClientes.Columns["PersonaFechaNacimiento"].HeaderText = "F.Nacimiento";
             dataGridClientes.Columns["FechaRegistro"].HeaderText = "F.Registro";
@@ -48,13 +50,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void loadClientes()
         {
             List<ClienteConInformacion> clientes = clienteModel.MostrarClientes();
-            ClienteConInformacion clienteConPersona = new();
+
             if (checkApellidos.Checked)
             {
                 clientes.Sort((x, y) => string.Compare(x.PersonaApellido, y.PersonaApellido));
             }
+
+            if (cbBaja.Checked)
+            {
+                // Filtra los clientes con "PersonaBaja" igual a "SI" si cbBaja está marcado
+                clientes = clientes.Where(c => c.PersonaBaja == "SI").ToList();
+            }
+            else
+            {
+                // Filtra los clientes con "PersonaBaja" igual a "NO" si cbBaja no está marcado
+                clientes = clientes.Where(c => c.PersonaBaja == "NO").ToList();
+            }
+
             dataGridClientes.DataSource = clientes;
         }
+
 
         private void DataGridClientes_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
@@ -208,6 +223,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             tbTelefonoCliente.Enabled = false;
             tbDomicilioCliente.Enabled = false;
             dTFNCliente.Enabled = false;
+            iconLimpiar.Enabled = false;
+            btnConfirmar.Enabled = false;
+            btnEnviar.Enabled = false;
         }
 
         private void msgError(string msg)
@@ -281,6 +299,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     tbTelefonoCliente.Enabled = true;
                     tbDomicilioCliente.Enabled = true;
                     dTFNCliente.Enabled = true;
+                    iconLimpiar.Enabled = true;
+                    btnConfirmar.Enabled = true;
+                    btnEnviar.Enabled = true;
 
                     // Obtiene la fila seleccionada
                     DataGridViewRow row = dataGridClientes.Rows[e.RowIndex];
@@ -353,15 +374,34 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             string textoBusquedaApellido = txBuscadorApellido.Text.ToLower();
             string textoBusquedaDNI = txBuscadorDni.Text.ToLower();
 
-            List<ClienteConInformacion> clientesFiltrados = clienteModel.MostrarClientes()
-                .Where(cliente =>
-                    (string.IsNullOrEmpty(textoBusquedaNombre) || cliente?.PersonaNombre?.ToLower()?.Contains(textoBusquedaNombre) == true) &&
-                    (string.IsNullOrEmpty(textoBusquedaApellido) || cliente?.PersonaApellido?.ToLower()?.Contains(textoBusquedaApellido) == true) &&
-                    (string.IsNullOrEmpty(textoBusquedaDNI) || cliente?.PersonaDNI?.ToLower()?.Contains(textoBusquedaDNI) == true))
-                .ToList();
+            List<ClienteConInformacion> clientesFiltrados;
+
+            if (cbBaja.Checked)
+            {
+                // Filtra los clientes con "PersonaBaja" igual a "SI" si cbBaja está marcado
+                clientesFiltrados = clienteModel.MostrarClientes()
+                    .Where(cliente =>
+                        (cliente.PersonaBaja == "SI") &&
+                        (string.IsNullOrEmpty(textoBusquedaNombre) || cliente.PersonaNombre?.ToLower()?.Contains(textoBusquedaNombre) == true) &&
+                        (string.IsNullOrEmpty(textoBusquedaApellido) || cliente.PersonaApellido?.ToLower()?.Contains(textoBusquedaApellido) == true) &&
+                        (string.IsNullOrEmpty(textoBusquedaDNI) || cliente.PersonaDNI?.ToLower()?.Contains(textoBusquedaDNI) == true))
+                    .ToList();
+            }
+            else
+            {
+                // Filtra los clientes con "PersonaBaja" igual a "NO" si cbBaja no está marcado
+                clientesFiltrados = clienteModel.MostrarClientes()
+                    .Where(cliente =>
+                        (cliente.PersonaBaja == "NO") &&
+                        (string.IsNullOrEmpty(textoBusquedaNombre) || cliente.PersonaNombre?.ToLower()?.Contains(textoBusquedaNombre) == true) &&
+                        (string.IsNullOrEmpty(textoBusquedaApellido) || cliente.PersonaApellido?.ToLower()?.Contains(textoBusquedaApellido) == true) &&
+                        (string.IsNullOrEmpty(textoBusquedaDNI) || cliente.PersonaDNI?.ToLower()?.Contains(textoBusquedaDNI) == true))
+                    .ToList();
+            }
 
             dataGridClientes.DataSource = clientesFiltrados;
         }
+
 
         private void txBuscadorNombre_TextChanged(object sender, EventArgs e)
         {
@@ -407,9 +447,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 // Crea una instancia del formulario CClientesFactura
                 CClientesFactura formularioClienteFac = new CClientesFactura();
 
-                // Configura la propiedad IdClienteSeleccionado en CClientesFactura
-                formularioClienteFac.IdClienteSeleccionado = idClienteSeleccionado;
+                // Llama al método para actualizar los detalles del cliente en CClientesFactura
+                formularioClienteFac.ActualizarDetallesCliente(idClienteSeleccionado);
 
+                this.Close();
                 // Muestra el formulario CClientesFactura
                 formularioClienteFac.Show();
             }
@@ -417,6 +458,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             {
                 MessageBox.Show("Por favor, seleccione un cliente antes de enviar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txNombreCliente_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
