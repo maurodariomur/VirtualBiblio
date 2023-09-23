@@ -77,30 +77,10 @@ namespace Proyecto_MauroMur
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-        private void panel1_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
-        }
-
-        private void BLogin_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TUsuario_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void BLogin_Click(object sender, EventArgs e)
@@ -119,11 +99,11 @@ namespace Proyecto_MauroMur
                         {
                             Logout(s, args); // Llama a Logout con los parámetros adecuados
                         };
-                        this.Hide();
+                        this.Hide(); // Cierra el formulario actual
                     }
                     else
                     {
-                        msgError("Datos Incorrectos.Verificarlos.");
+                        msgError("Datos Incorrectos. Verificarlos.");
                         TContraseña.Text = "Contraseña";
                         TUsuario.Focus();
                     }
@@ -171,21 +151,6 @@ namespace Proyecto_MauroMur
         {
             // Mostrar el botón IconEye solo si hay texto en el campo de contraseña
             iconEye.Visible = !string.IsNullOrEmpty(TContraseña.Text);
-        }
-
-        private void TContraseña_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void lblError_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbErrorMenssage_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Login_KeyDown(object sender, KeyEventArgs e)

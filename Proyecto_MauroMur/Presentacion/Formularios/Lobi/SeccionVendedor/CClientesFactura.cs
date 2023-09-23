@@ -51,12 +51,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 msgError("Debe seleccionar un Cliente");
 
             }
-            else if (cbEfectivo.Checked == false || cbMercadoPago.Checked == false || cbTarjeta.Checked == false)
-            {
-                msgError("Debe seleccionar un metodo de pago");
-            }
+            //else if (cbEfectivo.Checked == false || cbMercadoPago.Checked == false || cbTarjeta.Checked == false)
+            //{
+            //    msgError("Debe seleccionar un metodo de pago");
+            //}
             else
-            {
+                {
                 this.Close();
                 CFactura factura = new CFactura();
                 factura.Show();

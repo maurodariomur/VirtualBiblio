@@ -59,7 +59,6 @@
             panel1.Size = new Size(250, 330);
             panel1.TabIndex = 0;
             panel1.MouseDown += panel1_MouseDown;
-            panel1.MouseEnter += panel1_MouseEnter;
             // 
             // pictureBox3
             // 
@@ -83,7 +82,6 @@
             TUsuario.Size = new Size(421, 19);
             TUsuario.TabIndex = 1;
             TUsuario.Text = "Usuario";
-            TUsuario.TextChanged += TUsuario_TextChanged;
             TUsuario.Enter += TUsuario_Enter;
             TUsuario.Leave += TUsuario_Leave;
             // 
@@ -100,7 +98,6 @@
             TContraseña.Text = "Contraseña";
             TContraseña.TextChanged += TContraseña_TextChanged;
             TContraseña.Enter += TContraseña_Enter;
-            TContraseña.KeyPress += TContraseña_KeyPress;
             TContraseña.Leave += TContraseña_Leave;
             // 
             // LTitlelogin
@@ -129,7 +126,6 @@
             BLogin.Text = "Iniciar Sesion";
             BLogin.UseVisualStyleBackColor = false;
             BLogin.Click += BLogin_Click;
-            BLogin.KeyPress += BLogin_KeyPress;
             // 
             // btncerrar
             // 
@@ -202,7 +198,6 @@
             lbErrorMenssage.TabIndex = 11;
             lbErrorMenssage.Text = "Error Message";
             lbErrorMenssage.Visible = false;
-            lbErrorMenssage.Click += lbErrorMenssage_Click;
             // 
             // Login
             // 
@@ -226,7 +221,6 @@
             Opacity = 0.9D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
-            Load += Login_Load;
             KeyDown += Login_KeyDown;
             MouseDown += Login_MouseDown;
             panel1.ResumeLayout(false);

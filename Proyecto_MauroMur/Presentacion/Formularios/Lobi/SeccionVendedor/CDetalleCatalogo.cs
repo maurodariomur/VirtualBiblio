@@ -135,7 +135,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
 
             // Verificar si el formulario principal (FLobi) todavía está abierto y cerrarlo
             FLobi? formularioLobi = Application.OpenForms.OfType<FLobi>().FirstOrDefault();
@@ -143,7 +143,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             if (formularioLobi != null)
             {
-                formularioLobi.Hide();
+                formularioLobi.Close();
             }
             cClientesFactura.Show();
         }
