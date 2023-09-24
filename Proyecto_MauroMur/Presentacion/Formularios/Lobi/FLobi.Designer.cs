@@ -266,6 +266,7 @@
             iconUsuarios.TextAlign = ContentAlignment.MiddleLeft;
             iconUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconUsuarios.UseVisualStyleBackColor = false;
+            iconUsuarios.Visible = false;
             iconUsuarios.Click += iconUsuarios_Click;
             // 
             // iconEstadistica
@@ -290,6 +291,7 @@
             iconEstadistica.TextAlign = ContentAlignment.MiddleLeft;
             iconEstadistica.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconEstadistica.UseVisualStyleBackColor = false;
+            iconEstadistica.Visible = false;
             iconEstadistica.Click += iconEstadistica_Click;
             // 
             // iconExit
@@ -378,6 +380,7 @@
             iconProducto.TextAlign = ContentAlignment.MiddleLeft;
             iconProducto.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconProducto.UseVisualStyleBackColor = false;
+            iconProducto.Visible = false;
             iconProducto.Click += iconProducto_Click;
             // 
             // panel1

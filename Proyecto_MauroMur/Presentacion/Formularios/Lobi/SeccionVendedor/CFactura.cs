@@ -31,7 +31,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            this.Hide(); // Oculta el formulario actual
+            this.Close(); // Oculta el formulario actual
             FLobi flobi = new FLobi();
             flobi.FormClosed += (s, args) => this.Close(); // Cierra CFactura cuando se cierre FLobi
             flobi.Show();

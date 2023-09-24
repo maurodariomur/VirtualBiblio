@@ -103,7 +103,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             else
             {
                 // Si el formulario no existe, crea una nueva instancia y ábrelo
-                formularioTablaCli = new CTablaClientes();
+                formularioTablaCli = new CTablaClientes(null!);
                 formularioTablaCli.Show();
             }
         }

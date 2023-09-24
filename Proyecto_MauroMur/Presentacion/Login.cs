@@ -6,9 +6,12 @@ namespace Proyecto_MauroMur
 {
     public partial class Login : Form
     {
-        public Login()
+        private FLobi? _lobi;
+
+        public Login(FLobi lobi)
         {
             InitializeComponent();
+            _lobi = lobi;
             this.KeyPreview = true; // Habilita la captura de teclas en el formulario
             this.KeyDown += new KeyEventHandler(Login_KeyDown!); // Asigna el evento KeyDown
         }
@@ -93,13 +96,12 @@ namespace Proyecto_MauroMur
                     var validLogin = user.LoginUser(TUsuario.Text, TContraseña.Text);
                     if (validLogin == true)
                     {
-                        FLobi lobi = new FLobi();
-                        lobi.Show();
-                        lobi.FormClosed += (s, args) =>
+                         this.Close();
+                        _lobi!.Show();
+                        _lobi.FormClosed += (s, args) =>
                         {
                             Logout(s, args); // Llama a Logout con los parámetros adecuados
                         };
-                        this.Hide(); // Cierra el formulario actual
                     }
                     else
                     {
@@ -137,8 +139,9 @@ namespace Proyecto_MauroMur
             {
                 Application.OpenForms.OfType<FLobi>().First().Close();
             }
-
-            this.Show();
+            FLobi lobi = new();
+            Login login = new(lobi);
+            login.Show();
             TUsuario.Focus();
         }
 

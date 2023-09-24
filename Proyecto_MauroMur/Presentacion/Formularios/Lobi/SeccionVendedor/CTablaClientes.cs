@@ -22,10 +22,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private int idClienteSeleccionado = -1;
         private bool edicionRealizada = false;
         private bool modificacionesPendientes = false;
+        private CClientesFactura? _clienteFactura;
 
-        public CTablaClientes()
+        public CTablaClientes(CClientesFactura clienteFactura)
         {
             InitializeComponent();
+            _clienteFactura= clienteFactura;
             desactivarBotones();
         }
 
@@ -444,15 +446,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 // Obtén el ID del cliente seleccionado
                 int idClienteSeleccionado = clienteSeleccionado.IdCliente;
 
-                // Crea una instancia del formulario CClientesFactura
-                CClientesFactura formularioClienteFac = new CClientesFactura();
-
                 // Llama al método para actualizar los detalles del cliente en CClientesFactura
-                formularioClienteFac.ActualizarDetallesCliente(idClienteSeleccionado);
+                _clienteFactura!.ActualizarDetallesCliente(idClienteSeleccionado);
 
                 this.Close();
                 // Muestra el formulario CClientesFactura
-                formularioClienteFac.Show();
+                _clienteFactura.Show();
             }
             else
             {

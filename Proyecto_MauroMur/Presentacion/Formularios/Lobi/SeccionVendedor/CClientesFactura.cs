@@ -18,10 +18,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private ClientModel clientModel = new();
         public int IdClienteSeleccionado { get; set; }
         private ClienteConInformacion? cliente;
+        FLobi? lobi;
+        CDetalleCatalogo? detalle;
 
-        public CClientesFactura()
+        public CClientesFactura(CDetalleCatalogo detalleCatalogo)
         {
             InitializeComponent();
+            lobi = new();
+            detalle = detalleCatalogo;
         }
 
         private void CClientesFactura_Load(object sender, EventArgs e)
@@ -118,19 +122,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void iconAtrasDet_Click(object sender, EventArgs e)
         {
             this.Close();
-            // Verificar si el formulario principal (FLobi) todavía está abierto y mostrarlo
-            FLobi? formularioLobi = Application.OpenForms.OfType<FLobi>().FirstOrDefault();
-
-            if (formularioLobi != null)
-            {
-                formularioLobi.Show();
-            }
+            lobi!.OpenChildForm(new SeccionVendedor.CCatalogo(lobi));
+            lobi!.Show();
+            detalle!.Show();
         }
 
         private void ibAgregarCliente_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CTablaClientes tablaClientes = new CTablaClientes();
+            CTablaClientes tablaClientes = new CTablaClientes(this);
             tablaClientes.Show();
         }
 

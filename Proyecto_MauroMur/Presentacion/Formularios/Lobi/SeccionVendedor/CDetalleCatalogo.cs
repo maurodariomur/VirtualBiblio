@@ -135,17 +135,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
 
-            // Verificar si el formulario principal (FLobi) todavía está abierto y cerrarlo
-            FLobi? formularioLobi = Application.OpenForms.OfType<FLobi>().FirstOrDefault();
-            CClientesFactura cClientesFactura = new CClientesFactura();
+            List<Form> formsToClose = new List<Form>();
 
-            if (formularioLobi != null)
+            // Agrega todos los formularios abiertos a la lista (excepto el formulario actual)
+            foreach (Form form in Application.OpenForms)
             {
-                formularioLobi.Close();
+                if (form != this) // No cierres el formulario actual nuevamente
+                {
+                    formsToClose.Add(form);
+                }
             }
+            // Cierra todos los formularios en la lista
+            foreach (Form form in formsToClose)
+            {
+                form.Hide();
+            }
+            CClientesFactura cClientesFactura = new CClientesFactura(this);
             cClientesFactura.Show();
+            cClientesFactura.BringToFront();
         }
     }
 }
