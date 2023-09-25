@@ -21,10 +21,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         FLobi? lobi;
         CDetalleCatalogo? detalle;
 
-        public CClientesFactura(CDetalleCatalogo detalleCatalogo)
+        public CClientesFactura(CDetalleCatalogo detalleCatalogo, FLobi fLobi)
         {
             InitializeComponent();
-            lobi = new();
+            lobi = fLobi;
             detalle = detalleCatalogo;
         }
 
@@ -62,7 +62,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             else
                 {
                 this.Close();
-                CFactura factura = new CFactura();
+                CFactura factura = new CFactura(lobi);
                 factura.Show();
             }
         }
@@ -163,14 +163,5 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
         }
 
-        private void tbMP_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbNombreApellido_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -13,9 +13,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
     public partial class CFactura : Form
     {
-        public CFactura()
+        FLobi flobi = new FLobi();
+        public CFactura(FLobi flobi)
         {
             InitializeComponent();
+            this.flobi = flobi;
         }
 
         private void CFactura_Load(object sender, EventArgs e)
@@ -32,7 +34,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void iconButton4_Click(object sender, EventArgs e)
         {
             this.Close(); // Oculta el formulario actual
-            FLobi flobi = new FLobi();
             flobi.FormClosed += (s, args) => this.Close(); // Cierra CFactura cuando se cierre FLobi
             flobi.Show();
         }

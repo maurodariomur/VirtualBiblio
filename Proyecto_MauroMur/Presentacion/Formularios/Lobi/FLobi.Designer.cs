@@ -380,7 +380,6 @@
             iconProducto.TextAlign = ContentAlignment.MiddleLeft;
             iconProducto.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconProducto.UseVisualStyleBackColor = false;
-            iconProducto.Visible = false;
             iconProducto.Click += iconProducto_Click;
             // 
             // panel1

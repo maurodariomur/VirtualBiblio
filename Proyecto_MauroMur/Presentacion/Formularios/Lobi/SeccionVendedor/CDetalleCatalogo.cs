@@ -18,12 +18,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     {
         CCatalogo c;
         private bool columnasAgregadas = false;
+        FLobi flobi;
 
-        public CDetalleCatalogo(CCatalogo catalogo)
+        public CDetalleCatalogo(CCatalogo catalogo,FLobi lobi)
         {
             InitializeComponent();
             dataGridDetalleCat.Visible = false;
             c = catalogo;
+            flobi = lobi;
         }
 
         private void CDetalleCatalogo_Load(object sender, EventArgs e)
@@ -152,7 +154,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             {
                 form.Hide();
             }
-            CClientesFactura cClientesFactura = new CClientesFactura(this);
+            CClientesFactura cClientesFactura = new CClientesFactura(this, flobi);
             cClientesFactura.Show();
             cClientesFactura.BringToFront();
         }

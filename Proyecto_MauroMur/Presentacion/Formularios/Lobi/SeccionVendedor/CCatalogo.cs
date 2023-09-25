@@ -32,7 +32,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             InitializeComponent();
             LlenarProductos();
             this.flobi = flobi;
-            cDetalleCatalogo = new CDetalleCatalogo(this);
+            cDetalleCatalogo = new CDetalleCatalogo(this,flobi);
 
             contador = 0;
 
@@ -250,7 +250,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconCatalogo_Click(object sender, EventArgs e)
         {
-
             cDetalleCatalogo.ShowDialog();
         }
     }

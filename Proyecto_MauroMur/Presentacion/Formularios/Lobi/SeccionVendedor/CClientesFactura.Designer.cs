@@ -230,7 +230,6 @@
             tbMP.Size = new Size(161, 23);
             tbMP.TabIndex = 23;
             tbMP.Visible = false;
-            tbMP.TextChanged += tbMP_TextChanged;
             // 
             // tbNumeroTarjeta
             // 
@@ -302,7 +301,6 @@
             lbNombreApellido.Size = new Size(179, 22);
             lbNombreApellido.TabIndex = 13;
             lbNombreApellido.Text = "Nombre y Apellido";
-            lbNombreApellido.Click += lbNombreApellido_Click;
             // 
             // CClientesFactura
             // 
