@@ -104,7 +104,6 @@ namespace Proyecto_MauroMur.DataAccess
 
         public int ObtenerIdAutor(string nameAutor)
         {
-
             int autor = -1;
             string nombreAutor = nameAutor != null ? nameAutor : "";
 

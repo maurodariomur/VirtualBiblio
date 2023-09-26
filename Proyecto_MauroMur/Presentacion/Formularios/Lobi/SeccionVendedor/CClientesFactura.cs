@@ -1,5 +1,9 @@
-﻿using Domain;
+﻿using Common.Cache;
+using Domain;
+using Microsoft.VisualBasic;
+using Proyecto_MauroMur.Common.Cache;
 using Proyecto_MauroMur.Common.Models;
+using Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_MauroMur.Domain;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
@@ -18,8 +23,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private ClientModel clientModel = new();
         public int IdClienteSeleccionado { get; set; }
         private ClienteConInformacion? cliente;
-        FLobi? lobi;
-        CDetalleCatalogo? detalle;
+        private FLobi? lobi;
+        private CDetalleCatalogo? detalle;
+        private SaleModel saleModel = new SaleModel();
 
         public CClientesFactura(CDetalleCatalogo detalleCatalogo, FLobi fLobi)
         {
@@ -30,7 +36,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void CClientesFactura_Load(object sender, EventArgs e)
         {
-
+            opcionesPago();
+            opcionesFacturas();
         }
 
         public void ActualizarDetallesCliente(int idCliente)
@@ -49,21 +56,65 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             string nombre = lbNombreApellido.Text;
             string dni = lbDNI.Text;
+            DateTime fechaHoy = DateTime.Now;
+            float total = (float)Carrito.ObtenerTotal();
+            int idCliente = cliente!.IdCliente;
+            int idUsuario = UserLoginCache.Id;
+            int idTipoFactura = saleModel.ObtenerIdTipoFactura(cbTipoFactura.Text);
+            int idMetodoPago = saleModel.ObtenerIdMetodoPago(cbMetodoPago.Text);
+            Venta_Cabecera venta_Cabecera = new Venta_Cabecera();
+            List<Libro> todosLosLibros = Carrito.TodosLosLibrosEnCarrito;
+            List<Venta_Detalle> detallesVenta = new List<Venta_Detalle>();
+
+            Ventas ventas = new Ventas()
+            {
+                NombreCliente = nombre,
+                DNICliente = dni,
+                Telefono = cliente.Telefono,
+                Domicilio = cliente.Domicilio,
+                NombreVendedor = UserLoginCache.Nombre + UserLoginCache.Apellido,
+                DNIVendedor = UserLoginCache.DNI,
+                FechaFactura = fechaHoy,
+                MontoTotal = total,
+                venta_Detalles = detallesVenta,
+            };
+
+            foreach (var libroEnCarrito in Carrito.LibrosEnCarrito)
+            {
+                Venta_Detalle detalle = new Venta_Detalle
+                {
+                    PrecioProducto = (float)libroEnCarrito.Item1.Precio,
+                    Cantidad = libroEnCarrito.Item2, 
+                    SubTotalProducto = (float)libroEnCarrito.Item1.Precio * libroEnCarrito.Item2,
+                    Id_Libro = (libroEnCarrito.Item1.Id_Libro),
+                    Id_VentaCabecera = venta_Cabecera.Id_VentaCabecera,
+                };
+
+                detallesVenta.Add(detalle);
+            }
+
 
             if (string.IsNullOrEmpty(nombre) || nombre == "Nombre y Apellido" || string.IsNullOrEmpty(dni) || dni == "DNI")
             {
                 msgError("Debe seleccionar un Cliente");
 
             }
-            //else if (cbEfectivo.Checked == false || cbMercadoPago.Checked == false || cbTarjeta.Checked == false)
-            //{
-            //    msgError("Debe seleccionar un metodo de pago");
-            //}
             else
+            {
+                bool ventaAgregada = saleModel.AgregarNuevaVenta(fechaHoy, total, idCliente, idUsuario, idMetodoPago, idTipoFactura, detallesVenta);
+
+                if (ventaAgregada)
                 {
-                this.Close();
-                CFactura factura = new CFactura(lobi);
-                factura.Show();
+                    foreach (var libroVendido in Carrito.LibrosEnCarrito)
+                    {
+                        saleModel.ActualizarStockLibro(libroVendido.Item1.Id_Libro,libroVendido.Item2);
+                        
+                    }
+                    Carrito.VaciarCarrito();
+                    this.Close();
+                    CFactura factura = new CFactura(lobi!,ventas);
+                    factura.Show();
+                }
             }
         }
 
@@ -71,52 +122,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             lbError.Text = "     " + msg;
             lbError.Visible = true;
-        }
-
-        private void cbEfectivo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbEfectivo.Checked == true)
-            {
-                cbMercadoPago.Visible = false;
-                cbTarjeta.Visible = false;
-            }
-            else
-            {
-                cbMercadoPago.Visible = true;
-                cbTarjeta.Visible = true;
-            }
-        }
-
-        private void cbTarjeta_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbTarjeta.Checked == true)
-            {
-                tbNumeroTarjeta.Visible = true;
-                cbMercadoPago.Visible = false;
-                cbEfectivo.Visible = false;
-            }
-            else
-            {
-                tbNumeroTarjeta.Visible = false;
-                cbMercadoPago.Visible = true;
-                cbEfectivo.Visible = true;
-            }
-        }
-
-        private void cbMercadoPago_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbMercadoPago.Checked == true)
-            {
-                tbMP.Visible = true;
-                cbTarjeta.Visible = false;
-                cbEfectivo.Visible = false;
-            }
-            else
-            {
-                tbMP.Visible = false;
-                cbTarjeta.Visible = true;
-                cbEfectivo.Visible = true;
-            }
         }
 
         private void iconAtrasDet_Click(object sender, EventArgs e)
@@ -134,33 +139,28 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             tablaClientes.Show();
         }
 
-        private void tbNumeroTarjeta_TextChanged(object sender, EventArgs e)
+        private void opcionesFacturas()
         {
-            // Obtén el texto actual del TextBox
-            string numeroTarjeta = tbNumeroTarjeta.Text;
+            SaleModel saleModel = new();
+            var tipoFactura = saleModel.ObtenerFactura();
 
-            // Elimina cualquier guión existente para que no se acumulen
-            numeroTarjeta = numeroTarjeta.Replace("-", "");
+            tipoFactura.Insert(0, "Seleccione Factura");
 
-            // Verifica si el número de tarjeta tiene más dígitos de los permitidos
-            if (numeroTarjeta.Length > maxLength)
-            {
-                // Trunca el número de tarjeta para que no exceda la longitud máxima
-                numeroTarjeta = numeroTarjeta.Substring(0, maxLength);
-            }
+            cbTipoFactura.DataSource = tipoFactura;
 
-            // Verifica si el número de tarjeta tiene al menos 4 caracteres y es múltiplo de 4
-            if (numeroTarjeta.Length >= 4 && numeroTarjeta.Length % 4 == 0)
-            {
-                // Formatea el número de tarjeta con guiones cada 4 caracteres
-                string numeroFormateado = string.Join("-", Enumerable.Range(0, numeroTarjeta.Length / 4)
-                    .Select(i => numeroTarjeta.Substring(i * 4, 4)));
+            cbTipoFactura.SelectedIndex = 0;
+        }
 
-                // Establece el texto formateado en el TextBox
-                tbNumeroTarjeta.Text = numeroFormateado;
-                // Coloca el cursor al final del texto
-                tbNumeroTarjeta.SelectionStart = tbNumeroTarjeta.Text.Length;
-            }
+        private void opcionesPago()
+        {
+            SaleModel saleModel = new();
+            var tipoPago = saleModel.ObtenerPago();
+
+            tipoPago.Insert(0, "Seleccione Pago");
+
+            cbMetodoPago.DataSource = tipoPago;
+
+            cbMetodoPago.SelectedIndex = 0;
         }
 
     }

@@ -11,7 +11,7 @@ namespace Proyecto_MauroMur.Common.Cache
     {
         public static int? contador { get; set; }
         public static List<Tuple<Libro, int>> LibrosEnCarrito { get; } = new List<Tuple<Libro, int>>();
-
+        public static List<Libro> TodosLosLibrosEnCarrito { get; set; } = new List<Libro>();
         static Carrito()
         {
             contador = 0;

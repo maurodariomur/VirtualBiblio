@@ -39,6 +39,7 @@
             panel2 = new Panel();
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
+            lbDNICliente = new Label();
             panel7 = new Panel();
             label1 = new Label();
             iconButton3 = new FontAwesome.Sharp.IconButton();
@@ -56,8 +57,8 @@
             iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             lbDatosEmpleado = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            lbDNIVendedor = new Label();
+            lbNombreVendedor = new Label();
             panel6 = new Panel();
             lbTotal = new Label();
             dataGridFactura = new DataGridView();
@@ -127,6 +128,7 @@
             // panel3
             // 
             panel3.BackColor = Color.WhiteSmoke;
+            panel3.Controls.Add(lbDNICliente);
             panel3.Controls.Add(panel7);
             panel3.Controls.Add(lbDatos);
             panel3.Controls.Add(lbFechaFactura);
@@ -140,6 +142,17 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(576, 180);
             panel3.TabIndex = 9;
+            // 
+            // lbDNICliente
+            // 
+            lbDNICliente.AutoSize = true;
+            lbDNICliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbDNICliente.ForeColor = SystemColors.ActiveCaptionText;
+            lbDNICliente.Location = new Point(206, 61);
+            lbDNICliente.Name = "lbDNICliente";
+            lbDNICliente.Size = new Size(35, 17);
+            lbDNICliente.TabIndex = 21;
+            lbDNICliente.Text = "DNI:";
             // 
             // panel7
             // 
@@ -280,8 +293,8 @@
             // 
             panel5.Controls.Add(panel4);
             panel5.Controls.Add(lbDatosEmpleado);
-            panel5.Controls.Add(label2);
-            panel5.Controls.Add(label3);
+            panel5.Controls.Add(lbDNIVendedor);
+            panel5.Controls.Add(lbNombreVendedor);
             panel5.Dock = DockStyle.Bottom;
             panel5.Location = new Point(0, 594);
             panel5.Name = "panel5";
@@ -371,30 +384,31 @@
             lbDatosEmpleado.TabIndex = 18;
             lbDatosEmpleado.Text = "Datos Vendedor";
             // 
-            // label2
+            // lbDNIVendedor
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.ForeColor = SystemColors.ActiveCaptionText;
-            label2.Location = new Point(12, 65);
-            label2.Name = "label2";
-            label2.Size = new Size(35, 17);
-            label2.TabIndex = 17;
-            label2.Text = "DNI:";
+            lbDNIVendedor.AutoSize = true;
+            lbDNIVendedor.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbDNIVendedor.ForeColor = SystemColors.ActiveCaptionText;
+            lbDNIVendedor.Location = new Point(12, 65);
+            lbDNIVendedor.Name = "lbDNIVendedor";
+            lbDNIVendedor.Size = new Size(35, 17);
+            lbDNIVendedor.TabIndex = 17;
+            lbDNIVendedor.Text = "DNI:";
             // 
-            // label3
+            // lbNombreVendedor
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.ForeColor = SystemColors.ActiveCaptionText;
-            label3.Location = new Point(12, 39);
-            label3.Name = "label3";
-            label3.Size = new Size(76, 17);
-            label3.TabIndex = 16;
-            label3.Text = "Vendedor:";
+            lbNombreVendedor.AutoSize = true;
+            lbNombreVendedor.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbNombreVendedor.ForeColor = SystemColors.ActiveCaptionText;
+            lbNombreVendedor.Location = new Point(12, 39);
+            lbNombreVendedor.Name = "lbNombreVendedor";
+            lbNombreVendedor.Size = new Size(76, 17);
+            lbNombreVendedor.TabIndex = 16;
+            lbNombreVendedor.Text = "Vendedor:";
             // 
             // panel6
             // 
+            panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(lbTotal);
             panel6.Controls.Add(dataGridFactura);
             panel6.Dock = DockStyle.Fill;
@@ -421,7 +435,7 @@
             dataGridFactura.AllowUserToDeleteRows = false;
             dataGridFactura.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridFactura.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            dataGridFactura.BackgroundColor = Color.FromArgb(18, 72, 107);
+            dataGridFactura.BackgroundColor = Color.WhiteSmoke;
             dataGridFactura.BorderStyle = BorderStyle.None;
             dataGridFactura.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridFactura.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -470,6 +484,7 @@
             dataGridFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridFactura.Size = new Size(552, 258);
             dataGridFactura.TabIndex = 3;
+            dataGridFactura.CellContentClick += dataGridFactura_CellContentClick;
             // 
             // CFactura
             // 
@@ -525,8 +540,8 @@
         private Panel panel4;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Label lbDatosEmpleado;
-        private Label label2;
-        private Label label3;
+        private Label lbDNIVendedor;
+        private Label lbNombreVendedor;
         private FontAwesome.Sharp.IconButton iconButton2;
         private Panel panel6;
         private Label lbTotal;
@@ -536,5 +551,6 @@
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
+        private Label lbDNICliente;
     }
 }

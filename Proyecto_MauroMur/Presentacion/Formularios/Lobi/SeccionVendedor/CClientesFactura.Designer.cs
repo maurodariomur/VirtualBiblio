@@ -35,14 +35,10 @@
             panel2 = new Panel();
             btnConfirmar = new Button();
             panel3 = new Panel();
-            cbMercadoPago = new CheckBox();
-            cbTarjeta = new CheckBox();
-            cbEfectivo = new CheckBox();
+            cbMetodoPago = new ComboBox();
             lbError = new Label();
             cbTipoFactura = new ComboBox();
             lbTipoFactura = new Label();
-            tbMP = new TextBox();
-            tbNumeroTarjeta = new TextBox();
             lbFormaPago = new Label();
             lbCliente = new Label();
             lbDNI = new Label();
@@ -128,14 +124,10 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(22, 90, 120);
-            panel3.Controls.Add(cbMercadoPago);
-            panel3.Controls.Add(cbTarjeta);
-            panel3.Controls.Add(cbEfectivo);
+            panel3.Controls.Add(cbMetodoPago);
             panel3.Controls.Add(lbError);
             panel3.Controls.Add(cbTipoFactura);
             panel3.Controls.Add(lbTipoFactura);
-            panel3.Controls.Add(tbMP);
-            panel3.Controls.Add(tbNumeroTarjeta);
             panel3.Controls.Add(lbFormaPago);
             panel3.Controls.Add(lbCliente);
             panel3.Controls.Add(lbDNI);
@@ -148,41 +140,15 @@
             panel3.Size = new Size(530, 412);
             panel3.TabIndex = 2;
             // 
-            // cbMercadoPago
+            // cbMetodoPago
             // 
-            cbMercadoPago.AutoSize = true;
-            cbMercadoPago.ForeColor = Color.Gainsboro;
-            cbMercadoPago.Location = new Point(93, 246);
-            cbMercadoPago.Name = "cbMercadoPago";
-            cbMercadoPago.Size = new Size(100, 19);
-            cbMercadoPago.TabIndex = 38;
-            cbMercadoPago.Text = "MercadoPago";
-            cbMercadoPago.UseVisualStyleBackColor = true;
-            cbMercadoPago.CheckedChanged += cbMercadoPago_CheckedChanged;
-            // 
-            // cbTarjeta
-            // 
-            cbTarjeta.AutoSize = true;
-            cbTarjeta.ForeColor = Color.Gainsboro;
-            cbTarjeta.Location = new Point(93, 207);
-            cbTarjeta.Name = "cbTarjeta";
-            cbTarjeta.Size = new Size(142, 19);
-            cbTarjeta.TabIndex = 37;
-            cbTarjeta.Text = "Tarjeta Crédito/Débito";
-            cbTarjeta.UseVisualStyleBackColor = true;
-            cbTarjeta.CheckedChanged += cbTarjeta_CheckedChanged;
-            // 
-            // cbEfectivo
-            // 
-            cbEfectivo.AutoSize = true;
-            cbEfectivo.ForeColor = Color.Gainsboro;
-            cbEfectivo.Location = new Point(93, 168);
-            cbEfectivo.Name = "cbEfectivo";
-            cbEfectivo.Size = new Size(68, 19);
-            cbEfectivo.TabIndex = 36;
-            cbEfectivo.Text = "Efectivo";
-            cbEfectivo.UseVisualStyleBackColor = true;
-            cbEfectivo.CheckedChanged += cbEfectivo_CheckedChanged;
+            cbMetodoPago.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbMetodoPago.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            cbMetodoPago.FormattingEnabled = true;
+            cbMetodoPago.Location = new Point(257, 168);
+            cbMetodoPago.Name = "cbMetodoPago";
+            cbMetodoPago.Size = new Size(161, 25);
+            cbMetodoPago.TabIndex = 39;
             // 
             // lbError
             // 
@@ -206,7 +172,7 @@
             cbTipoFactura.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTipoFactura.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             cbTipoFactura.FormattingEnabled = true;
-            cbTipoFactura.Location = new Point(257, 300);
+            cbTipoFactura.Location = new Point(257, 249);
             cbTipoFactura.Name = "cbTipoFactura";
             cbTipoFactura.Size = new Size(161, 25);
             cbTipoFactura.TabIndex = 24;
@@ -216,37 +182,18 @@
             lbTipoFactura.AutoSize = true;
             lbTipoFactura.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbTipoFactura.ForeColor = Color.Gainsboro;
-            lbTipoFactura.Location = new Point(93, 300);
+            lbTipoFactura.Location = new Point(93, 249);
             lbTipoFactura.Name = "lbTipoFactura";
             lbTipoFactura.Size = new Size(153, 23);
             lbTipoFactura.TabIndex = 18;
             lbTipoFactura.Text = "Tipo de Factura";
-            // 
-            // tbMP
-            // 
-            tbMP.Location = new Point(257, 244);
-            tbMP.Name = "tbMP";
-            tbMP.PlaceholderText = "CBU,CVU o Alias";
-            tbMP.Size = new Size(161, 23);
-            tbMP.TabIndex = 23;
-            tbMP.Visible = false;
-            // 
-            // tbNumeroTarjeta
-            // 
-            tbNumeroTarjeta.Location = new Point(257, 205);
-            tbNumeroTarjeta.Name = "tbNumeroTarjeta";
-            tbNumeroTarjeta.PlaceholderText = "XXXX-XXXX-XXXX-XXXX";
-            tbNumeroTarjeta.Size = new Size(161, 23);
-            tbNumeroTarjeta.TabIndex = 22;
-            tbNumeroTarjeta.Visible = false;
-            tbNumeroTarjeta.TextChanged += tbNumeroTarjeta_TextChanged;
             // 
             // lbFormaPago
             // 
             lbFormaPago.AutoSize = true;
             lbFormaPago.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbFormaPago.ForeColor = Color.Gainsboro;
-            lbFormaPago.Location = new Point(186, 120);
+            lbFormaPago.Location = new Point(93, 165);
             lbFormaPago.Name = "lbFormaPago";
             lbFormaPago.Size = new Size(154, 23);
             lbFormaPago.TabIndex = 17;
@@ -336,8 +283,6 @@
         private Panel panel3;
         private ComboBox cbTipoFactura;
         private Label lbTipoFactura;
-        private TextBox tbMP;
-        private TextBox tbNumeroTarjeta;
         private Label lbFormaPago;
         private Label lbCliente;
         private Label lbDNI;
@@ -345,8 +290,6 @@
         private Label lbNombreApellido;
         private Button btnConfirmar;
         private Label lbError;
-        private CheckBox cbEfectivo;
-        private CheckBox cbMercadoPago;
-        private CheckBox cbTarjeta;
+        private ComboBox cbMetodoPago;
     }
 }
