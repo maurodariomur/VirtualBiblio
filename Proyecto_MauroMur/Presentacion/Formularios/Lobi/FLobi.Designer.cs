@@ -312,7 +312,7 @@
             iconExit.Padding = new Padding(10, 0, 20, 0);
             iconExit.Size = new Size(220, 60);
             iconExit.TabIndex = 4;
-            iconExit.Text = "Salir";
+            iconExit.Text = "Cerrar Sesion";
             iconExit.TextAlign = ContentAlignment.MiddleLeft;
             iconExit.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconExit.UseVisualStyleBackColor = false;
