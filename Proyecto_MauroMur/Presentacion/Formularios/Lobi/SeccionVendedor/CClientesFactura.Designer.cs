@@ -110,7 +110,8 @@
             btnConfirmar.Anchor = AnchorStyles.Right;
             btnConfirmar.BackColor = Color.FromArgb(18, 72, 107);
             btnConfirmar.Cursor = Cursors.Hand;
-            btnConfirmar.FlatStyle = FlatStyle.Popup;
+            btnConfirmar.FlatAppearance.BorderSize = 0;
+            btnConfirmar.FlatStyle = FlatStyle.Flat;
             btnConfirmar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnConfirmar.ForeColor = SystemColors.ButtonFace;
             btnConfirmar.Location = new Point(186, 0);

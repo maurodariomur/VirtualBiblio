@@ -20,8 +20,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         public List<BotonesLibros> listaDeBotones = new List<BotonesLibros>();
         private List<BotonesLibros>? listaBotonesResguardo;
         private List<BotonesLibros>? todosLosLibros;
-        private List<BotonesLibros>? todasLasEditoriales;
-        private List<BotonesLibros>? todasLasCategorias;
         private FLobi flobi;
         private int contador;
         private int contLibro;

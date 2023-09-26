@@ -19,7 +19,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
     public partial class CClientesFactura : Form
     {
-        private int maxLength = 16;
         private ClientModel clientModel = new();
         public int IdClienteSeleccionado { get; set; }
         private ClienteConInformacion? cliente;
@@ -42,7 +41,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         public void ActualizarDetallesCliente(int idCliente)
         {
-            // Obtén el cliente utilizando el idCliente
             cliente = clientModel.ImportarCliente(idCliente);
 
             if (cliente != null)
@@ -58,65 +56,63 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             string dni = lbDNI.Text;
             DateTime fechaHoy = DateTime.Now;
             float total = (float)Carrito.ObtenerTotal();
-            int idCliente = cliente!.IdCliente;
+            int idCliente = cliente?.IdCliente ?? 0; // Si cliente es nulo, establece el ID a 0
             int idUsuario = UserLoginCache.Id;
             int idTipoFactura = saleModel.ObtenerIdTipoFactura(cbTipoFactura.Text);
             int idMetodoPago = saleModel.ObtenerIdMetodoPago(cbMetodoPago.Text);
             Venta_Cabecera venta_Cabecera = new Venta_Cabecera();
-            List<Libro> todosLosLibros = Carrito.TodosLosLibrosEnCarrito;
             List<Venta_Detalle> detallesVenta = new List<Venta_Detalle>();
 
-            Ventas ventas = new Ventas()
+            if (idCliente == 0 || cbTipoFactura.SelectedIndex == 0 || cbMetodoPago.SelectedIndex == 0)
             {
-                NombreCliente = nombre,
-                DNICliente = dni,
-                Telefono = cliente.Telefono,
-                Domicilio = cliente.Domicilio,
-                NombreVendedor = UserLoginCache.Nombre + UserLoginCache.Apellido,
-                DNIVendedor = UserLoginCache.DNI,
-                FechaFactura = fechaHoy,
-                MontoTotal = total,
-                venta_Detalles = detallesVenta,
-            };
-
-            foreach (var libroEnCarrito in Carrito.LibrosEnCarrito)
-            {
-                Venta_Detalle detalle = new Venta_Detalle
-                {
-                    PrecioProducto = (float)libroEnCarrito.Item1.Precio,
-                    Cantidad = libroEnCarrito.Item2, 
-                    SubTotalProducto = (float)libroEnCarrito.Item1.Precio * libroEnCarrito.Item2,
-                    Id_Libro = (libroEnCarrito.Item1.Id_Libro),
-                    Id_VentaCabecera = venta_Cabecera.Id_VentaCabecera,
-                };
-
-                detallesVenta.Add(detalle);
-            }
-
-
-            if (string.IsNullOrEmpty(nombre) || nombre == "Nombre y Apellido" || string.IsNullOrEmpty(dni) || dni == "DNI")
-            {
-                msgError("Debe seleccionar un Cliente");
-
+                msgError("Debe Completar todos los campos");
             }
             else
             {
+                Ventas ventas = new Ventas()
+                {
+                    NombreCliente = nombre,
+                    DNICliente = dni,
+                    Telefono = cliente!.Telefono,
+                    Domicilio = cliente!.Domicilio,
+                    TipoPago = cbMetodoPago.Text,
+                    TipoFactura = cbTipoFactura.Text,
+                    NombreVendedor = UserLoginCache.Nombre + UserLoginCache.Apellido,
+                    DNIVendedor = UserLoginCache.DNI,
+                    FechaFactura = fechaHoy,
+                    MontoTotal = total,
+                };
+
+                foreach (var libroEnCarrito in Carrito.LibrosEnCarrito)
+                {
+                    Venta_Detalle detalle = new Venta_Detalle
+                    {
+                        PrecioProducto = (float)libroEnCarrito.Item1.Precio,
+                        Cantidad = libroEnCarrito.Item2,
+                        SubTotalProducto = (float)libroEnCarrito.Item1.Precio * libroEnCarrito.Item2,
+                        Id_Libro = libroEnCarrito.Item1.Id_Libro,
+                        Id_VentaCabecera = venta_Cabecera.Id_VentaCabecera,
+                    };
+
+                    detallesVenta.Add(detalle);
+                }
+
                 bool ventaAgregada = saleModel.AgregarNuevaVenta(fechaHoy, total, idCliente, idUsuario, idMetodoPago, idTipoFactura, detallesVenta);
 
                 if (ventaAgregada)
                 {
                     foreach (var libroVendido in Carrito.LibrosEnCarrito)
                     {
-                        saleModel.ActualizarStockLibro(libroVendido.Item1.Id_Libro,libroVendido.Item2);
-                        
+                        saleModel.ActualizarStockLibro(libroVendido.Item1.Id_Libro, libroVendido.Item2);
                     }
                     Carrito.VaciarCarrito();
                     this.Close();
-                    CFactura factura = new CFactura(lobi!,ventas);
+                    CFactura factura = new CFactura(lobi!, ventas);
                     factura.Show();
                 }
             }
         }
+
 
         private void msgError(string msg)
         {

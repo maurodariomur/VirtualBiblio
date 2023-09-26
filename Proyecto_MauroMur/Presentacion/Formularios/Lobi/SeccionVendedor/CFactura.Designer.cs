@@ -39,6 +39,8 @@
             panel2 = new Panel();
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
+            lbFactura = new Label();
+            lbPago = new Label();
             lbDNICliente = new Label();
             panel7 = new Panel();
             label1 = new Label();
@@ -91,7 +93,7 @@
             lbTittle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lbTittle.AutoSize = true;
             lbTittle.Font = new Font("Britannic Bold", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lbTittle.Location = new Point(168, 55);
+            lbTittle.Location = new Point(295, 47);
             lbTittle.Name = "lbTittle";
             lbTittle.Size = new Size(162, 30);
             lbTittle.TabIndex = 9;
@@ -128,6 +130,8 @@
             // panel3
             // 
             panel3.BackColor = Color.WhiteSmoke;
+            panel3.Controls.Add(lbFactura);
+            panel3.Controls.Add(lbPago);
             panel3.Controls.Add(lbDNICliente);
             panel3.Controls.Add(panel7);
             panel3.Controls.Add(lbDatos);
@@ -143,12 +147,34 @@
             panel3.Size = new Size(576, 180);
             panel3.TabIndex = 9;
             // 
+            // lbFactura
+            // 
+            lbFactura.AutoSize = true;
+            lbFactura.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbFactura.ForeColor = SystemColors.ActiveCaptionText;
+            lbFactura.Location = new Point(178, 3);
+            lbFactura.Name = "lbFactura";
+            lbFactura.Size = new Size(112, 16);
+            lbFactura.TabIndex = 23;
+            lbFactura.Text = "Tipo De Factura:";
+            // 
+            // lbPago
+            // 
+            lbPago.AutoSize = true;
+            lbPago.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbPago.ForeColor = SystemColors.ActiveCaptionText;
+            lbPago.Location = new Point(12, 118);
+            lbPago.Name = "lbPago";
+            lbPago.Size = new Size(124, 17);
+            lbPago.TabIndex = 22;
+            lbPago.Text = "Metodo De Pago:";
+            // 
             // lbDNICliente
             // 
             lbDNICliente.AutoSize = true;
             lbDNICliente.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             lbDNICliente.ForeColor = SystemColors.ActiveCaptionText;
-            lbDNICliente.Location = new Point(206, 61);
+            lbDNICliente.Location = new Point(178, 61);
             lbDNICliente.Name = "lbDNICliente";
             lbDNICliente.Size = new Size(35, 17);
             lbDNICliente.TabIndex = 21;
@@ -193,6 +219,7 @@
             iconButton3.TabIndex = 20;
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.UseVisualStyleBackColor = true;
+            iconButton3.Click += iconButton3_Click;
             // 
             // iconButton4
             // 
@@ -229,7 +256,7 @@
             lbFechaFactura.AutoSize = true;
             lbFechaFactura.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbFechaFactura.ForeColor = SystemColors.ActiveCaptionText;
-            lbFechaFactura.Location = new Point(12, 163);
+            lbFechaFactura.Location = new Point(12, 152);
             lbFechaFactura.Name = "lbFechaFactura";
             lbFechaFactura.Size = new Size(50, 16);
             lbFechaFactura.TabIndex = 14;
@@ -240,7 +267,7 @@
             lbDireccion.AutoSize = true;
             lbDireccion.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             lbDireccion.ForeColor = SystemColors.ActiveCaptionText;
-            lbDireccion.Location = new Point(12, 113);
+            lbDireccion.Location = new Point(178, 87);
             lbDireccion.Name = "lbDireccion";
             lbDireccion.Size = new Size(73, 17);
             lbDireccion.TabIndex = 13;
@@ -423,7 +450,7 @@
             lbTotal.AutoSize = true;
             lbTotal.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbTotal.ForeColor = SystemColors.ActiveCaptionText;
-            lbTotal.Location = new Point(439, 267);
+            lbTotal.Location = new Point(443, 215);
             lbTotal.Name = "lbTotal";
             lbTotal.Size = new Size(46, 18);
             lbTotal.TabIndex = 19;
@@ -434,7 +461,7 @@
             dataGridFactura.AllowUserToAddRows = false;
             dataGridFactura.AllowUserToDeleteRows = false;
             dataGridFactura.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridFactura.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dataGridFactura.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridFactura.BackgroundColor = Color.WhiteSmoke;
             dataGridFactura.BorderStyle = BorderStyle.None;
             dataGridFactura.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -482,7 +509,7 @@
             dataGridFactura.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridFactura.RowTemplate.Height = 25;
             dataGridFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridFactura.Size = new Size(552, 258);
+            dataGridFactura.Size = new Size(552, 206);
             dataGridFactura.TabIndex = 3;
             dataGridFactura.CellContentClick += dataGridFactura_CellContentClick;
             // 
@@ -500,8 +527,8 @@
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CFactura";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "CFactura";
-            WindowState = FormWindowState.Maximized;
             Load += CFactura_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -552,5 +579,7 @@
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private Label lbDNICliente;
+        private Label lbFactura;
+        private Label lbPago;
     }
 }
