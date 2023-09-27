@@ -21,7 +21,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private ClienteConInformacion? clienteSeleccionado;
         private int idClienteSeleccionado = -1;
         private bool edicionRealizada = false;
-        private bool modificacionesPendientes = false;
         private CClientesFactura? _clienteFactura;
 
         public CTablaClientes(CClientesFactura clienteFactura)

@@ -312,7 +312,7 @@
             iconExit.Padding = new Padding(10, 0, 20, 0);
             iconExit.Size = new Size(220, 60);
             iconExit.TabIndex = 4;
-            iconExit.Text = "Cerrar Sesion";
+            iconExit.Text = "Cerrar Sesión";
             iconExit.TextAlign = ContentAlignment.MiddleLeft;
             iconExit.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconExit.UseVisualStyleBackColor = false;
@@ -356,6 +356,7 @@
             iconCatalogo.TextAlign = ContentAlignment.MiddleLeft;
             iconCatalogo.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconCatalogo.UseVisualStyleBackColor = false;
+            iconCatalogo.Visible = false;
             iconCatalogo.Click += iconCatalogo_Click;
             // 
             // iconProducto
@@ -380,6 +381,7 @@
             iconProducto.TextAlign = ContentAlignment.MiddleLeft;
             iconProducto.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconProducto.UseVisualStyleBackColor = false;
+            iconProducto.Visible = false;
             iconProducto.Click += iconProducto_Click;
             // 
             // panel1

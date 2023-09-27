@@ -50,5 +50,16 @@ namespace Domain
         {
             return saleDatos.ActualizarStockLibro(idLibro, cantidadVendida);
         }
+
+        public int ObtenerUltimoIdVentaCabecera()
+        {
+            return saleDatos.ObtenerUltimoIdVentaCabecera();
+        }
+
+        public List<Ventas> ObtenerDetalleFacturaUltimaCabecera()
+        {
+            return saleDatos.ObtenerDetalleFacturaUltimaCabecera();
+        }
+
     }
 }

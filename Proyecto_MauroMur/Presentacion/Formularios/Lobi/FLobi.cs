@@ -215,6 +215,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             pictureBox1.Image = Image.FromFile(carpetaDestino + "Bienvenidos.gif");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
+            if (UserLoginCache.TipoPerfil == 1)
+            {
+                iconEstadistica.Visible = true;
+            }
+            else if(UserLoginCache.TipoPerfil == 2)
+            {
+                iconProducto.Visible = true;
+                iconUsuarios.Visible = true;
+            }
+            else
+            {
+                iconCatalogo.Visible = true;
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

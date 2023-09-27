@@ -22,17 +22,14 @@ namespace Proyecto_MauroMur.Common.Models
         public string? ApellidoVendedor { get; set; }
         public string? DNIVendedor { get; set; }
         public string? TipoPago { get; set; }
-        public int Id_VentaDetalle { get; set; }
+        public string? TipoFactura { get; set; }
         public int Id_Libro { get; set; }
         public string? Titulo { get; set; }
         public string? Categoria { get; set; }
-        public string? Editorial { get; set; }
-        public string? Autor { get; set; }
-        public double Precio { get; set; }
+        public string? NombreEditorial { get; set; }
+        public string? NombreAutor { get; set; }
         public float PrecioProducto { get; set; }
         public int Cantidad { get; set; }
         public float SubTotalProducto { get; set; }
-        public List<Venta_Detalle>? venta_Detalles { get; set; }
-        
     }
 }

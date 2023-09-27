@@ -305,5 +305,47 @@ namespace DataAccess
 
             return tipoFacturaId;
         }
+
+        public List<Ventas> ObtenerDetalleFacturaUltimaCabecera()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT VD.PrecioProducto, VD.Cantidad, VD.SubTotalProducto, " +
+                                          "L.NombreProducto, A.Nombre, E.NombreEditorial " +
+                                          "FROM Venta_Detalle VD " +
+                                          "INNER JOIN Libro L ON VD.Id_Libro = L.Id_Libro " +
+                                          "INNER JOIN Autor A ON L.Id_Autor = A.Id_Autor " +
+                                          "INNER JOIN Editorial E ON L.Id_Editorial = E.Id_Editorial " +
+                                          "WHERE VD.Id_VentaCabecera = (SELECT MAX(Id_VentaCabecera) FROM Venta_Cabecera);";
+
+                    List<Ventas> detalles = new List<Ventas>();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Ventas detalle = new Ventas
+                            {
+                                PrecioProducto = Convert.ToSingle(reader["PrecioProducto"]),
+                                Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                                SubTotalProducto = Convert.ToSingle(reader["SubTotalProducto"]),
+                                Titulo = reader["NombreProducto"].ToString(),
+                                NombreAutor = reader["Nombre"].ToString(),
+                                NombreEditorial = reader["NombreEditorial"].ToString()
+                            };
+
+                            detalles.Add(detalle);
+                        }
+                    }
+
+                    return detalles;
+                }
+            }
+        }
+
     }
 }

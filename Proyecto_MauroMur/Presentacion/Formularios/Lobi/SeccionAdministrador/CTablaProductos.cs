@@ -406,6 +406,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                         // Realiza la copia de la imagen
                         File.Copy(fileActualPath!, fileSavePath!);
                     }
+                    imagenName= null;
                     MessageBox.Show("El producto se ha actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCamposModificar();
                     desactivarBotones();
