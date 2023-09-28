@@ -79,7 +79,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(usuario,contrasena, idTipoPerfil, nombre, apellido, dni, mail, fechaNacimiento);
+                    bool usuarioAgregado = userModel.AgregarNuevoUsuario(usuario, contrasena, idTipoPerfil, nombre, apellido, dni, mail, fechaNacimiento);
                     MessageBox.Show("Usuario agregado exitosamente: " + nombre + " " + apellido, "Empleado Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();
                 }
@@ -140,102 +140,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             lbError.Visible = true;
         }
 
-        private void txName_Enter_1(object sender, EventArgs e)
-        {
-            if (txName.Text == "Nombre")
-            {
-                txName.Text = "";
-            }
-        }
-
-        private void txName_Leave_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txName.Text))
-            {
-                txName.Text = "Nombre";
-            }
-        }
-
-        private void txLastName_Enter_1(object sender, EventArgs e)
-        {
-            if (txLastName.Text == "Apellido")
-            {
-                txLastName.Text = "";
-            }
-        }
-
-        private void txLastName_Leave_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txLastName.Text))
-            {
-                txLastName.Text = "Apellido";
-            }
-        }
-
-        private void txMail_Enter_1(object sender, EventArgs e)
-        {
-            if (txMail.Text == "Correo Electronico")
-            {
-                txMail.Text = "";
-            }
-        }
-
-        private void txMail_Leave_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txMail.Text))
-            {
-                txMail.Text = "Correo Electronico";
-            }
-        }
-
-        private void txEmpleado_Enter_1(object sender, EventArgs e)
-        {
-            if (txEmpleado.Text == "Usuario")
-            {
-                txEmpleado.Text = "";
-            }
-        }
-
-        private void txEmpleado_Leave_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txEmpleado.Text))
-            {
-                txEmpleado.Text = "Usuario";
-            }
-        }
-
-        private void txPassword_Enter_1(object sender, EventArgs e)
-        {
-            if (txPassword.Text == "Contraseña")
-            {
-                txPassword.Text = "";
-            }
-        }
-
-        private void txPassword_Leave_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txPassword.Text))
-            {
-                txPassword.Text = "Contraseña";
-            }
-        }
-
-        private void txDNI_Enter_1(object sender, EventArgs e)
-        {
-            if (txDNI.Text == "DNI")
-            {
-                txDNI.Text = "";
-            }
-        }
-
-        private void txDNI_Leave_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txDNI.Text))
-            {
-                txDNI.Text = "DNI";
-            }
-        }
-
         private void txName_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
@@ -271,7 +175,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 contraVisible.Visible = false;
             }
         }
-
 
         private void contraVisible_Click(object sender, EventArgs e)
         {

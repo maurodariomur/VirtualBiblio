@@ -61,5 +61,14 @@ namespace Domain
             return saleDatos.ObtenerDetalleFacturaUltimaCabecera();
         }
 
+        public List<Ventas> ObtenerVentasPorUsuarioConNombres(int idUsuario)
+        {
+            return saleDatos.ObtenerVentasPorUsuarioConNombres(idUsuario);
+        }
+
+        public List<Ventas> ObtenerVentasDetalle(int idCabecera)
+        {
+            return saleDatos.ObtenerDetallesVenta(idCabecera);
+        }
     }
 }

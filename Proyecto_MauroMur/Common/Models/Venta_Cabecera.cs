@@ -15,5 +15,6 @@ namespace Common.Models
         public int Id_Usuario { get; set; }
         public int Id_MetodoPago { get; set; }
         public int Id_TipoFactura { get; set; }
+        public string? Estado { get; set; }
     }
 }

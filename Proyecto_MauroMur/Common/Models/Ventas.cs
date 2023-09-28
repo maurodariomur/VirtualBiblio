@@ -23,6 +23,7 @@ namespace Proyecto_MauroMur.Common.Models
         public string? DNIVendedor { get; set; }
         public string? TipoPago { get; set; }
         public string? TipoFactura { get; set; }
+        public string? Estado { get; set; }
         public int Id_Libro { get; set; }
         public string? Titulo { get; set; }
         public string? Categoria { get; set; }

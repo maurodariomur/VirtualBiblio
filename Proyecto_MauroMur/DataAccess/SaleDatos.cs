@@ -243,7 +243,7 @@ namespace DataAccess
             }
             else
             {
-                return false; // No hay suficiente stock para realizar la venta
+                return false;
             }
         }
 
@@ -321,6 +321,98 @@ namespace DataAccess
                                           "INNER JOIN Autor A ON L.Id_Autor = A.Id_Autor " +
                                           "INNER JOIN Editorial E ON L.Id_Editorial = E.Id_Editorial " +
                                           "WHERE VD.Id_VentaCabecera = (SELECT MAX(Id_VentaCabecera) FROM Venta_Cabecera);";
+
+                    List<Ventas> detalles = new List<Ventas>();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Ventas detalle = new Ventas
+                            {
+                                PrecioProducto = Convert.ToSingle(reader["PrecioProducto"]),
+                                Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                                SubTotalProducto = Convert.ToSingle(reader["SubTotalProducto"]),
+                                Titulo = reader["NombreProducto"].ToString(),
+                                NombreAutor = reader["Nombre"].ToString(),
+                                NombreEditorial = reader["NombreEditorial"].ToString()
+                            };
+
+                            detalles.Add(detalle);
+                        }
+                    }
+
+                    return detalles;
+                }
+            }
+        }
+
+        public List<Ventas> ObtenerVentasPorUsuarioConNombres(int idUsuario)
+        {
+            List<Ventas> ventasList = new List<Ventas>();
+            string query = "SELECT VC.Id_VentaCabecera, VC.FechaFactura, VC.MontoTotal, " +
+                           "PC.Nombre AS NombreCliente, PC.Apellido AS ApellidoCliente, PC.DNI AS DNICliente, " +
+                           "PV.Nombre AS NombreVendedor, PV.Apellido AS ApellidoVendedor, " +
+                           "MP.TipoPago, TF.TipoFactura, VC.Estado " +
+                           "FROM Venta_Cabecera VC " +
+                           "INNER JOIN Cliente C ON VC.Id_Cliente = C.Id_Cliente " +
+                           "INNER JOIN Usuario U ON VC.Id_Usuario = U.Id " +
+                           "INNER JOIN Persona PC ON C.Id_Persona = PC.Id_Persona " +
+                           "INNER JOIN Persona PV ON U.Id_Persona = PV.Id_Persona " +
+                           "INNER JOIN Metodo_Pago MP ON VC.Id_MetodoPago = MP.Id_MetodoPago " +
+                           "INNER JOIN Tipo_Factura TF ON VC.Id_TipoFactura = TF.Id_TipoFactura " +
+                           "WHERE VC.Id_Usuario = @IdUsuario";
+
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Ventas venta = new Ventas
+                        {
+                            Id_VentaCabecera = Convert.ToInt32(reader["Id_VentaCabecera"]),
+                            FechaFactura = Convert.ToDateTime(reader["FechaFactura"]),
+                            MontoTotal = Convert.ToSingle(reader["MontoTotal"]),
+                            NombreCliente = reader["NombreCliente"].ToString(),
+                            ApellidoCliente = reader["ApellidoCliente"].ToString(),
+                            DNICliente = reader["DNICliente"].ToString(),
+                            NombreVendedor = reader["NombreVendedor"].ToString(),
+                            ApellidoVendedor = reader["ApellidoVendedor"].ToString(),
+                            TipoPago = reader["TipoPago"].ToString(),
+                            TipoFactura = reader["TipoFactura"].ToString(),
+                            Estado = reader["Estado"].ToString(),
+                        };
+
+                        ventasList.Add(venta);
+                    }
+                }
+            }
+            return ventasList;
+        }
+
+        public List<Ventas> ObtenerDetallesVenta(int idVentaCabecera)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT VD.PrecioProducto, VD.Cantidad, VD.SubTotalProducto, " +
+                                          "L.NombreProducto, A.Nombre, E.NombreEditorial " +
+                                          "FROM Venta_Detalle VD " +
+                                          "INNER JOIN Libro L ON VD.Id_Libro = L.Id_Libro " +
+                                          "INNER JOIN Autor A ON L.Id_Autor = A.Id_Autor " +
+                                          "INNER JOIN Editorial E ON L.Id_Editorial = E.Id_Editorial " +
+                                          "WHERE VD.Id_VentaCabecera = @IdVentaCabecera";
+
+                    command.Parameters.AddWithValue("@IdVentaCabecera", idVentaCabecera);
 
                     List<Ventas> detalles = new List<Ventas>();
 
