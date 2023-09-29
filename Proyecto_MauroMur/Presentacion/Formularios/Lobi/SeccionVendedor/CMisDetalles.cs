@@ -23,13 +23,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void CMisDetalles_Load(object sender, EventArgs e)
         {
-            // Configura tu DataGridView para mostrar los detalles de la venta.
             dataGridMisVentas.DataSource = detallesVenta;
             DatosOcultos();
         }
+
         private void DatosOcultos()
         {
-
             DataGridViewColumnCollection columns = dataGridMisVentas.Columns;
             columns["Id_VentaCabecera"].Visible = false;
             columns["FechaFactura"].Visible = false;

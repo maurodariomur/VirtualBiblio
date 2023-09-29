@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Common.Models;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
@@ -53,6 +54,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridMisVentas.Columns["NombreCliente"].HeaderText = "Nombre";
             dataGridMisVentas.Columns["ApellidoCliente"].HeaderText = "Apellido";
             dataGridMisVentas.Columns["DNICliente"].HeaderText = "D.N.I Cliente";
+            dataGridMisVentas.Columns["Estado"].HeaderText = "Cancelar Factura";
             ocultarColumas();
         }
 
@@ -85,9 +87,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
                 int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
+                Ventas cabeceraVentas = saleModel.ObtenerIdCabecera(idVentaCabecera);
                 List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
-
-                CMisDetalles detalleForm = new(detallesVenta);
+                    
+                CFacturaReImpresion detalleForm = new(detallesVenta, cabeceraVentas);
                 detalleForm.ShowDialog();
             }
         }

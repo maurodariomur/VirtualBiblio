@@ -37,6 +37,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             concatenacion();
             dataGridVentas.Columns["DNICliente"].HeaderText = "D.N.I Cliente";
             dataGridVentas.Columns["Estado"].HeaderText = "Estado";
+            dataGridVentas.Columns["Estado"].DisplayIndex = dataGridVentas.Columns.Count - 1;
             ocultarColumas();
             dateTimePickerDesde.CustomFormat = "dd/MM/yyyy";
             dateTimePickerDesde.Format = DateTimePickerFormat.Custom;

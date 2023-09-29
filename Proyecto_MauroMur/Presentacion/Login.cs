@@ -21,10 +21,6 @@ namespace Proyecto_MauroMur
         [DllImport("user32.dll", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
 
-        private void LSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
 
         private void TUsuario_Enter(object sender, EventArgs e)
         {

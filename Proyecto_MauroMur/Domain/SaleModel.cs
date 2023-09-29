@@ -71,7 +71,6 @@ namespace Domain
             return saleDatos.ObtenerHistorialVentas();
         }
 
-
         public List<Ventas> ObtenerVentasDetalle(int idCabecera)
         {
             return saleDatos.ObtenerDetallesVenta(idCabecera);
@@ -101,6 +100,11 @@ namespace Domain
         public bool CambiarEstadoFactura(int idVentaCabecera)
         {
             return saleDatos.CambiarEstadoFactura(idVentaCabecera);
+        }
+
+        public Ventas ObtenerIdCabecera(int idCabecera)
+        {
+            return saleDatos.ObtenerVentaPorIdCabecera(idCabecera);
         }
     }
 }

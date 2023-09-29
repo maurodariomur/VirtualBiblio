@@ -727,5 +727,55 @@ namespace DataAccess
                 }
             }
         }
+
+        public Ventas ObtenerVentaPorIdCabecera(int idCabeceraVenta)
+        {
+            Ventas venta = null!;
+            string query = "SELECT VC.Id_VentaCabecera, VC.FechaFactura, VC.MontoTotal, " +
+                           "PC.Nombre AS NombreCliente, PC.Apellido AS ApellidoCliente, PC.DNI AS DNICliente, C.Telefono, C.Domicilio, " +
+                           "PV.Nombre AS NombreVendedor, PV.Apellido AS ApellidoVendedor, PV.DNI AS DNIVendedor, " +
+                           "MP.TipoPago, TF.TipoFactura, VC.Estado " +
+                           "FROM Venta_Cabecera VC " +
+                           "INNER JOIN Cliente C ON VC.Id_Cliente = C.Id_Cliente " +
+                           "INNER JOIN Usuario U ON VC.Id_Usuario = U.Id " +
+                           "INNER JOIN Persona PC ON C.Id_Persona = PC.Id_Persona " +
+                           "INNER JOIN Persona PV ON U.Id_Persona = PV.Id_Persona " +
+                           "INNER JOIN Metodo_Pago MP ON VC.Id_MetodoPago = MP.Id_MetodoPago " +
+                           "INNER JOIN Tipo_Factura TF ON VC.Id_TipoFactura = TF.Id_TipoFactura " +
+                           "WHERE VC.Id_VentaCabecera = @IdCabeceraVenta";
+
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCabeceraVenta", idCabeceraVenta);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        venta = new Ventas
+                        {
+                            Id_VentaCabecera = Convert.ToInt32(reader["Id_VentaCabecera"]),
+                            FechaFactura = Convert.ToDateTime(reader["FechaFactura"]),
+                            MontoTotal = Convert.ToSingle(reader["MontoTotal"]),
+                            NombreCliente = reader["NombreCliente"].ToString(),
+                            ApellidoCliente = reader["ApellidoCliente"].ToString(),
+                            DNICliente = reader["DNICliente"].ToString(),
+                            Telefono = reader["Telefono"].ToString(),
+                            Domicilio = reader["Domicilio"].ToString(),
+                            NombreVendedor = reader["NombreVendedor"].ToString(),
+                            ApellidoVendedor = reader["ApellidoVendedor"].ToString(),
+                            DNIVendedor = reader["DNIVendedor"].ToString(),
+                            TipoPago = reader["TipoPago"].ToString(),
+                            TipoFactura = reader["TipoFactura"].ToString(),
+                            Estado = reader["Estado"].ToString(),
+                        };
+                    }
+                }
+            }
+            return venta!;
+        }
     }
 }
