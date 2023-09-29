@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Common.Models;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
@@ -17,7 +18,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     {
         private FLobi? lobi;
         SaleModel saleModel = new SaleModel();
-        private bool formDetallesAbierto = false;
 
         public CMisVentas(FLobi? _lobi)
         {
@@ -38,7 +38,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridMisVentas.Columns["DNICliente"].HeaderText = "D.N.I Cliente";
             dataGridMisVentas.Columns["Estado"].HeaderText = "Cancelar Factura";
             ocultarColumas();
-            dataGridMisVentas.CellContentClick += dataGridMisVentas_CellContentClick!;
         }
 
         private void ocultarColumas()
@@ -68,25 +67,46 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             if (e.ColumnIndex != dataGridMisVentas.Columns["Estado"].Index && e.RowIndex >= 0)
             {
                 // Evita que el formulario CMisDetalles se abra dos veces.
-                if (!formDetallesAbierto)
-                {
-                    // Obtiene la fila seleccionada.
-                    DataGridViewRow selectedRow = dataGridMisVentas.Rows[e.RowIndex];
 
-                    // Obtén el ID de la venta cabecera de esa fila (asumiendo que la columna que contiene el ID se llama "Id_VentaCabecera").
-                    int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
+                // Obtiene la fila seleccionada.
+                DataGridViewRow selectedRow = dataGridMisVentas.Rows[e.RowIndex];
 
-                    // Llama a la función para obtener los detalles de la venta específica.
-                    List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
+                // Obtén el ID de la venta cabecera de esa fila (asumiendo que la columna que contiene el ID se llama "Id_VentaCabecera").
+                int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
-                    // Abre el formulario de detalle pasando los detalles de la venta.
-                    CMisDetalles detalleForm = new(detallesVenta);
-                    detalleForm.FormClosed += (s, args) => { formDetallesAbierto = false; }; // Cuando se cierre el formulario, establece la variable en false.
-                    detalleForm.ShowDialog(); // Muestra el formulario de detalle de manera modal.
+                // Llama a la función para obtener los detalles de la venta específica.
+                List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
 
-                    formDetallesAbierto = true; // Establece la variable en true para evitar que se abra nuevamente.
-                }
+                // Abre el formulario de detalle pasando los detalles de la venta.
+                CDetallesVentas detalleForm = new(detallesVenta);
+                detalleForm.ShowDialog();
             }
+        }
+
+        private void FiltrarFacturas()
+        {
+            string textoBusquedaNombre = txBuscadorNombre.Text.ToLower();
+            string textoBusquedaApellido = txBuscadorApellido.Text.ToLower();
+            string textoBusquedaDNI = txBuscadorDni.Text.ToLower();
+
+            List<Ventas> ventasFiltradas = saleModel.ObtenerVentasConFiltros(textoBusquedaNombre, textoBusquedaApellido, textoBusquedaDNI);
+
+            dataGridMisVentas.DataSource = ventasFiltradas;
+        }
+
+        private void txBuscadorNombre_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarFacturas();
+        }
+
+        private void txBuscadorApellido_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarFacturas();
+        }
+
+        private void txBuscadorDni_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarFacturas();
         }
     }
 }

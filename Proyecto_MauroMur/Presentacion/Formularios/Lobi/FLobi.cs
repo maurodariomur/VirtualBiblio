@@ -40,6 +40,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             public static Color color2 = Color.FromArgb(170, 139, 86);
             public static Color color3 = Color.FromArgb(0, 129, 138);
             public static Color color4 = Color.FromArgb(95, 77, 221);
+            public static Color color5 = Color.FromArgb(176, 166, 232);
+            public static Color color6 = Color.FromArgb(144, 197, 203);
         }
 
         private void ActivateButton(object senderBtn, Color color)
@@ -119,8 +121,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
         private void iconMisVentas_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color3);
+            ActivateButton(sender, RGBColors.color5);
             OpenChildForm(new SeccionVendedor.CMisVentas(this));
+        }
+
+        private void iconHistorialVentas_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new SeccionAdministrador.CHistorialVentas(this));
         }
 
         private void iconExit_Click(object sender, EventArgs e)
@@ -229,10 +237,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             {
                 iconProducto.Visible = true;
                 iconUsuarios.Visible = true;
+                iconHistorialVentas.Visible = true;
             }
             else
             {
                 iconCatalogo.Visible = true;
+                iconMisVentas.Visible = true;
             }
         }
 
@@ -252,7 +262,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             // Resto del código para mostrar otros datos de usuario
             lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
         }
-
     }
 }
 

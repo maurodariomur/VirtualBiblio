@@ -66,9 +66,41 @@ namespace Domain
             return saleDatos.ObtenerVentasPorUsuarioConNombres(idUsuario);
         }
 
+        public List<Ventas> ObtenerTodasVentas()
+        {
+            return saleDatos.ObtenerHistorialVentas();
+        }
+
+
         public List<Ventas> ObtenerVentasDetalle(int idCabecera)
         {
             return saleDatos.ObtenerDetallesVenta(idCabecera);
+        }
+
+        public List<Ventas> ObtenerVentasConFiltros(string nombreCliente, string apellidoCliente, string dniCliente)
+        {
+            return saleDatos.ObtenerVentasConFiltros(nombreCliente, apellidoCliente, dniCliente);
+        }
+
+
+        public List<Ventas> ObtenerFechas(DateTime? fechaFacturaDesde, DateTime? fechaFacturaHasta)
+        {
+            return saleDatos.ObtenerFechasFiltros(fechaFacturaDesde, fechaFacturaHasta);
+        }
+
+        public DateTime? ObtenerMinFechaFactura()
+        {
+            return saleDatos.ObtenerMinFechaFactura();
+        }
+
+        public DateTime? ObtenerMaxFechaFactura()
+        {
+            return saleDatos.ObtenerMaxFechaFactura();
+        }
+
+        public bool CambiarEstadoFactura(int idVentaCabecera)
+        {
+            return saleDatos.CambiarEstadoFactura(idVentaCabecera);
         }
     }
 }

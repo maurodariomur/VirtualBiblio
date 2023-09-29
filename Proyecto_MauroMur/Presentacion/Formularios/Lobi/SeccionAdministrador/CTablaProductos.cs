@@ -68,7 +68,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             opcionesAutores();
             opcionesEditoriales();
             editarOpcionesCategoria();
-            dataGridProductos.CellClick += new DataGridViewCellEventHandler(dataGridProductos_CellContentClick!);
             dataGridProductos.RowPrePaint += DataGridProductos_RowPrePaint!;
         }
 
@@ -217,6 +216,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txEditarPrecio.Enabled = false;
             txEditarStock.Enabled = false;
             iconEditarImagen.Enabled = false;
+            btEditar.Enabled = false;
+            iconLimpiar.Enabled = false;
         }
 
         private void cBBuscadorAutor_SelectedIndexChanged(object sender, EventArgs e)
@@ -248,7 +249,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 edicionRealizada = true;
 
                 // Muestra el mensaje de confirmación
-                DialogResult confirmResult = MessageBox.Show("Usted esta por realizar una Edición.En caso de que no lo desee vacie Los campos", "Informe de edición", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult confirmResult = MessageBox.Show("¿Desea Realizar una Modificacion al Libro?", "Informe de edición", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
                 if (confirmResult == DialogResult.OK)
                 {
@@ -262,6 +263,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     txEditarPrecio.Enabled = true;
                     txEditarStock.Enabled = true;
                     iconEditarImagen.Enabled = true;
+                    btEditar.Enabled = true;
+                    iconLimpiar.Enabled = true;
 
                     // Obtiene la fila seleccionada
                     DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
@@ -293,7 +296,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     // Selecciona la categoría en el ComboBox
                     txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
                 }
-            }
+                else
+                {
+                    edicionRealizada = false;
+                }
+            } 
         }
 
         private void checkBoxSiEd_CheckedChanged(object sender, EventArgs e)

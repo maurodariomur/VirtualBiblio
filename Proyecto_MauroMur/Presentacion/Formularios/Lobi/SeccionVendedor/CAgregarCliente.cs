@@ -17,9 +17,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
     public partial class CAgregarCliente : Form
     {
         ClientModel clientModel = new ClientModel();
-        public CAgregarCliente()
+        private CClientesFactura? _clienteFactura;
+        public CAgregarCliente(CClientesFactura clienteFactura)
         {
             InitializeComponent();
+            _clienteFactura = clienteFactura;
         }
 
         private void CAgregarCliente_Load(object sender, EventArgs e)
@@ -103,7 +105,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             else
             {
                 // Si el formulario no existe, crea una nueva instancia y ábrelo
-                formularioTablaCli = new CTablaClientes(null!);
+                formularioTablaCli = new CTablaClientes(_clienteFactura!);
                 formularioTablaCli.Show();
             }
         }

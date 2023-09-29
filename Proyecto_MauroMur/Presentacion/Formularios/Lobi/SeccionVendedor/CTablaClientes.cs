@@ -97,7 +97,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void iconButton1_Click(object sender, EventArgs e)
         {
             this.Close();
-            CAgregarCliente agregarCliente = new CAgregarCliente();
+            CAgregarCliente agregarCliente = new CAgregarCliente(_clienteFactura!);
             agregarCliente.Show();
         }
 

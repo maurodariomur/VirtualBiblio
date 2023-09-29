@@ -1,4 +1,4 @@
-﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
+﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     partial class CDetallesVentas
     {
@@ -177,7 +177,7 @@
             Opacity = 0.95D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MisDetalles";
-            Load += CMisDetalles_Load;
+            Load += CDetallesVentas_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

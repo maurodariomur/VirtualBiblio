@@ -56,6 +56,7 @@
             lbRol = new Label();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            iconHistorialVentas = new FontAwesome.Sharp.IconButton();
             panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconCurrentChildForm).BeginInit();
             panelEscritorio.SuspendLayout();
@@ -176,7 +177,7 @@
             panelEscritorio.ForeColor = Color.Transparent;
             panelEscritorio.Location = new Point(220, 100);
             panelEscritorio.Name = "panelEscritorio";
-            panelEscritorio.Size = new Size(706, 461);
+            panelEscritorio.Size = new Size(706, 517);
             panelEscritorio.TabIndex = 3;
             // 
             // Lfecha
@@ -186,7 +187,7 @@
             Lfecha.BackColor = Color.Transparent;
             Lfecha.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
             Lfecha.ForeColor = Color.FromArgb(24, 61, 61);
-            Lfecha.Location = new Point(96, 372);
+            Lfecha.Location = new Point(96, 400);
             Lfecha.Name = "Lfecha";
             Lfecha.Size = new Size(85, 29);
             Lfecha.TabIndex = 4;
@@ -201,7 +202,7 @@
             Lhora.FlatStyle = FlatStyle.Flat;
             Lhora.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
             Lhora.ForeColor = Color.FromArgb(24, 61, 61);
-            Lhora.Location = new Point(287, 333);
+            Lhora.Location = new Point(287, 361);
             Lhora.Name = "Lhora";
             Lhora.Size = new Size(100, 37);
             Lhora.TabIndex = 3;
@@ -212,7 +213,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Location = new Point(201, 69);
+            pictureBox1.Location = new Point(201, 97);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(333, 249);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -308,7 +309,7 @@
             iconExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconExit.IconSize = 32;
             iconExit.ImageAlign = ContentAlignment.MiddleLeft;
-            iconExit.Location = new Point(0, 501);
+            iconExit.Location = new Point(0, 557);
             iconExit.Name = "iconExit";
             iconExit.Padding = new Padding(10, 0, 20, 0);
             iconExit.Size = new Size(220, 60);
@@ -322,6 +323,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(24, 61, 61);
+            panelMenu.Controls.Add(iconHistorialVentas);
             panelMenu.Controls.Add(iconMisVentas);
             panelMenu.Controls.Add(iconCatalogo);
             panelMenu.Controls.Add(iconProducto);
@@ -333,7 +335,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(220, 561);
+            panelMenu.Size = new Size(220, 617);
             panelMenu.TabIndex = 0;
             // 
             // iconMisVentas
@@ -344,7 +346,7 @@
             iconMisVentas.FlatStyle = FlatStyle.Flat;
             iconMisVentas.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             iconMisVentas.ForeColor = Color.Gainsboro;
-            iconMisVentas.IconChar = FontAwesome.Sharp.IconChar.Swatchbook;
+            iconMisVentas.IconChar = FontAwesome.Sharp.IconChar.FileInvoice;
             iconMisVentas.IconColor = Color.Gainsboro;
             iconMisVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconMisVentas.IconSize = 32;
@@ -358,6 +360,7 @@
             iconMisVentas.TextAlign = ContentAlignment.MiddleLeft;
             iconMisVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconMisVentas.UseVisualStyleBackColor = false;
+            iconMisVentas.Visible = false;
             iconMisVentas.Click += iconMisVentas_Click;
             // 
             // iconCatalogo
@@ -418,7 +421,7 @@
             panel1.Dock = DockStyle.Bottom;
             panel1.Enabled = false;
             panel1.ForeColor = Color.Transparent;
-            panel1.Location = new Point(0, 441);
+            panel1.Location = new Point(0, 497);
             panel1.Name = "panel1";
             panel1.Size = new Size(220, 60);
             panel1.TabIndex = 5;
@@ -462,12 +465,37 @@
             iconButton1.TabIndex = 5;
             iconButton1.UseVisualStyleBackColor = true;
             // 
+            // iconHistorialVentas
+            // 
+            iconHistorialVentas.BackColor = Color.FromArgb(24, 61, 61);
+            iconHistorialVentas.Dock = DockStyle.Top;
+            iconHistorialVentas.FlatAppearance.BorderSize = 0;
+            iconHistorialVentas.FlatStyle = FlatStyle.Flat;
+            iconHistorialVentas.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconHistorialVentas.ForeColor = Color.Gainsboro;
+            iconHistorialVentas.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+            iconHistorialVentas.IconColor = Color.Gainsboro;
+            iconHistorialVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconHistorialVentas.IconSize = 32;
+            iconHistorialVentas.ImageAlign = ContentAlignment.MiddleLeft;
+            iconHistorialVentas.Location = new Point(0, 400);
+            iconHistorialVentas.Name = "iconHistorialVentas";
+            iconHistorialVentas.Padding = new Padding(10, 0, 20, 0);
+            iconHistorialVentas.Size = new Size(220, 60);
+            iconHistorialVentas.TabIndex = 9;
+            iconHistorialVentas.Text = "Historial Ventas";
+            iconHistorialVentas.TextAlign = ContentAlignment.MiddleLeft;
+            iconHistorialVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconHistorialVentas.UseVisualStyleBackColor = false;
+            iconHistorialVentas.Visible = false;
+            iconHistorialVentas.Click += iconHistorialVentas_Click;
+            // 
             // FLobi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(221, 230, 237);
-            ClientSize = new Size(926, 561);
+            ClientSize = new Size(926, 617);
             Controls.Add(panelEscritorio);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
@@ -517,5 +545,6 @@
         public Panel panelEscritorio;
         public Label lbTitleCurrentForm;
         private FontAwesome.Sharp.IconButton iconMisVentas;
+        private FontAwesome.Sharp.IconButton iconHistorialVentas;
     }
 }

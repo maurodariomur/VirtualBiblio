@@ -36,8 +36,18 @@
             panel1 = new Panel();
             lbTittleMisVentas = new Label();
             dataGridMisVentas = new DataGridView();
+            panel2 = new Panel();
+            buscadorNombre = new Label();
+            buscadorApellido = new Label();
+            txBuscadorNombre = new TextBox();
+            txBuscadorApellido = new TextBox();
+            buscadorDni = new Label();
+            txBuscadorDni = new TextBox();
+            panel3 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridMisVentas).BeginInit();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -58,7 +68,7 @@
             lbTittleMisVentas.FlatStyle = FlatStyle.Flat;
             lbTittleMisVentas.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbTittleMisVentas.ForeColor = Color.Gainsboro;
-            lbTittleMisVentas.Location = new Point(302, 9);
+            lbTittleMisVentas.Location = new Point(321, 9);
             lbTittleMisVentas.Name = "lbTittleMisVentas";
             lbTittleMisVentas.Size = new Size(158, 31);
             lbTittleMisVentas.TabIndex = 0;
@@ -97,7 +107,7 @@
             dataGridMisVentas.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridMisVentas.EnableHeadersVisualStyles = false;
             dataGridMisVentas.GridColor = Color.FromArgb(165, 201, 202);
-            dataGridMisVentas.Location = new Point(96, 69);
+            dataGridMisVentas.Location = new Point(263, 140);
             dataGridMisVentas.MultiSelect = false;
             dataGridMisVentas.Name = "dataGridMisVentas";
             dataGridMisVentas.ReadOnly = true;
@@ -119,23 +129,128 @@
             dataGridMisVentas.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridMisVentas.RowTemplate.Height = 25;
             dataGridMisVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridMisVentas.Size = new Size(566, 313);
+            dataGridMisVentas.Size = new Size(444, 267);
             dataGridMisVentas.TabIndex = 41;
             dataGridMisVentas.CellContentClick += dataGridMisVentas_CellContentClick;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(147, 177, 166);
+            panel2.Controls.Add(buscadorNombre);
+            panel2.Controls.Add(buscadorApellido);
+            panel2.Controls.Add(txBuscadorNombre);
+            panel2.Controls.Add(txBuscadorApellido);
+            panel2.Controls.Add(buscadorDni);
+            panel2.Controls.Add(txBuscadorDni);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 51);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(800, 38);
+            panel2.TabIndex = 42;
+            // 
+            // buscadorNombre
+            // 
+            buscadorNombre.Anchor = AnchorStyles.Top;
+            buscadorNombre.AutoSize = true;
+            buscadorNombre.BackColor = Color.Transparent;
+            buscadorNombre.FlatStyle = FlatStyle.Flat;
+            buscadorNombre.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorNombre.ForeColor = Color.White;
+            buscadorNombre.Location = new Point(130, 10);
+            buscadorNombre.Name = "buscadorNombre";
+            buscadorNombre.Size = new Size(50, 13);
+            buscadorNombre.TabIndex = 7;
+            buscadorNombre.Text = "Nombre";
+            // 
+            // buscadorApellido
+            // 
+            buscadorApellido.Anchor = AnchorStyles.Top;
+            buscadorApellido.AutoSize = true;
+            buscadorApellido.BackColor = Color.Transparent;
+            buscadorApellido.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorApellido.ForeColor = SystemColors.Window;
+            buscadorApellido.Location = new Point(296, 11);
+            buscadorApellido.Name = "buscadorApellido";
+            buscadorApellido.Size = new Size(52, 13);
+            buscadorApellido.TabIndex = 8;
+            buscadorApellido.Text = "Apellido";
+            // 
+            // txBuscadorNombre
+            // 
+            txBuscadorNombre.Anchor = AnchorStyles.None;
+            txBuscadorNombre.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txBuscadorNombre.ForeColor = SystemColors.WindowFrame;
+            txBuscadorNombre.Location = new Point(186, 7);
+            txBuscadorNombre.Name = "txBuscadorNombre";
+            txBuscadorNombre.PlaceholderText = "Nombre";
+            txBuscadorNombre.Size = new Size(104, 20);
+            txBuscadorNombre.TabIndex = 6;
+            txBuscadorNombre.TextChanged += txBuscadorNombre_TextChanged;
+            // 
+            // txBuscadorApellido
+            // 
+            txBuscadorApellido.Anchor = AnchorStyles.Top;
+            txBuscadorApellido.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txBuscadorApellido.ForeColor = SystemColors.WindowFrame;
+            txBuscadorApellido.Location = new Point(352, 8);
+            txBuscadorApellido.Name = "txBuscadorApellido";
+            txBuscadorApellido.PlaceholderText = "Apellido";
+            txBuscadorApellido.Size = new Size(110, 20);
+            txBuscadorApellido.TabIndex = 9;
+            txBuscadorApellido.TextChanged += txBuscadorApellido_TextChanged;
+            // 
+            // buscadorDni
+            // 
+            buscadorDni.Anchor = AnchorStyles.Top;
+            buscadorDni.AutoSize = true;
+            buscadorDni.BackColor = Color.Transparent;
+            buscadorDni.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            buscadorDni.ForeColor = SystemColors.Window;
+            buscadorDni.Location = new Point(468, 11);
+            buscadorDni.Name = "buscadorDni";
+            buscadorDni.Size = new Size(29, 13);
+            buscadorDni.TabIndex = 11;
+            buscadorDni.Text = "DNI";
+            // 
+            // txBuscadorDni
+            // 
+            txBuscadorDni.Anchor = AnchorStyles.Top;
+            txBuscadorDni.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txBuscadorDni.ForeColor = SystemColors.WindowFrame;
+            txBuscadorDni.Location = new Point(503, 8);
+            txBuscadorDni.Name = "txBuscadorDni";
+            txBuscadorDni.PlaceholderText = "DNI";
+            txBuscadorDni.Size = new Size(103, 20);
+            txBuscadorDni.TabIndex = 10;
+            txBuscadorDni.TextChanged += txBuscadorDni_TextChanged;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(dataGridMisVentas);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(800, 450);
+            panel3.TabIndex = 43;
             // 
             // CMisVentas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(221, 230, 237);
             ClientSize = new Size(800, 450);
-            Controls.Add(dataGridMisVentas);
+            Controls.Add(panel2);
             Controls.Add(panel1);
+            Controls.Add(panel3);
             Name = "CMisVentas";
             Text = "Mis Ventas";
             Load += CMisVentas_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridMisVentas).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -144,5 +259,13 @@
         private Panel panel1;
         private Label lbTittleMisVentas;
         private DataGridView dataGridMisVentas;
+        private Panel panel2;
+        private Label buscadorNombre;
+        private Label buscadorApellido;
+        private TextBox txBuscadorNombre;
+        private TextBox txBuscadorApellido;
+        private Label buscadorDni;
+        private TextBox txBuscadorDni;
+        private Panel panel3;
     }
 }

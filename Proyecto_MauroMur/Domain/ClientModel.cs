@@ -27,6 +27,11 @@ namespace Domain
             return clienteDatos.TraerClientesId(id);
         }
 
+        public Persona? obtenerClienteDni(string dni)
+        {
+            return clienteDatos.ObtenerPersonaPorDNI(dni);
+        }
+
         public bool ActualizacionClient(int clientId, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento, string telefono, string domicilio, string baja)
         {
             return clienteDatos.ActualizarCliente(clientId, nombre, apellido, dni, mail,fechaNacimiento, telefono, domicilio, baja);

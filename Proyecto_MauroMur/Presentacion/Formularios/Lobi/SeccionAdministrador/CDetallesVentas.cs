@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
+namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     public partial class CDetallesVentas : Form
     {
@@ -21,7 +21,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             detallesVenta = detalles;
         }
 
-        private void CMisDetalles_Load(object sender, EventArgs e)
+        private void CDetallesVentas_Load(object sender, EventArgs e)
         {
             // Configura tu DataGridView para mostrar los detalles de la venta.
             dataGridMisVentas.DataSource = detallesVenta;
