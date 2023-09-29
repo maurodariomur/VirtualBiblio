@@ -469,5 +469,80 @@ namespace DataAccess
                 return roles;
             }
         }
+
+        public bool ExisteDNI(string dni)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT COUNT(*) FROM Persona WHERE DNI = @DNI;";
+                    command.Parameters.AddWithValue("@DNI", dni);
+
+                    try
+                    {
+                        int count = (int)command.ExecuteScalar();
+                        return count > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ExisteMail(string mail)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT COUNT(*) FROM Persona WHERE Mail = @Mail;";
+                    command.Parameters.AddWithValue("@Mail", mail);
+
+                    try
+                    {
+                        int count = (int)command.ExecuteScalar();
+                        return count > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ExisteNombreUsuario(string userNombre)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT COUNT(*) FROM Usuario WHERE UserNombre = @UserNombre;";
+                    command.Parameters.AddWithValue("@UserNombre", userNombre);
+
+                    try
+                    {
+                        int count = (int)command.ExecuteScalar();
+                        return count > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
     }
 }

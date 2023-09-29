@@ -23,12 +23,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             InitializeComponent();
             this.lobi = _lobi;
+            dateTimePickerDesde.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerDesde.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHasta.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerHasta.Format = DateTimePickerFormat.Custom;
+
+            // Obtén las fechas mínimas y máximas de la base de datos
+            DateTime? minFechaFactura = saleModel.ObtenerMinFechaFactura();
+            DateTime? maxFechaFactura = saleModel.ObtenerMaxFechaFactura();
+
+            // Configura los valores mínimos y máximos para el dateTimePickerDesde
+            dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+
+            // Configura los valores iniciales de dateTimePickerDesde y dateTimePickerHasta
+            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now; 
+            dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
         }
 
         private void CMisVentas_Load(object sender, EventArgs e)
         {
             int idUsuarioActual = UserLoginCache.Id;
             List<Ventas> ventasDelUsuario = saleModel.ObtenerVentasPorUsuarioConNombres(idUsuarioActual);
+            ventasDelUsuario = ventasDelUsuario.Where(venta => venta.Estado == "activo").ToList();
             dataGridMisVentas.DataSource = ventasDelUsuario;
             dataGridMisVentas.Columns["Id_VentaCabecera"].HeaderText = "ID";
             dataGridMisVentas.Columns["FechaFactura"].HeaderText = "F.Factura";
@@ -36,7 +53,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridMisVentas.Columns["NombreCliente"].HeaderText = "Nombre";
             dataGridMisVentas.Columns["ApellidoCliente"].HeaderText = "Apellido";
             dataGridMisVentas.Columns["DNICliente"].HeaderText = "D.N.I Cliente";
-            dataGridMisVentas.Columns["Estado"].HeaderText = "Cancelar Factura";
             ocultarColumas();
         }
 
@@ -63,22 +79,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void dataGridMisVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verifica si el evento fue desencadenado por un clic en la columna "Estado" (o cualquier otra columna que quieras excluir).
             if (e.ColumnIndex != dataGridMisVentas.Columns["Estado"].Index && e.RowIndex >= 0)
             {
-                // Evita que el formulario CMisDetalles se abra dos veces.
-
-                // Obtiene la fila seleccionada.
                 DataGridViewRow selectedRow = dataGridMisVentas.Rows[e.RowIndex];
 
-                // Obtén el ID de la venta cabecera de esa fila (asumiendo que la columna que contiene el ID se llama "Id_VentaCabecera").
                 int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
-                // Llama a la función para obtener los detalles de la venta específica.
                 List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
 
-                // Abre el formulario de detalle pasando los detalles de la venta.
-                CDetallesVentas detalleForm = new(detallesVenta);
+                CMisDetalles detalleForm = new(detallesVenta);
                 detalleForm.ShowDialog();
             }
         }
@@ -94,6 +103,50 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridMisVentas.DataSource = ventasFiltradas;
         }
 
+        private void filtrarFechas()
+        {
+            DateTime? fechaDesde = dateTimePickerDesde.Value;
+            DateTime? fechaHasta = dateTimePickerHasta.Value;
+
+            // Obtén las fechas mínimas y máximas de la base de datos
+            DateTime? minFechaFactura = saleModel.ObtenerMinFechaFactura();
+            DateTime? maxFechaFactura = saleModel.ObtenerMaxFechaFactura();
+
+            // Establece los valores mínimos y máximos para los seleccionadores de fecha
+            dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+            dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+
+            // Asegúrate de que las fechas seleccionadas estén dentro del rango válido
+            if (fechaDesde < minFechaFactura)
+            {
+                fechaDesde = minFechaFactura;
+            }
+
+            if (fechaHasta > maxFechaFactura)
+            {
+                fechaHasta = maxFechaFactura;
+            }
+
+            // Actualiza los valores de los seleccionadores de fecha
+            dateTimePickerDesde.Value = fechaDesde.Value;
+            dateTimePickerHasta.Value = fechaHasta.Value;
+
+            // Verifica que las fechas estén dentro del rango válido
+            if (fechaDesde <= fechaHasta)
+            {
+                // Realiza la consulta con las fechas seleccionadas
+                List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(fechaDesde, fechaHasta);
+                dataGridMisVentas.DataSource = ventasFiltradas;
+            }
+            else
+            {
+                // Si las fechas no están en orden válido, puedes mostrar un mensaje al usuario o tomar la acción adecuada.
+                MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void txBuscadorNombre_TextChanged(object sender, EventArgs e)
         {
             FiltrarFacturas();
@@ -107,6 +160,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void txBuscadorDni_TextChanged(object sender, EventArgs e)
         {
             FiltrarFacturas();
+        }
+
+        private void dateTimePickerDesde_ValueChanged(object sender, EventArgs e)
+        {
+            filtrarFechas();
+        }
+
+        private void dateTimePickerHasta_ValueChanged(object sender, EventArgs e)
+        {
+            filtrarFechas();
         }
     }
 }

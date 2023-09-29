@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
-    partial class CDetallesVentas
+    partial class CMisDetalles
     {
         /// <summary>
         /// Required designer variable.

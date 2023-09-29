@@ -486,7 +486,7 @@
             dataGridFactura.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridFactura.EnableHeadersVisualStyles = false;
             dataGridFactura.GridColor = Color.FromArgb(165, 201, 202);
-            dataGridFactura.Location = new Point(12, 6);
+            dataGridFactura.Location = new Point(77, 0);
             dataGridFactura.MultiSelect = false;
             dataGridFactura.Name = "dataGridFactura";
             dataGridFactura.ReadOnly = true;
@@ -509,7 +509,7 @@
             dataGridFactura.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridFactura.RowTemplate.Height = 25;
             dataGridFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridFactura.Size = new Size(552, 206);
+            dataGridFactura.Size = new Size(473, 206);
             dataGridFactura.TabIndex = 3;
             dataGridFactura.CellContentClick += dataGridFactura_CellContentClick;
             // 

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lbTittleMisVentas = new Label();
             dataGridMisVentas = new DataGridView();
@@ -44,10 +44,16 @@
             buscadorDni = new Label();
             txBuscadorDni = new TextBox();
             panel3 = new Panel();
+            panel4 = new Panel();
+            label2 = new Label();
+            label1 = new Label();
+            dateTimePickerHasta = new DateTimePicker();
+            dateTimePickerDesde = new DateTimePicker();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridMisVentas).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -78,33 +84,33 @@
             // 
             dataGridMisVentas.AllowUserToAddRows = false;
             dataGridMisVentas.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridMisVentas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridMisVentas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dataGridMisVentas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridMisVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridMisVentas.BackgroundColor = Color.FromArgb(221, 230, 237);
             dataGridMisVentas.BorderStyle = BorderStyle.None;
             dataGridMisVentas.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridMisVentas.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(147, 177, 166);
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.Window;
-            dataGridViewCellStyle2.Padding = new Padding(15, 0, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridMisVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(147, 177, 166);
+            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle7.Padding = new Padding(15, 0, 0, 0);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridMisVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dataGridMisVentas.ColumnHeadersHeight = 30;
             dataGridMisVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridMisVentas.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dataGridMisVentas.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridMisVentas.EnableHeadersVisualStyles = false;
             dataGridMisVentas.GridColor = Color.FromArgb(165, 201, 202);
             dataGridMisVentas.Location = new Point(263, 140);
@@ -112,21 +118,21 @@
             dataGridMisVentas.Name = "dataGridMisVentas";
             dataGridMisVentas.ReadOnly = true;
             dataGridMisVentas.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dataGridMisVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle9.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = Color.Black;
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridMisVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridMisVentas.RowHeadersVisible = false;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle5.SelectionForeColor = Color.WhiteSmoke;
-            dataGridMisVentas.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle10.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle10.SelectionForeColor = Color.WhiteSmoke;
+            dataGridMisVentas.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dataGridMisVentas.RowTemplate.Height = 25;
             dataGridMisVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridMisVentas.Size = new Size(444, 267);
@@ -226,12 +232,80 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(panel4);
             panel3.Controls.Add(dataGridMisVentas);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
             panel3.Size = new Size(800, 450);
             panel3.TabIndex = 43;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(label2);
+            panel4.Controls.Add(label1);
+            panel4.Controls.Add(dateTimePickerHasta);
+            panel4.Controls.Add(dateTimePickerDesde);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(800, 121);
+            panel4.TabIndex = 42;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.FlatStyle = FlatStyle.Flat;
+            label2.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(411, 99);
+            label2.Name = "label2";
+            label2.Size = new Size(44, 16);
+            label2.TabIndex = 51;
+            label2.Text = "Hasta";
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.FlatStyle = FlatStyle.Flat;
+            label1.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(233, 100);
+            label1.Name = "label1";
+            label1.Size = new Size(47, 16);
+            label1.TabIndex = 48;
+            label1.Text = "Desde";
+            // 
+            // dateTimePickerHasta
+            // 
+            dateTimePickerHasta.Anchor = AnchorStyles.Top;
+            dateTimePickerHasta.CalendarFont = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerHasta.CalendarForeColor = Color.IndianRed;
+            dateTimePickerHasta.CalendarMonthBackground = SystemColors.MenuHighlight;
+            dateTimePickerHasta.CalendarTitleBackColor = Color.DarkSlateGray;
+            dateTimePickerHasta.CalendarTitleForeColor = SystemColors.ActiveCaption;
+            dateTimePickerHasta.CalendarTrailingForeColor = Color.CadetBlue;
+            dateTimePickerHasta.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            dateTimePickerHasta.Location = new Point(461, 95);
+            dateTimePickerHasta.Name = "dateTimePickerHasta";
+            dateTimePickerHasta.Size = new Size(109, 22);
+            dateTimePickerHasta.TabIndex = 50;
+            dateTimePickerHasta.ValueChanged += dateTimePickerHasta_ValueChanged;
+            // 
+            // dateTimePickerDesde
+            // 
+            dateTimePickerDesde.Anchor = AnchorStyles.Top;
+            dateTimePickerDesde.CalendarFont = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerDesde.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            dateTimePickerDesde.Location = new Point(286, 95);
+            dateTimePickerDesde.Name = "dateTimePickerDesde";
+            dateTimePickerDesde.Size = new Size(109, 22);
+            dateTimePickerDesde.TabIndex = 49;
+            dateTimePickerDesde.ValueChanged += dateTimePickerDesde_ValueChanged;
             // 
             // CMisVentas
             // 
@@ -251,6 +325,8 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -267,5 +343,10 @@
         private Label buscadorDni;
         private TextBox txBuscadorDni;
         private Panel panel3;
+        private Panel panel4;
+        private Label label2;
+        private Label label1;
+        private DateTimePicker dateTimePickerHasta;
+        private DateTimePicker dateTimePickerDesde;
     }
 }

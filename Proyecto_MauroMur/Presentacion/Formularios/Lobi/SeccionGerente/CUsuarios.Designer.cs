@@ -277,7 +277,7 @@
             lbError.ForeColor = Color.Brown;
             lbError.Image = (Image)resources.GetObject("lbError.Image");
             lbError.ImageAlign = ContentAlignment.MiddleLeft;
-            lbError.Location = new Point(415, 3);
+            lbError.Location = new Point(369, 3);
             lbError.Name = "lbError";
             lbError.Size = new Size(42, 24);
             lbError.TabIndex = 34;

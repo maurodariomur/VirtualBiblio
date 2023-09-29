@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
-    public partial class CDetallesVentas : Form
+    public partial class CMisDetalles : Form
     {
         private List<Ventas> detallesVenta;
 
-        public CDetallesVentas(List<Ventas> detalles)
+        public CMisDetalles(List<Ventas> detalles)
         {
             InitializeComponent();
             detallesVenta = detalles;

@@ -72,6 +72,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             {
                 msgError("El correo electrónico ingresado no es válido");
             }
+            else if (userModel.IsValidDni(dni))
+            {
+                msgError("El DNI ya está registrado...");
+            }
+            else if (userModel.IsValidCorreo(mail))
+            {
+                msgError("El Correo ya esta registrado...");
+            }
+            else if (userModel.IsValidNombreUsuario(usuario))
+            {
+                msgError("El Nombre de Usuario ya esta registrado...");
+            }
             else
             {
                 // Mostrar mensaje de confirmación

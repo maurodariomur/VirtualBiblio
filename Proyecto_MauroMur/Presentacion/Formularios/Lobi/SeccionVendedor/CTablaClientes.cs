@@ -442,15 +442,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             // Verifica si se ha seleccionado un cliente
             if (clienteSeleccionado != null)
             {
-                // Obtén el ID del cliente seleccionado
-                int idClienteSeleccionado = clienteSeleccionado.IdCliente;
+                if (clienteSeleccionado.PersonaBaja=="NO")
+                {
+                    // Obtén el ID del cliente seleccionado
+                    int idClienteSeleccionado = clienteSeleccionado.IdCliente;
 
-                // Llama al método para actualizar los detalles del cliente en CClientesFactura
-                _clienteFactura!.ActualizarDetallesCliente(idClienteSeleccionado);
+                    // Llama al método para actualizar los detalles del cliente en CClientesFactura
+                    _clienteFactura!.ActualizarDetallesCliente(idClienteSeleccionado);
 
-                this.Close();
-                // Muestra el formulario CClientesFactura
-                _clienteFactura.Show();
+                    this.Close();
+                    // Muestra el formulario CClientesFactura
+                    _clienteFactura.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Cliente no disponible, seleccione otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

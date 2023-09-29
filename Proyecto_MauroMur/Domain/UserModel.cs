@@ -27,7 +27,6 @@ namespace Domain
         }
 
 
-
         public List<UsuarioConInformacion> MostrarUsers()
         {
             return userDatos.ObtenerUsuarios();
@@ -58,6 +57,21 @@ namespace Domain
         public List<string> ObtenerPerfiles()
         {
             return userDatos.ObtenerRoles();
+        }
+
+        public bool IsValidDni(string dni)
+        {
+            return userDatos.ExisteDNI(dni);
+        }
+
+        public bool IsValidCorreo(string mail)
+        {
+            return userDatos.ExisteMail(mail);
+        }
+
+        public bool IsValidNombreUsuario(string userNombre)
+        {
+            return userDatos.ExisteNombreUsuario(userNombre);
         }
     }
 }

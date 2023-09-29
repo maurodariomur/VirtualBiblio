@@ -27,8 +27,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void CHistorialVentas_Load(object sender, EventArgs e)
         {
-
-
             List<Ventas> ventas = saleModel.ObtenerTodasVentas();
             dataGridVentas.DataSource = ventas;
             dataGridVentas.Columns["Id_VentaCabecera"].HeaderText = "ID";
@@ -56,6 +54,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             // Configura los valores iniciales de dateTimePickerDesde y dateTimePickerHasta
             dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now; // Establece la fecha mínima o la fecha actual
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
+
+            dataGridVentas.RowPrePaint += DataGridProductos_RowPrePaint!;
         }
 
         private void concatenacion()
@@ -156,6 +156,28 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 // Abre el formulario de detalle pasando los detalles de la venta.
                 CDetallesVentas detalleForm = new(detallesVenta);
                 detalleForm.ShowDialog();
+            }
+        }
+
+        private void DataGridProductos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            // Obtén la fila actual
+            DataGridViewRow row = dataGridVentas.Rows[e.RowIndex];
+
+            // Verifica el valor de la columna "Baja" (asegúrate de que el nombre de la columna sea correcto)
+            string? valorBaja = row.Cells["Estado"].Value.ToString();
+
+            // Define el color de fondo deseado para las filas con "Baja" en "SI"
+            if (valorBaja == "inactivo")
+            {
+                row.DefaultCellStyle.BackColor = Color.FromArgb(243, 106, 106);
+                row.DefaultCellStyle.ForeColor = Color.White; // Opcional: establecer el color de texto en blanco para mayor visibilidad
+            }
+            else
+            {
+                // Restablece el color de fondo y texto para las demás filas (opcional)
+                row.DefaultCellStyle.BackColor = SystemColors.Window;
+                row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
             }
         }
 

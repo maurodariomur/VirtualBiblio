@@ -38,7 +38,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             datosCabecera();
             dataGridFactura.DataSource = sale.ObtenerDetalleFacturaUltimaCabecera()!;
             DatosOcultos();
-
         }
 
         private void DatosOcultos()
@@ -63,6 +62,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             columns["PrecioProducto"].Visible = false;
             columns["Categoria"].Visible = false;
             columns["TipoFactura"].Visible = false;
+            columns["Estado"].Visible = false;
             dataGridFactura.Columns["NombreEditorial"].HeaderText = "Editorial";
             dataGridFactura.Columns["NombreAutor"].HeaderText = "Autor";
             dataGridFactura.Columns["PrecioProducto"].HeaderText = "Precio Unitario";

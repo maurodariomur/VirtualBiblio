@@ -374,6 +374,7 @@ namespace DataAccess
 
                     while (reader.Read())
                     {
+
                         Ventas venta = new Ventas
                         {
                             Id_VentaCabecera = Convert.ToInt32(reader["Id_VentaCabecera"]),
