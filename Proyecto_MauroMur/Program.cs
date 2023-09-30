@@ -1,5 +1,6 @@
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor;
 
 namespace Proyecto_MauroMur
 {
@@ -14,7 +15,10 @@ namespace Proyecto_MauroMur
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FLobi());
+            FLobi fLobi = new FLobi();
+            Login login = new Login(fLobi);
+            login.Show();
+            Application.Run();
         }
     }
 }
