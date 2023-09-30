@@ -36,5 +36,21 @@ namespace Domain
         {
             return clienteDatos.ActualizarCliente(clientId, nombre, apellido, dni, mail,fechaNacimiento, telefono, domicilio, baja);
         }
+
+        public bool IsValidDni(string dni)
+        {
+            return clienteDatos.ExisteDNI(dni);
+        }
+
+        public bool IsValidCorreo(string mail)
+        {
+            return clienteDatos.ExisteMail(mail);
+        }
+
+
+        public bool IsValidEdad(DateTime fechaNacimiento)
+        {
+            return clienteDatos.CumpleCondicionesFechaNacimiento(fechaNacimiento);
+        }
     }
 }

@@ -48,6 +48,7 @@
             iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconExit = new FontAwesome.Sharp.IconButton();
             panelMenu = new Panel();
+            iconHistorialVentas = new FontAwesome.Sharp.IconButton();
             iconMisVentas = new FontAwesome.Sharp.IconButton();
             iconCatalogo = new FontAwesome.Sharp.IconButton();
             iconProducto = new FontAwesome.Sharp.IconButton();
@@ -56,7 +57,6 @@
             lbRol = new Label();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            iconHistorialVentas = new FontAwesome.Sharp.IconButton();
             panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconCurrentChildForm).BeginInit();
             panelEscritorio.SuspendLayout();
@@ -338,6 +338,31 @@
             panelMenu.Size = new Size(220, 617);
             panelMenu.TabIndex = 0;
             // 
+            // iconHistorialVentas
+            // 
+            iconHistorialVentas.BackColor = Color.FromArgb(24, 61, 61);
+            iconHistorialVentas.Dock = DockStyle.Top;
+            iconHistorialVentas.FlatAppearance.BorderSize = 0;
+            iconHistorialVentas.FlatStyle = FlatStyle.Flat;
+            iconHistorialVentas.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconHistorialVentas.ForeColor = Color.Gainsboro;
+            iconHistorialVentas.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+            iconHistorialVentas.IconColor = Color.Gainsboro;
+            iconHistorialVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconHistorialVentas.IconSize = 32;
+            iconHistorialVentas.ImageAlign = ContentAlignment.MiddleLeft;
+            iconHistorialVentas.Location = new Point(0, 400);
+            iconHistorialVentas.Name = "iconHistorialVentas";
+            iconHistorialVentas.Padding = new Padding(10, 0, 20, 0);
+            iconHistorialVentas.Size = new Size(220, 60);
+            iconHistorialVentas.TabIndex = 9;
+            iconHistorialVentas.Text = "Historial Ventas";
+            iconHistorialVentas.TextAlign = ContentAlignment.MiddleLeft;
+            iconHistorialVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconHistorialVentas.UseVisualStyleBackColor = false;
+            iconHistorialVentas.Visible = false;
+            iconHistorialVentas.Click += iconHistorialVentas_Click;
+            // 
             // iconMisVentas
             // 
             iconMisVentas.BackColor = Color.FromArgb(24, 61, 61);
@@ -464,31 +489,6 @@
             iconButton1.Size = new Size(36, 60);
             iconButton1.TabIndex = 5;
             iconButton1.UseVisualStyleBackColor = true;
-            // 
-            // iconHistorialVentas
-            // 
-            iconHistorialVentas.BackColor = Color.FromArgb(24, 61, 61);
-            iconHistorialVentas.Dock = DockStyle.Top;
-            iconHistorialVentas.FlatAppearance.BorderSize = 0;
-            iconHistorialVentas.FlatStyle = FlatStyle.Flat;
-            iconHistorialVentas.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            iconHistorialVentas.ForeColor = Color.Gainsboro;
-            iconHistorialVentas.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-            iconHistorialVentas.IconColor = Color.Gainsboro;
-            iconHistorialVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconHistorialVentas.IconSize = 32;
-            iconHistorialVentas.ImageAlign = ContentAlignment.MiddleLeft;
-            iconHistorialVentas.Location = new Point(0, 400);
-            iconHistorialVentas.Name = "iconHistorialVentas";
-            iconHistorialVentas.Padding = new Padding(10, 0, 20, 0);
-            iconHistorialVentas.Size = new Size(220, 60);
-            iconHistorialVentas.TabIndex = 9;
-            iconHistorialVentas.Text = "Historial Ventas";
-            iconHistorialVentas.TextAlign = ContentAlignment.MiddleLeft;
-            iconHistorialVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconHistorialVentas.UseVisualStyleBackColor = false;
-            iconHistorialVentas.Visible = false;
-            iconHistorialVentas.Click += iconHistorialVentas_Click;
             // 
             // FLobi
             // 

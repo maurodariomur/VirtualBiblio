@@ -26,7 +26,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         public CTablaClientes(CClientesFactura clienteFactura)
         {
             InitializeComponent();
-            _clienteFactura= clienteFactura;
+            _clienteFactura = clienteFactura;
             desactivarBotones();
         }
 
@@ -78,7 +78,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             if (valorBaja == "SI")
             {
                 row.DefaultCellStyle.BackColor = Color.FromArgb(255, 140, 140);
-                row.DefaultCellStyle.ForeColor = Color.Black; 
+                row.DefaultCellStyle.ForeColor = Color.Black;
             }
             else
             {
@@ -251,7 +251,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
         }
 
@@ -259,7 +259,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
         }
 
@@ -305,7 +305,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     }
                     else
                     {
-                        checkBoxSi.Checked = false; 
+                        checkBoxSi.Checked = false;
                         checkBoxNo.Checked = true;
                     }
                 }
@@ -413,7 +413,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (clienteSeleccionado != null)
             {
-                if (clienteSeleccionado.PersonaBaja=="NO")
+                if (clienteSeleccionado.PersonaBaja == "NO")
                 {
                     int idClienteSeleccionado = clienteSeleccionado.IdCliente;
 

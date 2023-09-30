@@ -67,6 +67,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridFactura.Columns["NombreAutor"].HeaderText = "Autor";
             dataGridFactura.Columns["PrecioProducto"].HeaderText = "Precio Unitario";
             dataGridFactura.Columns["SubTotalProducto"].HeaderText = "Sub-Total";
+            dataGridFactura.Columns["SubTotalProducto"].DisplayIndex = dataGridFactura.Columns.Count - 1;
         }
 
         private void datosCabecera()

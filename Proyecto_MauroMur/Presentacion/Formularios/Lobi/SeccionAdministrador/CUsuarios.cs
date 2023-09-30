@@ -83,6 +83,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             {
                 msgError("El Nombre de Usuario ya esta registrado...");
             }
+            else if (userModel.IsValidEdad(fechaNacimiento) == false)
+            {
+                msgError("No cumple con los requisitos de Edad");
+            }
             else
             {
                 // Mostrar mensaje de confirmación
@@ -131,7 +135,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txMail.Text = "";
             txEmpleado.Text = "";
             txPassword.Text = "";
-            txcPerfil.SelectedIndex = 0; 
+            txcPerfil.SelectedIndex = 0;
+            lbError.Text = "";
             txName.Focus();
             contraVisible.Visible = false;
             txPassword.UseSystemPasswordChar = true;
@@ -145,7 +150,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void txName_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
             {
                 e.Handled = true;
             }
@@ -153,7 +158,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void txLastName_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
             {
                 e.Handled = true;
             }
@@ -198,5 +203,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             instanciaFLobi.OpenChildForm(new SeccionAdministrador.CTablas(instanciaFLobi));
         }
 
+        private void txName_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txName.Text))
+            {
+                txName.Text = char.ToUpper(txName.Text[0]) + txName.Text.Substring(1);
+                txName.SelectionStart = txName.Text.Length;
+            }
+        }
+
+        private void txLastName_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txLastName.Text))
+            {
+                txLastName.Text = char.ToUpper(txLastName.Text[0]) + txLastName.Text.Substring(1);
+                txLastName.SelectionStart = txLastName.Text.Length;
+            }
+        }
     }
 }

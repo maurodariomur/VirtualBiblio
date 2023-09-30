@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CDetallesVentas));
             panel1 = new Panel();
             lbTittleMisDetalles = new Label();
             panel2 = new Panel();
@@ -164,7 +165,7 @@
             dataGridMisVentas.Size = new Size(547, 223);
             dataGridMisVentas.TabIndex = 42;
             // 
-            // CMisDetalles
+            // CDetallesVentas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -173,7 +174,8 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "CMisDetalles";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "CDetallesVentas";
             Opacity = 0.95D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MisDetalles";

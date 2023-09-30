@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CDetalleCatalogo));
             panel1 = new Panel();
             btnDCSalir = new FontAwesome.Sharp.IconButton();
             lbTitleDetalleCatalogo = new Label();
@@ -251,6 +252,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CDetalleCatalogo";
             Opacity = 0.98D;
             StartPosition = FormStartPosition.CenterScreen;

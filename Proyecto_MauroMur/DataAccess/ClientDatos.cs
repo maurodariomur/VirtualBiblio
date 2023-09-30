@@ -359,5 +359,78 @@ namespace DataAccess
                 return false; 
             }
         }
+
+        public bool ExisteDNI(string dni)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT COUNT(*) FROM Persona WHERE DNI = @DNI;";
+                    command.Parameters.AddWithValue("@DNI", dni);
+
+                    try
+                    {
+                        int count = (int)command.ExecuteScalar();
+                        return count > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ExisteMail(string mail)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT COUNT(*) FROM Persona WHERE Mail = @Mail;";
+                    command.Parameters.AddWithValue("@Mail", mail);
+
+                    try
+                    {
+                        int count = (int)command.ExecuteScalar();
+                        return count > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool CumpleCondicionesFechaNacimiento(DateTime fechaNacimiento)
+        {
+            int edad = CalcularEdad(fechaNacimiento);
+            if (edad >= 18 && edad <= 99)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public int CalcularEdad(DateTime fechaNacimiento)
+        {
+            DateTime fechaActual = DateTime.Now;
+            int edad = fechaActual.Year - fechaNacimiento.Year;
+
+            if (fechaActual < fechaNacimiento.AddYears(edad))
+            {
+                edad--;
+            }
+            return edad;
+        }
     }
 }

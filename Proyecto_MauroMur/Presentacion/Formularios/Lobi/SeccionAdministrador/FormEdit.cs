@@ -185,5 +185,23 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 e.Handled = true;
             }
         }
+
+        private void txNameModificar_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txNameModificar.Text))
+            {
+                txNameModificar.Text = char.ToUpper(txNameModificar.Text[0]) + txNameModificar.Text.Substring(1);
+                txNameModificar.SelectionStart = txNameModificar.Text.Length;
+            }
+        }
+
+        private void txLastNameModificar_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txLastNameModificar.Text))
+            {
+                txLastNameModificar.Text = char.ToUpper(txLastNameModificar.Text[0]) + txLastNameModificar.Text.Substring(1);
+                txLastNameModificar.SelectionStart = txLastNameModificar.Text.Length;
+            }
+        }
     }
 }

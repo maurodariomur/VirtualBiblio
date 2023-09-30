@@ -1,5 +1,6 @@
 ﻿using Common.Models;
 using Google.Protobuf;
+using Proyecto_MauroMur.Common.Models;
 using Proyecto_MauroMur.Domain;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente;
 using System;
@@ -69,6 +70,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             opcionesEditoriales();
             editarOpcionesCategoria();
             dataGridProductos.RowPrePaint += DataGridProductos_RowPrePaint!;
+            mostrarOpcionesAutor();
+            mostrarOpcionesEditoriales();
         }
 
         private void DataGridProductos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -501,6 +504,45 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 desactivarBotones();
             }
 
+        }
+
+        private void mostrarOpcionesAutor()
+        {
+            ProductModel productModel = new ProductModel();
+            // Cargar la lista de objetos Autores desde la base de datos
+            List<Autores> listaAutores = productModel.ObtenerNombresAutores();
+
+            // Configurar la fuente personalizada de autocompletar
+            AutoCompleteStringCollection fuenteAutoCompletar = new AutoCompleteStringCollection();
+
+            // Extraer nombres de autores y agregarlos a la colección de autocompletar
+            foreach (var autor in listaAutores)
+            {
+                fuenteAutoCompletar.Add(autor.Nombre); // Reemplaza "Nombre" con el nombre de la propiedad que almacena el nombre del autor en tu clase Autores
+            }
+
+            // Asignar la fuente personalizada al TextBox
+            txEditarAutor.AutoCompleteCustomSource = fuenteAutoCompletar;
+            txEditarAutor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txEditarAutor.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private void mostrarOpcionesEditoriales()
+        {
+            ProductModel productModel = new ProductModel();
+            List<Editoriales> listaEditoriales = productModel.ObtenerNombreEditoriales();
+
+            AutoCompleteStringCollection fuenteAutoCompletar = new AutoCompleteStringCollection();
+
+            foreach (var editorial in listaEditoriales)
+            {
+                fuenteAutoCompletar.Add(editorial.NombreEditorial);
+            }
+
+            // Asignar la fuente personalizada al TextBox
+            txEditarEditorial.AutoCompleteCustomSource = fuenteAutoCompletar;
+            txEditarEditorial.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txEditarEditorial.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         private void txEditarEditorial_TextChanged(object sender, EventArgs e)

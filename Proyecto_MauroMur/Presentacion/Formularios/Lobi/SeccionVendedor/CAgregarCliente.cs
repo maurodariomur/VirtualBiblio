@@ -1,5 +1,6 @@
 ﻿using Common.Models;
 using Domain;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +59,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             {
                 msgError("Por favor, ingresa una dirección de correo electrónico válida.");
                 return;
+            }
+            else if (clientModel.IsValidDni(dni))
+            {
+                msgError("El DNI ya está registrado...");
+            }
+            else if (clientModel.IsValidCorreo(mail))
+            {
+                msgError("El Correo ya esta registrado...");
+            }
+            else if (clientModel.IsValidEdad(nacimiento) == false)
+            {
+                msgError("No cumple con los requisitos de Edad");
             }
             else
             {

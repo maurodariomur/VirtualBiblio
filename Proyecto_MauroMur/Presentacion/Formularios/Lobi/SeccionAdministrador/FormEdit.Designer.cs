@@ -263,6 +263,7 @@
             txNameModificar.Size = new Size(175, 23);
             txNameModificar.TabIndex = 41;
             txNameModificar.Text = "Nombre";
+            txNameModificar.TextChanged += txNameModificar_TextChanged;
             txNameModificar.KeyPress += txNameModificar_KeyPress;
             // 
             // txLastNameModificar
@@ -274,6 +275,7 @@
             txLastNameModificar.Size = new Size(176, 23);
             txLastNameModificar.TabIndex = 42;
             txLastNameModificar.Text = "Apellido";
+            txLastNameModificar.TextChanged += txLastNameModificar_TextChanged;
             txLastNameModificar.KeyPress += txLastNameModificar_KeyPress;
             // 
             // txcPerfilModificar
@@ -384,6 +386,7 @@
             Controls.Add(panel1);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormEdit";
             Opacity = 0.93D;
             StartPosition = FormStartPosition.CenterParent;

@@ -47,8 +47,8 @@ namespace DataAccess
                             string contrasenaCifrada = reader.GetString(reader.GetOrdinal("ContraseñaUsuario"));
 
                             // Verificar si la contraseña ingresada coincide con la contraseña cifrada
-                            if (BCrypt.Net.BCrypt.Verify(pass, contrasenaCifrada))
-                            {
+                           if (BCrypt.Net.BCrypt.Verify(pass, contrasenaCifrada))
+                           {
                                 // Las contraseñas coinciden, puedes continuar con el inicio de sesión
                                 UserLoginCache.Id = reader.GetInt32(0);
                                 UserLoginCache.User = reader.GetString(1);
@@ -79,7 +79,7 @@ namespace DataAccess
         {
             if (fechaNacimiento == DateTime.MinValue)
             {
-                return false; // Fecha de nacimiento no válida
+                return false;
             }
 
             using (var connection = GetConnection())
@@ -584,6 +584,29 @@ namespace DataAccess
                     }
                 }
             }
+        }
+
+        public bool CumpleCondicionesFechaNacimiento(DateTime fechaNacimiento)
+        {
+            int edad = CalcularEdad(fechaNacimiento);
+            if (edad >= 18 && edad <= 99)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public int CalcularEdad(DateTime fechaNacimiento)
+        {
+            DateTime fechaActual = DateTime.Now;
+            int edad = fechaActual.Year - fechaNacimiento.Year;
+
+            if (fechaActual < fechaNacimiento.AddYears(edad))
+            {
+                edad--;
+            }
+            return edad;
         }
     }
 }

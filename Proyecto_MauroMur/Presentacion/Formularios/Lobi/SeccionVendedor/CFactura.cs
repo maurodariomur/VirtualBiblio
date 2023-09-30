@@ -42,7 +42,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void DatosOcultos()
         {
-
             DataGridViewColumnCollection columns = dataGridFactura.Columns;
             columns["Id_VentaCabecera"].Visible = false;
             columns["FechaFactura"].Visible = false;
@@ -67,6 +66,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridFactura.Columns["NombreAutor"].HeaderText = "Autor";
             dataGridFactura.Columns["PrecioProducto"].HeaderText = "Precio Unitario";
             dataGridFactura.Columns["SubTotalProducto"].HeaderText = "Sub-Total";
+            dataGridFactura.Columns["SubTotalProducto"].DisplayIndex = dataGridFactura.Columns.Count - 1;
         }
 
         private void datosCabecera()

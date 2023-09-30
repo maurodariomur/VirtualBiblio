@@ -20,7 +20,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private bool columnasAgregadas = false;
         FLobi flobi;
 
-        public CDetalleCatalogo(CCatalogo catalogo,FLobi lobi)
+        public CDetalleCatalogo(CCatalogo catalogo, FLobi lobi)
         {
             InitializeComponent();
             dataGridDetalleCat.Visible = false;

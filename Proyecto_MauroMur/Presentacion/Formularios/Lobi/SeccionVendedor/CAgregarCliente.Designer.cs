@@ -360,6 +360,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CAgregarCliente";
             Opacity = 0.98D;
             StartPosition = FormStartPosition.CenterScreen;

@@ -701,6 +701,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CTablaClientes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CTablaClientes";

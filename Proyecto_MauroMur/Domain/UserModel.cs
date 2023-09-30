@@ -72,5 +72,10 @@ namespace Domain
         {
             return userDatos.ExisteNombreUsuario(userNombre);
         }
+
+        public bool IsValidEdad(DateTime fechaNacimiento)
+        {
+            return userDatos.CumpleCondicionesFechaNacimiento(fechaNacimiento);
+        }
     }
 }

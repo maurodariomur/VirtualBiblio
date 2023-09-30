@@ -167,6 +167,7 @@
             txLastName.PlaceholderText = "Apellido";
             txLastName.Size = new Size(297, 26);
             txLastName.TabIndex = 25;
+            txLastName.TextChanged += txLastName_TextChanged;
             txLastName.KeyPress += txLastName_KeyPress_1;
             // 
             // txName
@@ -179,6 +180,7 @@
             txName.PlaceholderText = "Nombre";
             txName.Size = new Size(296, 26);
             txName.TabIndex = 24;
+            txName.TextChanged += txName_TextChanged;
             txName.KeyPress += txName_KeyPress_1;
             // 
             // txMail

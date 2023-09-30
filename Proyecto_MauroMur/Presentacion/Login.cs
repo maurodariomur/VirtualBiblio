@@ -13,7 +13,7 @@ namespace Proyecto_MauroMur
             InitializeComponent();
             _lobi = lobi;
             this.KeyPreview = true;
-            this.KeyDown += new KeyEventHandler(Login_KeyDown!); 
+            this.KeyDown += new KeyEventHandler(Login_KeyDown!);
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -96,7 +96,7 @@ namespace Proyecto_MauroMur
                         _lobi!.Show();
                         _lobi.FormClosed += (s, args) =>
                         {
-                            Logout(s, args); 
+                            Logout(s, args);
                         };
                     }
                     else

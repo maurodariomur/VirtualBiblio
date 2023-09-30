@@ -38,7 +38,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
             // Configura los valores iniciales de dateTimePickerDesde y dateTimePickerHasta
-            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now; 
+            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
         }
 
@@ -49,12 +49,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             ventasDelUsuario = ventasDelUsuario.Where(venta => venta.Estado == "activo").ToList();
             dataGridMisVentas.DataSource = ventasDelUsuario;
             dataGridMisVentas.Columns["Id_VentaCabecera"].HeaderText = "ID";
-            dataGridMisVentas.Columns["FechaFactura"].HeaderText = "F.Factura";
+            dataGridMisVentas.Columns["FechaFactura"].HeaderText = "Fecha Factura";
             dataGridMisVentas.Columns["MontoTotal"].HeaderText = "Monto Total";
             dataGridMisVentas.Columns["NombreCliente"].HeaderText = "Nombre";
             dataGridMisVentas.Columns["ApellidoCliente"].HeaderText = "Apellido";
             dataGridMisVentas.Columns["DNICliente"].HeaderText = "D.N.I Cliente";
-            dataGridMisVentas.Columns["Estado"].HeaderText = "Cancelar Factura";
             ocultarColumas();
         }
 
@@ -77,6 +76,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dataGridMisVentas.Columns["SubTotalProducto"].Visible = false;
             dataGridMisVentas.Columns["NombreVendedor"].Visible = false;
             dataGridMisVentas.Columns["ApellidoVendedor"].Visible = false;
+            dataGridMisVentas.Columns["Estado"].Visible = false;
         }
 
         private void dataGridMisVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -89,7 +89,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
                 Ventas cabeceraVentas = saleModel.ObtenerIdCabecera(idVentaCabecera);
                 List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
-                    
+
                 CFacturaReImpresion detalleForm = new(detallesVenta, cabeceraVentas);
                 detalleForm.ShowDialog();
             }
