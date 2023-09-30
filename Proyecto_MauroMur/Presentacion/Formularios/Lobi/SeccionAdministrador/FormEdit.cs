@@ -15,33 +15,30 @@ using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
+namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     public partial class FormEdit : Form
     {
         private int userId;
         private CTablas? _tablas;
+        UserModel userModel = new();
+        UsuarioConInformacion? usuario;
 
         public FormEdit(CTablas tablas, int id)
         {
             InitializeComponent();
             this._tablas = tablas;
             userId = id;
-            UserModel userModel = new();
-            UsuarioConInformacion? usuario = userModel.ImportarUsuarios(id);
+            usuario = userModel.ImportarUsuarios(userId);
 
             if (usuario != null)
             {
-
-                // Luego, puedes utilizar usuarioConPersona para acceder a todos los datos necesarios
                 txNameModificar.Text = usuario.PersonaNombre;
                 txLastNameModificar.Text = usuario.PersonaApellido;
                 dTBithModificar.Value = usuario.PersonaFechaNacimiento;
                 txDNIModificar.Text = usuario.PersonaDNI;
                 txMailModificar.Text = usuario.PersonaMail;
-                // userModel.GetRolName(usuario.TipoPerfil);
-                // txcPerfilModificar.Text = userModel.GetRolName(usuario.TipoPerfil);
-                opcionesPerfiles(id);
+                opcionesPerfiles();
                 txEmpleadoModificar.Text = usuario.UserNombre;
                 if (usuario.PersonaBaja == "SI")
                 {
@@ -57,21 +54,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void FormEdit_Load(object sender, EventArgs e)
         {
-            // Configura el formato personalizado para el DateTimePicker
             dTBithModificar.CustomFormat = "dd/MM/yyyy";
-            // Asegúrate de que la propiedad Format esté establecida en Custom
             dTBithModificar.Format = DateTimePickerFormat.Custom;
         }
 
-        private void opcionesPerfiles(int id)
+        private void opcionesPerfiles()
         {
-            UserModel userModel = new();
-            UsuarioConInformacion? usuario = userModel.ImportarUsuarios(id);
             var roles = userModel.ObtenerPerfiles();
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             txcPerfilModificar.DataSource = roles;
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             userModel.GetRolName(usuario!.TipoPerfil);
             txcPerfilModificar.Text = userModel.GetRolName(usuario.TipoPerfil);
         }
@@ -109,8 +100,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void btGuardarDatos_Click(object sender, EventArgs e)
         {
-            UserModel userModel = new UserModel();
-
             string nombre = txNameModificar.Text;
             string apellido = txLastNameModificar.Text;
             string dni = txDNIModificar.Text;
@@ -121,7 +110,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             int tipoPerfilId = userModel.ObtenerIdTipoPerfil(tipoPerfilNombre);
             string baja = checkBoxSi.Checked ? "SI" : "NO";
 
-            // Verificar si algún campo obligatorio está vacío
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(usuario) || (checkBoxSi.Checked == false && checkBoxNo.Checked == false))
             {
                 msgError("Por favor, completa todos los campos obligatorios");
@@ -144,7 +132,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 return;
             }
 
-            // Verificar si los datos no han cambiado
             UsuarioConInformacion? usuarioActual = userModel.ImportarUsuarios(userId);
             if (usuarioActual != null &&
                 nombre == usuarioActual.PersonaNombre &&
@@ -161,7 +148,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 return;
             }
 
-            // Realizar la actualización solo si se superan las validaciones
             bool actualizacionExitosa = userModel.ActualizacionEmpleado(userId, nombre, apellido, dni, mail, usuario, nacimiento, tipoPerfilId, baja);
 
             if (actualizacionExitosa)
@@ -176,13 +162,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-
-
         private void txNameModificar_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Space && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Suprime el carácter ingresado si no es una letra, espacio o tecla de retroceso (Backspace).
+                e.Handled = true;
             }
         }
 
@@ -190,7 +174,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Space && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Suprime el carácter ingresado si no es una letra, espacio o tecla de retroceso (Backspace).
+                e.Handled = true;
             }
         }
 

@@ -351,7 +351,7 @@ namespace DataAccess
             return tipoPerfilId;
         }
 
-        public bool ActualizarPersona(string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento,string baja)
+        public bool ActualizarPersona(int personaId, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento, string baja)
         {
             if (fechaNacimiento == DateTime.MinValue)
             {
@@ -364,7 +364,7 @@ namespace DataAccess
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, Mail = @Mail, FechaNacimiento = @FechaNacimiento,Baja=@Baja WHERE DNI = @DNI;";
+                    command.CommandText = "UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Mail = @Mail, FechaNacimiento = @FechaNacimiento, Baja = @Baja WHERE Id_Persona = @Id_Persona;";
 
                     command.Parameters.AddWithValue("@Nombre", nombre);
                     command.Parameters.AddWithValue("@Apellido", apellido);
@@ -372,6 +372,7 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@Mail", mail);
                     command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
                     command.Parameters.AddWithValue("@Baja", baja);
+                    command.Parameters.AddWithValue("@Id_Persona", personaId);
 
                     try
                     {
@@ -387,24 +388,65 @@ namespace DataAccess
             }
         }
 
-        public bool ActualizarUsuario(int userId, string nombre, string apellido, string dni, string mail, string user, DateTime fechaNacimiento, int tipoPerfil, string baja)
+        public Persona ObtenerPersonaPorIdUsuario(int idUsuario)
         {
-            bool personaActualizada = ActualizarPersona(nombre, apellido, dni, mail, fechaNacimiento,baja);
+            Persona persona = null!;
 
-            if (!personaActualizada)
+            using (var connection = GetConnection())
             {
-                return false;
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT p.Id_Persona, p.Nombre, p.Apellido, p.DNI, p.Mail, p.FechaNacimiento, p.Baja " +
+                                          "FROM Persona p " +
+                                          "INNER JOIN Usuario u ON p.Id_Persona = u.Id_Persona " +
+                                          "WHERE u.Id = @IdUsuario;";
+
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                    try
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                persona = new Persona
+                                {
+                                    Id_Persona = reader.GetInt32(reader.GetOrdinal("Id_Persona")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("Apellido")),
+                                    DNI = reader.GetString(reader.GetOrdinal("DNI")),
+                                    Mail = reader.GetString(reader.GetOrdinal("Mail")),
+                                    FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento"))
+                                };
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                    }
+                }
             }
 
-            // Obtén la persona que acabas de actualizar
-            Persona persona = ObtenerPersonaPorDNI(dni); // Implementa este método en tu capa intermedia para buscar por DNI
+            return persona;
+        }
 
-            // Verifica si se encontró la persona
+        public bool ActualizarUsuario(int userId, string nombre, string apellido, string dni, string mail, string user, DateTime fechaNacimiento, int tipoPerfil, string baja)
+        {
+            Persona persona = ObtenerPersonaPorIdUsuario(userId); 
             if (persona != null)
             {
-                // Si la persona existe, puedes continuar con la actualización del usuario
                 int personaId = persona.Id_Persona;
+                bool personaActualizada = ActualizarPersona(personaId, nombre, apellido, dni, mail, fechaNacimiento, baja);
 
+                if (!personaActualizada)
+                {
+                    return false;
+                }
+
+                // Continúa con la actualización del usuario utilizando el ID de la persona
                 if (EsTipoPerfilValido(tipoPerfil))
                 {
                     using (var connection = GetConnection())
@@ -417,7 +459,6 @@ namespace DataAccess
 
                             command.CommandText = "UPDATE Usuario SET UserNombre = @UserNombre, TipoPerfil = @TipoPerfil WHERE Id_Persona = @Id_Persona";
 
-                            command.Parameters.AddWithValue("@Id", userId);
                             command.Parameters.AddWithValue("@UserNombre", user);
                             command.Parameters.AddWithValue("@TipoPerfil", tipoPerfil);
                             command.Parameters.AddWithValue("@Id_Persona", personaId);
@@ -461,7 +502,7 @@ namespace DataAccess
                     {
                         while (reader.Read())
                         {
-                            roles.Add(reader["Nombre"].ToString());
+                            roles.Add(reader["Nombre"].ToString()!);
                         }
                     }
                 }

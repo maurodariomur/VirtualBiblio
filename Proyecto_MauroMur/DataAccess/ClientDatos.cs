@@ -1,5 +1,6 @@
 ﻿using Common.Cache;
 using Common.Models;
+using Microsoft.VisualBasic.ApplicationServices;
 using Proyecto_MauroMur.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -237,7 +238,7 @@ namespace DataAccess
             return cliente;
         }
 
-        public bool ActualizarPersona(string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento, string baja)
+        public bool ActualizarPersona(int personaId, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento, string baja)
         {
             if (fechaNacimiento == DateTime.MinValue)
             {
@@ -250,7 +251,7 @@ namespace DataAccess
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, Mail = @Mail, FechaNacimiento = @FechaNacimiento,Baja=@Baja WHERE DNI = @DNI;";
+                    command.CommandText = "UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Mail = @Mail, FechaNacimiento = @FechaNacimiento, Baja = @Baja WHERE Id_Persona = @Id_Persona;";
 
                     command.Parameters.AddWithValue("@Nombre", nombre);
                     command.Parameters.AddWithValue("@Apellido", apellido);
@@ -258,6 +259,7 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@Mail", mail);
                     command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
                     command.Parameters.AddWithValue("@Baja", baja);
+                    command.Parameters.AddWithValue("@Id_Persona", personaId);
 
                     try
                     {
@@ -273,48 +275,88 @@ namespace DataAccess
             }
         }
 
-        public bool ActualizarCliente(int clientId, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento, string telefono, string domicilio, string baja)
+        public Persona ObtenerPersonaPorIdCliente(int idCliente)
         {
-            bool personaActualizada = ActualizarPersona(nombre, apellido, dni, mail, fechaNacimiento, baja);
+            Persona persona = null!;
 
-            if (!personaActualizada)
+            using (var connection = GetConnection())
             {
-                return false;
-            }
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT p.Id_Persona, p.Nombre, p.Apellido, p.DNI, p.Mail, p.FechaNacimiento, p.Baja " +
+                                          "FROM Persona p " +
+                                          "INNER JOIN Cliente u ON p.Id_Persona = u.Id_Persona " +
+                                          "WHERE u.Id_Cliente = @IdCliente;";
 
-            // Obtén la persona que acabas de actualizar
-            Persona persona = ObtenerPersonaPorDNI(dni); // Implementa este método en tu capa intermedia para buscar por DNI
+                    command.Parameters.AddWithValue("@IdCliente", idCliente);
 
-            // Verifica si se encontró la persona
-            if (persona != null)
-            {
-                // Si la persona existe, puedes continuar con la actualización del usuario
-                int personaId = persona.Id_Persona;
-
-                    using (var connection = GetConnection())
+                    try
                     {
-                        connection.Open();
-
-                        using (var command = new SqlCommand())
+                        using (var reader = command.ExecuteReader())
                         {
-                            command.Connection = connection;
-
-                            command.CommandText = "UPDATE Cliente SET Telefono = @Telefono, Domicilio = @Domicilio WHERE Id_Persona = @Id_Persona";
-
-                            command.Parameters.AddWithValue("@Id", clientId);
-                            command.Parameters.AddWithValue("@Telefono", telefono);
-                            command.Parameters.AddWithValue("@Domicilio", domicilio);
-                            command.Parameters.AddWithValue("@Id_Persona", personaId);
-
-                            int rowsAffected = command.ExecuteNonQuery();
-
-                            return rowsAffected > 0;
+                            if (reader.Read())
+                            {
+                                persona = new Persona
+                                {
+                                    Id_Persona = reader.GetInt32(reader.GetOrdinal("Id_Persona")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("Apellido")),
+                                    DNI = reader.GetString(reader.GetOrdinal("DNI")),
+                                    Mail = reader.GetString(reader.GetOrdinal("Mail")),
+                                    FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento"))
+                                };
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al ejecutar la consulta: " + ex.Message);
+                    }
+                }
+            }
+
+            return persona;
+        }
+
+        public bool ActualizarCliente(int clientId, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento, string telefono, string domicilio, string baja)
+        {
+            Persona persona = ObtenerPersonaPorIdCliente(clientId);
+            if (persona != null)
+            {
+                int personaId = persona.Id_Persona;
+                bool personaActualizada = ActualizarPersona(personaId, nombre, apellido, dni, mail, fechaNacimiento, baja);
+
+                if (!personaActualizada)
+                {
+                    return false;
+                }
+
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+
+                    using (var command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+
+                        command.CommandText = "UPDATE Cliente SET Telefono = @Telefono, Domicilio = @Domicilio WHERE Id_Persona = @Id_Persona";
+
+                        command.Parameters.AddWithValue("@Id", clientId);
+                        command.Parameters.AddWithValue("@Telefono", telefono);
+                        command.Parameters.AddWithValue("@Domicilio", domicilio);
+                        command.Parameters.AddWithValue("@Id_Persona", personaId);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
             }
             else
             {
-                return false; // La persona no se encontró, por lo tanto, no se puede actualizar el usuario
+                return false; 
             }
         }
     }

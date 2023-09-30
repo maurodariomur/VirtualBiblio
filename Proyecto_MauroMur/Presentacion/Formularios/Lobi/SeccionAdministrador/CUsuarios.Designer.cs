@@ -1,4 +1,4 @@
-﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
+﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     partial class CUsuarios
     {

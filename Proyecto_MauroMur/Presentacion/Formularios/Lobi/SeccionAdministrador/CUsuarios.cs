@@ -11,10 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Domain;
 using Microsoft.VisualBasic.ApplicationServices;
-using Proyecto_MauroMur.Domain;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
+namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     public partial class CUsuarios : Form
     {
@@ -206,7 +205,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private void btTablaUsuarios_Click(object sender, EventArgs e)
         {
             this.Close();
-            instanciaFLobi.OpenChildForm(new SeccionGerente.CTablas(instanciaFLobi));
+            instanciaFLobi.OpenChildForm(new SeccionAdministrador.CTablas(instanciaFLobi));
         }
 
     }

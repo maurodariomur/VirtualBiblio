@@ -99,7 +99,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void iconUsuarios_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new SeccionGerente.CUsuarios(this));
+            OpenChildForm(new SeccionAdministrador.CUsuarios(this));
         }
 
         private void iconEstadistica_Click(object sender, EventArgs e)

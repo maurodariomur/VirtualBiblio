@@ -23,10 +23,22 @@ namespace Proyecto_MauroMur.DataAccess
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "INSERT INTO Editorial (NombreEditorial) VALUES (@NombreEditorial)";
 
+                    // Verifica si la editorial ya existe
+                    command.CommandText = "SELECT COUNT(*) FROM Editorial WHERE NombreEditorial = @NombreEditorial";
                     command.Parameters.AddWithValue("@NombreEditorial", nombreEditorial);
 
+                    int existingCount = Convert.ToInt32(command.ExecuteScalar());
+
+                    // Si ya existe, no se agrega de nuevo
+                    if (existingCount > 0)
+                    {
+                        Console.WriteLine("La editorial ya existe en la base de datos.");
+                        return false;
+                    }
+
+                    // Si no existe, se agrega
+                    command.CommandText = "INSERT INTO Editorial (NombreEditorial) VALUES (@NombreEditorial)";
                     try
                     {
                         int rowsAffected = command.ExecuteNonQuery();
@@ -49,10 +61,22 @@ namespace Proyecto_MauroMur.DataAccess
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "INSERT INTO Autor (Nombre) VALUES (@Nombre)";
 
+                    // Verifica si el autor ya existe
+                    command.CommandText = "SELECT COUNT(*) FROM Autor WHERE Nombre = @Nombre";
                     command.Parameters.AddWithValue("@Nombre", nombreAutor);
 
+                    int existingCount = Convert.ToInt32(command.ExecuteScalar());
+
+                    // Si ya existe, no se agrega de nuevo
+                    if (existingCount > 0)
+                    {
+                        Console.WriteLine("El autor ya existe en la base de datos.");
+                        return false;
+                    }
+
+                    // Si no existe, se agrega
+                    command.CommandText = "INSERT INTO Autor (Nombre) VALUES (@Nombre)";
                     try
                     {
                         int rowsAffected = command.ExecuteNonQuery();

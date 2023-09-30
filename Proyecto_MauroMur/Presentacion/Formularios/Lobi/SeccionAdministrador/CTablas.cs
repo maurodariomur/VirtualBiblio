@@ -13,7 +13,7 @@ using System.Drawing.Drawing2D;
 using Microsoft.VisualBasic.Logging;
 using Proyecto_MauroMur.Common.Models;
 
-namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
+namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
     public partial class CTablas : Form
     {
@@ -206,7 +206,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private void iconAtrasU_Click(object sender, EventArgs e)
         {
             this.Close();
-            flobi.OpenChildForm(new SeccionGerente.CUsuarios(flobi));
+            flobi.OpenChildForm(new SeccionAdministrador.CUsuarios(flobi));
         }
     }
 }

@@ -125,7 +125,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             this.Close();
             lobi!.OpenChildForm(new SeccionVendedor.CCatalogo(lobi));
             lobi!.Show();
-            detalle!.Show();
         }
 
         private void ibAgregarCliente_Click(object sender, EventArgs e)

@@ -50,7 +50,6 @@ namespace Domain
 
         public bool ActualizacionEmpleado(int id,string nombre, string apellido, string dni, string mail, string usuario, DateTime fechaNacimiento, int tipoPerfil,string baja)
         {
-            // Llamar al método para agregar usuario de UserDatos
             return userDatos.ActualizarUsuario(id,nombre,apellido,dni,mail,usuario,fechaNacimiento,tipoPerfil,baja);
         }
 
