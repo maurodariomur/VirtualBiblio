@@ -433,5 +433,28 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
         }
 
+        private void txNombreCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txNombreCliente.Text))
+            {
+                string texto = txNombreCliente.Text;
+                string textoFormateado = char.ToUpper(texto[0]) + texto.Substring(1).ToLower();
+
+                txNombreCliente.Text = textoFormateado;
+                txNombreCliente.SelectionStart = txNombreCliente.Text.Length;
+            }
+        }
+
+        private void txApellidoCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txApellidoCliente.Text))
+            {
+                string texto = txApellidoCliente.Text;
+                string textoFormateado = char.ToUpper(texto[0]) + texto.Substring(1).ToLower();
+
+                txApellidoCliente.Text = textoFormateado;
+                txApellidoCliente.SelectionStart = txApellidoCliente.Text.Length;
+            }
+        }
     }
 }

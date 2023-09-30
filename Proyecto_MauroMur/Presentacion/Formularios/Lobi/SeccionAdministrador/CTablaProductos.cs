@@ -39,16 +39,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             libros = productModel.MostrarProducts();
 
             desactivarBotones();
-            // Cargar las imágenes para cada libro
             foreach (Libro libro in libros)
             {
                 productModel.CargarImagen(libro);
             }
 
-            // Asigna la lista de libros al DataSource del DataGridView
             dataGridProductos.DataSource = libros;
 
-            // Configuración adicional de las columnas
             dataGridProductos.Columns["Id_Categoria"].Visible = false;
             dataGridProductos.Columns["Id_Editorial"].Visible = false;
             dataGridProductos.Columns["Id_Autor"].Visible = false;
@@ -56,10 +53,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dataGridProductos.Columns["Titulo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridProductos.Columns["Baja"].DisplayIndex = dataGridProductos.Columns.Count - 1;
 
-            // Configura la columna de la imagen (asegúrate de que el nombre de la columna sea correcto)
             dataGridProductos.Columns["ImagenPortada"].Visible = true;
             dataGridProductos.Columns["ImagenPortada"].HeaderText = "Portada";
-            dataGridProductos.Columns["ImagenPortada"].Width = 100; // Ajusta el ancho según tus necesidades
+            dataGridProductos.Columns["ImagenPortada"].Width = 100; 
             dataGridProductos.RowTemplate.Height = 70;
             if (dataGridProductos.Columns["ImagenPortada"] is DataGridViewImageColumn)
             {
@@ -76,21 +72,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void DataGridProductos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-            // Obtén la fila actual
             DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
 
-            // Verifica el valor de la columna "Baja" (asegúrate de que el nombre de la columna sea correcto)
             string? valorBaja = row.Cells["Baja"].Value.ToString();
 
-            // Define el color de fondo deseado para las filas con "Baja" en "SI"
             if (valorBaja == "SI")
             {
                 row.DefaultCellStyle.BackColor = Color.FromArgb(243, 106, 106);
-                row.DefaultCellStyle.ForeColor = Color.White; // Opcional: establecer el color de texto en blanco para mayor visibilidad
+                row.DefaultCellStyle.ForeColor = Color.White; 
             }
             else
             {
-                // Restablece el color de fondo y texto para las demás filas (opcional)
                 row.DefaultCellStyle.BackColor = SystemColors.Window;
                 row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
             }
@@ -100,7 +92,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         {
             List<Libro> productos = productModel.MostrarProducts();
 
-            // Ordenar la lista alfabéticamente si checkBoxAZT está marcado
             if (checkBoxAZT.Checked)
             {
                 productos.Sort((x, y) => string.Compare(x.Titulo, y.Titulo));
@@ -108,7 +99,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
             dataGridProductos.DataSource = productos;
 
-            // Recuerda cargar las imágenes para los libros en la lista 'productos'
             foreach (Libro libro in productos)
             {
                 productModel.CargarImagen(libro);
@@ -129,7 +119,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             autor = productModel.ObtenerIdAutor(autorSeleccionado!);
             editorial = productModel.ObtenerIdEditorial(editorialSeleccionado!);
 
-            // Aplicar el filtro y obtener los libros filtrados
             List<Libro> productosFiltrados = productModel.MostrarProducts()
             .Where(libro =>
                     (string.IsNullOrEmpty(textoBusquedaTitulo) || libro?.Titulo?.ToLower()?.Contains(textoBusquedaTitulo) == true) &&
@@ -144,7 +133,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 productModel.CargarImagen(libro);
             }
 
-            // Actualizar el DataGridView con los libros filtrados
             dataGridProductos.DataSource = productosFiltrados;
         }
 
@@ -154,12 +142,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             ProductModel productModel = new();
             var categorias = productModel.ObtenerCategorias();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             categorias.Insert(0, "Categorias");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             cBBuscadorCategoria.DataSource = categorias;
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBBuscadorCategoria.SelectedIndex = 0;
         }
 
@@ -168,12 +153,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             ProductModel productModel = new();
             var editCategorias = productModel.ObtenerCategorias();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             editCategorias.Insert(0, "Seleccion Categorias");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             txEditarCategoria.DataSource = editCategorias;
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             txEditarCategoria.SelectedIndex = 0;
         }
 
@@ -182,13 +164,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             ProductModel productModel = new();
             var autores = productModel.ObtenerListaAutores();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             autores.Insert(0, "Autor");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             cBBuscadorAutor.DataSource = autores;
-
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBBuscadorAutor.SelectedIndex = 0;
         }
 
@@ -197,13 +175,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             ProductModel productModel = new();
             var editoriales = productModel.ObtenerListaEditoriales();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             editoriales.Insert(0, "Editoriales");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             cBBuscadorEditorial.DataSource = editoriales;
-
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBBuscadorEditorial.SelectedIndex = 0;
         }
 
@@ -245,13 +219,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void dataGridProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verifica si la edición ya se realizó y si se hizo clic en una fila válida
             if (!edicionRealizada && e.RowIndex >= 0)
             {
-                // Marca que la edición se ha realizado
                 edicionRealizada = true;
 
-                // Muestra el mensaje de confirmación
                 DialogResult confirmResult = MessageBox.Show("¿Desea Realizar una Modificacion al Libro?", "Informe de edición", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
                 if (confirmResult == DialogResult.OK)
@@ -269,14 +240,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     btEditar.Enabled = true;
                     iconLimpiar.Enabled = true;
 
-                    // Obtiene la fila seleccionada
                     DataGridViewRow row = dataGridProductos.Rows[e.RowIndex];
 
-                    // Obtén el objeto 'Libro' correspondiente a la fila seleccionada
                     libroSeleccionado = (Libro)row.DataBoundItem;
                     idLibroSeleccionado = libroSeleccionado.Id_Libro;
-
-                    // Llena los controles con los detalles del libro
                     txEditarProducto.Text = libroSeleccionado.Titulo;
                     txEditarEditorial.Text = libroSeleccionado.Editorial;
                     txEditarAutor.Text = libroSeleccionado.Autor;
@@ -288,15 +255,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     if (libroSeleccionado.Baja == "SI")
                     {
                         checkBoxSiEd.Checked = true;
-                        checkBoxNoEd.Checked = false; // Desmarcar checkBoxNoEd si está marcado
+                        checkBoxNoEd.Checked = false; 
                     }
                     else
                     {
-                        checkBoxSiEd.Checked = false; // Desmarcar checkBoxSiEd si está marcado
+                        checkBoxSiEd.Checked = false; 
                         checkBoxNoEd.Checked = true;
                     }
-
-                    // Selecciona la categoría en el ComboBox
                     txEditarCategoria.SelectedItem = libroSeleccionado.Categoria;
                 }
                 else
@@ -327,7 +292,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private void btEditar_Click(object sender, EventArgs e)
         {
             string? imagenActual = null;
-            // Reiniciar la variable edicionRealizada
             edicionRealizada = false;
 
             if (libroSeleccionado != null)
@@ -341,7 +305,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 return;
             }
 
-            // Recopila los datos editados
             string nuevoTitulo = txEditarProducto.Text;
             string nuevaDescripcion = rtbEditarDescripcion.Text;
             double nuevoPrecio;
@@ -352,7 +315,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string? nuevoAutor = txEditarAutor.Text;
             string? nuevaEditorial = txEditarEditorial.Text;
 
-            // Valida que no haya campos vacíos
             if (string.IsNullOrWhiteSpace(nuevoTitulo) || string.IsNullOrWhiteSpace(nuevaDescripcion) ||
                 !double.TryParse(txEditarPrecio.Text, out nuevoPrecio) || !int.TryParse(txEditarStock.Text, out nuevoStock) ||
                 string.IsNullOrWhiteSpace(nuevaCategoria) || string.IsNullOrWhiteSpace(nuevoAutor) || string.IsNullOrWhiteSpace(nuevaEditorial) ||
@@ -362,7 +324,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 return;
             }
 
-            // Comprueba si se ha realizado algún cambio en los campos
             bool cambiosRealizados = !string.Equals(nuevoTitulo, libroSeleccionado?.Titulo, StringComparison.OrdinalIgnoreCase) ||
                                      !string.Equals(nuevaDescripcion, libroSeleccionado?.Descripcion, StringComparison.OrdinalIgnoreCase) ||
                                      !double.Equals(nuevoPrecio, libroSeleccionado?.Precio) ||
@@ -373,7 +334,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                                      !string.Equals(nuevaEditorial, libroSeleccionado.Editorial, StringComparison.OrdinalIgnoreCase) ||
                                      (!string.IsNullOrWhiteSpace(imagenName) && !string.Equals(imagenActual, imagenName, StringComparison.OrdinalIgnoreCase));
 
-            // Si no se realizaron cambios, muestra un mensaje y regresa
             if (!cambiosRealizados)
             {
                 LimpiarCamposModificar();
@@ -382,12 +342,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 return;
             }
 
-            // Confirma con el usuario si está seguro de realizar las modificaciones
             DialogResult confirmacion = MessageBox.Show("¿Está seguro de realizar estas modificaciones?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirmacion == DialogResult.Yes)
             {
-                // Comprueba si se ha seleccionado una nueva imagen
                 if (!string.IsNullOrWhiteSpace(imagenName) && !string.Equals(imagenActual, imagenName, StringComparison.OrdinalIgnoreCase))
                 {
                     libroSeleccionado!.Imagen = imagenName;
@@ -408,12 +366,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                 if (exitoLibro)
                 {
-                    // Comprueba si se ha seleccionado una nueva imagen y si es diferente a la actual
                     if (!string.IsNullOrWhiteSpace(imagenName) && !string.Equals(imagenActual, imagenName, StringComparison.OrdinalIgnoreCase))
                     {
                         libroSeleccionado!.Imagen = imagenName;
-
-                        // Realiza la copia de la imagen
                         File.Copy(fileActualPath!, fileSavePath!);
                     }
                     imagenName= null;
@@ -467,7 +422,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 fileSavePath = Path.Combine("..", "..", "..", "Presentacion/Formularios/Pictures/Productos", imagenName);
                 string selectedImagePath = openFile.FileName;
                 fileActualPath = selectedImagePath;
-                // Mostrar la imagen en el PictureBox
                 pEditarProducts.Image = Image.FromFile(fileActualPath);
             }
         }
@@ -495,7 +449,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void iconLimpiar_Click(object sender, EventArgs e)
         {
-            // Mostrar el cuadro de diálogo de confirmación solo si no hay problemas
             DialogResult limpiar = MessageBox.Show("Esta por realizar la limpieza de los campos. ¿Seguro?.", "Limpieza", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (limpiar == DialogResult.OK)
@@ -509,19 +462,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private void mostrarOpcionesAutor()
         {
             ProductModel productModel = new ProductModel();
-            // Cargar la lista de objetos Autores desde la base de datos
             List<Autores> listaAutores = productModel.ObtenerNombresAutores();
-
-            // Configurar la fuente personalizada de autocompletar
             AutoCompleteStringCollection fuenteAutoCompletar = new AutoCompleteStringCollection();
 
-            // Extraer nombres de autores y agregarlos a la colección de autocompletar
             foreach (var autor in listaAutores)
             {
-                fuenteAutoCompletar.Add(autor.Nombre); // Reemplaza "Nombre" con el nombre de la propiedad que almacena el nombre del autor en tu clase Autores
+                fuenteAutoCompletar.Add(autor.Nombre); 
             }
 
-            // Asignar la fuente personalizada al TextBox
             txEditarAutor.AutoCompleteCustomSource = fuenteAutoCompletar;
             txEditarAutor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txEditarAutor.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -539,7 +487,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 fuenteAutoCompletar.Add(editorial.NombreEditorial);
             }
 
-            // Asignar la fuente personalizada al TextBox
             txEditarEditorial.AutoCompleteCustomSource = fuenteAutoCompletar;
             txEditarEditorial.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txEditarEditorial.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -556,7 +503,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             txEditarAutor.Text = txEditarAutor.Text.ToUpper();
             txEditarAutor.SelectionStart = txEditarAutor.Text.Length;
         }
-
 
         private void iconAtras_Click(object sender, EventArgs e)
         {

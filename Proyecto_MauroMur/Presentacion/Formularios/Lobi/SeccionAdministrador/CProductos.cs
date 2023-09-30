@@ -58,11 +58,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             string categoria = txCategoria.Text;
             ProductModel producModel = new();
 
-            if (nombreProd == "Titulo" || nombreEditorial == "Editorial" || nombreAutor == "Autor")
-            {
-                msgError("Debe completar todos los campos");
-            }
-            else if (string.IsNullOrWhiteSpace(nombreProd) || string.IsNullOrWhiteSpace(nombreEditorial) || string.IsNullOrWhiteSpace(precioStr) || string.IsNullOrWhiteSpace(descripcion))
+            if (string.IsNullOrWhiteSpace(nombreProd) || string.IsNullOrWhiteSpace(nombreEditorial) || string.IsNullOrWhiteSpace(nombreAutor) || string.IsNullOrWhiteSpace(precioStr) || string.IsNullOrWhiteSpace(descripcion))
             {
                 msgError("Debe completar todos los campos");
             }
@@ -121,13 +117,13 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         private void LimpiarCampos()
         {
             txNameProducto.Text = "";
-            txEditorial.Text = "Editorial";
-            txPrecio.Text = "$ Precio";
-            txAutor.Text = "Autor";
-            txStock.Text = "Stock";
+            txEditorial.Text = "";
+            txPrecio.Text = "";
+            txAutor.Text = "";
+            txStock.Text = "";
             rtbDescripcion.Text = string.Empty;
             pProducts.Image = null;
-            lbPathTittleP.Text = "Producto";
+            lbPathTittleP.Text = "";
             txCategoria.SelectedIndex = 0;
             txNameProducto.Focus();
         }
@@ -176,55 +172,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             lbLimite.Visible = longitudTexto > 0;
         }
 
-        //TITULOS DE LOS TEXTBOXS
-        private void txNameProducto_Enter(object sender, EventArgs e)
-        {
-            if (txNameProducto.Text == "Titulo")
-            {
-                txNameProducto.Text = "";
-            }
-        }
-
-        private void txNameProducto_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txNameProducto.Text))
-            {
-                txNameProducto.Text = "Titulo";
-            }
-        }
-
-        private void txEditorial_Enter(object sender, EventArgs e)
-        {
-            if (txEditorial.Text == "Editorial" || txEditorial.Text == "EDITORIAL")
-            {
-                txEditorial.Text = "";
-            }
-        }
-
-        private void txEditorial_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txEditorial.Text))
-            {
-                txEditorial.Text = "Editorial";
-            }
-        }
-
-        private void txPrecio_Enter(object sender, EventArgs e)
-        {
-            if (txPrecio.Text == "$ Precio")
-            {
-                txPrecio.Text = "";
-            }
-        }
-
-        private void txPrecio_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txPrecio.Text))
-            {
-                txPrecio.Text = "$ Precio";
-            }
-        }
-
         private void txPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
@@ -243,38 +190,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void txStock_Enter(object sender, EventArgs e)
-        {
-            if (txStock.Text == "Stock")
-            {
-                txStock.Text = "";
-            }
-        }
-
-        private void txStock_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txStock.Text))
-            {
-                txStock.Text = "Stock";
-            }
-        }
-
-        private void txAutor_Enter(object sender, EventArgs e)
-        {
-            if (txAutor.Text == "Autor" || txAutor.Text == "AUTOR")
-            {
-                txAutor.Text = "";
-            }
-        }
-
-        private void txAutor_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txAutor.Text))
-            {
-                txAutor.Text = "Autor";
             }
         }
 
@@ -390,9 +305,5 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             objFLobi.OpenChildForm(new SeccionAdministrador.CTablaProductos(objFLobi));
         }
 
-        private void panel6_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

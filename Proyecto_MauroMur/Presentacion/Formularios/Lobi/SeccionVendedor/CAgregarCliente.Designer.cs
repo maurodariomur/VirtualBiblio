@@ -252,6 +252,7 @@
             txNombreAgCliente.PlaceholderText = "Nombre";
             txNombreAgCliente.Size = new Size(175, 22);
             txNombreAgCliente.TabIndex = 58;
+            txNombreAgCliente.TextChanged += txNombreAgCliente_TextChanged;
             txNombreAgCliente.KeyPress += txNombreAgCliente_KeyPress;
             // 
             // txApellidoAgCliente
@@ -263,6 +264,7 @@
             txApellidoAgCliente.PlaceholderText = "Apellido";
             txApellidoAgCliente.Size = new Size(176, 22);
             txApellidoAgCliente.TabIndex = 59;
+            txApellidoAgCliente.TextChanged += txApellidoAgCliente_TextChanged;
             txApellidoAgCliente.KeyPress += txApellidoAgCliente_KeyPress;
             // 
             // dTBithAgCliente

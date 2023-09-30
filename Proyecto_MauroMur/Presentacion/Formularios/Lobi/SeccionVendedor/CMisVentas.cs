@@ -29,15 +29,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dateTimePickerHasta.CustomFormat = "dd/MM/yyyy";
             dateTimePickerHasta.Format = DateTimePickerFormat.Custom;
 
-            // Obtén las fechas mínimas y máximas de la base de datos
             DateTime? minFechaFactura = saleModel.ObtenerMinFechaFactura();
             DateTime? maxFechaFactura = saleModel.ObtenerMaxFechaFactura();
 
-            // Configura los valores mínimos y máximos para el dateTimePickerDesde
             dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            // Configura los valores iniciales de dateTimePickerDesde y dateTimePickerHasta
             dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
         }
@@ -111,17 +108,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             DateTime? fechaDesde = dateTimePickerDesde.Value;
             DateTime? fechaHasta = dateTimePickerHasta.Value;
 
-            // Obtén las fechas mínimas y máximas de la base de datos
             DateTime? minFechaFactura = saleModel.ObtenerMinFechaFactura();
             DateTime? maxFechaFactura = saleModel.ObtenerMaxFechaFactura();
 
-            // Establece los valores mínimos y máximos para los seleccionadores de fecha
             dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
             dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            // Asegúrate de que las fechas seleccionadas estén dentro del rango válido
             if (fechaDesde < minFechaFactura)
             {
                 fechaDesde = minFechaFactura;
@@ -132,20 +126,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 fechaHasta = maxFechaFactura;
             }
 
-            // Actualiza los valores de los seleccionadores de fecha
             dateTimePickerDesde.Value = fechaDesde.Value;
             dateTimePickerHasta.Value = fechaHasta.Value;
 
-            // Verifica que las fechas estén dentro del rango válido
             if (fechaDesde <= fechaHasta)
             {
-                // Realiza la consulta con las fechas seleccionadas
                 List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(fechaDesde, fechaHasta);
                 dataGridMisVentas.DataSource = ventasFiltradas;
             }
             else
             {
-                // Si las fechas no están en orden válido, puedes mostrar un mensaje al usuario o tomar la acción adecuada.
                 MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

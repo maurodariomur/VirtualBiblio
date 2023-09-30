@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using System.Xml.Linq;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
@@ -28,7 +29,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void CAgregarCliente_Load(object sender, EventArgs e)
         {
             dTBithAgCliente.CustomFormat = "dd/MM/yyyy";
-            // Asegúrate de que la propiedad Format esté establecida en Custom
             dTBithAgCliente.Format = DateTimePickerFormat.Custom;
         }
 
@@ -44,7 +44,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             DateTime fechaRegistro = DateTime.Now;
             string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
-            // Verificar si algún campo obligatorio está vacío
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(dni))
             {
                 msgError("Por favor, completa todos los campos obligatorios");
@@ -74,7 +73,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
             else
             {
-                // Mostrar mensaje de confirmación
                 DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea registrar este usuario?", "Confirmar Registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (confirmResult == DialogResult.Yes)
@@ -91,11 +89,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             txNombreAgCliente.Text = "";
             txApellidoAgCliente.Text = "";
             txDNIAgCliente.Text = "";
-            dTBithAgCliente.Value = DateTime.Now; // Puedes establecer la fecha actual u otra fecha predeterminada
+            dTBithAgCliente.Value = DateTime.Now; 
             txMailAgCliente.Text = "";
             tbTelefonoAgCliente.Text = "";
             tbDomicilioAgCliente.Text = "";
             txNombreAgCliente.Focus();
+            lbErrorModificar.Text = "";
         }
 
         private void msgError(string msg)
@@ -106,10 +105,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconAtrasU_Click(object sender, EventArgs e)
         {
-            // Cierra el formulario actual
             this.Close();
 
-            // Intenta abrir el formulario deseado
             CTablaClientes? formularioTablaCli = Application.OpenForms.OfType<CTablaClientes>().FirstOrDefault();
             if (formularioTablaCli != null)
             {
@@ -117,7 +114,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
             else
             {
-                // Si el formulario no existe, crea una nueva instancia y ábrelo
                 formularioTablaCli = new CTablaClientes(_clienteFactura!);
                 formularioTablaCli.Show();
             }
@@ -127,7 +123,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true; 
             }
         }
 
@@ -135,7 +131,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true;
             }
         }
 
@@ -143,7 +139,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true; 
             }
         }
 
@@ -151,7 +147,35 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true; 
+            }
+        }
+
+        private void txNombreAgCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txNombreAgCliente.Text))
+            {
+                string texto = txNombreAgCliente.Text;
+
+                string textoFormateado = char.ToUpper(texto[0]) + texto.Substring(1).ToLower();
+
+                txNombreAgCliente.Text = textoFormateado;
+
+                txNombreAgCliente.SelectionStart = txNombreAgCliente.Text.Length;
+            }
+        }
+
+        private void txApellidoAgCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txApellidoAgCliente.Text))
+            {
+                string texto = txApellidoAgCliente.Text;
+
+                string textoFormateado = char.ToUpper(texto[0]) + texto.Substring(1).ToLower();
+
+                txApellidoAgCliente.Text = textoFormateado;
+
+                txApellidoAgCliente.SelectionStart = txApellidoAgCliente.Text.Length;
             }
         }
     }

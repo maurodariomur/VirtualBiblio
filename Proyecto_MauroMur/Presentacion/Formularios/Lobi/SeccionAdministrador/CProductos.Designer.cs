@@ -155,7 +155,6 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(1076, 536);
             panel6.TabIndex = 44;
-            panel6.Paint += panel6_Paint;
             // 
             // txAutor
             // 
@@ -165,12 +164,10 @@
             txAutor.ForeColor = SystemColors.WindowFrame;
             txAutor.Location = new Point(331, 248);
             txAutor.Name = "txAutor";
+            txAutor.PlaceholderText = "Autor";
             txAutor.Size = new Size(213, 27);
             txAutor.TabIndex = 55;
-            txAutor.Text = "Autor";
             txAutor.TextChanged += txAutor_TextChanged;
-            txAutor.Enter += txAutor_Enter;
-            txAutor.Leave += txAutor_Leave;
             // 
             // lbAutor
             // 
@@ -193,12 +190,10 @@
             txStock.ForeColor = SystemColors.WindowFrame;
             txStock.Location = new Point(604, 248);
             txStock.Name = "txStock";
+            txStock.PlaceholderText = "Stock";
             txStock.Size = new Size(213, 27);
             txStock.TabIndex = 53;
-            txStock.Text = "Stock";
-            txStock.Enter += txStock_Enter;
             txStock.KeyPress += txStock_KeyPress;
-            txStock.Leave += txStock_Leave;
             // 
             // lbStock
             // 
@@ -362,12 +357,10 @@
             txEditorial.ForeColor = SystemColors.WindowFrame;
             txEditorial.Location = new Point(331, 164);
             txEditorial.Name = "txEditorial";
+            txEditorial.PlaceholderText = "Editorial";
             txEditorial.Size = new Size(213, 27);
             txEditorial.TabIndex = 31;
-            txEditorial.Text = "Editorial";
             txEditorial.TextChanged += txEditorial_TextChanged;
-            txEditorial.Enter += txEditorial_Enter;
-            txEditorial.Leave += txEditorial_Leave;
             // 
             // lbEditorial
             // 
@@ -393,8 +386,6 @@
             txNameProducto.PlaceholderText = "Titulo";
             txNameProducto.Size = new Size(213, 27);
             txNameProducto.TabIndex = 24;
-            txNameProducto.Enter += txNameProducto_Enter;
-            txNameProducto.Leave += txNameProducto_Leave;
             // 
             // lbImagen
             // 
@@ -469,12 +460,10 @@
             txPrecio.ForeColor = SystemColors.WindowFrame;
             txPrecio.Location = new Point(604, 165);
             txPrecio.Name = "txPrecio";
+            txPrecio.PlaceholderText = "$ Precio";
             txPrecio.Size = new Size(213, 27);
             txPrecio.TabIndex = 27;
-            txPrecio.Text = "$ Precio";
-            txPrecio.Enter += txPrecio_Enter;
             txPrecio.KeyPress += txPrecio_KeyPress;
-            txPrecio.Leave += txPrecio_Leave;
             // 
             // CProductos
             // 
