@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
 using Common.Models;
+using Proyecto_MauroMur.Domain;
 
 namespace Domain
 {
@@ -16,21 +17,22 @@ namespace Domain
             return userDatos.Login(user,pass);
         }
 
-        public bool AgregarNuevoUsuario(string nombre, string apellido, string dni, DateTime fechaNacimiento, string mail, string usuario, string contrasena, int tipoPerfil)
+        public bool AgregarNuevoUsuario(string user, string contrasena, int tipoPerfil, string nombre, string apellido, string dni, string mail, DateTime fechaNacimiento)
         {
             // Generar el hash de la contraseña
             string hashContrasena = BCrypt.Net.BCrypt.HashPassword(contrasena);
 
             // Llamar al método para agregar usuario de UserDatos
-            return userDatos.AgregarUsuario(nombre, apellido, dni, fechaNacimiento, mail, usuario, hashContrasena, tipoPerfil);
+            return userDatos.AgregarUsuario(nombre, apellido, dni, fechaNacimiento, mail, user, hashContrasena, tipoPerfil);
         }
 
-        public List<Usuarios> MostrarUsers()
+
+        public List<UsuarioConInformacion> MostrarUsers()
         {
             return userDatos.ObtenerUsuarios();
         }
 
-        public Usuarios? ImportarUsuarios(int id)
+        public UsuarioConInformacion? ImportarUsuarios(int id)
         {
             return userDatos.TraerUsuariosId(id);
         }
@@ -48,8 +50,32 @@ namespace Domain
 
         public bool ActualizacionEmpleado(int id,string nombre, string apellido, string dni, string mail, string usuario, DateTime fechaNacimiento, int tipoPerfil,string baja)
         {
-            // Llamar al método para agregar usuario de UserDatos
             return userDatos.ActualizarUsuario(id,nombre,apellido,dni,mail,usuario,fechaNacimiento,tipoPerfil,baja);
+        }
+
+        public List<string> ObtenerPerfiles()
+        {
+            return userDatos.ObtenerRoles();
+        }
+
+        public bool IsValidDni(string dni)
+        {
+            return userDatos.ExisteDNI(dni);
+        }
+
+        public bool IsValidCorreo(string mail)
+        {
+            return userDatos.ExisteMail(mail);
+        }
+
+        public bool IsValidNombreUsuario(string userNombre)
+        {
+            return userDatos.ExisteNombreUsuario(userNombre);
+        }
+
+        public bool IsValidEdad(DateTime fechaNacimiento)
+        {
+            return userDatos.CumpleCondicionesFechaNacimiento(fechaNacimiento);
         }
     }
 }

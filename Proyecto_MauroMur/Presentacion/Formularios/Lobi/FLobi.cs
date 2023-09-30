@@ -31,14 +31,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            this.MinimumSize = new Size(1300, 600);
         }
 
         private struct RGBColors
         {
             public static Color color1 = Color.FromArgb(240, 235, 206);
             public static Color color2 = Color.FromArgb(170, 139, 86);
-            public static Color color3 = Color.FromArgb(253, 138, 114);
+            public static Color color3 = Color.FromArgb(0, 129, 138);
             public static Color color4 = Color.FromArgb(95, 77, 221);
+            public static Color color5 = Color.FromArgb(176, 166, 232);
+            public static Color color6 = Color.FromArgb(144, 197, 203);
         }
 
         private void ActivateButton(object senderBtn, Color color)
@@ -96,13 +99,36 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void iconUsuarios_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new SeccionGerente.CUsuarios(this));
+            OpenChildForm(new SeccionAdministrador.CUsuarios(this));
         }
 
         private void iconEstadistica_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
             OpenChildForm(new SeccionGerente.CEstadistica());
+        }
+        private void iconProducto_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color1);
+            OpenChildForm(new SeccionAdministrador.CProductos(this));
+        }
+
+        private void iconCatalogo_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new SeccionVendedor.CCatalogo(this));
+        }
+
+        private void iconMisVentas_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color5);
+            OpenChildForm(new SeccionVendedor.CMisVentas(this));
+        }
+
+        private void iconHistorialVentas_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new SeccionAdministrador.CHistorialVentas(this));
         }
 
         private void iconExit_Click(object sender, EventArgs e)
@@ -113,8 +139,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             {
                 this.Close();
             }
-
-
         }
 
         private void btnInicio_Click(object sender, EventArgs e)
@@ -169,37 +193,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             WindowState = FormWindowState.Minimized;
         }
 
-        private void Lhora_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void horaFecha_Tick(object sender, EventArgs e)
         {
             Lhora.Text = DateTime.Now.ToLongTimeString();
             Lfecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy").ToUpper();
-
-
-        }
-
-        private void Lfecha_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelEscritorio_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelMenu_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void panelTitleBar_Paint(object sender, PaintEventArgs e)
@@ -227,14 +224,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void FLobi_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            pictureBox1.Image = Image.FromFile("C:\\Users\\Priscila\\source\\repos\\VirtualBiblio\\Proyecto_MauroMur\\Presentacion\\Formularios\\Pictures\\Sistema\\Bienvenidos.gif");
+            string carpetaDestino = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Presentacion/Formularios/Pictures/Sistema/");
+            carpetaDestino = Path.GetFullPath(carpetaDestino);
+            pictureBox1.Image = Image.FromFile(carpetaDestino + "Bienvenidos.gif");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-        }
-
-        private void iconDatos_Click(object sender, EventArgs e)
-        {
-
+            if (UserLoginCache.TipoPerfil == 1)
+            {
+                iconEstadistica.Visible = true;
+            }
+            else if (UserLoginCache.TipoPerfil == 2)
+            {
+                iconProducto.Visible = true;
+                iconUsuarios.Visible = true;
+                iconHistorialVentas.Visible = true;
+            }
+            else
+            {
+                iconCatalogo.Visible = true;
+                iconMisVentas.Visible = true;
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -252,17 +261,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
 
             // Resto del código para mostrar otros datos de usuario
             lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
-            lbCorreo.Text = UserLoginCache.Mail;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbNApe_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
