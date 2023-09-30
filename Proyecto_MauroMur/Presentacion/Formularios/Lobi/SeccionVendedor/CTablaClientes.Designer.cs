@@ -448,7 +448,6 @@
             txNombreCliente.PlaceholderText = "Nombre";
             txNombreCliente.Size = new Size(178, 22);
             txNombreCliente.TabIndex = 43;
-            txNombreCliente.TextChanged += txNombreCliente_TextChanged;
             txNombreCliente.KeyPress += txNombreCliente_KeyPress;
             // 
             // lbNombre

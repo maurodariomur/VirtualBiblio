@@ -115,33 +115,25 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             UserModel userModel = new();
             var roles = userModel.ObtenerPerfiles();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             roles.Insert(0, "Seleccione Perfil");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             txcPerfil.DataSource = roles;
 
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             txcPerfil.SelectedIndex = 0;
         }
 
         private void LimpiarCampos()
         {
-            txName.Text = "Nombre";
-            txLastName.Text = "Apellido";
-            txDNI.Text = "DNI";
-            dTBith.Value = DateTime.Now; // Puedes establecer la fecha actual u otra fecha predeterminada
-            txMail.Text = "Correo Electronico";
-            txEmpleado.Text = "Usuario";
-            txPassword.Text = "Contraseña";
-            txcPerfil.SelectedIndex = 0; // Desseleccionar el ComboBox
-            txcPerfil.Text = "Seleccione un Tipo de perfil";
+            txName.Text = "";
+            txLastName.Text = "";
+            txDNI.Text = "";
+            dTBith.Value = DateTime.Now;
+            txMail.Text = "";
+            txEmpleado.Text = "";
+            txPassword.Text = "";
+            txcPerfil.SelectedIndex = 0; 
             txName.Focus();
-
-            // Hacer invisible el botón contraVisible
             contraVisible.Visible = false;
-
-            // Asegurarse de que el campo de contraseña oculte el texto
             txPassword.UseSystemPasswordChar = true;
         }
 
@@ -179,8 +171,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
         {
             contraVisible.Visible = !string.IsNullOrEmpty(txPassword.Text) && txPassword.Text != "Contraseña";
 
-
-            // Si el campo de contraseña está vacío, también ocultar el botón
             if (string.IsNullOrEmpty(txPassword.Text) && txPassword.Text != "Contraseña")
             {
                 contraVisible.Visible = false;

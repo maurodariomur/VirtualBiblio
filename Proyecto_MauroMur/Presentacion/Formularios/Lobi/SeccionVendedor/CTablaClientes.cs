@@ -59,36 +59,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             if (cbBaja.Checked)
             {
-                // Filtra los clientes con "PersonaBaja" igual a "SI" si cbBaja está marcado
                 clientes = clientes.Where(c => c.PersonaBaja == "SI").ToList();
             }
             else
             {
-                // Filtra los clientes con "PersonaBaja" igual a "NO" si cbBaja no está marcado
                 clientes = clientes.Where(c => c.PersonaBaja == "NO").ToList();
             }
-
             dataGridClientes.DataSource = clientes;
         }
 
 
         private void DataGridClientes_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-            // Obtén la fila actual
             DataGridViewRow row = dataGridClientes.Rows[e.RowIndex];
 
-            // Verifica el valor de la columna "Baja" (asegúrate de que el nombre de la columna sea correcto)
             string? valorBaja = row.Cells["PersonaBaja"].Value.ToString();
 
-            // Define el color de fondo deseado para las filas con "Baja" en "SI"
             if (valorBaja == "SI")
             {
                 row.DefaultCellStyle.BackColor = Color.FromArgb(255, 140, 140);
-                row.DefaultCellStyle.ForeColor = Color.Black; // Opcional: establecer el color de texto en blanco para mayor visibilidad
+                row.DefaultCellStyle.ForeColor = Color.Black; 
             }
             else
             {
-                // Restablece el color de fondo y texto para las demás filas (opcional)
                 row.DefaultCellStyle.BackColor = SystemColors.Window;
                 row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
             }
@@ -118,7 +111,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             DateTime nuevoNacimiento = dTFNCliente.Value;
             string baja = checkBoxSi.Checked ? "SI" : "NO";
 
-            // Verificar si algún campo obligatorio está vacío
             if (string.IsNullOrWhiteSpace(nuevoNombre) || string.IsNullOrWhiteSpace(nuevoApellido) ||
                 string.IsNullOrWhiteSpace(nuevoDni) || (checkBoxSi.Checked == false && checkBoxNo.Checked == false))
             {
@@ -126,14 +118,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 return;
             }
 
-            // Verificar si el correo electrónico está vacío
             if (string.IsNullOrWhiteSpace(nuevoMail))
             {
                 msgError("Ingresa una dirección de correo electrónico.");
                 return;
             }
 
-            // Validar dirección de correo electrónico
             string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
             if (!Regex.IsMatch(nuevoMail, emailPattern))
@@ -141,7 +131,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 msgError("Ingresa una dirección de correo electrónico válida.");
                 return;
             }
-            // Comprueba si se ha realizado algún cambio en los campos
             bool cambiosRealizados = !string.Equals(nuevoNombre, clienteSeleccionado?.PersonaNombre, StringComparison.OrdinalIgnoreCase) ||
                                      !string.Equals(nuevoApellido, clienteSeleccionado?.PersonaApellido, StringComparison.OrdinalIgnoreCase) ||
                                      !string.Equals(nuevoDni, clienteSeleccionado?.PersonaDNI, StringComparison.OrdinalIgnoreCase) ||
@@ -150,8 +139,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                                      !string.Equals(nuevoDomicilio, clienteSeleccionado?.Domicilio, StringComparison.OrdinalIgnoreCase) ||
                                      !string.Equals(baja, clienteSeleccionado?.PersonaBaja, StringComparison.OrdinalIgnoreCase) ||
                                      !DateTime.Equals(nuevoNacimiento, clienteSeleccionado?.PersonaFechaNacimiento);
-
-            // Si no se realizaron cambios, muestra un mensaje y regresa
             if (!cambiosRealizados)
             {
                 LimpiarCamposModificar();
@@ -159,8 +146,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 MessageBox.Show("Usted no realizó cambios.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            // Confirma con el usuario si está seguro de realizar las modificaciones
             DialogResult confirmacion = MessageBox.Show("¿Está seguro de realizar estas modificaciones?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirmacion == DialogResult.Yes)
@@ -187,7 +172,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 else
                 {
                     desactivarBotones();
-                    msgError("Ha ocurrido un error.Por favor, intente de nuevo.");
+                    msgError("Ha ocurrido un error.");
                 }
             }
             else
@@ -250,7 +235,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true;
             }
         }
 
@@ -258,7 +243,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true;
             }
         }
 
@@ -266,7 +251,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true; 
             }
         }
 
@@ -274,19 +259,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                e.Handled = true; // Ignora el carácter ingresado si no es una letra o espacio en blanco
+                e.Handled = true; 
             }
         }
 
         private void dataGridClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verifica si la edición ya se realizó y si se hizo clic en una fila válida
             if (!edicionRealizada && e.RowIndex >= 0)
             {
-                // Marca que la edición se ha realizado
                 edicionRealizada = true;
-
-                // Muestra el mensaje de confirmación
                 DialogResult confirmResult = MessageBox.Show("Usted esta por realizar una Edición.En caso de que no lo desee vacie Los campos", "Informe de edición", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (confirmResult == DialogResult.OK)
@@ -304,14 +285,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     btnConfirmar.Enabled = true;
                     btnEnviar.Enabled = true;
 
-                    // Obtiene la fila seleccionada
                     DataGridViewRow row = dataGridClientes.Rows[e.RowIndex];
 
-                    // Obtén el objeto 'Cliente' correspondiente a la fila seleccionada
                     clienteSeleccionado = (ClienteConInformacion)row.DataBoundItem;
                     idClienteSeleccionado = clienteSeleccionado.IdCliente;
 
-                    // Llena los controles con los detalles del libro
                     txNombreCliente.Text = clienteSeleccionado.PersonaNombre;
                     txApellidoCliente.Text = clienteSeleccionado.PersonaApellido;
                     txDNICliente.Text = clienteSeleccionado.PersonaDNI;
@@ -323,11 +301,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     if (clienteSeleccionado.PersonaBaja == "SI")
                     {
                         checkBoxSi.Checked = true;
-                        checkBoxNo.Checked = false; // Desmarcar checkBoxNoEd si está marcado
+                        checkBoxNo.Checked = false;
                     }
                     else
                     {
-                        checkBoxSi.Checked = false; // Desmarcar checkBoxSiEd si está marcado
+                        checkBoxSi.Checked = false; 
                         checkBoxNo.Checked = true;
                     }
                 }
@@ -354,7 +332,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void iconLimpiar_Click(object sender, EventArgs e)
         {
-            // Mostrar el cuadro de diálogo de confirmación solo si no hay problemas
             DialogResult limpiar = MessageBox.Show("Esta por realizar la limpieza de los campos. ¿Seguro?.", "Limpieza", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (limpiar == DialogResult.OK)
@@ -379,7 +356,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             if (cbBaja.Checked)
             {
-                // Filtra los clientes con "PersonaBaja" igual a "SI" si cbBaja está marcado
                 clientesFiltrados = clienteModel.MostrarClientes()
                     .Where(cliente =>
                         (cliente.PersonaBaja == "SI") &&
@@ -390,7 +366,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
             else
             {
-                // Filtra los clientes con "PersonaBaja" igual a "NO" si cbBaja no está marcado
                 clientesFiltrados = clienteModel.MostrarClientes()
                     .Where(cliente =>
                         (cliente.PersonaBaja == "NO") &&
@@ -425,33 +400,26 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             if (cbBaja.Checked)
             {
-                // Mostrar solo los clientes con "PersonaBaja" igual a "SI" (activado)
                 clientes = clienteModel.MostrarClientes().Where(c => c.PersonaBaja == "SI").ToList();
             }
             else
             {
-
                 clientes = clienteModel.MostrarClientes().Where(c => c.PersonaBaja == "NO").ToList();
             }
-
             dataGridClientes.DataSource = clientes;
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            // Verifica si se ha seleccionado un cliente
             if (clienteSeleccionado != null)
             {
                 if (clienteSeleccionado.PersonaBaja=="NO")
                 {
-                    // Obtén el ID del cliente seleccionado
                     int idClienteSeleccionado = clienteSeleccionado.IdCliente;
 
-                    // Llama al método para actualizar los detalles del cliente en CClientesFactura
                     _clienteFactura!.ActualizarDetallesCliente(idClienteSeleccionado);
 
                     this.Close();
-                    // Muestra el formulario CClientesFactura
                     _clienteFactura.Show();
                 }
                 else
@@ -465,9 +433,5 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
         }
 
-        private void txNombreCliente_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

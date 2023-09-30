@@ -113,6 +113,7 @@
             // BLogin
             // 
             BLogin.BackColor = Color.DarkGray;
+            BLogin.Cursor = Cursors.Hand;
             BLogin.FlatAppearance.BorderSize = 0;
             BLogin.FlatAppearance.MouseDownBackColor = Color.DimGray;
             BLogin.FlatAppearance.MouseOverBackColor = Color.LightGray;
@@ -183,6 +184,7 @@
             iconEye.Size = new Size(24, 23);
             iconEye.TabIndex = 10;
             iconEye.UseVisualStyleBackColor = false;
+            iconEye.Visible = false;
             iconEye.Click += iconEye_Click;
             // 
             // lbErrorMenssage

@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;//biblioteca que permite arrastar el formulario
+using System.Runtime.InteropServices;
 using Domain;
 using Proyecto_MauroMur.Presentacion.Formularios.Lobi;
 
@@ -12,8 +12,8 @@ namespace Proyecto_MauroMur
         {
             InitializeComponent();
             _lobi = lobi;
-            this.KeyPreview = true; // Habilita la captura de teclas en el formulario
-            this.KeyDown += new KeyEventHandler(Login_KeyDown!); // Asigna el evento KeyDown
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(Login_KeyDown!); 
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -92,11 +92,11 @@ namespace Proyecto_MauroMur
                     var validLogin = user.LoginUser(TUsuario.Text, TContraseña.Text);
                     if (validLogin == true)
                     {
-                         this.Close();
+                        this.Close();
                         _lobi!.Show();
                         _lobi.FormClosed += (s, args) =>
                         {
-                            Logout(s, args); // Llama a Logout con los parámetros adecuados
+                            Logout(s, args); 
                         };
                     }
                     else
@@ -130,7 +130,6 @@ namespace Proyecto_MauroMur
             TUsuario.Text = "Usuario";
             lbErrorMenssage.Visible = false;
 
-            // Cierra el formulario FLobi si está abierto
             if (Application.OpenForms.OfType<FLobi>().Any())
             {
                 Application.OpenForms.OfType<FLobi>().First().Close();
@@ -148,7 +147,6 @@ namespace Proyecto_MauroMur
 
         private void TContraseña_TextChanged(object sender, EventArgs e)
         {
-            // Mostrar el botón IconEye solo si hay texto en el campo de contraseña
             iconEye.Visible = !string.IsNullOrEmpty(TContraseña.Text);
         }
 
@@ -156,7 +154,6 @@ namespace Proyecto_MauroMur
         {
             if (e.KeyCode == Keys.Enter)
             {
-                // El usuario presionó la tecla Enter, así que intenta iniciar sesión
                 BLogin_Click(sender, e);
             }
         }

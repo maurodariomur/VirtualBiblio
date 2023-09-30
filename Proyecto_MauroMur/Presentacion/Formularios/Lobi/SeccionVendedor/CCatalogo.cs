@@ -22,7 +22,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private List<BotonesLibros>? todosLosLibros;
         private FLobi flobi;
         private int contador;
-        private int contLibro;
         CDetalleCatalogo cDetalleCatalogo;
 
         public CCatalogo(FLobi flobi)
@@ -54,7 +53,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             Carrito.AgregarLibro(libro);
 
             lbContador.Text = Carrito.contador.ToString();
-
         }
 
         private void LlenarProductos()
@@ -83,7 +81,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             {
                 foreach (var libro in listaBotonesResguardo!)
                 {
-                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                    flowLayoutPanel.Controls.Add(libro); 
                 }
                 return;
             }
@@ -91,11 +89,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 .Where(libro => string.IsNullOrEmpty(textoBusquedaTitulo) || libro.tituloLibro.ToLower().Contains(textoBusquedaTitulo))
                 .ToList();
 
-            flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+            flowLayoutPanel.Controls.Clear(); 
 
             foreach (var libro in librosFiltrados)
             {
-                flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                flowLayoutPanel.Controls.Add(libro); 
             }
         }
 
@@ -104,7 +102,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             string textoBusqueda = cBCatalogoAutor.Text;
             string textoBusquedaCategoria = cBCatalogoCategoria.Text;
             string textoBusquedaEditorial = cBCatalogoEditorial.Text;
-
 
             if (textoBusqueda.Equals("Autor", StringComparison.OrdinalIgnoreCase))
             {
@@ -116,11 +113,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     .Where(libro => libro.Autor.Equals(textoBusqueda, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+                flowLayoutPanel.Controls.Clear();
 
                 foreach (var libro in librosFiltrados)
                 {
-                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                    flowLayoutPanel.Controls.Add(libro);
                 }
             }
         }
@@ -128,7 +125,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void FiltrarProductosEditorial()
         {
             string textoBusquedaEditorial = cBCatalogoEditorial.Text;
-
 
             if (textoBusquedaEditorial.Equals("Editoriales", StringComparison.OrdinalIgnoreCase))
             {
@@ -140,18 +136,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     .Where(libro => libro.Editoriales.Equals(textoBusquedaEditorial, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+                flowLayoutPanel.Controls.Clear(); 
 
                 foreach (var libro in librosFiltrados)
                 {
-                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                    flowLayoutPanel.Controls.Add(libro);
                 }
             }
         }
         private void FiltrarProductosCategoria()
         {
             string textoBusquedaCategoria = cBCatalogoCategoria.Text;
-
 
             if (textoBusquedaCategoria.Equals("Categorias", StringComparison.OrdinalIgnoreCase))
             {
@@ -163,22 +158,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     .Where(libro => libro.Categorias.Equals(textoBusquedaCategoria, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+                flowLayoutPanel.Controls.Clear(); 
 
                 foreach (var libro in librosFiltrados)
                 {
-                    flowLayoutPanel.Controls.Add(libro); // Agrega los botones filtrados al FlowLayoutPanel
+                    flowLayoutPanel.Controls.Add(libro); 
                 }
             }
         }
 
         private void MostrarTodosLosLibros()
         {
-            flowLayoutPanel.Controls.Clear(); // Limpia los botones existentes
+            flowLayoutPanel.Controls.Clear(); 
 
             foreach (var libro in todosLosLibros!)
             {
-                flowLayoutPanel.Controls.Add(libro); // Agrega todos los botones originales al FlowLayoutPanel
+                flowLayoutPanel.Controls.Add(libro); 
             }
         }
 
@@ -187,42 +182,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             ProductModel productModel = new();
             var categorias = productModel.ObtenerCategorias();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             categorias.Insert(0, "Categorias");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             cBCatalogoCategoria.DataSource = categorias;
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBCatalogoCategoria.SelectedIndex = 0;
         }
 
         private void opcionesAutores()
         {
-
             var autores = productModel.ObtenerListaAutores();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             autores.Insert(0, "Autor");
-
-            // Asigna la lista de categorías como DataSource del ComboBox
             cBCatalogoAutor.DataSource = autores;
 
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBCatalogoAutor.SelectedIndex = 0;
         }
 
         private void opcionesEditoriales()
         {
-
             var editoriales = productModel.ObtenerListaEditoriales();
 
-            // Agrega el mensaje predeterminado al comienzo de la lista
             editoriales.Insert(0, "Editoriales");
 
-            // Asigna la lista de categorías como DataSource del ComboBox
             cBCatalogoEditorial.DataSource = editoriales;
-
-            // Establece el índice seleccionado por defecto en 0 para mostrar el mensaje predeterminado
             cBCatalogoEditorial.SelectedIndex = 0;
         }
 
