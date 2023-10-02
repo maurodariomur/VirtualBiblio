@@ -8,3 +8,8 @@ vendedor3
 123
 gerente
 gerente
+
+Notacion:La biblioteca ocupada para el cifrado de codigo,no es compatible con SQL Server,en caso de ingresar desde la base de datos saldra
+El error "BCrypt.Net.SaltParseException: 'Invalid salt version'" que esta relacionado con un problema en la versión del salt (sal) utilizada en la contraseña
+ almacenada en la base de datos.En caso de que tenga que agregar un usuario sin esa lectura de cifrado comente la linea if con la condicion del cifrado,desde la app
+se agrega de manera correcta.Agregue un Usuario y descomente lo anteriormente mencionado,y vera que funciona de manera adecuada
