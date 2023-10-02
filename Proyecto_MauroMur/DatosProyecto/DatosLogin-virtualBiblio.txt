@@ -1,0 +1,10 @@
+vendedor
+vendedor
+administrador
+123
+vendedor2
+123
+vendedor3
+123
+gerente
+gerente
