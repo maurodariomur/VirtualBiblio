@@ -56,13 +56,13 @@
             chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel6 = new Panel();
-            label5 = new Label();
+            lbMejorVendedor = new Label();
             label6 = new Label();
             panel5 = new Panel();
-            label3 = new Label();
+            lbLibroMenosVendido = new Label();
             label4 = new Label();
             panel4 = new Panel();
-            label1 = new Label();
+            lbLibroMasVendido = new Label();
             label2 = new Label();
             panel3 = new Panel();
             lbTotal = new Label();
@@ -180,17 +180,24 @@
             // 
             // chart4
             // 
+            chart4.BackColor = Color.Transparent;
+            chart4.BorderSkin.BackColor = Color.Silver;
+            chartArea1.BackColor = Color.Transparent;
             chartArea1.Name = "ChartArea1";
             chart4.ChartAreas.Add(chartArea1);
             chart4.Dock = DockStyle.Fill;
+            legend1.BackColor = Color.Transparent;
             legend1.Name = "Legend1";
             chart4.Legends.Add(legend1);
             chart4.Location = new Point(10, 0);
             chart4.Margin = new Padding(0, 0, 0, 10);
             chart4.Name = "chart4";
+            chart4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Font = new Font("Century Gothic", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = "Monto Total";
             chart4.Series.Add(series1);
             chart4.Size = new Size(429, 320);
             chart4.TabIndex = 2;
@@ -227,16 +234,23 @@
             // 
             // chart1
             // 
+            chart1.BackColor = Color.Transparent;
+            chart1.BorderlineColor = Color.Transparent;
+            chartArea2.BackColor = Color.Transparent;
             chartArea2.Name = "ChartArea1";
             chart1.ChartAreas.Add(chartArea2);
+            legend2.BackColor = Color.Transparent;
             legend2.Name = "Legend1";
             chart1.Legends.Add(legend2);
             chart1.Location = new Point(0, 0);
             chart1.Margin = new Padding(0, 0, 10, 10);
             chart1.Name = "chart1";
+            chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
             series2.Legend = "Legend1";
             series2.Name = "Series1";
+            series2.YValuesPerPoint = 4;
             chart1.Series.Add(series2);
             chart1.Size = new Size(300, 250);
             chart1.TabIndex = 0;
@@ -244,14 +258,21 @@
             // 
             // chart2
             // 
+            chart2.BackColor = Color.Transparent;
+            chartArea3.BackColor = Color.Transparent;
             chartArea3.Name = "ChartArea1";
             chart2.ChartAreas.Add(chartArea3);
+            legend3.BackColor = Color.Transparent;
+            legend3.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            legend3.IsTextAutoFit = false;
             legend3.Name = "Legend1";
             chart2.Legends.Add(legend3);
             chart2.Location = new Point(310, 0);
             chart2.Margin = new Padding(0, 0, 10, 10);
             chart2.Name = "chart2";
+            chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series3.ChartArea = "ChartArea1";
+            series3.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             series3.Legend = "Legend1";
             series3.Name = "Series1";
             chart2.Series.Add(series3);
@@ -261,15 +282,26 @@
             // 
             // chart3
             // 
+            chart3.BackColor = Color.Transparent;
+            chart3.BorderlineColor = Color.Transparent;
+            chartArea4.BackColor = Color.Transparent;
             chartArea4.Name = "ChartArea1";
             chart3.ChartAreas.Add(chartArea4);
             chart3.Dock = DockStyle.Fill;
+            legend4.BackColor = Color.Transparent;
+            legend4.Font = new Font("Century Gothic", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            legend4.IsTextAutoFit = false;
             legend4.Name = "Legend1";
             chart3.Legends.Add(legend4);
             chart3.Location = new Point(624, 0);
             chart3.Margin = new Padding(0, 0, 0, 10);
             chart3.Name = "chart3";
+            chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series4.Color = Color.Transparent;
+            series4.Font = new Font("Century Gothic", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
+            series4.IsValueShownAsLabel = true;
             series4.Legend = "Legend1";
             series4.Name = "Series1";
             chart3.Series.Add(series4);
@@ -299,7 +331,7 @@
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(206, 222, 189);
-            panel6.Controls.Add(label5);
+            panel6.Controls.Add(lbMejorVendedor);
             panel6.Controls.Add(label6);
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(729, 0);
@@ -308,16 +340,16 @@
             panel6.Size = new Size(245, 76);
             panel6.TabIndex = 4;
             // 
-            // label5
+            // lbMejorVendedor
             // 
-            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label5.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(27, 26);
-            label5.Name = "label5";
-            label5.Size = new Size(215, 23);
-            label5.TabIndex = 1;
-            label5.Text = "Total";
-            label5.TextAlign = ContentAlignment.MiddleRight;
+            lbMejorVendedor.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lbMejorVendedor.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbMejorVendedor.Location = new Point(27, 26);
+            lbMejorVendedor.Name = "lbMejorVendedor";
+            lbMejorVendedor.Size = new Size(215, 23);
+            lbMejorVendedor.TabIndex = 1;
+            lbMejorVendedor.Text = "Total";
+            lbMejorVendedor.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label6
             // 
@@ -332,7 +364,7 @@
             // panel5
             // 
             panel5.BackColor = Color.FromArgb(152, 180, 170);
-            panel5.Controls.Add(label3);
+            panel5.Controls.Add(lbLibroMenosVendido);
             panel5.Controls.Add(label4);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(486, 0);
@@ -341,16 +373,16 @@
             panel5.Size = new Size(233, 76);
             panel5.TabIndex = 3;
             // 
-            // label3
+            // lbLibroMenosVendido
             // 
-            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label3.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(15, 26);
-            label3.Name = "label3";
-            label3.Size = new Size(215, 23);
-            label3.TabIndex = 1;
-            label3.Text = "Total";
-            label3.TextAlign = ContentAlignment.MiddleRight;
+            lbLibroMenosVendido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lbLibroMenosVendido.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbLibroMenosVendido.Location = new Point(15, 26);
+            lbLibroMenosVendido.Name = "lbLibroMenosVendido";
+            lbLibroMenosVendido.Size = new Size(215, 23);
+            lbLibroMenosVendido.TabIndex = 1;
+            lbLibroMenosVendido.Text = "Total";
+            lbLibroMenosVendido.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label4
             // 
@@ -365,7 +397,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(116, 149, 154);
-            panel4.Controls.Add(label1);
+            panel4.Controls.Add(lbLibroMasVendido);
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(243, 0);
@@ -374,16 +406,16 @@
             panel4.Size = new Size(233, 76);
             panel4.TabIndex = 2;
             // 
-            // label1
+            // lbLibroMasVendido
             // 
-            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(20, 26);
-            label1.Name = "label1";
-            label1.Size = new Size(210, 23);
-            label1.TabIndex = 1;
-            label1.Text = "Total";
-            label1.TextAlign = ContentAlignment.MiddleRight;
+            lbLibroMasVendido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lbLibroMasVendido.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbLibroMasVendido.Location = new Point(20, 26);
+            lbLibroMasVendido.Name = "lbLibroMasVendido";
+            lbLibroMasVendido.Size = new Size(210, 23);
+            lbLibroMasVendido.TabIndex = 1;
+            lbLibroMasVendido.Text = "Total";
+            lbLibroMasVendido.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -410,7 +442,7 @@
             // lbTotal
             // 
             lbTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbTotal.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbTotal.Font = new Font("Century Gothic", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbTotal.Location = new Point(15, 26);
             lbTotal.Name = "lbTotal";
             lbTotal.Size = new Size(215, 23);
@@ -475,13 +507,13 @@
         private Label lbTotal;
         private Label lbTitulo;
         private Panel panel6;
-        private Label label5;
+        private Label lbMejorVendedor;
         private Label label6;
         private Panel panel5;
-        private Label label3;
+        private Label lbLibroMenosVendido;
         private Label label4;
         private Panel panel4;
-        private Label label1;
+        private Label lbLibroMasVendido;
         private Label label2;
         private TableLayoutPanel tableLayoutPanel2;
         private FlowLayoutPanel flowLayoutPanel1;

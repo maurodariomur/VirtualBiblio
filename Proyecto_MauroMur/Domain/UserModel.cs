@@ -53,6 +53,11 @@ namespace Domain
             return userDatos.ActualizarUsuario(id,nombre,apellido,dni,mail,usuario,fechaNacimiento,tipoPerfil,baja);
         }
 
+        public Persona ImportarUsuario(int id)
+        {
+            return userDatos.ObtenerPersonaPorIdUsuario(id);
+        }
+
         public List<string> ObtenerPerfiles()
         {
             return userDatos.ObtenerRoles();
