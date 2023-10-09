@@ -135,7 +135,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
                 List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
-                CDetallesVentas detalleForm = new(detallesVenta);
+                Ventas cabeceraVentas = saleModel.ObtenerIdCabecera(idVentaCabecera);
+
+                CFacturaReImpresionAdmin detalleForm = new(detallesVenta, cabeceraVentas);
                 detalleForm.ShowDialog();
             }
         }
@@ -205,7 +207,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void dateTimePickerDesde_ValueChanged(object sender, EventArgs e)
         {
