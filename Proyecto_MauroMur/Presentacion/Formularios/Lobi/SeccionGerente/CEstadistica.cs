@@ -23,14 +23,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private ProductModel product = new ProductModel();
         private UserModel user = new UserModel();
         private SaleModel sale = new SaleModel();
+        private FLobi instanciaFLobi;
 
-        public CEstadistica()
+        public CEstadistica(FLobi lobi)
         {
+            this.instanciaFLobi = lobi;
             InitializeComponent();
             estadisticasVentas();
             estadisticasLibros();
         }
-
 
         private void EndResponsive()
         {

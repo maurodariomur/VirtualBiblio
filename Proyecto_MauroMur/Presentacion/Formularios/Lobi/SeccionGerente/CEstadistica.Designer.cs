@@ -71,15 +71,19 @@
             chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel6 = new Panel();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             lbMejorVendedor = new Label();
             label6 = new Label();
             panel5 = new Panel();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
             lbLibroMenosVendido = new Label();
             label4 = new Label();
             panel4 = new Panel();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
             lbLibroMasVendido = new Label();
             label2 = new Label();
             panel3 = new Panel();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             lbTotal = new Label();
             lbTitulo = new Label();
             panel1.SuspendLayout();
@@ -537,6 +541,7 @@
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(206, 222, 189);
+            panel6.Controls.Add(iconButton2);
             panel6.Controls.Add(lbMejorVendedor);
             panel6.Controls.Add(label6);
             panel6.Dock = DockStyle.Fill;
@@ -545,6 +550,24 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(245, 76);
             panel6.TabIndex = 4;
+            // 
+            // iconButton2
+            // 
+            iconButton2.Enabled = false;
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatAppearance.CheckedBackColor = Color.Transparent;
+            iconButton2.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            iconButton2.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.ClipboardUser;
+            iconButton2.IconColor = Color.Gray;
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 40;
+            iconButton2.Location = new Point(-16, 30);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(83, 50);
+            iconButton2.TabIndex = 3;
+            iconButton2.UseVisualStyleBackColor = true;
             // 
             // lbMejorVendedor
             // 
@@ -570,6 +593,7 @@
             // panel5
             // 
             panel5.BackColor = Color.FromArgb(152, 180, 170);
+            panel5.Controls.Add(iconButton3);
             panel5.Controls.Add(lbLibroMenosVendido);
             panel5.Controls.Add(label4);
             panel5.Dock = DockStyle.Fill;
@@ -578,6 +602,24 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(233, 76);
             panel5.TabIndex = 3;
+            // 
+            // iconButton3
+            // 
+            iconButton3.Enabled = false;
+            iconButton3.FlatAppearance.BorderSize = 0;
+            iconButton3.FlatAppearance.CheckedBackColor = Color.Transparent;
+            iconButton3.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            iconButton3.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.ThumbsDown;
+            iconButton3.IconColor = Color.Gray;
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.IconSize = 40;
+            iconButton3.Location = new Point(-17, 36);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(83, 50);
+            iconButton3.TabIndex = 3;
+            iconButton3.UseVisualStyleBackColor = true;
             // 
             // lbLibroMenosVendido
             // 
@@ -603,6 +645,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(116, 149, 154);
+            panel4.Controls.Add(iconButton4);
             panel4.Controls.Add(lbLibroMasVendido);
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Fill;
@@ -611,6 +654,24 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(233, 76);
             panel4.TabIndex = 2;
+            // 
+            // iconButton4
+            // 
+            iconButton4.Enabled = false;
+            iconButton4.FlatAppearance.BorderSize = 0;
+            iconButton4.FlatAppearance.CheckedBackColor = Color.Transparent;
+            iconButton4.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            iconButton4.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.ThumbsUp;
+            iconButton4.IconColor = Color.Gray;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 40;
+            iconButton4.Location = new Point(-26, 33);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(96, 50);
+            iconButton4.TabIndex = 3;
+            iconButton4.UseVisualStyleBackColor = true;
             // 
             // lbLibroMasVendido
             // 
@@ -636,6 +697,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(81, 114, 117);
+            panel3.Controls.Add(iconButton1);
             panel3.Controls.Add(lbTotal);
             panel3.Controls.Add(lbTitulo);
             panel3.Dock = DockStyle.Fill;
@@ -644,6 +706,24 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(233, 76);
             panel3.TabIndex = 1;
+            // 
+            // iconButton1
+            // 
+            iconButton1.Enabled = false;
+            iconButton1.FlatAppearance.BorderSize = 0;
+            iconButton1.FlatAppearance.CheckedBackColor = Color.Transparent;
+            iconButton1.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            iconButton1.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.SackDollar;
+            iconButton1.IconColor = Color.Gray;
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 40;
+            iconButton1.Location = new Point(-19, 33);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(83, 50);
+            iconButton1.TabIndex = 2;
+            iconButton1.UseVisualStyleBackColor = true;
             // 
             // lbTotal
             // 
@@ -742,5 +822,9 @@
         private Label lbBuscadorApellido;
         private TextBox txBuscadorNCliente;
         private Label lbUsuario;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconButton4;
     }
 }
