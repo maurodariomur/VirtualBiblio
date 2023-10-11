@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
@@ -265,12 +266,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             for (int i = 0; i < cincoMayoresVentas.Count; i++)
             {
                 DataPoint dataPoint = new DataPoint();
-                dataPoint.AxisLabel = cincoMayoresVentas[i].Item1.ToShortDateString(); // Etiqueta del eje X con la fecha
-                dataPoint.YValues = new double[] { (double)cincoMayoresVentas[i].Item2 }; // Monto de la venta
+                dataPoint.AxisLabel = cincoMayoresVentas[i].Item1.ToShortDateString();
+                dataPoint.YValues = new double[] { (double)cincoMayoresVentas[i].Item2 };
                 series.Points.Add(dataPoint);
             }
             chart4.Series.Add(series);
-            chart4.Titles.Add("Cinco Mayores Ventas");
+            chart4.Titles.Add("Cinco Mayores Ventas").Font = new Font("Century Gothic", 11, FontStyle.Regular);
+            chart4.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
+            chart4.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
             chart4.ChartAreas[0].AxisX.Title = "Fecha de Venta";
             chart4.ChartAreas[0].AxisY.Title = "Monto Total";
             chart4.Invalidate();
@@ -290,10 +293,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
                 dataPoint.SetValueY(libroMasVendido.Cantidad);
                 dataPoint.LegendText = libroMasVendido.Titulo;
                 dataPoint.Label = libroMasVendido.Cantidad.ToString();
+                dataPoint.LabelForeColor = Color.White;
+                dataPoint.Font = new Font("Century Gothic", 14, FontStyle.Italic);
                 chart3.Series["Libros Más Vendidos"].Points.Add(dataPoint);
             }
 
-            chart3.Titles.Add("Libros Más Vendidos");
+            chart3.Titles.Add("Libros Más Vendidos").Font = new Font("Century Gothic", 11, FontStyle.Regular);
             chart3.Invalidate();
         }
 
@@ -317,7 +322,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
             chart2.Series.Add(series);
 
-            chart2.Titles.Add("Vendedores Destacados");
+            chart2.Titles.Add("Vendedores Destacados").Font = new Font("Century Gothic", 11, FontStyle.Regular);
+            chart2.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
+            chart2.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
             chart2.ChartAreas[0].AxisX.Title = "Vendedores";
             chart2.ChartAreas[0].AxisY.Title = "Total-Ventas";
             chart2.Invalidate();
@@ -342,7 +349,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
             chart1.Series.Add(series);
 
-            chart1.Titles.Add("Clientes Destacados");
+            chart1.Titles.Add("Clientes Destacados").Font = new Font("Century Gothic", 11, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 8, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 8, FontStyle.Regular);
             chart1.ChartAreas[0].AxisX.Title = "Clientes";
             chart1.ChartAreas[0].AxisY.Title = "Total-Ventas";
             chart1.Invalidate();
@@ -373,35 +382,54 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             filtrarFacturas();
         }
 
+        private void chart1_Click(object sender, EventArgs e)
+        {
+            ImprimirGrafico(chart1);
+        }
+
+        private void chart2_Click(object sender, EventArgs e)
+        {
+            ImprimirGrafico(chart2);
+        }
+
         private void chart3_Click(object sender, EventArgs e)
         {
             ImprimirGrafico(chart3);
         }
 
+        private void chart4_Click(object sender, EventArgs e)
+        {
+            ImprimirGrafico(chart4);
+        }
+
         private void ImprimirGrafico(Chart chart)
         {
+            int anchoImpresion = 630;
+            int altoImpresion = 630;
+            int resolucion = 600;
+            string rutaImagen = "grafico.png";
+
+            using (Bitmap chartImage = new Bitmap(anchoImpresion, altoImpresion))
+            {
+                chart.DrawToBitmap(chartImage, new Rectangle(0, 0, anchoImpresion, altoImpresion));
+                chartImage.SetResolution(resolucion, resolucion);
+                chartImage.Save(rutaImagen, ImageFormat.Png);
+            }
+
             PrintDocument pd = new PrintDocument();
             pd.PrintPage += (sender, e) =>
             {
-                int printWidth = chart.Width;
-                int printHeight = chart.Height;
-                using (Bitmap chartImage = new Bitmap(printWidth, printHeight))
+                using (Image img = Image.FromFile(rutaImagen))
                 {
-                    chart.DrawToBitmap(chartImage, new Rectangle(0, 0, printWidth, printHeight));
-                    chartImage.SetResolution(1200, 1200);
-
-                    e.Graphics!.DrawImage(chartImage, e.MarginBounds);
+                    e.Graphics!.DrawImage(img, e.MarginBounds);
                 }
             };
-
             PrintDialog pdialog = new PrintDialog();
             pdialog.Document = pd;
-
             if (pdialog.ShowDialog() == DialogResult.OK)
             {
                 pd.Print();
             }
         }
-
     }
 }
