@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -371,5 +372,36 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             filtrarFacturas();
         }
+
+        private void chart3_Click(object sender, EventArgs e)
+        {
+            ImprimirGrafico(chart3);
+        }
+
+        private void ImprimirGrafico(Chart chart)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += (sender, e) =>
+            {
+                int printWidth = chart.Width;
+                int printHeight = chart.Height;
+                using (Bitmap chartImage = new Bitmap(printWidth, printHeight))
+                {
+                    chart.DrawToBitmap(chartImage, new Rectangle(0, 0, printWidth, printHeight));
+                    chartImage.SetResolution(1200, 1200);
+
+                    e.Graphics!.DrawImage(chartImage, e.MarginBounds);
+                }
+            };
+
+            PrintDialog pdialog = new PrintDialog();
+            pdialog.Document = pd;
+
+            if (pdialog.ShowDialog() == DialogResult.OK)
+            {
+                pd.Print();
+            }
+        }
+
     }
 }

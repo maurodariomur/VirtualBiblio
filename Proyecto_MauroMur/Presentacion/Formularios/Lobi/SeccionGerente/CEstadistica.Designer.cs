@@ -516,6 +516,7 @@
             chart3.Size = new Size(350, 250);
             chart3.TabIndex = 1;
             chart3.Text = "chart3";
+            chart3.Click += chart3_Click;
             // 
             // tableLayoutPanel1
             // 
