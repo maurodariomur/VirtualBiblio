@@ -258,7 +258,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             List<Tuple<DateTime, float>> cincoMayoresVentas = statistics.ObtenerCincoMayoresVentas();
             chart4.Series.Clear();
             Series series = new Series();
-            series.ChartType = SeriesChartType.Line;
+            series.ChartType = SeriesChartType.Column;
             series.Name = "Cinco Mayores Ventas";
 
             for (int i = 0; i < cincoMayoresVentas.Count; i++)
@@ -281,14 +281,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
             chart3.Series.Clear();
             chart3.Series.Add("Libros Más Vendidos");
-            chart3.Series["Libros Más Vendidos"].ChartType = SeriesChartType.Pie;
+            chart3.Series["Libros Más Vendidos"].ChartType = SeriesChartType.Doughnut;
 
             foreach (Ventas libroMasVendido in librosMasVendidos)
             {
                 DataPoint dataPoint = new DataPoint();
                 dataPoint.SetValueY(libroMasVendido.Cantidad);
                 dataPoint.LegendText = libroMasVendido.Titulo;
-                dataPoint.Label = "Venta= " + libroMasVendido.Cantidad;
+                dataPoint.Label = libroMasVendido.Cantidad.ToString();
                 chart3.Series["Libros Más Vendidos"].Points.Add(dataPoint);
             }
 

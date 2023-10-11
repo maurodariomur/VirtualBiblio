@@ -38,6 +38,7 @@
             iconBackup = new FontAwesome.Sharp.IconButton();
             lbNameDataBase = new Label();
             lbErrorModificar = new Label();
+            iconImportar = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,11 +70,11 @@
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.Black;
             label1.Location = new Point(290, 74);
             label1.Name = "label1";
-            label1.Size = new Size(271, 22);
+            label1.Size = new Size(251, 24);
             label1.TabIndex = 41;
             label1.Text = "Nombre de la Base de Datos";
             // 
@@ -81,11 +82,11 @@
             // 
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = Color.Black;
             label2.Location = new Point(307, 160);
             label2.Name = "label2";
-            label2.Size = new Size(236, 22);
+            label2.Size = new Size(210, 24);
             label2.TabIndex = 42;
             label2.Text = "Ubicacion de Guardado";
             // 
@@ -105,7 +106,7 @@
             iconSeleccionar.BackColor = Color.FromArgb(18, 72, 107);
             iconSeleccionar.FlatAppearance.BorderSize = 0;
             iconSeleccionar.FlatStyle = FlatStyle.Flat;
-            iconSeleccionar.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            iconSeleccionar.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             iconSeleccionar.ForeColor = Color.Gainsboro;
             iconSeleccionar.IconChar = FontAwesome.Sharp.IconChar.FolderPlus;
             iconSeleccionar.IconColor = Color.Gainsboro;
@@ -127,7 +128,7 @@
             iconBackup.BackColor = Color.FromArgb(65, 145, 151);
             iconBackup.FlatAppearance.BorderSize = 0;
             iconBackup.FlatStyle = FlatStyle.Flat;
-            iconBackup.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            iconBackup.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             iconBackup.ForeColor = Color.Gainsboro;
             iconBackup.IconChar = FontAwesome.Sharp.IconChar.Unlock;
             iconBackup.IconColor = Color.Gainsboro;
@@ -148,11 +149,11 @@
             lbNameDataBase.AutoSize = true;
             lbNameDataBase.BackColor = Color.FromArgb(221, 230, 237);
             lbNameDataBase.FlatStyle = FlatStyle.Flat;
-            lbNameDataBase.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbNameDataBase.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             lbNameDataBase.ForeColor = Color.FromArgb(18, 72, 107);
             lbNameDataBase.Location = new Point(345, 107);
             lbNameDataBase.Name = "lbNameDataBase";
-            lbNameDataBase.Size = new Size(167, 25);
+            lbNameDataBase.Size = new Size(175, 25);
             lbNameDataBase.TabIndex = 46;
             lbNameDataBase.Text = "bd_virtualBiblio";
             // 
@@ -160,18 +161,40 @@
             // 
             lbErrorModificar.Anchor = AnchorStyles.None;
             lbErrorModificar.AutoSize = true;
-            lbErrorModificar.Font = new Font("Century Gothic", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
+            lbErrorModificar.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
             lbErrorModificar.ForeColor = Color.Brown;
             lbErrorModificar.Image = (Image)resources.GetObject("lbErrorModificar.Image");
             lbErrorModificar.ImageAlign = ContentAlignment.MiddleLeft;
-            lbErrorModificar.Location = new Point(192, 301);
+            lbErrorModificar.Location = new Point(194, 330);
             lbErrorModificar.Name = "lbErrorModificar";
-            lbErrorModificar.Size = new Size(38, 23);
+            lbErrorModificar.Size = new Size(40, 22);
             lbErrorModificar.TabIndex = 47;
             lbErrorModificar.Text = "Error";
             lbErrorModificar.TextAlign = ContentAlignment.MiddleCenter;
             lbErrorModificar.UseCompatibleTextRendering = true;
             lbErrorModificar.Visible = false;
+            // 
+            // iconImportar
+            // 
+            iconImportar.Anchor = AnchorStyles.None;
+            iconImportar.BackColor = Color.FromArgb(113, 58, 190);
+            iconImportar.FlatAppearance.BorderSize = 0;
+            iconImportar.FlatStyle = FlatStyle.Flat;
+            iconImportar.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            iconImportar.ForeColor = Color.Gainsboro;
+            iconImportar.IconChar = FontAwesome.Sharp.IconChar.CloudDownload;
+            iconImportar.IconColor = Color.Gainsboro;
+            iconImportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconImportar.IconSize = 25;
+            iconImportar.ImageAlign = ContentAlignment.MiddleLeft;
+            iconImportar.Location = new Point(307, 288);
+            iconImportar.Name = "iconImportar";
+            iconImportar.Size = new Size(210, 35);
+            iconImportar.TabIndex = 48;
+            iconImportar.Text = "Importar Base De Datos";
+            iconImportar.TextAlign = ContentAlignment.MiddleRight;
+            iconImportar.UseVisualStyleBackColor = false;
+            iconImportar.Click += iconImportar_Click;
             // 
             // CRespaldo
             // 
@@ -179,6 +202,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(221, 230, 237);
             ClientSize = new Size(800, 450);
+            Controls.Add(iconImportar);
             Controls.Add(lbErrorModificar);
             Controls.Add(lbNameDataBase);
             Controls.Add(iconBackup);
@@ -207,5 +231,6 @@
         private FontAwesome.Sharp.IconButton iconBackup;
         private Label lbNameDataBase;
         private Label lbErrorModificar;
+        private FontAwesome.Sharp.IconButton iconImportar;
     }
 }
