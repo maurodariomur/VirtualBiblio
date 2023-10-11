@@ -105,7 +105,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         private void iconEstadistica_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new SeccionGerente.CEstadistica());
+            OpenChildForm(new SeccionGerente.CEstadistica(this));
         }
         private void iconProducto_Click(object sender, EventArgs e)
         {
@@ -129,6 +129,12 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
         {
             ActivateButton(sender, RGBColors.color6);
             OpenChildForm(new SeccionAdministrador.CHistorialVentas(this));
+        }
+
+        private void iconRespaldo_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new SeccionGerente.CRespaldo(this));
         }
 
         private void iconExit_Click(object sender, EventArgs e)
@@ -232,6 +238,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             if (UserLoginCache.TipoPerfil == 1)
             {
                 iconEstadistica.Visible = true;
+                iconRespaldo.Visible = true;
             }
             else if (UserLoginCache.TipoPerfil == 2)
             {
@@ -262,6 +269,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi
             // Resto del código para mostrar otros datos de usuario
             lbNApe.Text = UserLoginCache.Nombre + " " + UserLoginCache.Apellido;
         }
+
     }
 }
 

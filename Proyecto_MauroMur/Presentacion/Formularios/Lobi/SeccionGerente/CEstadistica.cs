@@ -13,6 +13,7 @@ using Common.Models;
 using Domain;
 using Proyecto_MauroMur.Common.Models;
 using Proyecto_MauroMur.Domain;
+using Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 {
@@ -22,14 +23,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private ProductModel product = new ProductModel();
         private UserModel user = new UserModel();
         private SaleModel sale = new SaleModel();
+        private FLobi instanciaFLobi;
 
-        public CEstadistica()
+        public CEstadistica(FLobi lobi)
         {
+            this.instanciaFLobi = lobi;
             InitializeComponent();
             estadisticasVentas();
             estadisticasLibros();
         }
-
 
         private void EndResponsive()
         {
@@ -65,6 +67,165 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             obtenerEmpleadoMasExitoso();
             estadisticasVendedores();
             estadisticasClientes();
+
+            List<Ventas> ventas = sale.ObtenerTodasVentas();
+            dgVentas.DataSource = ventas;
+            dgVentas.Columns["Id_VentaCabecera"].HeaderText = "ID";
+            dgVentas.Columns["FechaFactura"].HeaderText = "F.Factura";
+            dgVentas.Columns["MontoTotal"].HeaderText = "Monto Total";
+            dgVentas.Columns["NombreCliente"].HeaderText = "Nombre";
+            dgVentas.Columns["ApellidoCliente"].HeaderText = "Apellido";
+            concatenacion();
+            dgVentas.Columns["DNICliente"].HeaderText = "D.N.I Cliente";
+            dgVentas.Columns["Estado"].HeaderText = "Estado";
+            dgVentas.Columns["Estado"].DisplayIndex = dgVentas.Columns.Count - 1;
+            ocultarColumas();
+            dateTimePickerDesde.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerDesde.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHasta.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerHasta.Format = DateTimePickerFormat.Custom;
+
+            DateTime? minFechaFactura = sale.ObtenerMinFechaFactura();
+            DateTime? maxFechaFactura = sale.ObtenerMaxFechaFactura();
+
+            dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+
+            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
+            dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
+
+        }
+
+        private void dgVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgVentas.Columns["Estado"].Index && e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgVentas.Rows[e.RowIndex];
+
+                string estadoFactura = selectedRow.Cells["Estado"].Value.ToString()!;
+
+                if (estadoFactura != "inactivo")
+                {
+                    int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
+
+                    DialogResult advertencia = MessageBox.Show("¿Esta seguro que desea Cancelar la Factura?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                    if (advertencia == DialogResult.OK)
+                    {
+                        bool estadoCambiado = sale.CambiarEstadoFactura(idVentaCabecera);
+
+                        if (estadoCambiado)
+                        {
+                            MessageBox.Show("El estado de la factura ha sido cambiado a 'inactivo'.");
+                            selectedRow.Cells["Estado"].Value = "inactivo";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al cambiar el estado de la factura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La factura ya está en estado 'Inactivo'. No se puede cambiar el estado nuevamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgVentas.Rows[e.RowIndex];
+                int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
+
+                List<Ventas> detallesVenta = sale.ObtenerVentasDetalle(idVentaCabecera);
+                CDetallesVentasEstadistica detalleForm = new(detallesVenta);
+                detalleForm.ShowDialog();
+            }
+        }
+
+        private void concatenacion()
+        {
+            dgVentas.Columns.Add("NombreApellidoVendedor", "Nom-Ap.Vendedor");
+
+            dgVentas.CellFormatting += (sender, e) =>
+            {
+                if (e.ColumnIndex == dgVentas.Columns["NombreApellidoVendedor"].Index && e.RowIndex >= 0)
+                {
+                    var nombreVendedor = dgVentas.Rows[e.RowIndex].Cells["NombreVendedor"].Value?.ToString();
+                    var apellidoVendedor = dgVentas.Rows[e.RowIndex].Cells["ApellidoVendedor"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(nombreVendedor) && !string.IsNullOrEmpty(apellidoVendedor))
+                    {
+                        e.Value = $"{nombreVendedor} {apellidoVendedor}";
+                        e.FormattingApplied = true;
+                    }
+                }
+            };
+        }
+
+        private void ocultarColumas()
+        {
+            dgVentas.Columns["Id_Cliente"].Visible = false;
+            dgVentas.Columns["Telefono"].Visible = false;
+            dgVentas.Columns["Domicilio"].Visible = false;
+            dgVentas.Columns["Id_Usuario"].Visible = false;
+            dgVentas.Columns["DNIVendedor"].Visible = false;
+            dgVentas.Columns["TipoPago"].Visible = false;
+            dgVentas.Columns["TipoFactura"].Visible = false;
+            dgVentas.Columns["Id_Libro"].Visible = false;
+            dgVentas.Columns["Titulo"].Visible = false;
+            dgVentas.Columns["Categoria"].Visible = false;
+            dgVentas.Columns["NombreEditorial"].Visible = false;
+            dgVentas.Columns["NombreAutor"].Visible = false;
+            dgVentas.Columns["PrecioProducto"].Visible = false;
+            dgVentas.Columns["Cantidad"].Visible = false;
+            dgVentas.Columns["SubTotalProducto"].Visible = false;
+            dgVentas.Columns["NombreVendedor"].Visible = false;
+            dgVentas.Columns["ApellidoVendedor"].Visible = false;
+        }
+
+        private void filtrarFechas()
+        {
+            DateTime? fechaDesde = dateTimePickerDesde.Value;
+            DateTime? fechaHasta = dateTimePickerHasta.Value;
+
+            DateTime? minFechaFactura = sale.ObtenerMinFechaFactura();
+            DateTime? maxFechaFactura = sale.ObtenerMaxFechaFactura();
+
+            dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+            dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+
+            if (fechaDesde < minFechaFactura)
+            {
+                fechaDesde = minFechaFactura;
+            }
+
+            if (fechaHasta > maxFechaFactura)
+            {
+                fechaHasta = maxFechaFactura;
+            }
+
+            dateTimePickerDesde.Value = fechaDesde.Value;
+            dateTimePickerHasta.Value = fechaHasta.Value;
+
+            if (fechaDesde <= fechaHasta)
+            {
+                List<Ventas> ventasFiltradas = sale.ObtenerFechas(fechaDesde, fechaHasta);
+                dgVentas.DataSource = ventasFiltradas;
+            }
+            else
+            {
+                MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void filtrarFacturas()
+        {
+            string dniCliente = txBuscadorDni.Text;
+            string nombreCliente = txBuscadorNCliente.Text;
+            string apellidoCliente = txBuscadorApellidoC.Text;
+
+            List<Ventas> ventasFiltradas = sale.ObtenerVentasConFiltros(nombreCliente, apellidoCliente, dniCliente);
+
+            dgVentas.DataSource = ventasFiltradas;
         }
 
         private void obtenerLibroMayorVenta()
@@ -113,9 +274,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             chart4.ChartAreas[0].AxisY.Title = "Monto Total";
             chart4.Invalidate();
         }
-
-
-
 
         private void estadisticasLibros()
         {
@@ -189,5 +347,29 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             chart1.Invalidate();
         }
 
+        private void dateTimePickerDesde_ValueChanged(object sender, EventArgs e)
+        {
+            filtrarFechas();
+        }
+
+        private void dateTimePickerHasta_ValueChanged(object sender, EventArgs e)
+        {
+            filtrarFechas();
+        }
+
+        private void txBuscadorNCliente_TextChanged(object sender, EventArgs e)
+        {
+            filtrarFacturas();
+        }
+
+        private void txBuscadorApellidoC_TextChanged(object sender, EventArgs e)
+        {
+            filtrarFacturas();
+        }
+
+        private void txBuscadorDni_TextChanged(object sender, EventArgs e)
+        {
+            filtrarFacturas();
+        }
     }
 }
