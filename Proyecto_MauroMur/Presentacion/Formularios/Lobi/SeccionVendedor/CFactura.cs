@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         FLobi flobi = new FLobi();
         private Ventas factura = new Ventas();
         private SaleModel sale = new SaleModel();
+        int pagina = 0;
 
         public CFactura(FLobi flobi, Ventas _venta)
         {
             InitializeComponent();
             this.flobi = flobi;
             factura = _venta;
+
+            printReporte.Text = "Factura";
+            printReporte.WindowState = FormWindowState.Maximized;
         }
 
         private void CFactura_Load(object sender, EventArgs e)
@@ -96,8 +101,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private void iconImprimir_Click(object sender, EventArgs e)
         {
+            PrintDocument document = new PrintDocument();
+            document.DefaultPageSettings.Color = true;
+            document.DefaultPageSettings.PaperSize = new PaperSize("Carta", 850, 1100);
+            document.DefaultPageSettings.Landscape = false;
+            pagina = 0;
+
+            document.DocumentName = "Factura";
+            printReporte.Document = document;
+
+            //document.PrintPage += new PrintPageEventHandler();
+
+            printReporte.Activate();
+            printReporte.ShowDialog();
+            document.Dispose();
 
         }
     }
