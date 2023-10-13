@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_MauroMur.Common.Cache;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
@@ -74,14 +75,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void datosCabecera()
         {
             lbNumeroFactura.Text = "Factura N°:" + _cabeceraVentas.Id_VentaCabecera.ToString();
-            lbNombreCliente.Text = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString();
+            lbNombreCliente.Text = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString() + " " + _cabeceraVentas.ApellidoCliente!;
             lbDNICliente.Text = "DNI: " + _cabeceraVentas.DNICliente!.ToString();
             lbTelefono.Text = "Telefono: " + _cabeceraVentas.Telefono?.ToString();
             lbDireccion.Text = "Direccion: " + _cabeceraVentas.Domicilio?.ToString();
             lbPago.Text = "Metodo De Pago: " + _cabeceraVentas.TipoPago;
             lbFactura.Text = "Tipo De Factura: " + _cabeceraVentas.TipoFactura;
             lbFechaFactura.Text = "Fecha " + _cabeceraVentas.FechaFactura.ToString();
-            lbNombreVendedor.Text = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString();
+            lbNombreVendedor.Text = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString() + " " + _cabeceraVentas.ApellidoVendedor;
             lbDNIVendedor.Text = "DNI: " + _cabeceraVentas.DNIVendedor?.ToString();
             lbTotal.Text = "Total: $" + _cabeceraVentas.MontoTotal.ToString();
         }
@@ -117,22 +118,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Font fuente = new Font("Century Gothic", 12);
+            Font fuente = new Font("Century Gothic", 10);
             Font fuenteTitulo = new Font("Britannic Bold", 20);
-
-
             string carpetaDestino = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Presentacion/Formularios/Pictures/Sistema/");
             carpetaDestino = Path.GetFullPath(carpetaDestino);
             Image encabezado = Image.FromFile(carpetaDestino + "encabezado.png");
-
             Image pie = Image.FromFile(carpetaDestino + "pie.png");
-
             float x = 100;
             float y = 100;
-
             float anchoPagina = e.PageBounds.Width;
             float altoImagenEncabezado = (encabezado.Height * anchoPagina) / encabezado.Width;
-
             float altoImagenPie = (pie.Height * anchoPagina) / pie.Width;
 
             if (encabezado != null)
@@ -141,32 +136,36 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 y = 85;
             }
 
+            //TITULO
             string titulo = "VirtualBiblio";
             SizeF sizeTitulo = graphics.MeasureString(titulo, fuenteTitulo);
-            float xTitulo = anchoPagina - sizeTitulo.Width - 185; // 40 es el espacio desde el margen derecho
+            float xTitulo = anchoPagina - sizeTitulo.Width - 185; 
             float yTitulo = y;
             graphics.DrawString(titulo, fuenteTitulo, Brushes.Black, xTitulo, yTitulo);
-            yTitulo += sizeTitulo.Height + 5; // Incrementa el valor de 'y' para colocar el contenido debajo del título
+            yTitulo += sizeTitulo.Height + 5; 
+            y = yTitulo + 100;
 
-            // Imprimir los datos debajo del título
-            y = yTitulo + 100; // Establece un margen de 10 unidades debajo del título
-            graphics.DrawString("Factura N°: " + _cabeceraVentas.Id_VentaCabecera.ToString(), fuente, Brushes.Black, x, y);
-
+            //NUMERO Y TIPO DE FACTURA
+            graphics.DrawString("Factura N°: " + _cabeceraVentas.Id_VentaCabecera.ToString(), new Font(fuente, FontStyle.Bold), Brushes.Black, x, y);
             string tipoFactura = "Tipo de Factura: " + _cabeceraVentas.TipoFactura;
             SizeF sizeTipoFactura = graphics.MeasureString(tipoFactura, fuente);
-            float xTipoFactura = x + sizeTipoFactura.Width + 25; // Añade un margen de 25 unidades entre "Número de Factura" y "Tipo de Factura"
-            graphics.DrawString(tipoFactura, fuente, Brushes.Black, xTipoFactura, y);
+            float xTipoFactura = x + sizeTipoFactura.Width + 10; // Añade un margen de 25 unidades entre "Número de Factura" y "Tipo de Factura"
+            graphics.DrawString(tipoFactura, new Font(fuente, FontStyle.Bold), Brushes.Black, xTipoFactura, y);
+            y += Math.Max(sizeTipoFactura.Height, fuente.GetHeight()) + 20;
 
-            y += Math.Max(sizeTipoFactura.Height, fuente.GetHeight()); 
+            //DATOS DEL CLIENTE
+            string datosCliente = "Datos Cliente";
+            graphics.DrawString(datosCliente, new Font(fuente.FontFamily, 12, FontStyle.Bold), Brushes.Black, x, y);
+            y += new Font(fuente.FontFamily, 12, FontStyle.Bold).GetHeight() + 20;
 
-            string cliente = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString();
+            string cliente = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString() + " " + _cabeceraVentas.ApellidoCliente;
             string dni = "DNI: " + _cabeceraVentas.DNICliente!.ToString();
             SizeF sizeCliente = graphics.MeasureString(cliente, fuente);
             SizeF sizeDNI = graphics.MeasureString(dni, fuente);
             float xDNI = x + sizeCliente.Width + 25; // Añade un margen de 10 unidades entre "Cliente" y "DNI"
             graphics.DrawString(cliente, fuente, Brushes.Black, x, y);
             graphics.DrawString(dni, fuente, Brushes.Black, xDNI, y);
-            y += Math.Max(sizeCliente.Height, sizeDNI.Height); // Asegura que la altura sea la mayor de ambas
+            y += Math.Max(sizeCliente.Height, sizeDNI.Height) + 10; // Asegura que la altura sea la mayor de ambas
 
             string telefono = "Telefono: " + _cabeceraVentas.Telefono?.ToString();
             string direccion = "Direccion: " + _cabeceraVentas.Domicilio?.ToString();
@@ -175,13 +174,145 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             float xDireccion = x + sizeTelefono.Width + 25; // Añade un margen de 10 unidades entre "Telefono" y "Direccion"
             graphics.DrawString(telefono, fuente, Brushes.Black, x, y);
             graphics.DrawString(direccion, fuente, Brushes.Black, xDireccion, y);
-            y += Math.Max(sizeTelefono.Height, sizeDireccion.Height); // Asegura que la altura sea la mayor de ambas
+            y += Math.Max(sizeTelefono.Height, sizeDireccion.Height) + 20; // Asegura que la altura sea la mayor de ambas
 
+            //METODO DE PAGO Y FECHA
             graphics.DrawString("Metodo De Pago: " + _cabeceraVentas.TipoPago, fuente, Brushes.Black, x, y);
-            y += fuente.GetHeight();
+            y += fuente.GetHeight() + 20;
 
-            graphics.DrawString("Fecha: " + _cabeceraVentas.FechaFactura.ToString(), fuente, Brushes.Black, x, y);
-            y += fuente.GetHeight();
+            graphics.DrawString("Fecha: " + _cabeceraVentas.FechaFactura.ToString(), new Font(fuente, FontStyle.Bold), Brushes.Black, x, y);
+            y += fuente.GetHeight() + 20;
+
+            //DATAGRID FACTURA
+            string[] columnasDeseadas = { "Cantidad", "Titulo", "Editorial", "Autor", "Sub-Total" };
+            int margenIzquierdo = 30; // Margen izquierdo de 40 unidades
+
+            if (dataGridFactura.Rows.Count > 0)
+            {
+                y += 2; // Margen antes de imprimir el DataGridView
+
+                int rowHeight = dataGridFactura.RowTemplate.Height;
+                int headerHeight = dataGridFactura.ColumnHeadersHeight;
+
+                // Calcular el ancho total del DataGridView
+                int totalWidth = 0;
+                foreach (string colName in columnasDeseadas)
+                {
+                    DataGridViewColumn col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
+                    if (col != null)
+                    {
+                        totalWidth += col.Width;
+                    }
+                }
+                int xStart = (int)(x + margenIzquierdo);
+
+                foreach (string colName in columnasDeseadas)
+                {
+                    DataGridViewColumn col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
+                    if (col != null)
+                    {
+                        e.Graphics.FillRectangle(Brushes.LightGray, xStart, y, col.Width, headerHeight);
+                        e.Graphics.DrawRectangle(Pens.Black, xStart, y, col.Width, headerHeight);
+
+                        if (!string.IsNullOrEmpty(col.HeaderText))
+                        {
+                            float xText = xStart + (col.Width - e.Graphics.MeasureString(col.HeaderText, dataGridFactura.Font).Width) / 2;
+                            e.Graphics.DrawString(col.HeaderText, dataGridFactura.Font, Brushes.Black, xText, y + 6);
+                        }
+
+                        xStart += col.Width;
+                    }
+                }
+
+                y += headerHeight;
+
+                foreach (DataGridViewRow row in dataGridFactura.Rows)
+                {
+                    xStart = (int)(x + margenIzquierdo);
+                    foreach (string colName in columnasDeseadas)
+                    {
+                        DataGridViewColumn col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
+                        if (col != null)
+                        {
+                            e.Graphics.FillRectangle(Brushes.White, xStart, y, col.Width, rowHeight);
+                            e.Graphics.DrawRectangle(Pens.Black, xStart, y, col.Width, rowHeight);
+
+                            string cellValue = row.Cells[col.Index].Value != null ? row.Cells[col.Index].Value.ToString() : string.Empty;
+
+                            float xText = xStart + (col.Width - e.Graphics.MeasureString(cellValue, dataGridFactura.Font).Width) / 2;
+                            e.Graphics.DrawString(cellValue, dataGridFactura.Font, Brushes.Black, xText, y + 6);
+
+                            xStart += col.Width;
+                        }
+                    }
+
+                    y += rowHeight;
+                }
+            }
+
+            // Después de imprimir las filas, configurar la posición para mostrar el total
+            int totalXStart = (int)(x + margenIzquierdo + 525); // Ajusta el margen izquierdo y el espacio horizontal
+            int totalYStart = (int)y + 10; // Agrega un margen de 10 unidades desde la parte superior
+
+            string totalText = "Total: $" + _cabeceraVentas.MontoTotal.ToString();
+            Font totalFont = new Font(dataGridFactura.Font.FontFamily, 11, FontStyle.Bold);
+            e.Graphics.DrawString(totalText, totalFont, Brushes.Black, totalXStart, totalYStart);
+            y = totalYStart + (int)e.Graphics.MeasureString(totalText, dataGridFactura.Font).Height + 250;
+
+            // Datos del Vendedor
+            string datosVendedor = "Datos Vendedor";
+            graphics.DrawString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold), Brushes.Black, x, y);
+
+            // Dibuja el botón al lado derecho de "Datos Vendedor"
+            int button1X =(int)(x + graphics.MeasureString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold)).Width + 350); // Ajusta el espacio entre el texto y el botón
+            Point button1Location = new Point(button1X, (int)y);
+            Size button1Size = new Size(23, 23);
+            DrawIconButton(graphics, IconChar.Shop, button1Location, button1Size);
+
+            // Dibuja el texto "Empresa: VirtualBiblio" al lado derecho del botón
+            int textoX = button1X + button1Size.Width + 10; // Ajusta el espacio entre el botón y el texto
+            graphics.DrawString("Empresa: VirtualBiblio", fuente, Brushes.Black, textoX, y);
+
+            // Actualiza la posición Y para el siguiente elemento
+            y += Math.Max(new Font(fuente.FontFamily, 12, FontStyle.Bold).GetHeight(), button1Size.Height) + 10;
+
+            // Vendedor
+            string vendedor = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString() + " " + _cabeceraVentas.ApellidoVendedor;
+            graphics.DrawString(vendedor, fuente, Brushes.Black, x, y);
+
+            // Ajusta la posición Y para el DNI del Vendedor (debajo de "Vendedor")
+            y += fuente.GetHeight() + 5;
+
+            // Dibuja el segundo botón al lado derecho del texto "Vendedor"
+            Size button2Size = new Size(23, 23);
+            Point button2Location = new Point((int)(x + graphics.MeasureString(vendedor, fuente).Width + 300), (int)(y - button2Size.Height)); // Ajusta el espacio entre el texto y el botón
+            
+            DrawIconButton(graphics, IconChar.Instagram, button2Location, button2Size);
+
+            // Dibuja el texto "@priscila_fernandez5" al lado derecho del botón 2
+            int textoX2 = button2Location.X + button2Size.Width + 10; // Ajusta el espacio entre el botón 2 y el texto
+            graphics.DrawString("@priscila_fernandez5", fuente, Brushes.Black, textoX2, button2Location.Y + (button2Size.Height / 2) - (fuente.GetHeight() / 2));
+
+            // Actualiza la posición Y para el siguiente elemento
+            y += fuente.GetHeight() + 15;
+
+            string dniVendedor = "DNI: " + _cabeceraVentas.DNIVendedor!.ToString();
+            graphics.DrawString(dniVendedor, fuente, Brushes.Black, x, y-20);
+
+            Size button3Size = new Size(23, 23);
+            Point button3Location = new Point((int)(x + graphics.MeasureString(vendedor, fuente).Width + 300), (int)(y - button3Size.Height));
+
+            DrawIconButton(graphics, IconChar.Instagram, button3Location, button3Size);
+
+            int textoX3 = button3Location.X + button3Size.Width + 10; // Ajusta el espacio entre el botón 2 y el texto
+            graphics.DrawString("@mauro._mur", fuente, Brushes.Black, textoX3, button3Location.Y + (button3Size.Height / 2) - (fuente.GetHeight() / 2));
+            
+            if (pie != null)
+            {
+                graphics.DrawImage(pie, new RectangleF(0, e.PageBounds.Height - altoImagenPie, anchoPagina, altoImagenPie));
+            }
+
+            e.HasMorePages = false;
 
             if (pie != null)
             {
@@ -189,5 +320,31 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             }
             e.HasMorePages = false;
         }
+
+        private void DrawIconButton(Graphics graphics, IconChar iconChar, Point location, Size size)
+        {
+            using (IconButton iconButton = new IconButton())
+            {
+                iconButton.BackColor = Color.Transparent;
+                iconButton.FlatAppearance.BorderSize = 0;
+                iconButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
+                iconButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
+                iconButton.FlatStyle = FlatStyle.Flat;
+                iconButton.IconChar = iconChar;
+                iconButton.IconColor = Color.Black;
+                iconButton.IconFont = IconFont.Auto;
+                iconButton.IconSize = Math.Min(size.Width, size.Height);
+                iconButton.ImageAlign = ContentAlignment.MiddleCenter;
+                iconButton.Location = location;
+                iconButton.Size = size;
+                iconButton.Text = string.Empty; 
+                iconButton.UseVisualStyleBackColor = true;
+
+                Bitmap buttonBitmap = new Bitmap(iconButton.Width, iconButton.Height);
+                iconButton.DrawToBitmap(buttonBitmap, new Rectangle(0, 0, buttonBitmap.Width, buttonBitmap.Height));
+                graphics.DrawImage(buttonBitmap, location);
+            }
+        }
+
     }
 }
