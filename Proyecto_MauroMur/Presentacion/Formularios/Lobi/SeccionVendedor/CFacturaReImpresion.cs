@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Proyecto_MauroMur.Common.Cache;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
@@ -117,7 +118,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void PrintPage(object sender, PrintPageEventArgs e)
         {
-            Graphics graphics = e.Graphics;
+            Graphics graphics = e.Graphics!;
             Font fuente = new Font("Century Gothic", 10);
             Font fuenteTitulo = new Font("Britannic Bold", 20);
             string carpetaDestino = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Presentacion/Formularios/Pictures/Sistema/");
@@ -149,7 +150,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             graphics.DrawString("Factura N°: " + _cabeceraVentas.Id_VentaCabecera.ToString(), new Font(fuente, FontStyle.Bold), Brushes.Black, x, y);
             string tipoFactura = "Tipo de Factura: " + _cabeceraVentas.TipoFactura;
             SizeF sizeTipoFactura = graphics.MeasureString(tipoFactura, fuente);
-            float xTipoFactura = x + sizeTipoFactura.Width + 10; // Añade un margen de 25 unidades entre "Número de Factura" y "Tipo de Factura"
+            float xTipoFactura = x + sizeTipoFactura.Width + 10;
             graphics.DrawString(tipoFactura, new Font(fuente, FontStyle.Bold), Brushes.Black, xTipoFactura, y);
             y += Math.Max(sizeTipoFactura.Height, fuente.GetHeight()) + 20;
 
@@ -162,19 +163,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             string dni = "DNI: " + _cabeceraVentas.DNICliente!.ToString();
             SizeF sizeCliente = graphics.MeasureString(cliente, fuente);
             SizeF sizeDNI = graphics.MeasureString(dni, fuente);
-            float xDNI = x + sizeCliente.Width + 25; // Añade un margen de 10 unidades entre "Cliente" y "DNI"
+            float xDNI = x + sizeCliente.Width + 25;
             graphics.DrawString(cliente, fuente, Brushes.Black, x, y);
             graphics.DrawString(dni, fuente, Brushes.Black, xDNI, y);
-            y += Math.Max(sizeCliente.Height, sizeDNI.Height) + 10; // Asegura que la altura sea la mayor de ambas
+            y += Math.Max(sizeCliente.Height, sizeDNI.Height) + 10;
 
             string telefono = "Telefono: " + _cabeceraVentas.Telefono?.ToString();
             string direccion = "Direccion: " + _cabeceraVentas.Domicilio?.ToString();
             SizeF sizeTelefono = graphics.MeasureString(telefono, fuente);
             SizeF sizeDireccion = graphics.MeasureString(direccion, fuente);
-            float xDireccion = x + sizeTelefono.Width + 25; // Añade un margen de 10 unidades entre "Telefono" y "Direccion"
+            float xDireccion = x + sizeTelefono.Width + 25;
             graphics.DrawString(telefono, fuente, Brushes.Black, x, y);
             graphics.DrawString(direccion, fuente, Brushes.Black, xDireccion, y);
-            y += Math.Max(sizeTelefono.Height, sizeDireccion.Height) + 20; // Asegura que la altura sea la mayor de ambas
+            y += Math.Max(sizeTelefono.Height, sizeDireccion.Height) + 20;
 
             //METODO DE PAGO Y FECHA
             graphics.DrawString("Metodo De Pago: " + _cabeceraVentas.TipoPago, fuente, Brushes.Black, x, y);
@@ -185,11 +186,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             //DATAGRID FACTURA
             string[] columnasDeseadas = { "Cantidad", "Titulo", "Editorial", "Autor", "Sub-Total" };
-            int margenIzquierdo = 30; // Margen izquierdo de 40 unidades
+            int margenIzquierdo = 30; 
+
+            // Definir colores y fuentes para el encabezado y el contenido
+            Color encabezadoColor = Color.FromArgb(27, 107, 147);
+            Color contenidoColor = Color.FromArgb(221, 230, 237);
+            Font encabezadoFont = new Font("Century Gothic", 10, FontStyle.Bold);
+            Font contenidoFont = new Font("Century Gothic", 8, FontStyle.Regular); 
 
             if (dataGridFactura.Rows.Count > 0)
             {
-                y += 2; // Margen antes de imprimir el DataGridView
+                y += 2;
 
                 int rowHeight = dataGridFactura.RowTemplate.Height;
                 int headerHeight = dataGridFactura.ColumnHeadersHeight;
@@ -198,7 +205,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 int totalWidth = 0;
                 foreach (string colName in columnasDeseadas)
                 {
-                    DataGridViewColumn col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
+                    DataGridViewColumn? col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
                     if (col != null)
                     {
                         totalWidth += col.Width;
@@ -208,16 +215,22 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
                 foreach (string colName in columnasDeseadas)
                 {
-                    DataGridViewColumn col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
+                    DataGridViewColumn? col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
                     if (col != null)
                     {
-                        e.Graphics.FillRectangle(Brushes.LightGray, xStart, y, col.Width, headerHeight);
-                        e.Graphics.DrawRectangle(Pens.Black, xStart, y, col.Width, headerHeight);
+                        // Diferenciar el color y la fuente del encabezado
+                        e.Graphics!.FillRectangle(new SolidBrush(encabezadoColor), xStart, y, col.Width, headerHeight);
+
+                        // Establecer el ancho del trazo de línea en 0 para las líneas verticales
+                        using (Pen pen = new Pen(Color.FromArgb(0, 0, 0), 0))
+                        {
+                            e.Graphics.DrawRectangle(pen, xStart, y, col.Width, headerHeight);
+                        }
 
                         if (!string.IsNullOrEmpty(col.HeaderText))
                         {
-                            float xText = xStart + (col.Width - e.Graphics.MeasureString(col.HeaderText, dataGridFactura.Font).Width) / 2;
-                            e.Graphics.DrawString(col.HeaderText, dataGridFactura.Font, Brushes.Black, xText, y + 6);
+                            float xText = xStart + (col.Width - e.Graphics.MeasureString(col.HeaderText, encabezadoFont).Width) / 2;
+                            e.Graphics.DrawString(col.HeaderText, encabezadoFont, Brushes.White, xText, y + 6);
                         }
 
                         xStart += col.Width;
@@ -231,16 +244,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     xStart = (int)(x + margenIzquierdo);
                     foreach (string colName in columnasDeseadas)
                     {
-                        DataGridViewColumn col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
+                        DataGridViewColumn? col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
                         if (col != null)
                         {
-                            e.Graphics.FillRectangle(Brushes.White, xStart, y, col.Width, rowHeight);
-                            e.Graphics.DrawRectangle(Pens.Black, xStart, y, col.Width, rowHeight);
+                            e.Graphics!.FillRectangle(new SolidBrush(contenidoColor), xStart, y, col.Width, rowHeight);
+                            using (Pen pen = new Pen(Color.FromArgb(0, 0, 0), 0))
+                            {
+                                e.Graphics.DrawRectangle(pen, xStart, y, col.Width, rowHeight);
+                            }
 
-                            string cellValue = row.Cells[col.Index].Value != null ? row.Cells[col.Index].Value.ToString() : string.Empty;
+                            string? cellValue = row.Cells[col.Index].Value != null ? row.Cells[col.Index].Value.ToString() : string.Empty;
 
-                            float xText = xStart + (col.Width - e.Graphics.MeasureString(cellValue, dataGridFactura.Font).Width) / 2;
-                            e.Graphics.DrawString(cellValue, dataGridFactura.Font, Brushes.Black, xText, y + 6);
+                            float xText = xStart + (col.Width - e.Graphics.MeasureString(cellValue, contenidoFont).Width) / 2;
+                            e.Graphics.DrawString(cellValue, contenidoFont, Brushes.Black, xText, y + 6); 
 
                             xStart += col.Width;
                         }
@@ -249,27 +265,21 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     y += rowHeight;
                 }
             }
-
-            // Después de imprimir las filas, configurar la posición para mostrar el total
-            int totalXStart = (int)(x + margenIzquierdo + 525); // Ajusta el margen izquierdo y el espacio horizontal
-            int totalYStart = (int)y + 10; // Agrega un margen de 10 unidades desde la parte superior
+            int totalXStart = (int)(x + margenIzquierdo + 525); 
+            int totalYStart = (int)y + 10;
 
             string totalText = "Total: $" + _cabeceraVentas.MontoTotal.ToString();
             Font totalFont = new Font(dataGridFactura.Font.FontFamily, 11, FontStyle.Bold);
-            e.Graphics.DrawString(totalText, totalFont, Brushes.Black, totalXStart, totalYStart);
+            e.Graphics!.DrawString(totalText, totalFont, Brushes.Black, totalXStart, totalYStart);
             y = totalYStart + (int)e.Graphics.MeasureString(totalText, dataGridFactura.Font).Height + 250;
 
             // Datos del Vendedor
             string datosVendedor = "Datos Vendedor";
             graphics.DrawString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold), Brushes.Black, x, y);
-
-            // Dibuja el botón al lado derecho de "Datos Vendedor"
             int button1X =(int)(x + graphics.MeasureString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold)).Width + 350); // Ajusta el espacio entre el texto y el botón
             Point button1Location = new Point(button1X, (int)y);
             Size button1Size = new Size(23, 23);
             DrawIconButton(graphics, IconChar.Shop, button1Location, button1Size);
-
-            // Dibuja el texto "Empresa: VirtualBiblio" al lado derecho del botón
             int textoX = button1X + button1Size.Width + 10; // Ajusta el espacio entre el botón y el texto
             graphics.DrawString("Empresa: VirtualBiblio", fuente, Brushes.Black, textoX, y);
 
@@ -288,23 +298,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             Point button2Location = new Point((int)(x + graphics.MeasureString(vendedor, fuente).Width + 300), (int)(y - button2Size.Height)); // Ajusta el espacio entre el texto y el botón
             
             DrawIconButton(graphics, IconChar.Instagram, button2Location, button2Size);
-
-            // Dibuja el texto "@priscila_fernandez5" al lado derecho del botón 2
-            int textoX2 = button2Location.X + button2Size.Width + 10; // Ajusta el espacio entre el botón 2 y el texto
+            int textoX2 = button2Location.X + button2Size.Width + 10;
             graphics.DrawString("@priscila_fernandez5", fuente, Brushes.Black, textoX2, button2Location.Y + (button2Size.Height / 2) - (fuente.GetHeight() / 2));
-
-            // Actualiza la posición Y para el siguiente elemento
             y += fuente.GetHeight() + 15;
-
             string dniVendedor = "DNI: " + _cabeceraVentas.DNIVendedor!.ToString();
             graphics.DrawString(dniVendedor, fuente, Brushes.Black, x, y-20);
-
             Size button3Size = new Size(23, 23);
             Point button3Location = new Point((int)(x + graphics.MeasureString(vendedor, fuente).Width + 300), (int)(y - button3Size.Height));
-
             DrawIconButton(graphics, IconChar.Instagram, button3Location, button3Size);
-
-            int textoX3 = button3Location.X + button3Size.Width + 10; // Ajusta el espacio entre el botón 2 y el texto
+            int textoX3 = button3Location.X + button3Size.Width + 10;
             graphics.DrawString("@mauro._mur", fuente, Brushes.Black, textoX3, button3Location.Y + (button3Size.Height / 2) - (fuente.GetHeight() / 2));
             
             if (pie != null)
