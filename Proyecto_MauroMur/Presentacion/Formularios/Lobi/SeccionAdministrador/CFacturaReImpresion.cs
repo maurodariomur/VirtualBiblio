@@ -74,14 +74,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void datosCabecera()
         {
             lbNumeroFactura.Text = "Factura N°:" + _cabeceraVentas.Id_VentaCabecera.ToString();
-            lbNombreCliente.Text = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString();
+            lbNombreCliente.Text = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString()+" "+_cabeceraVentas.ApellidoCliente!;
             lbDNICliente.Text = "DNI: " + _cabeceraVentas.DNICliente!.ToString();
             lbTelefono.Text = "Telefono: " + _cabeceraVentas.Telefono?.ToString();
             lbDireccion.Text = "Direccion: " + _cabeceraVentas.Domicilio?.ToString();
             lbPago.Text = "Metodo De Pago: " + _cabeceraVentas.TipoPago;
             lbFactura.Text = "Tipo De Factura: " + _cabeceraVentas.TipoFactura;
             lbFechaFactura.Text = "Fecha " + _cabeceraVentas.FechaFactura.ToString();
-            lbNombreVendedor.Text = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString();
+            lbNombreVendedor.Text = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString() + " " +_cabeceraVentas.ApellidoVendedor;
             lbDNIVendedor.Text = "DNI: " + _cabeceraVentas.DNIVendedor?.ToString();
             lbTotal.Text = "Total: $" + _cabeceraVentas.MontoTotal.ToString();
         }
@@ -196,19 +196,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             {
                 y += 2;
 
-                int rowHeight = dataGridFactura.RowTemplate.Height;
                 int headerHeight = dataGridFactura.ColumnHeadersHeight;
 
-                // Calcular el ancho total del DataGridView
-                int totalWidth = 0;
-                foreach (string colName in columnasDeseadas)
-                {
-                    DataGridViewColumn? col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
-                    if (col != null)
-                    {
-                        totalWidth += col.Width;
-                    }
-                }
                 int xStart = (int)(x + margenIzquierdo);
 
                 foreach (string colName in columnasDeseadas)
@@ -218,12 +207,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     {
                         // Diferenciar el color y la fuente del encabezado
                         e.Graphics!.FillRectangle(new SolidBrush(encabezadoColor), xStart, y, col.Width, headerHeight);
-
-                        // Establecer el ancho del trazo de línea en 0 para las líneas verticales
-                        using (Pen pen = new Pen(Color.FromArgb(0, 0, 0), 0))
-                        {
-                            e.Graphics.DrawRectangle(pen, xStart, y, col.Width, headerHeight);
-                        }
 
                         if (!string.IsNullOrEmpty(col.HeaderText))
                         {
@@ -237,6 +220,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
                 y += headerHeight;
 
+                int rowHeight = dataGridFactura.RowTemplate.Height;
+
                 foreach (DataGridViewRow row in dataGridFactura.Rows)
                 {
                     xStart = (int)(x + margenIzquierdo);
@@ -246,10 +231,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                         if (col != null)
                         {
                             e.Graphics!.FillRectangle(new SolidBrush(contenidoColor), xStart, y, col.Width, rowHeight);
-                            using (Pen pen = new Pen(Color.FromArgb(0, 0, 0), 0))
-                            {
-                                e.Graphics.DrawRectangle(pen, xStart, y, col.Width, rowHeight);
-                            }
 
                             string? cellValue = row.Cells[col.Index].Value != null ? row.Cells[col.Index].Value.ToString() : string.Empty;
 

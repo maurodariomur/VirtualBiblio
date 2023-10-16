@@ -186,31 +186,20 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
             //DATAGRID FACTURA
             string[] columnasDeseadas = { "Cantidad", "Titulo", "Editorial", "Autor", "Sub-Total" };
-            int margenIzquierdo = 30; 
+            int margenIzquierdo = 30;
 
             // Definir colores y fuentes para el encabezado y el contenido
             Color encabezadoColor = Color.FromArgb(27, 107, 147);
             Color contenidoColor = Color.FromArgb(221, 230, 237);
             Font encabezadoFont = new Font("Century Gothic", 10, FontStyle.Bold);
-            Font contenidoFont = new Font("Century Gothic", 8, FontStyle.Regular); 
+            Font contenidoFont = new Font("Century Gothic", 8, FontStyle.Regular);
 
             if (dataGridFactura.Rows.Count > 0)
             {
                 y += 2;
 
-                int rowHeight = dataGridFactura.RowTemplate.Height;
                 int headerHeight = dataGridFactura.ColumnHeadersHeight;
 
-                // Calcular el ancho total del DataGridView
-                int totalWidth = 0;
-                foreach (string colName in columnasDeseadas)
-                {
-                    DataGridViewColumn? col = dataGridFactura.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.Visible && c.HeaderText == colName);
-                    if (col != null)
-                    {
-                        totalWidth += col.Width;
-                    }
-                }
                 int xStart = (int)(x + margenIzquierdo);
 
                 foreach (string colName in columnasDeseadas)
@@ -220,12 +209,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     {
                         // Diferenciar el color y la fuente del encabezado
                         e.Graphics!.FillRectangle(new SolidBrush(encabezadoColor), xStart, y, col.Width, headerHeight);
-
-                        // Establecer el ancho del trazo de línea en 0 para las líneas verticales
-                        using (Pen pen = new Pen(Color.FromArgb(0, 0, 0), 0))
-                        {
-                            e.Graphics.DrawRectangle(pen, xStart, y, col.Width, headerHeight);
-                        }
 
                         if (!string.IsNullOrEmpty(col.HeaderText))
                         {
@@ -239,6 +222,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
                 y += headerHeight;
 
+                int rowHeight = dataGridFactura.RowTemplate.Height;
+
                 foreach (DataGridViewRow row in dataGridFactura.Rows)
                 {
                     xStart = (int)(x + margenIzquierdo);
@@ -248,15 +233,11 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                         if (col != null)
                         {
                             e.Graphics!.FillRectangle(new SolidBrush(contenidoColor), xStart, y, col.Width, rowHeight);
-                            using (Pen pen = new Pen(Color.FromArgb(0, 0, 0), 0))
-                            {
-                                e.Graphics.DrawRectangle(pen, xStart, y, col.Width, rowHeight);
-                            }
 
                             string? cellValue = row.Cells[col.Index].Value != null ? row.Cells[col.Index].Value.ToString() : string.Empty;
 
                             float xText = xStart + (col.Width - e.Graphics.MeasureString(cellValue, contenidoFont).Width) / 2;
-                            e.Graphics.DrawString(cellValue, contenidoFont, Brushes.Black, xText, y + 6); 
+                            e.Graphics.DrawString(cellValue, contenidoFont, Brushes.Black, xText, y + 6);
 
                             xStart += col.Width;
                         }
