@@ -100,6 +100,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
                             MessageBox.Show("Libro agregado exitosamente: " + nombreProd, "Libro Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LimpiarCampos();
+                            mostrarOpcionesAutor();
+                            mostrarOpcionesEditoriales();
                         }
                         else
                         {
@@ -126,6 +128,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             lbPathTittleP.Text = "";
             txCategoria.SelectedIndex = 0;
             txNameProducto.Focus();
+            lbErrorProd.Text = "";
         }
 
         private int ObtenerCategoria()
@@ -259,6 +262,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             {
                 fuenteAutoCompletar.Add(autor.Nombre); // Reemplaza "Nombre" con el nombre de la propiedad que almacena el nombre del autor en tu clase Autores
             }
+            txAutor.AutoCompleteCustomSource.Clear();
 
             // Asignar la fuente personalizada al TextBox
             txAutor.AutoCompleteCustomSource = fuenteAutoCompletar;

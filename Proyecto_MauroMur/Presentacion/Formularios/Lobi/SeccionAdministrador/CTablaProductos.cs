@@ -376,6 +376,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                     LimpiarCamposModificar();
                     desactivarBotones();
                     CTablaProductos_Load(sender, e);
+                    mostrarOpcionesAutor();
+                    mostrarOpcionesEditoriales();
                 }
                 else
                 {
@@ -404,6 +406,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             checkBoxNoEd.Checked = false;
             checkBoxAZT.Checked = false;
             pEditarProducts.Image = null;
+
         }
 
         private void iconEditarImagen_Click(object sender, EventArgs e)
