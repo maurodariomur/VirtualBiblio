@@ -23,13 +23,16 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT SUM(vd.SubTotalProducto) AS TotalVentas " +
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo'"; 
+                                          "WHERE vc.Estado = 'activo'";
 
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return Convert.ToSingle(reader["TotalVentas"]);
+                            if (reader["TotalVentas"] != DBNull.Value)
+                            {
+                                return Convert.ToSingle(reader["TotalVentas"]);
+                            }
                         }
                     }
                 }
@@ -37,6 +40,7 @@ namespace Proyecto_MauroMur.DataAccess
 
             return 0.0f;
         }
+
 
         public int ObtenerLibroMasVendido()
         {

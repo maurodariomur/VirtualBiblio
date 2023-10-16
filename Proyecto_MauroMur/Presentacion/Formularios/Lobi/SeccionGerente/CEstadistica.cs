@@ -251,8 +251,16 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             Persona persona = new Persona();
             int empleadoMasExitoso = statistics.ObtenerEmpleadoMayoresVenta();
-            persona = user.ImportarUsuario(empleadoMasExitoso);
-            lbMejorVendedor.Text = persona.Apellido + " " + persona.Nombre;
+
+            if (empleadoMasExitoso > 0)
+            {
+                persona = user.ImportarUsuario(empleadoMasExitoso);
+                lbMejorVendedor.Text = persona.Apellido + " " + persona.Nombre;
+            }
+            else
+            {
+                lbMejorVendedor.Text = "";
+            }
         }
 
         private void estadisticasVentas()
