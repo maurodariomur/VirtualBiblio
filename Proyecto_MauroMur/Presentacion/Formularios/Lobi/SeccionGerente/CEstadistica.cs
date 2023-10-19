@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Windows.Forms.DataVisualization.Charting;
 using Common.Models;
 using Domain;
 using Proyecto_MauroMur.Common.Models;
@@ -31,8 +19,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             this.instanciaFLobi = lobi;
             InitializeComponent();
-            estadisticasVentas();
-            estadisticasLibros();
         }
 
         private void EndResponsive()
@@ -67,8 +53,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             obtenerLibroMenorVenta();
             lbTotal.Text = "$ " + statistics.ObtenerTotalVendido().ToString();
             obtenerEmpleadoMasExitoso();
-            estadisticasVendedores();
-            estadisticasClientes();
+            estadisticasVentas(DateTime.MinValue, DateTime.Now);
+            estadisticasVendedores(DateTime.MinValue, DateTime.Now);
+            estadisticasClientes(DateTime.MinValue, DateTime.Now);
+            estadisticasLibros(DateTime.MinValue, DateTime.Now);
 
             List<Ventas> ventas = sale.ObtenerTodasVentas();
             dgVentas.DataSource = ventas;
@@ -95,7 +83,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
             dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
-
         }
 
         private void dgVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -263,9 +250,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
         }
 
-        private void estadisticasVentas()
+        public void estadisticasVentas(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<DateTime, float>> cincoMayoresVentas = statistics.ObtenerCincoMayoresVentas();
+            List<Tuple<DateTime, float>> cincoMayoresVentas = statistics.ObtenerCincoMayoresVentas(startDate, endDate);
             chart4.Series.Clear();
             Series series = new Series();
             series.ChartType = SeriesChartType.Column;
@@ -287,9 +274,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             chart4.Invalidate();
         }
 
-        private void estadisticasLibros()
+        public void estadisticasLibros(DateTime startDate, DateTime endDate)
         {
-            List<Ventas> librosMasVendidos = statistics.MostrarCantidadLibros();
+            List<Ventas> librosMasVendidos = statistics.MostrarCantidadLibros(startDate, endDate);
 
             chart3.Series.Clear();
             chart3.Series.Add("Libros Más Vendidos");
@@ -310,9 +297,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             chart3.Invalidate();
         }
 
-        private void estadisticasVendedores()
+        private void estadisticasVendedores(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<string, float>> empleadosDestacados = statistics.EmpleadosDestacados();
+            List<Tuple<string, float>> empleadosDestacados = statistics.EmpleadosDestacados(startDate, endDate);
             chart2.Series.Clear();
             Series series = new Series();
             series.ChartType = SeriesChartType.Column;
@@ -338,9 +325,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             chart2.Invalidate();
         }
 
-        private void estadisticasClientes()
+        private void estadisticasClientes(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<string, float>> clientesDestacados = statistics.ClientesDestacados();
+            List<Tuple<string, float>> clientesDestacados = statistics.ClientesDestacados(startDate, endDate);
             chart1.Series.Clear();
             Series series = new Series();
             series.ChartType = SeriesChartType.Bar;
@@ -392,52 +379,47 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void chart1_Click(object sender, EventArgs e)
         {
-            ImprimirGrafico(chart1);
+            CFiltroTiempo filtro = new(this, chart1);
+            filtro.ShowDialog();
         }
 
         private void chart2_Click(object sender, EventArgs e)
         {
-            ImprimirGrafico(chart2);
+            CFiltroTiempo filtro = new(this, chart2);
+            filtro.ShowDialog();
         }
 
         private void chart3_Click(object sender, EventArgs e)
         {
-            ImprimirGrafico(chart3);
+            CFiltroTiempo filtro = new(this, chart3);
+            filtro.ShowDialog();
         }
 
         private void chart4_Click(object sender, EventArgs e)
         {
-            ImprimirGrafico(chart4);
+            CFiltroTiempo filtro = new(this, chart4);
+            filtro.ShowDialog();
         }
 
-        private void ImprimirGrafico(Chart chart)
+        public void ActualizarGrafico(Chart chart, DateTime startDate, DateTime endDate)
         {
-            int anchoImpresion = 630;
-            int altoImpresion = 630;
-            int resolucion = 600;
-            string rutaImagen = "grafico.png";
-
-            using (Bitmap chartImage = new Bitmap(anchoImpresion, altoImpresion))
+            if (chart == chart3)
             {
-                chart.DrawToBitmap(chartImage, new Rectangle(0, 0, anchoImpresion, altoImpresion));
-                chartImage.SetResolution(resolucion, resolucion);
-                chartImage.Save(rutaImagen, ImageFormat.Png);
+                estadisticasLibros(startDate, endDate);
             }
-
-            PrintDocument pd = new PrintDocument();
-            pd.PrintPage += (sender, e) =>
+            else if (chart == chart2)
             {
-                using (Image img = Image.FromFile(rutaImagen))
-                {
-                    e.Graphics!.DrawImage(img, e.MarginBounds);
-                }
-            };
-            PrintDialog pdialog = new PrintDialog();
-            pdialog.Document = pd;
-            if (pdialog.ShowDialog() == DialogResult.OK)
+                estadisticasVendedores(startDate, endDate);
+            }
+            else if (chart == chart1)
             {
-                pd.Print();
+                estadisticasClientes(startDate, endDate);
+            }
+            else if (chart == chart4)
+            {
+                estadisticasVentas(startDate, endDate);
             }
         }
+
     }
 }

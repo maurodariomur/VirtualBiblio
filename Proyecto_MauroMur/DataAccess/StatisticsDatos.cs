@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Common.Models;
 using Proyecto_MauroMur.Common.Models;
+using System.Data.SqlTypes;
 
 namespace Proyecto_MauroMur.DataAccess
 {
@@ -23,7 +24,8 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT SUM(vd.SubTotalProducto) AS TotalVentas " +
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo'";
+                                          "WHERE vc.Estado = 'activo'"+
+                                          "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE())";
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -53,7 +55,8 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT TOP 1 Id_Libro, SUM(Cantidad) AS TotalVendido " +
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo' " + 
+                                          "WHERE vc.Estado = 'activo' " +
+                                          "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE()) " +
                                           "GROUP BY Id_Libro " +
                                           "ORDER BY TotalVendido DESC";
 
@@ -82,7 +85,8 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT TOP 1 Id_Libro, SUM(Cantidad) AS TotalVendido " +
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo' " + // Filtra las ventas activas
+                                          "WHERE vc.Estado = 'activo' " +
+                                           "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE()) " +
                                           "GROUP BY Id_Libro " +
                                           "ORDER BY TotalVendido ASC";
 
@@ -109,7 +113,8 @@ namespace Proyecto_MauroMur.DataAccess
                     command.Connection = connection;
                     command.CommandText = "SELECT TOP 1 Id_Usuario, SUM(MontoTotal) AS TotalVentas " +
                                           "FROM Venta_Cabecera vc " +
-                                          "WHERE vc.Estado = 'activo' " + 
+                                          "WHERE vc.Estado = 'activo' " +
+                                          "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE()) " +
                                           "GROUP BY Id_Usuario " +
                                           "ORDER BY TotalVentas DESC";
 
@@ -126,8 +131,18 @@ namespace Proyecto_MauroMur.DataAccess
             return -1;
         }
 
-        public List<Ventas> ObtenerLibrosMasVendidos(int cantidad)
+        public List<Ventas> ObtenerLibrosMasVendidos(int cantidad, DateTime startDate, DateTime endDate)
         {
+            if (startDate < SqlDateTime.MinValue.Value)
+            {
+                startDate = SqlDateTime.MinValue.Value;
+            }
+
+            if (endDate > SqlDateTime.MaxValue.Value)
+            {
+                endDate = SqlDateTime.MaxValue.Value;
+            }
+
             List<Ventas> librosMasVendidos = new List<Ventas>();
 
             using (var connection = GetConnection())
@@ -137,12 +152,16 @@ namespace Proyecto_MauroMur.DataAccess
                 {
                     command.Connection = connection;
                     command.CommandText = "SELECT TOP " + cantidad + " l.NombreProducto, SUM(vd.Cantidad) AS TotalVendido " +
-                                          "FROM Venta_Detalle vd " +
-                                          "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "INNER JOIN Libro l ON vd.Id_Libro = l.Id_Libro " +
-                                          "WHERE vc.Estado = 'activo' " +
-                                          "GROUP BY l.NombreProducto " +
-                                          "ORDER BY TotalVendido DESC";
+                                        "FROM Venta_Detalle vd " +
+                                        "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
+                                        "INNER JOIN Libro l ON vd.Id_Libro = l.Id_Libro " +
+                                        "WHERE vc.Estado = 'activo' " +
+                                        "AND vc.FechaFactura BETWEEN @StartDate AND @EndDate " +
+                                        "GROUP BY l.NombreProducto " +
+                                        "ORDER BY TotalVendido DESC";
+
+                    command.Parameters.AddWithValue("@StartDate", startDate);
+                    command.Parameters.AddWithValue("@EndDate", endDate);
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -162,8 +181,18 @@ namespace Proyecto_MauroMur.DataAccess
             return librosMasVendidos;
         }
 
-        public List<Tuple<string, float>> ObtenerTresUsuariosMasExitosos()
+        public List<Tuple<string, float>> ObtenerTresUsuariosMasExitosos(DateTime startDate, DateTime endDate)
         {
+            if (startDate < SqlDateTime.MinValue.Value)
+            {
+                startDate = SqlDateTime.MinValue.Value;
+            }
+
+            if (endDate > SqlDateTime.MaxValue.Value)
+            {
+                endDate = SqlDateTime.MaxValue.Value;
+            }
+
             List<Tuple<string, float>> usuariosMasExitosos = new List<Tuple<string, float>>();
 
             using (var connection = GetConnection())
@@ -177,8 +206,12 @@ namespace Proyecto_MauroMur.DataAccess
                                           "INNER JOIN Persona p ON u.Id_Persona = p.Id_Persona " +
                                           "INNER JOIN Venta_Cabecera vc ON u.Id = vc.Id_Usuario " +
                                           "WHERE vc.Estado = 'activo' " +
+                                          "AND vc.FechaFactura BETWEEN @StartDate AND @EndDate " +
                                           "GROUP BY p.Nombre, p.Apellido " +
                                           "ORDER BY TotalVentas DESC";
+
+                    command.Parameters.AddWithValue("@StartDate", startDate);
+                    command.Parameters.AddWithValue("@EndDate", endDate);
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -197,9 +230,20 @@ namespace Proyecto_MauroMur.DataAccess
             return usuariosMasExitosos;
         }
 
-        public List<Tuple<string, float>> MejoresClientes()
+
+        public List<Tuple<string, float>> MejoresClientes(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<string, float>> usuariosMasExitosos = new List<Tuple<string, float>>();
+            if (startDate < SqlDateTime.MinValue.Value)
+            {
+                startDate = SqlDateTime.MinValue.Value;
+            }
+
+            if (endDate > SqlDateTime.MaxValue.Value)
+            {
+                endDate = SqlDateTime.MaxValue.Value;
+            }
+
+            List<Tuple<string, float>> mejoresClientes = new List<Tuple<string, float>>();
 
             using (var connection = GetConnection())
             {
@@ -208,13 +252,17 @@ namespace Proyecto_MauroMur.DataAccess
                 {
                     command.Connection = connection;
                     command.CommandText = "SELECT TOP 3 p.Nombre, p.Apellido, SUM(vd.SubTotalProducto) AS TotalVentas " +
-                                          "FROM Cliente c " +
-                                          "INNER JOIN Persona p ON c.Id_Persona = p.Id_Persona " +
-                                          "INNER JOIN Venta_Cabecera vc ON c.Id_Cliente = vc.Id_Cliente " +
-                                          "INNER JOIN Venta_Detalle vd ON vc.Id_VentaCabecera = vd.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo' " +
-                                          "GROUP BY p.Nombre, p.Apellido " +
-                                          "ORDER BY TotalVentas DESC";
+                                        "FROM Cliente c " +
+                                        "INNER JOIN Persona p ON c.Id_Persona = p.Id_Persona " +
+                                        "INNER JOIN Venta_Cabecera vc ON c.Id_Cliente = vc.Id_Cliente " +
+                                        "INNER JOIN Venta_Detalle vd ON vc.Id_VentaCabecera = vd.Id_VentaCabecera " +
+                                        "WHERE vc.Estado = 'activo' " +
+                                        "AND vc.FechaFactura BETWEEN @StartDate AND @EndDate " +
+                                        "GROUP BY p.Nombre, p.Apellido " +
+                                        "ORDER BY TotalVentas DESC";
+
+                    command.Parameters.AddWithValue("@StartDate", startDate);
+                    command.Parameters.AddWithValue("@EndDate", endDate);
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -224,16 +272,27 @@ namespace Proyecto_MauroMur.DataAccess
                             string apellido = reader["Apellido"].ToString()!;
                             float totalVentas = Convert.ToSingle(reader["TotalVentas"]);
                             string nombreCompleto = $"{nombre} {apellido}";
-                            usuariosMasExitosos.Add(new Tuple<string, float>(nombreCompleto, totalVentas));
+                            mejoresClientes.Add(new Tuple<string, float>(nombreCompleto, totalVentas));
                         }
                     }
                 }
             }
-            return usuariosMasExitosos;
+            return mejoresClientes;
         }
 
-        public List<Tuple<DateTime, float>> ObtenerCincoMayoresVentas()
+
+        public List<Tuple<DateTime, float>> ObtenerCincoMayoresVentas(DateTime startDate, DateTime endDate)
         {
+            if (startDate < SqlDateTime.MinValue.Value)
+            {
+                startDate = SqlDateTime.MinValue.Value;
+            }
+
+            if (endDate > SqlDateTime.MaxValue.Value)
+            {
+                endDate = SqlDateTime.MaxValue.Value;
+            }
+
             List<Tuple<DateTime, float>> cincoMayoresVentas = new List<Tuple<DateTime, float>>();
 
             using (var connection = GetConnection())
@@ -243,11 +302,15 @@ namespace Proyecto_MauroMur.DataAccess
                 {
                     command.Connection = connection;
                     command.CommandText = "SELECT TOP 5 vc.FechaFactura, SUM(vd.SubTotalProducto) AS TotalVentas " +
-                                          "FROM Venta_Detalle vd " +
-                                          "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo' " +
-                                          "GROUP BY vc.Id_VentaCabecera, vc.FechaFactura " +
-                                          "ORDER BY TotalVentas DESC";
+                                        "FROM Venta_Detalle vd " +
+                                        "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
+                                        "WHERE vc.Estado = 'activo' " +
+                                        "AND vc.FechaFactura BETWEEN @StartDate AND @EndDate " +
+                                        "GROUP BY vc.Id_VentaCabecera, vc.FechaFactura " +
+                                        "ORDER BY TotalVentas DESC";
+
+                    command.Parameters.AddWithValue("@StartDate", startDate);
+                    command.Parameters.AddWithValue("@EndDate", endDate);
 
                     using (var reader = command.ExecuteReader())
                     {

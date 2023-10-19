@@ -50,7 +50,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now; 
+            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
 
             dataGridVentas.RowPrePaint += DataGridProductos_RowPrePaint!;
@@ -108,8 +108,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 {
                     int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
-                    DialogResult advertencia = MessageBox.Show("¿Esta seguro que desea Cancelar la Factura?","Advertencia",MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation);
-                    if (advertencia== DialogResult.OK)
+                    DialogResult advertencia = MessageBox.Show("¿Esta seguro que desea Cancelar la Factura?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                    if (advertencia == DialogResult.OK)
                     {
                         bool estadoCambiado = saleModel.CambiarEstadoFactura(idVentaCabecera);
 
@@ -151,7 +151,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             if (valorBaja == "inactivo")
             {
                 row.DefaultCellStyle.BackColor = Color.FromArgb(243, 106, 106);
-                row.DefaultCellStyle.ForeColor = Color.White; 
+                row.DefaultCellStyle.ForeColor = Color.White;
             }
             else
             {

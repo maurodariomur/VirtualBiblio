@@ -35,26 +35,26 @@ namespace Domain
             return idMejorEmpleado;
         }
 
-        public List<Ventas> MostrarCantidadLibros()
+        public List<Ventas> MostrarCantidadLibros(DateTime startDate, DateTime endDate)
         {
             int cantidad = 5;
-            return statisticsDatos.ObtenerLibrosMasVendidos(cantidad);
+            return statisticsDatos.ObtenerLibrosMasVendidos(cantidad, startDate, endDate);
         }
 
-        public List<Tuple<string, float>> EmpleadosDestacados()
+        public List<Tuple<string, float>> EmpleadosDestacados(DateTime startDate, DateTime endDate)
         {
-            return statisticsDatos.ObtenerTresUsuariosMasExitosos();
+            return statisticsDatos.ObtenerTresUsuariosMasExitosos(startDate,endDate);
         }
 
 
-        public List<Tuple<string, float>> ClientesDestacados()
+        public List<Tuple<string, float>> ClientesDestacados(DateTime startDate, DateTime endDate)
         {
-            return statisticsDatos.MejoresClientes();
+            return statisticsDatos.MejoresClientes(startDate, endDate);
         }
 
-        public List<Tuple<DateTime, float>> ObtenerCincoMayoresVentas()
+        public List<Tuple<DateTime, float>> ObtenerCincoMayoresVentas(DateTime startDate, DateTime endDate)
         {
-            return statisticsDatos.ObtenerCincoMayoresVentas();
+            return statisticsDatos.ObtenerCincoMayoresVentas(startDate, endDate);
         }
     }
 }

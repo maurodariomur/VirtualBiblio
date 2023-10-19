@@ -399,7 +399,7 @@
             chart4.ChartAreas.Add(chartArea1);
             chart4.Dock = DockStyle.Fill;
             legend1.BackColor = Color.Transparent;
-            legend1.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            legend1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
             chart4.Legends.Add(legend1);
@@ -409,7 +409,7 @@
             chart4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             chart4.PaletteCustomColors = new Color[] { Color.FromArgb(8, 151, 157) };
             series1.ChartArea = "ChartArea1";
-            series1.Font = new Font("Century Gothic", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
+            series1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
             series1.Legend = "Legend1";
             series1.Name = "Monto Total";
             chart4.Series.Add(series1);
@@ -480,7 +480,7 @@
             chartArea3.Name = "ChartArea1";
             chart2.ChartAreas.Add(chartArea3);
             legend3.BackColor = Color.Transparent;
-            legend3.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            legend3.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             legend3.IsTextAutoFit = false;
             legend3.Name = "Legend1";
             chart2.Legends.Add(legend3);
@@ -490,7 +490,7 @@
             chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             chart2.PaletteCustomColors = new Color[] { Color.FromArgb(132, 116, 161) };
             series3.ChartArea = "ChartArea1";
-            series3.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            series3.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             series3.Legend = "Legend1";
             series3.Name = "Series1";
             chart2.Series.Add(series3);
@@ -511,7 +511,7 @@
             chart3.ChartAreas.Add(chartArea4);
             chart3.Dock = DockStyle.Fill;
             legend4.BackColor = Color.Transparent;
-            legend4.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            legend4.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             legend4.ForeColor = Color.DarkSlateBlue;
             legend4.IsTextAutoFit = false;
             legend4.Name = "Legend1";
@@ -524,7 +524,7 @@
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series4.Color = Color.Transparent;
-            series4.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            series4.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             series4.IsValueShownAsLabel = true;
             series4.LabelAngle = 1;
             series4.LabelForeColor = Color.Gainsboro;
@@ -589,9 +589,9 @@
             // lbMejorVendedor
             // 
             lbMejorVendedor.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbMejorVendedor.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbMejorVendedor.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbMejorVendedor.ForeColor = Color.Gainsboro;
-            lbMejorVendedor.Location = new Point(27, 26);
+            lbMejorVendedor.Location = new Point(27, 18);
             lbMejorVendedor.Name = "lbMejorVendedor";
             lbMejorVendedor.Size = new Size(215, 23);
             lbMejorVendedor.TabIndex = 1;
@@ -634,20 +634,20 @@
             iconButton3.IconColor = Color.Gainsboro;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 40;
-            iconButton3.Location = new Point(-17, 36);
+            iconButton3.Location = new Point(0, 39);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(83, 50);
+            iconButton3.Size = new Size(62, 39);
             iconButton3.TabIndex = 3;
             iconButton3.UseVisualStyleBackColor = true;
             // 
             // lbLibroMenosVendido
             // 
             lbLibroMenosVendido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbLibroMenosVendido.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbLibroMenosVendido.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbLibroMenosVendido.ForeColor = Color.Gainsboro;
-            lbLibroMenosVendido.Location = new Point(15, 26);
+            lbLibroMenosVendido.Location = new Point(3, 18);
             lbLibroMenosVendido.Name = "lbLibroMenosVendido";
-            lbLibroMenosVendido.Size = new Size(215, 23);
+            lbLibroMenosVendido.Size = new Size(227, 23);
             lbLibroMenosVendido.TabIndex = 1;
             lbLibroMenosVendido.Text = "Total";
             lbLibroMenosVendido.TextAlign = ContentAlignment.MiddleRight;
@@ -697,9 +697,9 @@
             // lbLibroMasVendido
             // 
             lbLibroMasVendido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbLibroMasVendido.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbLibroMasVendido.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbLibroMasVendido.ForeColor = Color.Gainsboro;
-            lbLibroMasVendido.Location = new Point(20, 26);
+            lbLibroMasVendido.Location = new Point(20, 18);
             lbLibroMasVendido.Name = "lbLibroMasVendido";
             lbLibroMasVendido.Size = new Size(210, 23);
             lbLibroMasVendido.TabIndex = 1;
@@ -751,9 +751,9 @@
             // lbTotal
             // 
             lbTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbTotal.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbTotal.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbTotal.ForeColor = Color.Gainsboro;
-            lbTotal.Location = new Point(15, 26);
+            lbTotal.Location = new Point(15, 18);
             lbTotal.Name = "lbTotal";
             lbTotal.Size = new Size(215, 23);
             lbTotal.TabIndex = 1;

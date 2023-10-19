@@ -248,27 +248,27 @@
             // dateTimePickerDesde
             // 
             dateTimePickerDesde.Anchor = AnchorStyles.Top;
-            dateTimePickerDesde.CalendarFont = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePickerDesde.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            dateTimePickerDesde.CalendarFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerDesde.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerDesde.Location = new Point(239, 8);
             dateTimePickerDesde.Name = "dateTimePickerDesde";
-            dateTimePickerDesde.Size = new Size(109, 22);
+            dateTimePickerDesde.Size = new Size(109, 21);
             dateTimePickerDesde.TabIndex = 45;
             dateTimePickerDesde.ValueChanged += dateTimePickerDesde_ValueChanged;
             // 
             // dateTimePickerHasta
             // 
             dateTimePickerHasta.Anchor = AnchorStyles.Top;
-            dateTimePickerHasta.CalendarFont = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerHasta.CalendarFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerHasta.CalendarForeColor = Color.IndianRed;
             dateTimePickerHasta.CalendarMonthBackground = SystemColors.MenuHighlight;
             dateTimePickerHasta.CalendarTitleBackColor = Color.DarkSlateGray;
             dateTimePickerHasta.CalendarTitleForeColor = SystemColors.ActiveCaption;
             dateTimePickerHasta.CalendarTrailingForeColor = Color.CadetBlue;
-            dateTimePickerHasta.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            dateTimePickerHasta.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerHasta.Location = new Point(414, 8);
             dateTimePickerHasta.Name = "dateTimePickerHasta";
-            dateTimePickerHasta.Size = new Size(109, 22);
+            dateTimePickerHasta.Size = new Size(109, 21);
             dateTimePickerHasta.TabIndex = 46;
             dateTimePickerHasta.ValueChanged += dateTimePickerHasta_ValueChanged;
             // 
@@ -278,11 +278,11 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.FlatStyle = FlatStyle.Flat;
-            label1.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Black;
             label1.Location = new Point(186, 13);
             label1.Name = "label1";
-            label1.Size = new Size(47, 16);
+            label1.Size = new Size(53, 16);
             label1.TabIndex = 17;
             label1.Text = "Desde";
             // 
@@ -292,11 +292,11 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.FlatStyle = FlatStyle.Flat;
-            label2.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Black;
             label2.Location = new Point(364, 12);
             label2.Name = "label2";
-            label2.Size = new Size(44, 16);
+            label2.Size = new Size(48, 16);
             label2.TabIndex = 47;
             label2.Text = "Hasta";
             // 
