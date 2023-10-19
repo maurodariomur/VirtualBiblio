@@ -19,12 +19,39 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
     {
         private Chart _chart;
         private CEstadistica _estadisticaForm;
+        private SaleModel sale = new SaleModel();
 
         public CFiltroTiempo(CEstadistica estadisticaForm, Chart grafico)
         {
             InitializeComponent();
             _chart = grafico;
             _estadisticaForm = estadisticaForm;
+        }
+
+        private void CFiltroTiempo_Load(object sender, EventArgs e)
+        {
+            cbFiltroFechas.Items.Add("Seleccione una Opcion");
+            cbFiltroFechas.Items.Add("Hoy");
+            cbFiltroFechas.Items.Add("Último mes");
+            cbFiltroFechas.Items.Add("Últimos 3 meses");
+            cbFiltroFechas.Items.Add("Últimos 6 meses");
+            cbFiltroFechas.Items.Add("Histórico");
+
+            cbFiltroFechas.SelectedIndex = cbFiltroFechas.Items.IndexOf("Seleccione una Opcion");
+
+            dateTimePickerDesde.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerDesde.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHasta.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerHasta.Format = DateTimePickerFormat.Custom;
+
+            DateTime? minFechaFactura = sale.ObtenerMinFechaFactura();
+            DateTime? maxFechaFactura = sale.ObtenerMaxFechaFactura();
+
+            dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
+            dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+
+            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
+            dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
         }
 
         private void iconImprimirChart_Click(object sender, EventArgs e)
@@ -68,6 +95,33 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             this.Close();
         }
+        private void filtrarFechas()
+        {
+            DateTime? fechaDesde = dateTimePickerDesde.Value;
+            DateTime? fechaHasta = dateTimePickerHasta.Value.AddDays(1).AddSeconds(-1);
+
+            if (fechaDesde > fechaHasta)
+            {
+                MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DateTime? minFechaFactura = sale.ObtenerMinFechaFactura();
+                DateTime? maxFechaFactura = sale.ObtenerMaxFechaFactura();
+
+                dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
+                dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+                dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
+                dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
+
+                DateTime startDate = fechaDesde.Value;
+                DateTime endDate = fechaHasta.Value;
+
+                _chart.Series.Clear();
+                _chart.Titles.Clear();
+                _estadisticaForm.ActualizarGrafico(_chart, startDate, endDate);
+            }
+        }
 
         private void cbFiltroFechas_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -107,16 +161,35 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             _estadisticaForm.ActualizarGrafico(_chart, startDate, endDate);
         }
 
-    private void CFiltroTiempo_Load(object sender, EventArgs e)
+        private void chBMarcador_CheckedChanged(object sender, EventArgs e)
         {
-            cbFiltroFechas.Items.Add("Seleccione una Opcion");
-            cbFiltroFechas.Items.Add("Hoy");
-            cbFiltroFechas.Items.Add("Último mes");
-            cbFiltroFechas.Items.Add("Últimos 3 meses");
-            cbFiltroFechas.Items.Add("Últimos 6 meses");
-            cbFiltroFechas.Items.Add("Histórico");
+            if (chBMarcador.Checked)
+            {
+                lbDesde.Visible = true;
+                lbHasta.Visible = true;
+                dateTimePickerDesde.Visible = true;
+                dateTimePickerHasta.Visible = true;
+                cbFiltroFechas.Visible = false;
+            }
+            else
+            {
+                lbDesde.Visible = false;
+                lbHasta.Visible = false;
+                dateTimePickerDesde.Visible = false;
+                dateTimePickerHasta.Visible = false;
+                cbFiltroFechas.Visible = true;
+            }
+        }
 
-            cbFiltroFechas.SelectedIndex = cbFiltroFechas.Items.IndexOf("Seleccione una Opcion");
+        private void dateTimePickerDesde_ValueChanged(object sender, EventArgs e)
+        {
+            filtrarFechas();
+        }
+
+        private void dateTimePickerHasta_ValueChanged(object sender, EventArgs e)
+        {
+            filtrarFechas();
+
         }
     }
 }

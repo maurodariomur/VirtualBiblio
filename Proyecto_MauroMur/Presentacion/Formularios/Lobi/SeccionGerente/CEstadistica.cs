@@ -182,25 +182,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            if (fechaDesde < minFechaFactura)
-            {
-                fechaDesde = minFechaFactura;
-            }
+            List<Ventas> ventasFiltradas = sale.ObtenerFechas(dateTimePickerDesde.Value, dateTimePickerHasta.Value.AddDays(1).AddSeconds(-1));
+            dgVentas.DataSource = ventasFiltradas;
 
-            if (fechaHasta > maxFechaFactura)
-            {
-                fechaHasta = maxFechaFactura;
-            }
-
-            dateTimePickerDesde.Value = fechaDesde.Value;
-            dateTimePickerHasta.Value = fechaHasta.Value;
-
-            if (fechaDesde <= fechaHasta)
-            {
-                List<Ventas> ventasFiltradas = sale.ObtenerFechas(fechaDesde, fechaHasta);
-                dgVentas.DataSource = ventasFiltradas;
-            }
-            else
+            if (fechaDesde > fechaHasta)
             {
                 MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

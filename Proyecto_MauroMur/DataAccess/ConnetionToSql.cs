@@ -12,7 +12,7 @@ namespace DataAccess
         //Entras la informacion necesaria de tu servidor y instancias una para la conexion
         public ConnectionToSql()
         {
-            connectionString = "Server = MAURO\\SQLEXPRESS;Database=bd_virtualBiblio;Integrated Security=true;";
+            connectionString = "Server = DESKTOP-KVRTQ1T\\SQLEXPRESS;Database=bd_virtualBiblio;Integrated Security=true;";
             sqlConnection = new SqlConnection(connectionString);
         }
 
