@@ -156,7 +156,7 @@ VALUES ('Factura M');
 
 CREATE TABLE Venta_Cabecera(
 	Id_VentaCabecera INT NOT NULL IDENTITY(1,1),
-	FechaFactura DATE NOT NULL DEFAULT(GETDATE()),
+	FechaFactura DATETIME NOT NULL DEFAULT(GETDATE()),
 	MontoTotal FLOAT NOT NULL,
 	Id_Cliente INT NOT NULL,
 	Id_Usuario INT NOT NULL,
