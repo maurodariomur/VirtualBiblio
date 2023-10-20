@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lbErrorModificar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAASRJREFUOE+9
+        kD1OAlEUha8UNoaKjtINyA5cCEvQRbgCCkzoLNABEgobXQcsgBVAYiwsoIHrue8d3jzePBRH40m+ZLjn
+        J8zIv0tH0gFKOjzXF0a20eCW53rCQC8a29Oj/TPpVM4zYx54jJ0uFGfRyL0W0o9+zxg7TShchnIhrzzb
+        /SXckeH5eyH8EYpjeeZZ7DnckeH5ayHYjUrGGy3zlonXpXVcScFBy7zdMS8rBIZpwXEnDVU5y3rosH4o
+        fZSLTNgzlJY+SDPrGehyphSMRSVYsgLp94tZcMZLn+QqE9qz04m0HZlvGMAG59y/21QCJQPGLDdIvJiN
+        DxVykzFj3l0QsufEOwRbFlpXjPqsbXCeHH/D3L/KWK756re1sC423NjfSuQTqKcn0e2/KiQAAAAASUVO
+        RK5CYII=
+</value>
+  </data>
 </root>

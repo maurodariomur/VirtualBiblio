@@ -272,9 +272,9 @@ namespace DataAccess
                     comando.CommandText = @"SELECT u.Id, p.Nombre AS PersonaNombre, p.Apellido AS PersonaApellido, p.DNI AS PersonaDNI, 
                                            p.Mail AS PersonaMail, p.FechaNacimiento AS PersonaFechaNacimiento, 
                                            u.UserNombre, u.TipoPerfil, p.Id_Persona, p.Baja AS PersonaBaja 
-                                    FROM Usuario u
-                                    INNER JOIN Persona p ON u.Id_Persona = p.Id_Persona
-                                    WHERE u.Id = @Id";
+                                          FROM Usuario u
+                                          INNER JOIN Persona p ON u.Id_Persona = p.Id_Persona
+                                          WHERE u.Id = @Id";
                     comando.Parameters.AddWithValue("@Id", id); // Agregar el parámetro Id
 
                     using (SqlDataReader reader = comando.ExecuteReader())

@@ -23,7 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Presentacion\Formularios\Lobi\SeccionAdministrador\CDetallesVentas.cs">
+    <Compile Update="Presentacion\Formularios\Lobi\SeccionAdministrador\CFacturaReImpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Presentacion\Formularios\Lobi\SeccionGerente\CDetallesVentasEstadistica.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Presentacion\Formularios\Lobi\SeccionVendedor\CFacturaReImpresion.cs">

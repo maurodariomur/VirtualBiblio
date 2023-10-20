@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
-    partial class CFacturaReImpresion
+    partial class CFacturaReImpresionAdmin
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CFacturaReImpresion));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CFacturaReImpresionAdmin));
             panel1 = new Panel();
             lbTittle = new Label();
             pictureBox1 = new PictureBox();
@@ -512,7 +512,7 @@
             dataGridFactura.Size = new Size(473, 206);
             dataGridFactura.TabIndex = 3;
             // 
-            // CFacturaReImpresion
+            // CFacturaReImpresionAdmin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -525,7 +525,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "CFacturaReImpresion";
+            Name = "CFacturaReImpresionAdmin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CFactura";
             Load += CFacturaReImpresion_Load;

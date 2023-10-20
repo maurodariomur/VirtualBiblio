@@ -12,18 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Proyecto_MauroMur.Common.Cache;
-using Google.Protobuf.WellKnownTypes;
 
 namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 {
-    public partial class CFacturaReImpresion : Form
+    public partial class CFacturaReImpresionAdmin : Form
     {
         private SaleModel sale = new SaleModel();
         private List<Ventas> _detallesVenta;
         Ventas _cabeceraVentas;
 
-        public CFacturaReImpresion(List<Ventas> detallesVenta, Ventas cabeceraVentas)
+        public CFacturaReImpresionAdmin(List<Ventas> detallesVenta, Ventas cabeceraVentas)
         {
             InitializeComponent();
             _detallesVenta = detallesVenta;
@@ -76,14 +74,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
         private void datosCabecera()
         {
             lbNumeroFactura.Text = "Factura N°:" + _cabeceraVentas.Id_VentaCabecera.ToString();
-            lbNombreCliente.Text = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString() + " " + _cabeceraVentas.ApellidoCliente!;
+            lbNombreCliente.Text = "Cliente: " + _cabeceraVentas.NombreCliente!.ToString()+" "+_cabeceraVentas.ApellidoCliente!;
             lbDNICliente.Text = "DNI: " + _cabeceraVentas.DNICliente!.ToString();
             lbTelefono.Text = "Telefono: " + _cabeceraVentas.Telefono?.ToString();
             lbDireccion.Text = "Direccion: " + _cabeceraVentas.Domicilio?.ToString();
             lbPago.Text = "Metodo De Pago: " + _cabeceraVentas.TipoPago;
             lbFactura.Text = "Tipo De Factura: " + _cabeceraVentas.TipoFactura;
             lbFechaFactura.Text = "Fecha " + _cabeceraVentas.FechaFactura.ToString();
-            lbNombreVendedor.Text = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString() + " " + _cabeceraVentas.ApellidoVendedor;
+            lbNombreVendedor.Text = "Vendedor: " + _cabeceraVentas.NombreVendedor!.ToString() + " " +_cabeceraVentas.ApellidoVendedor;
             lbDNIVendedor.Text = "DNI: " + _cabeceraVentas.DNIVendedor?.ToString();
             lbTotal.Text = "Total: $" + _cabeceraVentas.MontoTotal.ToString();
         }
@@ -140,10 +138,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             //TITULO
             string titulo = "VirtualBiblio";
             SizeF sizeTitulo = graphics.MeasureString(titulo, fuenteTitulo);
-            float xTitulo = anchoPagina - sizeTitulo.Width - 185; 
+            float xTitulo = anchoPagina - sizeTitulo.Width - 185;
             float yTitulo = y;
             graphics.DrawString(titulo, fuenteTitulo, Brushes.Black, xTitulo, yTitulo);
-            yTitulo += sizeTitulo.Height + 5; 
+            yTitulo += sizeTitulo.Height + 5;
             y = yTitulo + 100;
 
             //NUMERO Y TIPO DE FACTURA
@@ -246,7 +244,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                     y += rowHeight;
                 }
             }
-            int totalXStart = (int)(x + margenIzquierdo + 525); 
+            int totalXStart = (int)(x + margenIzquierdo + 525);
             int totalYStart = (int)y + 10;
 
             string totalText = "Total: $" + _cabeceraVentas.MontoTotal.ToString();
@@ -257,7 +255,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             // Datos del Vendedor
             string datosVendedor = "Datos Vendedor";
             graphics.DrawString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold), Brushes.Black, x, y);
-            int button1X =(int)(x + graphics.MeasureString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold)).Width + 350); // Ajusta el espacio entre el texto y el botón
+            int button1X = (int)(x + graphics.MeasureString(datosVendedor, new Font(fuente.FontFamily, 12, FontStyle.Bold)).Width + 350); // Ajusta el espacio entre el texto y el botón
             Point button1Location = new Point(button1X, (int)y);
             Size button1Size = new Size(23, 23);
             DrawIconButton(graphics, IconChar.Shop, button1Location, button1Size);
@@ -277,19 +275,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             // Dibuja el segundo botón al lado derecho del texto "Vendedor"
             Size button2Size = new Size(23, 23);
             Point button2Location = new Point((int)(x + graphics.MeasureString(vendedor, fuente).Width + 300), (int)(y - button2Size.Height)); // Ajusta el espacio entre el texto y el botón
-            
+
             DrawIconButton(graphics, IconChar.Instagram, button2Location, button2Size);
             int textoX2 = button2Location.X + button2Size.Width + 10;
             graphics.DrawString("@priscila_fernandez5", fuente, Brushes.Black, textoX2, button2Location.Y + (button2Size.Height / 2) - (fuente.GetHeight() / 2));
             y += fuente.GetHeight() + 15;
             string dniVendedor = "DNI: " + _cabeceraVentas.DNIVendedor!.ToString();
-            graphics.DrawString(dniVendedor, fuente, Brushes.Black, x, y-20);
+            graphics.DrawString(dniVendedor, fuente, Brushes.Black, x, y - 20);
             Size button3Size = new Size(23, 23);
             Point button3Location = new Point((int)(x + graphics.MeasureString(vendedor, fuente).Width + 300), (int)(y - button3Size.Height));
             DrawIconButton(graphics, IconChar.Instagram, button3Location, button3Size);
             int textoX3 = button3Location.X + button3Size.Width + 10;
             graphics.DrawString("@mauro._mur", fuente, Brushes.Black, textoX3, button3Location.Y + (button3Size.Height / 2) - (fuente.GetHeight() / 2));
-            
+
             if (pie != null)
             {
                 graphics.DrawImage(pie, new RectangleF(0, e.PageBounds.Height - altoImagenPie, anchoPagina, altoImagenPie));
@@ -320,7 +318,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 iconButton.ImageAlign = ContentAlignment.MiddleCenter;
                 iconButton.Location = location;
                 iconButton.Size = size;
-                iconButton.Text = string.Empty; 
+                iconButton.Text = string.Empty;
                 iconButton.UseVisualStyleBackColor = true;
 
                 Bitmap buttonBitmap = new Bitmap(iconButton.Width, iconButton.Height);
@@ -328,6 +326,5 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 graphics.DrawImage(buttonBitmap, location);
             }
         }
-
     }
 }

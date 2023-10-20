@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 {
-    partial class CDetallesVentas
+    partial class CDetallesVentasEstadistica
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CDetallesVentas));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CDetallesVentasEstadistica));
             panel1 = new Panel();
             lbTittleMisDetalles = new Label();
             panel2 = new Panel();

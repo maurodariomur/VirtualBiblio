@@ -50,7 +50,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dateTimePickerDesde.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerDesde.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now; 
+            dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
 
             dataGridVentas.RowPrePaint += DataGridProductos_RowPrePaint!;
@@ -108,8 +108,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 {
                     int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
-                    DialogResult advertencia = MessageBox.Show("¿Esta seguro que desea Cancelar la Factura?","Advertencia",MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation);
-                    if (advertencia== DialogResult.OK)
+                    DialogResult advertencia = MessageBox.Show("¿Esta seguro que desea Cancelar la Factura?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                    if (advertencia == DialogResult.OK)
                     {
                         bool estadoCambiado = saleModel.CambiarEstadoFactura(idVentaCabecera);
 
@@ -135,7 +135,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
                 int idVentaCabecera = Convert.ToInt32(selectedRow.Cells["Id_VentaCabecera"].Value);
 
                 List<Ventas> detallesVenta = saleModel.ObtenerVentasDetalle(idVentaCabecera);
-                CDetallesVentas detalleForm = new(detallesVenta);
+                Ventas cabeceraVentas = saleModel.ObtenerIdCabecera(idVentaCabecera);
+
+                CFacturaReImpresionAdmin detalleForm = new(detallesVenta, cabeceraVentas);
                 detalleForm.ShowDialog();
             }
         }
@@ -149,7 +151,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             if (valorBaja == "inactivo")
             {
                 row.DefaultCellStyle.BackColor = Color.FromArgb(243, 106, 106);
-                row.DefaultCellStyle.ForeColor = Color.White; 
+                row.DefaultCellStyle.ForeColor = Color.White;
             }
             else
             {
@@ -182,30 +184,14 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            if (fechaDesde < minFechaFactura)
-            {
-                fechaDesde = minFechaFactura;
-            }
+            List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(dateTimePickerDesde.Value, dateTimePickerHasta.Value.AddDays(1).AddSeconds(-1));
+            dataGridVentas.DataSource = ventasFiltradas;
 
-            if (fechaHasta > maxFechaFactura)
-            {
-                fechaHasta = maxFechaFactura;
-            }
-
-            dateTimePickerDesde.Value = fechaDesde.Value;
-            dateTimePickerHasta.Value = fechaHasta.Value;
-
-            if (fechaDesde <= fechaHasta)
-            {
-                List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(fechaDesde, fechaHasta);
-                dataGridVentas.DataSource = ventasFiltradas;
-            }
-            else
+            if (fechaDesde > fechaHasta)
             {
                 MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void dateTimePickerDesde_ValueChanged(object sender, EventArgs e)
         {

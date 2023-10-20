@@ -48,6 +48,7 @@
             iconEstadistica = new FontAwesome.Sharp.IconButton();
             iconExit = new FontAwesome.Sharp.IconButton();
             panelMenu = new Panel();
+            iconRespaldo = new FontAwesome.Sharp.IconButton();
             iconHistorialVentas = new FontAwesome.Sharp.IconButton();
             iconMisVentas = new FontAwesome.Sharp.IconButton();
             iconCatalogo = new FontAwesome.Sharp.IconButton();
@@ -177,7 +178,7 @@
             panelEscritorio.ForeColor = Color.Transparent;
             panelEscritorio.Location = new Point(220, 100);
             panelEscritorio.Name = "panelEscritorio";
-            panelEscritorio.Size = new Size(706, 517);
+            panelEscritorio.Size = new Size(706, 570);
             panelEscritorio.TabIndex = 3;
             // 
             // Lfecha
@@ -187,7 +188,7 @@
             Lfecha.BackColor = Color.Transparent;
             Lfecha.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
             Lfecha.ForeColor = Color.FromArgb(24, 61, 61);
-            Lfecha.Location = new Point(96, 400);
+            Lfecha.Location = new Point(96, 427);
             Lfecha.Name = "Lfecha";
             Lfecha.Size = new Size(85, 29);
             Lfecha.TabIndex = 4;
@@ -202,7 +203,7 @@
             Lhora.FlatStyle = FlatStyle.Flat;
             Lhora.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
             Lhora.ForeColor = Color.FromArgb(24, 61, 61);
-            Lhora.Location = new Point(287, 361);
+            Lhora.Location = new Point(287, 388);
             Lhora.Name = "Lhora";
             Lhora.Size = new Size(100, 37);
             Lhora.TabIndex = 3;
@@ -213,7 +214,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Location = new Point(201, 97);
+            pictureBox1.Location = new Point(201, 124);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(333, 249);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -309,7 +310,7 @@
             iconExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconExit.IconSize = 32;
             iconExit.ImageAlign = ContentAlignment.MiddleLeft;
-            iconExit.Location = new Point(0, 557);
+            iconExit.Location = new Point(0, 610);
             iconExit.Name = "iconExit";
             iconExit.Padding = new Padding(10, 0, 20, 0);
             iconExit.Size = new Size(220, 60);
@@ -323,6 +324,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(24, 61, 61);
+            panelMenu.Controls.Add(iconRespaldo);
             panelMenu.Controls.Add(iconHistorialVentas);
             panelMenu.Controls.Add(iconMisVentas);
             panelMenu.Controls.Add(iconCatalogo);
@@ -335,8 +337,33 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(220, 617);
+            panelMenu.Size = new Size(220, 670);
             panelMenu.TabIndex = 0;
+            // 
+            // iconRespaldo
+            // 
+            iconRespaldo.BackColor = Color.FromArgb(24, 61, 61);
+            iconRespaldo.Dock = DockStyle.Top;
+            iconRespaldo.FlatAppearance.BorderSize = 0;
+            iconRespaldo.FlatStyle = FlatStyle.Flat;
+            iconRespaldo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconRespaldo.ForeColor = Color.Gainsboro;
+            iconRespaldo.IconChar = FontAwesome.Sharp.IconChar.Database;
+            iconRespaldo.IconColor = Color.Gainsboro;
+            iconRespaldo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconRespaldo.IconSize = 32;
+            iconRespaldo.ImageAlign = ContentAlignment.MiddleLeft;
+            iconRespaldo.Location = new Point(0, 460);
+            iconRespaldo.Name = "iconRespaldo";
+            iconRespaldo.Padding = new Padding(10, 0, 20, 0);
+            iconRespaldo.Size = new Size(220, 60);
+            iconRespaldo.TabIndex = 10;
+            iconRespaldo.Text = "Base De Datos";
+            iconRespaldo.TextAlign = ContentAlignment.MiddleLeft;
+            iconRespaldo.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconRespaldo.UseVisualStyleBackColor = false;
+            iconRespaldo.Visible = false;
+            iconRespaldo.Click += iconRespaldo_Click;
             // 
             // iconHistorialVentas
             // 
@@ -446,7 +473,7 @@
             panel1.Dock = DockStyle.Bottom;
             panel1.Enabled = false;
             panel1.ForeColor = Color.Transparent;
-            panel1.Location = new Point(0, 497);
+            panel1.Location = new Point(0, 550);
             panel1.Name = "panel1";
             panel1.Size = new Size(220, 60);
             panel1.TabIndex = 5;
@@ -495,7 +522,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(221, 230, 237);
-            ClientSize = new Size(926, 617);
+            ClientSize = new Size(926, 670);
             Controls.Add(panelEscritorio);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
@@ -546,5 +573,6 @@
         public Label lbTitleCurrentForm;
         private FontAwesome.Sharp.IconButton iconMisVentas;
         private FontAwesome.Sharp.IconButton iconHistorialVentas;
+        private FontAwesome.Sharp.IconButton iconRespaldo;
     }
 }

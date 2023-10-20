@@ -94,12 +94,19 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
 
         private void FiltrarFacturas()
         {
+            int idUsuarioActual = UserLoginCache.Id;
             string textoBusquedaNombre = txBuscadorNombre.Text.ToLower();
             string textoBusquedaApellido = txBuscadorApellido.Text.ToLower();
             string textoBusquedaDNI = txBuscadorDni.Text.ToLower();
 
-            List<Ventas> ventasFiltradas = saleModel.ObtenerVentasConFiltros(textoBusquedaNombre, textoBusquedaApellido, textoBusquedaDNI);
-
+            List<Ventas> ventasDelUsuario = saleModel.ObtenerVentasPorUsuarioConNombres(idUsuarioActual);
+            List<Ventas> ventasFiltradas = ventasDelUsuario
+                .Where(venta =>
+                    (string.IsNullOrEmpty(textoBusquedaNombre) || venta.NombreCliente!.ToLower().Contains(textoBusquedaNombre)) &&
+                    (string.IsNullOrEmpty(textoBusquedaApellido) || venta.ApellidoCliente!.ToLower().Contains(textoBusquedaApellido)) &&
+                    (string.IsNullOrEmpty(textoBusquedaDNI) || venta.DNICliente!.ToLower().Contains(textoBusquedaDNI))
+                )
+                .ToList();
             dataGridMisVentas.DataSource = ventasFiltradas;
         }
 
@@ -116,25 +123,27 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
             dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            if (fechaDesde < minFechaFactura)
+            // Obtener todas las ventas del usuario
+            int idUsuarioActual = UserLoginCache.Id;
+            List<Ventas> ventasDelUsuario = saleModel.ObtenerVentasPorUsuarioConNombres(idUsuarioActual);
+
+            if (fechaHasta != null)
             {
-                fechaDesde = minFechaFactura;
+                // Ajustar la fecha final para incluir todas las ventas del día
+                fechaHasta = fechaHasta.Value.AddDays(1).AddSeconds(-1);
             }
 
-            if (fechaHasta > maxFechaFactura)
-            {
-                fechaHasta = maxFechaFactura;
-            }
+            // Realizar el filtro por fechas
+            List<Ventas> ventasFiltradasPorFecha = ventasDelUsuario
+                .Where(venta =>
+                    venta.FechaFactura >= fechaDesde &&
+                    (!fechaHasta.HasValue || venta.FechaFactura <= fechaHasta)
+                )
+                .ToList();
 
-            dateTimePickerDesde.Value = fechaDesde.Value;
-            dateTimePickerHasta.Value = fechaHasta.Value;
+            dataGridMisVentas.DataSource = ventasFiltradasPorFecha;
 
-            if (fechaDesde <= fechaHasta)
-            {
-                List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(fechaDesde, fechaHasta);
-                dataGridMisVentas.DataSource = ventasFiltradas;
-            }
-            else
+            if (fechaDesde > fechaHasta)
             {
                 MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
