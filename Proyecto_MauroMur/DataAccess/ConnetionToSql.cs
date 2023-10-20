@@ -7,7 +7,7 @@ namespace DataAccess
     {
         //Atributos de la Conexion
         private readonly string connectionString;
-        protected SqlConnection sqlConnection;
+        protected SqlConnection sqlConnection; 
 
         //Entras la informacion necesaria de tu servidor y instancias una para la conexion
         public ConnectionToSql()
