@@ -114,13 +114,27 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionVendedor
                 printDocument.DefaultPageSettings.Landscape = false;
                 printDocument.DefaultPageSettings.Margins = new Margins(50, 50, 50, 50);
 
-                printDocument.PrintPage += (s, ev) =>
-                {
-                    Graphics graphics = ev.Graphics!;
-                    ev.HasMorePages = false;
-                };
+                string numeroFactura = sale.ObtenerUltimoIdVentaCabecera().ToString();
+                string fechaHora = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string nombreArchivo = $"Factura_{numeroFactura}_{fechaHora}.pdf";
 
-                printDocument.Print();
+                // Configurar el diálogo de guardado de archivo
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.FileName = nombreArchivo;
+                saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaArchivoPDF = saveFileDialog.FileName;
+
+                    // Crear el archivo PDF con la ruta especificada
+                    printDocument.PrinterSettings.PrintToFile = true;
+                    printDocument.PrinterSettings.PrintFileName = rutaArchivoPDF;
+
+                    printDocument.Print();
+
+                    MessageBox.Show("Factura guardada como PDF.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
