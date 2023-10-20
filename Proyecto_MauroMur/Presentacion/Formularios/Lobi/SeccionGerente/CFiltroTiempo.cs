@@ -98,7 +98,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         private void filtrarFechas()
         {
             DateTime? fechaDesde = dateTimePickerDesde.Value;
-            DateTime? fechaHasta = dateTimePickerHasta.Value.AddDays(1).AddSeconds(-1);
+            DateTime? fechaHasta = dateTimePickerHasta.Value.Date.AddDays(1);
 
             if (fechaDesde > fechaHasta)
             {
