@@ -173,8 +173,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
 
         private void filtrarFechas()
         {
-            DateTime? fechaDesde = dateTimePickerDesde.Value;
-            DateTime? fechaHasta = dateTimePickerHasta.Value;
+            DateTime? fechaDesde = dateTimePickerDesde.Value.Date;
+            DateTime? fechaHasta = dateTimePickerHasta.Value.Date;
 
             DateTime? minFechaFactura = saleModel.ObtenerMinFechaFactura();
             DateTime? maxFechaFactura = saleModel.ObtenerMaxFechaFactura();
@@ -184,12 +184,15 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionAdministrador
             dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(dateTimePickerDesde.Value, dateTimePickerHasta.Value.AddDays(1).AddSeconds(-1));
-            dataGridVentas.DataSource = ventasFiltradas;
-
-            if (fechaDesde > fechaHasta)
+            if (fechaDesde.HasValue && fechaHasta.HasValue)
             {
-                MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                List<Ventas> ventasFiltradas = saleModel.ObtenerFechas(fechaDesde.Value, fechaHasta.Value.AddDays(1));
+                dataGridVentas.DataSource = ventasFiltradas;
+
+                if (fechaDesde.Value > fechaHasta.Value)
+                {
+                    MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
