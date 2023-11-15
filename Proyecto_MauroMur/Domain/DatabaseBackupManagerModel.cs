@@ -16,5 +16,11 @@ namespace Proyecto_MauroMur.Domain
             return backupManager.RealizarBackup("bd_virtualBiblio", backupPath);
         }
 
+        public bool RealizarRestauracion(string backupPath)
+        {
+            return backupManager.RealizarRestauracion("bd_virtualBiblio", backupPath);
+        }
+
+
     }
 }

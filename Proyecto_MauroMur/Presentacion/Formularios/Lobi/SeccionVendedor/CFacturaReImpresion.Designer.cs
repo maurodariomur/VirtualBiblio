@@ -32,7 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CFactura));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CFacturaReImpresion));
             panel1 = new Panel();
             lbTittle = new Label();
             pictureBox1 = new PictureBox();
@@ -44,7 +44,7 @@
             lbDNICliente = new Label();
             panel7 = new Panel();
             label1 = new Label();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
+            iconImprimir = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
             lbDatos = new Label();
             lbFechaFactura = new Label();
@@ -183,7 +183,7 @@
             // panel7
             // 
             panel7.Controls.Add(label1);
-            panel7.Controls.Add(iconButton3);
+            panel7.Controls.Add(iconImprimir);
             panel7.Controls.Add(iconButton4);
             panel7.Dock = DockStyle.Right;
             panel7.Location = new Point(471, 0);
@@ -202,23 +202,24 @@
             label1.TabIndex = 21;
             label1.Text = "Acciones";
             // 
-            // iconButton3
+            // iconImprimir
             // 
-            iconButton3.Cursor = Cursors.Hand;
-            iconButton3.FlatAppearance.BorderSize = 0;
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Print;
-            iconButton3.IconColor = Color.DimGray;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 25;
-            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(59, 20);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(34, 30);
-            iconButton3.TabIndex = 20;
-            iconButton3.TextAlign = ContentAlignment.MiddleRight;
-            iconButton3.UseVisualStyleBackColor = true;
+            iconImprimir.Cursor = Cursors.Hand;
+            iconImprimir.FlatAppearance.BorderSize = 0;
+            iconImprimir.FlatStyle = FlatStyle.Flat;
+            iconImprimir.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconImprimir.IconChar = FontAwesome.Sharp.IconChar.Print;
+            iconImprimir.IconColor = Color.DimGray;
+            iconImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconImprimir.IconSize = 25;
+            iconImprimir.ImageAlign = ContentAlignment.MiddleLeft;
+            iconImprimir.Location = new Point(59, 20);
+            iconImprimir.Name = "iconImprimir";
+            iconImprimir.Size = new Size(34, 30);
+            iconImprimir.TabIndex = 20;
+            iconImprimir.TextAlign = ContentAlignment.MiddleRight;
+            iconImprimir.UseVisualStyleBackColor = true;
+            iconImprimir.Click += iconImprimir_Click;
             // 
             // iconButton4
             // 
@@ -511,7 +512,7 @@
             dataGridFactura.Size = new Size(473, 206);
             dataGridFactura.TabIndex = 3;
             // 
-            // CFactura
+            // CFacturaReImpresion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -524,7 +525,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "CFactura";
+            Name = "CFacturaReImpresion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CFactura";
             Load += CFacturaReImpresion_Load;
@@ -573,7 +574,7 @@
         private DataGridView dataGridFactura;
         private Panel panel7;
         private Label label1;
-        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconImprimir;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private Label lbDNICliente;

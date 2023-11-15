@@ -120,11 +120,11 @@
             lbTitleProductos.AutoSize = true;
             lbTitleProductos.BackColor = Color.Transparent;
             lbTitleProductos.FlatStyle = FlatStyle.Flat;
-            lbTitleProductos.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lbTitleProductos.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbTitleProductos.ForeColor = Color.Gainsboro;
             lbTitleProductos.Location = new Point(441, 9);
             lbTitleProductos.Name = "lbTitleProductos";
-            lbTitleProductos.Size = new Size(164, 33);
+            lbTitleProductos.Size = new Size(173, 31);
             lbTitleProductos.TabIndex = 1;
             lbTitleProductos.Text = "Estadisticas";
             // 
@@ -248,11 +248,11 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.FlatStyle = FlatStyle.Flat;
-            label1.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Black;
             label1.Location = new Point(269, 85);
             label1.Name = "label1";
-            label1.Size = new Size(44, 16);
+            label1.Size = new Size(48, 16);
             label1.TabIndex = 51;
             label1.Text = "Hasta";
             // 
@@ -262,38 +262,38 @@
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.FlatStyle = FlatStyle.Flat;
-            label3.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(91, 86);
+            label3.Location = new Point(54, 85);
             label3.Name = "label3";
-            label3.Size = new Size(47, 16);
+            label3.Size = new Size(53, 16);
             label3.TabIndex = 48;
             label3.Text = "Desde";
             // 
             // dateTimePickerHasta
             // 
             dateTimePickerHasta.Anchor = AnchorStyles.None;
-            dateTimePickerHasta.CalendarFont = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerHasta.CalendarFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerHasta.CalendarForeColor = Color.IndianRed;
             dateTimePickerHasta.CalendarMonthBackground = SystemColors.MenuHighlight;
             dateTimePickerHasta.CalendarTitleBackColor = Color.DarkSlateGray;
             dateTimePickerHasta.CalendarTitleForeColor = SystemColors.ActiveCaption;
             dateTimePickerHasta.CalendarTrailingForeColor = Color.CadetBlue;
-            dateTimePickerHasta.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            dateTimePickerHasta.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerHasta.Location = new Point(319, 81);
             dateTimePickerHasta.Name = "dateTimePickerHasta";
-            dateTimePickerHasta.Size = new Size(109, 22);
+            dateTimePickerHasta.Size = new Size(111, 21);
             dateTimePickerHasta.TabIndex = 50;
             dateTimePickerHasta.ValueChanged += dateTimePickerHasta_ValueChanged;
             // 
             // dateTimePickerDesde
             // 
             dateTimePickerDesde.Anchor = AnchorStyles.None;
-            dateTimePickerDesde.CalendarFont = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePickerDesde.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            dateTimePickerDesde.Location = new Point(144, 81);
+            dateTimePickerDesde.CalendarFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerDesde.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimePickerDesde.Location = new Point(107, 80);
             dateTimePickerDesde.Name = "dateTimePickerDesde";
-            dateTimePickerDesde.Size = new Size(109, 22);
+            dateTimePickerDesde.Size = new Size(108, 21);
             dateTimePickerDesde.TabIndex = 49;
             dateTimePickerDesde.ValueChanged += dateTimePickerDesde_ValueChanged;
             // 
@@ -359,22 +359,22 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.Black;
             label8.Location = new Point(3, 23);
             label8.Name = "label8";
-            label8.Size = new Size(118, 17);
+            label8.Size = new Size(104, 15);
             label8.TabIndex = 1;
             label8.Text = "Factura Cabecera";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label7.ForeColor = Color.Black;
             label7.Location = new Point(3, 4);
             label7.Name = "label7";
-            label7.Size = new Size(61, 19);
+            label7.Size = new Size(66, 20);
             label7.TabIndex = 0;
             label7.Text = "Ventas";
             // 
@@ -392,26 +392,31 @@
             // 
             chart4.BackColor = Color.Transparent;
             chart4.BorderSkin.BackColor = Color.Silver;
+            chartArea1.Area3DStyle.Enable3D = true;
             chartArea1.BackColor = Color.Transparent;
+            chartArea1.BorderColor = Color.DarkGray;
             chartArea1.Name = "ChartArea1";
             chart4.ChartAreas.Add(chartArea1);
             chart4.Dock = DockStyle.Fill;
             legend1.BackColor = Color.Transparent;
+            legend1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
             chart4.Legends.Add(legend1);
             chart4.Location = new Point(10, 0);
             chart4.Margin = new Padding(0, 0, 0, 10);
             chart4.Name = "chart4";
-            chart4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            chart4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            chart4.PaletteCustomColors = new Color[] { Color.FromArgb(8, 151, 157) };
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Font = new Font("Century Gothic", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
+            series1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
             series1.Legend = "Legend1";
             series1.Name = "Monto Total";
             chart4.Series.Add(series1);
             chart4.Size = new Size(429, 320);
             chart4.TabIndex = 2;
             chart4.Text = "chart4";
+            chart4.Click += chart4_Click;
             // 
             // tableLayoutPanel2
             // 
@@ -455,7 +460,8 @@
             chart1.Location = new Point(0, 0);
             chart1.Margin = new Padding(0, 0, 10, 10);
             chart1.Name = "chart1";
-            chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            chart1.PaletteCustomColors = new Color[] { Color.FromArgb(5, 91, 92) };
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
             series2.Legend = "Legend1";
@@ -465,6 +471,7 @@
             chart1.Size = new Size(300, 250);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
+            chart1.Click += chart1_Click;
             // 
             // chart2
             // 
@@ -473,51 +480,61 @@
             chartArea3.Name = "ChartArea1";
             chart2.ChartAreas.Add(chartArea3);
             legend3.BackColor = Color.Transparent;
-            legend3.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            legend3.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             legend3.IsTextAutoFit = false;
             legend3.Name = "Legend1";
             chart2.Legends.Add(legend3);
             chart2.Location = new Point(310, 0);
             chart2.Margin = new Padding(0, 0, 10, 10);
             chart2.Name = "chart2";
-            chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            chart2.PaletteCustomColors = new Color[] { Color.FromArgb(132, 116, 161) };
             series3.ChartArea = "ChartArea1";
-            series3.Font = new Font("Century Gothic", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            series3.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             series3.Legend = "Legend1";
             series3.Name = "Series1";
             chart2.Series.Add(series3);
             chart2.Size = new Size(300, 250);
             chart2.TabIndex = 1;
             chart2.Text = "chart2";
+            chart2.Click += chart2_Click;
             // 
             // chart3
             // 
             chart3.BackColor = Color.Transparent;
             chart3.BorderlineColor = Color.Transparent;
+            chartArea4.Area3DStyle.Enable3D = true;
+            chartArea4.Area3DStyle.IsClustered = true;
             chartArea4.BackColor = Color.Transparent;
+            chartArea4.BorderColor = Color.DimGray;
             chartArea4.Name = "ChartArea1";
             chart3.ChartAreas.Add(chartArea4);
             chart3.Dock = DockStyle.Fill;
             legend4.BackColor = Color.Transparent;
-            legend4.Font = new Font("Century Gothic", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            legend4.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            legend4.ForeColor = Color.DarkSlateBlue;
             legend4.IsTextAutoFit = false;
             legend4.Name = "Legend1";
             chart3.Legends.Add(legend4);
             chart3.Location = new Point(624, 0);
             chart3.Margin = new Padding(0, 0, 0, 10);
             chart3.Name = "chart3";
-            chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            chart3.PaletteCustomColors = new Color[] { Color.FromArgb(5, 91, 92), Color.FromArgb(8, 151, 157), Color.FromArgb(69, 98, 93), Color.FromArgb(110, 197, 202), Color.FromArgb(132, 116, 161), Color.FromArgb(204, 171, 216) };
             series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series4.Color = Color.Transparent;
-            series4.Font = new Font("Century Gothic", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
+            series4.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             series4.IsValueShownAsLabel = true;
+            series4.LabelAngle = 1;
+            series4.LabelForeColor = Color.Gainsboro;
             series4.Legend = "Legend1";
             series4.Name = "Series1";
             chart3.Series.Add(series4);
             chart3.Size = new Size(350, 250);
             chart3.TabIndex = 1;
             chart3.Text = "chart3";
+            chart3.Click += chart3_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -540,7 +557,7 @@
             // 
             // panel6
             // 
-            panel6.BackColor = Color.FromArgb(206, 222, 189);
+            panel6.BackColor = Color.FromArgb(131, 116, 161);
             panel6.Controls.Add(iconButton2);
             panel6.Controls.Add(lbMejorVendedor);
             panel6.Controls.Add(label6);
@@ -560,7 +577,7 @@
             iconButton2.FlatAppearance.MouseOverBackColor = Color.Transparent;
             iconButton2.FlatStyle = FlatStyle.Flat;
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.ClipboardUser;
-            iconButton2.IconColor = Color.Gray;
+            iconButton2.IconColor = Color.Gainsboro;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 40;
             iconButton2.Location = new Point(-16, 30);
@@ -572,8 +589,9 @@
             // lbMejorVendedor
             // 
             lbMejorVendedor.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbMejorVendedor.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbMejorVendedor.Location = new Point(27, 26);
+            lbMejorVendedor.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbMejorVendedor.ForeColor = Color.Gainsboro;
+            lbMejorVendedor.Location = new Point(27, 18);
             lbMejorVendedor.Name = "lbMejorVendedor";
             lbMejorVendedor.Size = new Size(215, 23);
             lbMejorVendedor.TabIndex = 1;
@@ -583,16 +601,17 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ForeColor = Color.Gainsboro;
             label6.Location = new Point(3, 0);
             label6.Name = "label6";
-            label6.Size = new Size(103, 16);
+            label6.Size = new Size(109, 15);
             label6.TabIndex = 0;
             label6.Text = "Mejor Vendedor";
             // 
             // panel5
             // 
-            panel5.BackColor = Color.FromArgb(152, 180, 170);
+            panel5.BackColor = Color.FromArgb(8, 151, 157);
             panel5.Controls.Add(iconButton3);
             panel5.Controls.Add(lbLibroMenosVendido);
             panel5.Controls.Add(label4);
@@ -612,22 +631,23 @@
             iconButton3.FlatAppearance.MouseOverBackColor = Color.Transparent;
             iconButton3.FlatStyle = FlatStyle.Flat;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.ThumbsDown;
-            iconButton3.IconColor = Color.Gray;
+            iconButton3.IconColor = Color.Gainsboro;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 40;
-            iconButton3.Location = new Point(-17, 36);
+            iconButton3.Location = new Point(0, 39);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(83, 50);
+            iconButton3.Size = new Size(62, 39);
             iconButton3.TabIndex = 3;
             iconButton3.UseVisualStyleBackColor = true;
             // 
             // lbLibroMenosVendido
             // 
             lbLibroMenosVendido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbLibroMenosVendido.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbLibroMenosVendido.Location = new Point(15, 26);
+            lbLibroMenosVendido.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbLibroMenosVendido.ForeColor = Color.Gainsboro;
+            lbLibroMenosVendido.Location = new Point(3, 18);
             lbLibroMenosVendido.Name = "lbLibroMenosVendido";
-            lbLibroMenosVendido.Size = new Size(215, 23);
+            lbLibroMenosVendido.Size = new Size(227, 23);
             lbLibroMenosVendido.TabIndex = 1;
             lbLibroMenosVendido.Text = "Total";
             lbLibroMenosVendido.TextAlign = ContentAlignment.MiddleRight;
@@ -635,16 +655,17 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ForeColor = Color.Gainsboro;
             label4.Location = new Point(3, 0);
             label4.Name = "label4";
-            label4.Size = new Size(99, 16);
+            label4.Size = new Size(106, 15);
             label4.TabIndex = 0;
             label4.Text = "Menos Vendido";
             // 
             // panel4
             // 
-            panel4.BackColor = Color.FromArgb(116, 149, 154);
+            panel4.BackColor = Color.FromArgb(5, 91, 92);
             panel4.Controls.Add(iconButton4);
             panel4.Controls.Add(lbLibroMasVendido);
             panel4.Controls.Add(label2);
@@ -664,7 +685,7 @@
             iconButton4.FlatAppearance.MouseOverBackColor = Color.Transparent;
             iconButton4.FlatStyle = FlatStyle.Flat;
             iconButton4.IconChar = FontAwesome.Sharp.IconChar.ThumbsUp;
-            iconButton4.IconColor = Color.Gray;
+            iconButton4.IconColor = Color.Gainsboro;
             iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton4.IconSize = 40;
             iconButton4.Location = new Point(-26, 33);
@@ -676,8 +697,9 @@
             // lbLibroMasVendido
             // 
             lbLibroMasVendido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbLibroMasVendido.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbLibroMasVendido.Location = new Point(20, 26);
+            lbLibroMasVendido.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbLibroMasVendido.ForeColor = Color.Gainsboro;
+            lbLibroMasVendido.Location = new Point(20, 18);
             lbLibroMasVendido.Name = "lbLibroMasVendido";
             lbLibroMasVendido.Size = new Size(210, 23);
             lbLibroMasVendido.TabIndex = 1;
@@ -687,16 +709,17 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.Gainsboro;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(84, 16);
+            label2.Size = new Size(90, 15);
             label2.TabIndex = 0;
             label2.Text = "Mas Vendido";
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(81, 114, 117);
+            panel3.BackColor = Color.FromArgb(69, 98, 93);
             panel3.Controls.Add(iconButton1);
             panel3.Controls.Add(lbTotal);
             panel3.Controls.Add(lbTitulo);
@@ -716,7 +739,7 @@
             iconButton1.FlatAppearance.MouseOverBackColor = Color.Transparent;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.SackDollar;
-            iconButton1.IconColor = Color.Gray;
+            iconButton1.IconColor = Color.Gainsboro;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 40;
             iconButton1.Location = new Point(-19, 33);
@@ -728,8 +751,9 @@
             // lbTotal
             // 
             lbTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbTotal.Font = new Font("Century Gothic", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            lbTotal.Location = new Point(15, 26);
+            lbTotal.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbTotal.ForeColor = Color.Gainsboro;
+            lbTotal.Location = new Point(15, 18);
             lbTotal.Name = "lbTotal";
             lbTotal.Size = new Size(215, 23);
             lbTotal.TabIndex = 1;
@@ -739,10 +763,11 @@
             // lbTitulo
             // 
             lbTitulo.AutoSize = true;
-            lbTitulo.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbTitulo.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbTitulo.ForeColor = Color.Gainsboro;
             lbTitulo.Location = new Point(3, 0);
             lbTitulo.Name = "lbTitulo";
-            lbTitulo.Size = new Size(88, 16);
+            lbTitulo.Size = new Size(95, 15);
             lbTitulo.TabIndex = 0;
             lbTitulo.Text = "Total Vendido";
             // 

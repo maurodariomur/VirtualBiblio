@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Windows.Forms.DataVisualization.Charting;
 using Common.Models;
 using Domain;
 using Proyecto_MauroMur.Common.Models;
@@ -29,8 +19,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             this.instanciaFLobi = lobi;
             InitializeComponent();
-            estadisticasVentas();
-            estadisticasLibros();
         }
 
         private void EndResponsive()
@@ -65,8 +53,10 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             obtenerLibroMenorVenta();
             lbTotal.Text = "$ " + statistics.ObtenerTotalVendido().ToString();
             obtenerEmpleadoMasExitoso();
-            estadisticasVendedores();
-            estadisticasClientes();
+            estadisticasVentas(DateTime.MinValue, DateTime.Now);
+            estadisticasVendedores(DateTime.MinValue, DateTime.Now);
+            estadisticasClientes(DateTime.MinValue, DateTime.Now);
+            estadisticasLibros(DateTime.MinValue, DateTime.Now);
 
             List<Ventas> ventas = sale.ObtenerTodasVentas();
             dgVentas.DataSource = ventas;
@@ -93,7 +83,6 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
             dateTimePickerDesde.Value = minFechaFactura ?? DateTime.Now;
             dateTimePickerHasta.Value = maxFechaFactura ?? DateTime.Now;
-
         }
 
         private void dgVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -182,8 +171,8 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
 
         private void filtrarFechas()
         {
-            DateTime? fechaDesde = dateTimePickerDesde.Value;
-            DateTime? fechaHasta = dateTimePickerHasta.Value;
+            DateTime? fechaDesde = dateTimePickerDesde.Value.Date;
+            DateTime? fechaHasta = dateTimePickerHasta.Value.Date;
 
             DateTime? minFechaFactura = sale.ObtenerMinFechaFactura();
             DateTime? maxFechaFactura = sale.ObtenerMaxFechaFactura();
@@ -193,29 +182,18 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             dateTimePickerHasta.MinDate = minFechaFactura ?? DateTime.MinValue;
             dateTimePickerHasta.MaxDate = maxFechaFactura ?? DateTime.MaxValue;
 
-            if (fechaDesde < minFechaFactura)
+            if (fechaDesde.HasValue && fechaHasta.HasValue)
             {
-                fechaDesde = minFechaFactura;
-            }
-
-            if (fechaHasta > maxFechaFactura)
-            {
-                fechaHasta = maxFechaFactura;
-            }
-
-            dateTimePickerDesde.Value = fechaDesde.Value;
-            dateTimePickerHasta.Value = fechaHasta.Value;
-
-            if (fechaDesde <= fechaHasta)
-            {
-                List<Ventas> ventasFiltradas = sale.ObtenerFechas(fechaDesde, fechaHasta);
+                List<Ventas> ventasFiltradas = sale.ObtenerFechas(fechaDesde.Value, fechaHasta.Value.AddDays(1));
                 dgVentas.DataSource = ventasFiltradas;
-            }
-            else
-            {
-                MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (fechaDesde.Value > fechaHasta.Value)
+                {
+                    MessageBox.Show("Las fechas seleccionadas no son válidas. Asegúrese de que la fecha de inicio sea menor o igual a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
 
         private void filtrarFacturas()
         {
@@ -249,56 +227,68 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             Persona persona = new Persona();
             int empleadoMasExitoso = statistics.ObtenerEmpleadoMayoresVenta();
-            persona = user.ImportarUsuario(empleadoMasExitoso);
-            lbMejorVendedor.Text = persona.Apellido + " " + persona.Nombre;
+
+            if (empleadoMasExitoso > 0)
+            {
+                persona = user.ImportarUsuario(empleadoMasExitoso);
+                lbMejorVendedor.Text = persona.Apellido + " " + persona.Nombre;
+            }
+            else
+            {
+                lbMejorVendedor.Text = "";
+            }
         }
 
-        private void estadisticasVentas()
+        public void estadisticasVentas(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<DateTime, float>> cincoMayoresVentas = statistics.ObtenerCincoMayoresVentas();
+            List<Tuple<DateTime, float>> cincoMayoresVentas = statistics.ObtenerCincoMayoresVentas(startDate, endDate);
             chart4.Series.Clear();
             Series series = new Series();
-            series.ChartType = SeriesChartType.Line;
+            series.ChartType = SeriesChartType.Column;
             series.Name = "Cinco Mayores Ventas";
 
             for (int i = 0; i < cincoMayoresVentas.Count; i++)
             {
                 DataPoint dataPoint = new DataPoint();
-                dataPoint.AxisLabel = cincoMayoresVentas[i].Item1.ToShortDateString(); // Etiqueta del eje X con la fecha
-                dataPoint.YValues = new double[] { (double)cincoMayoresVentas[i].Item2 }; // Monto de la venta
+                dataPoint.AxisLabel = cincoMayoresVentas[i].Item1.ToShortDateString();
+                dataPoint.YValues = new double[] { (double)cincoMayoresVentas[i].Item2 };
                 series.Points.Add(dataPoint);
             }
             chart4.Series.Add(series);
-            chart4.Titles.Add("Cinco Mayores Ventas");
+            chart4.Titles.Add("Cinco Mayores Ventas").Font = new Font("Century Gothic", 11, FontStyle.Regular);
+            chart4.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
+            chart4.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
             chart4.ChartAreas[0].AxisX.Title = "Fecha de Venta";
             chart4.ChartAreas[0].AxisY.Title = "Monto Total";
             chart4.Invalidate();
         }
 
-        private void estadisticasLibros()
+        public void estadisticasLibros(DateTime startDate, DateTime endDate)
         {
-            List<Ventas> librosMasVendidos = statistics.MostrarCantidadLibros();
+            List<Ventas> librosMasVendidos = statistics.MostrarCantidadLibros(startDate, endDate);
 
             chart3.Series.Clear();
             chart3.Series.Add("Libros Más Vendidos");
-            chart3.Series["Libros Más Vendidos"].ChartType = SeriesChartType.Pie;
+            chart3.Series["Libros Más Vendidos"].ChartType = SeriesChartType.Doughnut;
 
             foreach (Ventas libroMasVendido in librosMasVendidos)
             {
                 DataPoint dataPoint = new DataPoint();
                 dataPoint.SetValueY(libroMasVendido.Cantidad);
                 dataPoint.LegendText = libroMasVendido.Titulo;
-                dataPoint.Label = "Venta= " + libroMasVendido.Cantidad;
+                dataPoint.Label = libroMasVendido.Cantidad.ToString();
+                dataPoint.LabelForeColor = Color.White;
+                dataPoint.Font = new Font("Century Gothic", 14, FontStyle.Italic);
                 chart3.Series["Libros Más Vendidos"].Points.Add(dataPoint);
             }
 
-            chart3.Titles.Add("Libros Más Vendidos");
+            chart3.Titles.Add("Libros Más Vendidos").Font = new Font("Century Gothic", 11, FontStyle.Regular);
             chart3.Invalidate();
         }
 
-        private void estadisticasVendedores()
+        private void estadisticasVendedores(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<string, float>> empleadosDestacados = statistics.EmpleadosDestacados();
+            List<Tuple<string, float>> empleadosDestacados = statistics.EmpleadosDestacados(startDate, endDate);
             chart2.Series.Clear();
             Series series = new Series();
             series.ChartType = SeriesChartType.Column;
@@ -316,15 +306,17 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
             chart2.Series.Add(series);
 
-            chart2.Titles.Add("Vendedores Destacados");
+            chart2.Titles.Add("Vendedores Destacados").Font = new Font("Century Gothic", 11, FontStyle.Regular);
+            chart2.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
+            chart2.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 9, FontStyle.Regular);
             chart2.ChartAreas[0].AxisX.Title = "Vendedores";
             chart2.ChartAreas[0].AxisY.Title = "Total-Ventas";
             chart2.Invalidate();
         }
 
-        private void estadisticasClientes()
+        private void estadisticasClientes(DateTime startDate, DateTime endDate)
         {
-            List<Tuple<string, float>> clientesDestacados = statistics.ClientesDestacados();
+            List<Tuple<string, float>> clientesDestacados = statistics.ClientesDestacados(startDate, endDate);
             chart1.Series.Clear();
             Series series = new Series();
             series.ChartType = SeriesChartType.Bar;
@@ -341,7 +333,9 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
             }
             chart1.Series.Add(series);
 
-            chart1.Titles.Add("Clientes Destacados");
+            chart1.Titles.Add("Clientes Destacados").Font = new Font("Century Gothic", 11, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 8, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 8, FontStyle.Regular);
             chart1.ChartAreas[0].AxisX.Title = "Clientes";
             chart1.ChartAreas[0].AxisY.Title = "Total-Ventas";
             chart1.Invalidate();
@@ -371,5 +365,50 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             filtrarFacturas();
         }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+            CFiltroTiempo filtro = new(this, chart1);
+            filtro.ShowDialog();
+        }
+
+        private void chart2_Click(object sender, EventArgs e)
+        {
+            CFiltroTiempo filtro = new(this, chart2);
+            filtro.ShowDialog();
+        }
+
+        private void chart3_Click(object sender, EventArgs e)
+        {
+            CFiltroTiempo filtro = new(this, chart3);
+            filtro.ShowDialog();
+        }
+
+        private void chart4_Click(object sender, EventArgs e)
+        {
+            CFiltroTiempo filtro = new(this, chart4);
+            filtro.ShowDialog();
+        }
+
+        public void ActualizarGrafico(Chart chart, DateTime startDate, DateTime endDate)
+        {
+            if (chart == chart3)
+            {
+                estadisticasLibros(startDate, endDate);
+            }
+            else if (chart == chart2)
+            {
+                estadisticasVendedores(startDate, endDate);
+            }
+            else if (chart == chart1)
+            {
+                estadisticasClientes(startDate, endDate);
+            }
+            else if (chart == chart4)
+            {
+                estadisticasVentas(startDate, endDate);
+            }
+        }
+
     }
 }

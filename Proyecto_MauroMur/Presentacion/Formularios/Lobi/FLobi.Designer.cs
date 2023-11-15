@@ -358,7 +358,7 @@
             iconRespaldo.Padding = new Padding(10, 0, 20, 0);
             iconRespaldo.Size = new Size(220, 60);
             iconRespaldo.TabIndex = 10;
-            iconRespaldo.Text = "Respaldo";
+            iconRespaldo.Text = "Base De Datos";
             iconRespaldo.TextAlign = ContentAlignment.MiddleLeft;
             iconRespaldo.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconRespaldo.UseVisualStyleBackColor = false;

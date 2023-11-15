@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CFactura));
             panel1 = new Panel();
             lbTittle = new Label();
@@ -44,7 +44,7 @@
             lbDNICliente = new Label();
             panel7 = new Panel();
             label1 = new Label();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
+            iconImprimir = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
             lbDatos = new Label();
             lbFechaFactura = new Label();
@@ -64,6 +64,7 @@
             panel6 = new Panel();
             lbTotal = new Label();
             dataGridFactura = new DataGridView();
+            printReporte = new PrintPreviewDialog();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -183,7 +184,7 @@
             // panel7
             // 
             panel7.Controls.Add(label1);
-            panel7.Controls.Add(iconButton3);
+            panel7.Controls.Add(iconImprimir);
             panel7.Controls.Add(iconButton4);
             panel7.Dock = DockStyle.Right;
             panel7.Location = new Point(471, 0);
@@ -202,24 +203,24 @@
             label1.TabIndex = 21;
             label1.Text = "Acciones";
             // 
-            // iconButton3
+            // iconImprimir
             // 
-            iconButton3.Cursor = Cursors.Hand;
-            iconButton3.FlatAppearance.BorderSize = 0;
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Print;
-            iconButton3.IconColor = Color.DimGray;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 25;
-            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(59, 20);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(34, 30);
-            iconButton3.TabIndex = 20;
-            iconButton3.TextAlign = ContentAlignment.MiddleRight;
-            iconButton3.UseVisualStyleBackColor = true;
-            iconButton3.Click += iconButton3_Click;
+            iconImprimir.Cursor = Cursors.Hand;
+            iconImprimir.FlatAppearance.BorderSize = 0;
+            iconImprimir.FlatStyle = FlatStyle.Flat;
+            iconImprimir.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            iconImprimir.IconChar = FontAwesome.Sharp.IconChar.Print;
+            iconImprimir.IconColor = Color.DimGray;
+            iconImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconImprimir.IconSize = 25;
+            iconImprimir.ImageAlign = ContentAlignment.MiddleLeft;
+            iconImprimir.Location = new Point(59, 20);
+            iconImprimir.Name = "iconImprimir";
+            iconImprimir.Size = new Size(34, 30);
+            iconImprimir.TabIndex = 20;
+            iconImprimir.TextAlign = ContentAlignment.MiddleRight;
+            iconImprimir.UseVisualStyleBackColor = true;
+            iconImprimir.Click += iconImprimir_Click;
             // 
             // iconButton4
             // 
@@ -466,24 +467,24 @@
             dataGridFactura.BorderStyle = BorderStyle.None;
             dataGridFactura.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridFactura.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(27, 107, 147);
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.Window;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(18, 72, 107);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(27, 107, 147);
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(18, 72, 107);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dataGridFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataGridFactura.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridFactura.Cursor = Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridFactura.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridFactura.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridFactura.EnableHeadersVisualStyles = false;
             dataGridFactura.GridColor = Color.FromArgb(165, 201, 202);
             dataGridFactura.Location = new Point(77, 0);
@@ -491,27 +492,37 @@
             dataGridFactura.Name = "dataGridFactura";
             dataGridFactura.ReadOnly = true;
             dataGridFactura.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 79, 79);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(46, 79, 79);
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dataGridFactura.RowHeadersVisible = false;
             dataGridFactura.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(221, 230, 237);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(22, 89, 127);
-            dataGridViewCellStyle4.SelectionForeColor = Color.WhiteSmoke;
-            dataGridFactura.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(221, 230, 237);
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(22, 89, 127);
+            dataGridViewCellStyle8.SelectionForeColor = Color.WhiteSmoke;
+            dataGridFactura.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dataGridFactura.RowTemplate.Height = 25;
             dataGridFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridFactura.Size = new Size(473, 206);
             dataGridFactura.TabIndex = 3;
             dataGridFactura.CellContentClick += dataGridFactura_CellContentClick;
+            // 
+            // printReporte
+            // 
+            printReporte.AutoScrollMargin = new Size(0, 0);
+            printReporte.AutoScrollMinSize = new Size(0, 0);
+            printReporte.ClientSize = new Size(400, 300);
+            printReporte.Enabled = true;
+            printReporte.Icon = (Icon)resources.GetObject("printReporte.Icon");
+            printReporte.Name = "printReporte";
+            printReporte.Visible = false;
             // 
             // CFactura
             // 
@@ -575,11 +586,12 @@
         private DataGridView dataGridFactura;
         private Panel panel7;
         private Label label1;
-        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconImprimir;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private Label lbDNICliente;
         private Label lbFactura;
         private Label lbPago;
+        private PrintPreviewDialog printReporte;
     }
 }

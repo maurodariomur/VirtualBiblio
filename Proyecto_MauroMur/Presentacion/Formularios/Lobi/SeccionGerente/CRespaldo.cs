@@ -51,7 +51,7 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             try
             {
-                if (!string.IsNullOrEmpty(selectedFolderPath))
+                if (!string.IsNullOrEmpty(selectedFolderPath) && !string.IsNullOrEmpty(textBoxRuta.Text))
                 {
                     bool backupSuccessful = backupModel.RealizarBackUp(selectedFolderPath);
 
@@ -87,6 +87,40 @@ namespace Proyecto_MauroMur.Presentacion.Formularios.Lobi.SeccionGerente
         {
             textBoxRuta.Text = "";
             lbErrorModificar.Text = "";
+        }
+
+        private void iconImportar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
+                    openFileDialog.Title = "Selecciona el archivo de respaldo";
+                    openFileDialog.InitialDirectory = selectedFolderPath; // Establece la carpeta inicial
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string rutaArchivoRespaldo = openFileDialog.FileName;
+                        bool restauracionExitosa = backupModel.RealizarRestauracion(rutaArchivoRespaldo);
+
+                        if (restauracionExitosa)
+                        {
+                            MessageBox.Show("Restauración de la base de datos exitosa.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LimpiarCampos();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al restaurar la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al restaurar la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LimpiarCampos();
+            }
         }
 
     }

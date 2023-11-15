@@ -56,5 +56,55 @@ namespace DataAccess
                 throw ex;
             }
         }
+
+        public bool RealizarRestauracion(string nombreBaseDeDatos, string rutaArchivoRespaldo)
+        {
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    connection.Open();
+
+                    // Asegúrate de que no haya conexiones activas a la base de datos que deseas restaurar
+                    CerrarConexionesActivas(nombreBaseDeDatos, connection);
+
+                    // Realizar la restauración
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = connection;
+                        cmd.CommandText = $"USE master; RESTORE DATABASE [{nombreBaseDeDatos}] FROM DISK = '{rutaArchivoRespaldo}' WITH REPLACE;";
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Volver a la base de datos original
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = connection;
+                        cmd.CommandText = $"USE [{nombreBaseDeDatos}];";
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void CerrarConexionesActivas(string nombreBaseDeDatos, SqlConnection connection)
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $@"
+            ALTER DATABASE [{nombreBaseDeDatos}]
+            SET SINGLE_USER
+            WITH ROLLBACK IMMEDIATE;
+        ";
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
