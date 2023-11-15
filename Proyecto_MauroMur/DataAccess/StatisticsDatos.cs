@@ -24,8 +24,7 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT SUM(vd.SubTotalProducto) AS TotalVentas " +
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
-                                          "WHERE vc.Estado = 'activo'"+
-                                          "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE())";
+                                          "WHERE vc.Estado = 'activo'";
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -56,7 +55,6 @@ namespace Proyecto_MauroMur.DataAccess
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
                                           "WHERE vc.Estado = 'activo' " +
-                                          "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE()) " +
                                           "GROUP BY Id_Libro " +
                                           "ORDER BY TotalVendido DESC";
 
@@ -86,7 +84,6 @@ namespace Proyecto_MauroMur.DataAccess
                                           "FROM Venta_Detalle vd " +
                                           "INNER JOIN Venta_Cabecera vc ON vd.Id_VentaCabecera = vc.Id_VentaCabecera " +
                                           "WHERE vc.Estado = 'activo' " +
-                                           "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE()) " +
                                           "GROUP BY Id_Libro " +
                                           "ORDER BY TotalVendido ASC";
 
@@ -114,7 +111,6 @@ namespace Proyecto_MauroMur.DataAccess
                     command.CommandText = "SELECT TOP 1 Id_Usuario, SUM(MontoTotal) AS TotalVentas " +
                                           "FROM Venta_Cabecera vc " +
                                           "WHERE vc.Estado = 'activo' " +
-                                          "AND DATEPART(MONTH, vc.FechaFactura) = DATEPART(MONTH, GETDATE()) " +
                                           "GROUP BY Id_Usuario " +
                                           "ORDER BY TotalVentas DESC";
 
